@@ -2,8 +2,20 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
+  //dummy, at the end it should redirect to auth!
+  { path: '', redirectTo: 'admin', pathMatch: 'full' },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule)
+  },
+  {
+    path: 'user',
+    loadChildren: () => import('./user/user.module').then( m => m.UserPageModule)
+  },
+  {
+    path: 'shared',
+    loadChildren: () => import('./shared/shared.module').then( m => m.SharedPageModule)
+  },
 ];
 
 @NgModule({
