@@ -40,7 +40,6 @@ describe('AppComponent', () => {
     await platformReadySpy;
     expect(statusBarSpy.styleDefault).toHaveBeenCalled();
     expect(splashScreenSpy.hide).toHaveBeenCalled();
-    expect(5).toBe(10);
   });
 
   // TODO: add more tests!
