@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!--This opens the default menu we have-->
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Centros de Recolección</ion-title>
+    <!--Here we will replace with the government icon-->
+    <ion-buttons slot="end" class="ion-padding">
+      <ion-icon name="earth-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      
+      <!--The grid says: from smaller screens to ..., put that size (e.g.  <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">)-->
+        <ion-col size="4" offset="4" size-sm="4" offset-sm="4" class="ion-text-center">
+        <h1>Acciones</h1>
+        <ion-button 
+        color="primary" 
+        routerDirection=" "
+        [routerLink]="['/','admin','center', 'add-center']"> 
+        Agregar Centro
+        </ion-button>
+        <ion-button 
+        color="primary" 
+        routerDirection=" "
+        [routerLink]="['/','admin','center', 'add-center']"> 
+        Visualizar Centros
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
