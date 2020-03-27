@@ -14,10 +14,10 @@
 
 <ion-content>
   <ion-row class="ion-padding">
-    <ion-col size="5" offset="1">
+    <ion-col size-lg="5" size-md="5" offset-lg="1" offset-md="1" size-sm="12">
       <app-google-map></app-google-map>
     </ion-col>
-    <ion-col size="5" class="ion-text-center">
+    <ion-col size-lg="5" size-md="5" offset-lg="0" offset-md="0" size-sm="12">
       <form [formGroup]="newCenterForm" (ngSubmit)="submit()">
         <ion-list>
           <ion-item>
