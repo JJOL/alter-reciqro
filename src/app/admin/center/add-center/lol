@@ -1,0 +1,143 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!--This opens the default menu we have-->
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Agrega un Nuevo Centro</ion-title>
+    <!--Here we will replace with the government icon-->
+    <ion-buttons slot="end" class="ion-padding">
+      <ion-icon name="earth-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="4">
+      <app-google-map></app-google-map>
+    </ion-col>
+    <ion-col size="8" class="ion-text-center">
+      <form [formGroup]="newCenterForm" (ngSubmit)="submit()">
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input formControlName="name" inputmode="text"></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.name">
+            <ng-container *ngIf="name.hasError(error.type) && (name.dirty || name.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">Descripción</ion-label>
+            <ion-input formControlName="description" inputmode="text"></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.description">
+            <ng-container *ngIf="description.hasError(error.type) && (description.dirty || description.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">Latitud</ion-label>
+            <ion-input formControlName="latitude" inputmode="decimal"></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.latitude">
+            <ng-container *ngIf="latitude.hasError(error.type) && (latitude.dirty || latitude.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">Longitud</ion-label>
+            <ion-input formControlName="longitude" inputmode="decimal"></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.longitude">
+            <ng-container *ngIf="longitude.hasError(error.type) && (longitude.dirty || longitude.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">Código QR</ion-label>
+            <ion-input formControlName="qrCode" inputmode="url"></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.qrCode">
+            <ng-container *ngIf="qrCode.hasError(error.type) && (qrCode.dirty || qrCode.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">Foto</ion-label>
+            <ion-input formControlName="mainPicture" inputmode="url"></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.mainPicture">
+            <ng-container *ngIf="mainPicture.hasError(error.type) && (mainPicture.dirty || mainPicture.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">Tipo de Instalación</ion-label>
+            <ion-select class="myCustomSelect" formControlName="instalationType" placeholder="Elegir" multiple="false">
+              <ion-select-option 
+              *ngFor="let placeType of loadedPlacetypes" 
+              value="{{placeType.idTipoInstalacion}}"
+              > {{placeType.nombre}} </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <div *ngFor="let error of errorMessages.instalationType">
+            <ng-container *ngIf="instalationType.hasError(error.type) && (instalationType.dirty || instalationType.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+        </ion-list>
+        <ion-list formGroupName="address">
+          <ion-list-header>
+            <ion-label>Dirección</ion-label>
+          </ion-list-header>
+
+          <ion-item>
+            <ion-label position="floating">Calle</ion-label>
+            <ion-input formControlName="street"></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.street">
+            <ng-container *ngIf="street.hasError(error.type) && (street.dirty || street.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">Ciudad</ion-label>
+            <ion-input formControlName="city"></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.city">
+            <ng-container *ngIf="city.hasError(error.type) && (city.dirty || city.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">CP</ion-label>
+            <ion-input formControlName="zip"></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.zip">
+            <ng-container *ngIf="zip.hasError(error.type) && (zip.dirty || zip.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-button [disabled]="!newCenterForm.valid" type="submit" expand="block">
+            Registrar
+            <ion-icon slot="end" name="create"></ion-icon>
+          </ion-button>
+        </ion-list>
+      </form>
+    </ion-col>
+  </ion-row>
+</ion-content>
