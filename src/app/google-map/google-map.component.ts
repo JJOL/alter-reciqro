@@ -7,13 +7,14 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class GoogleMapComponent implements OnInit {
 
-  @ViewChild('map', { static: false }) mapElement: ElementRef;
+  @ViewChild('map', { static: true }) mapElement;
   map: any;
 
   constructor() { }
 
   ngOnInit(){
     this.initMap();
+    console.log(this.mapElement);
   }
 
   initMap(){ 
