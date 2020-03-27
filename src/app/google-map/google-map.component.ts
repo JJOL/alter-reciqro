@@ -29,5 +29,10 @@ export class GoogleMapComponent implements OnInit {
     this.map = new google.maps.Map(this.mapElement.nativeElement, 
       mapOptions)
     console.log(this.map);
+
+    let marker: google.maps.Marker = new google.maps.Marker({
+      map: this.map,
+      position: coords
+    })
   }
 }
