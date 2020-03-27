@@ -14,7 +14,10 @@
 
 <ion-content>
   <ion-row>
-    <ion-col size="8" offset="2" class="ion-text-center">
+    <ion-col size="4">
+      <app-google-map></app-google-map>
+    </ion-col>
+    <ion-col size="8" class="ion-text-center">
       <form [formGroup]="newCenterForm" (ngSubmit)="submit()">
         <ion-list>
           <ion-item>
@@ -73,6 +76,22 @@
           </ion-item>
           <div *ngFor="let error of errorMessages.mainPicture">
             <ng-container *ngIf="mainPicture.hasError(error.type) && (mainPicture.dirty || mainPicture.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">Tipo de Instalación</ion-label>
+            <ion-select class="myCustomSelect" formControlName="instalationType" placeholder="Elegir" multiple="false">
+              <ion-select-option 
+              *ngFor="let placeType of loadedPlacetypes" 
+              value="{{placeType.idTipoInstalacion}}"
+              > {{placeType.nombre}} </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <div *ngFor="let error of errorMessages.instalationType">
+            <ng-container *ngIf="instalationType.hasError(error.type) && (instalationType.dirty || instalationType.touched)">
               <small class="error-message">{{error.message}}</small>
             </ng-container>
           </div>

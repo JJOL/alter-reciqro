@@ -7,14 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { AddCenterPageRoutingModule } from './add-center-routing.module';
 
 import { AddCenterPage } from './add-center.page';
+import { GoogleMapComponent } from 'src/app/google-map/google-map.component';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    IonicModule,
+    IonicModule, 
     AddCenterPageRoutingModule
   ],
-  declarations: [AddCenterPage]
+  declarations: [
+    AddCenterPage,
+    GoogleMapComponent
+  ]
 })
 export class AddCenterPageModule {}
