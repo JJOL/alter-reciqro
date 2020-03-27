@@ -18,6 +18,10 @@ export class AppComponent {
     this.initializeApp();
   }
 
+  onLogout(){
+    console.log('Logging out');
+  }
+
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();

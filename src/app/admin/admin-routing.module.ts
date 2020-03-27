@@ -6,7 +6,19 @@ import { AdminPage } from './admin.page';
 const routes: Routes = [
   {
     path: '',
-    component: AdminPage
+    component: AdminPage,
+  },
+  {
+    path: 'center',
+    loadChildren: () => import('./center/center.module').then( m => m.CenterPageModule)
+  },
+  {
+    path: 'info',
+    loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
+  },
+  {
+    path: 'goals',
+    loadChildren: () => import('./goals/goals.module').then( m => m.GoalsPageModule)
   }
 ];
 
