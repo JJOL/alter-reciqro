@@ -7,18 +7,19 @@ import { IonicModule } from '@ionic/angular';
 import { AddCenterPageRoutingModule } from './add-center-routing.module';
 
 import { AddCenterPage } from './add-center.page';
-import { GoogleMapComponent } from 'src/app/google-map/google-map.component';
+//Necesitamos refactor aquí porque si no de que sirve usar angular
+import {SharedPageModule} from '../../../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     IonicModule, 
-    AddCenterPageRoutingModule
+    AddCenterPageRoutingModule,
+    SharedPageModule,
   ],
   declarations: [
     AddCenterPage,
-    GoogleMapComponent
   ]
 })
 export class AddCenterPageModule {}

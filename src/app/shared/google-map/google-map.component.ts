@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import {Lugar} from 'src/app/core/models/lugar.model';
+
 declare const google: any;
 
 @Component({
-  selector: 'app-google-map',
+  selector: 'app-shared-google-map',
   templateUrl: './google-map.component.html',
   styleUrls: ['./google-map.component.scss'],
 })
@@ -10,6 +12,8 @@ export class GoogleMapComponent implements OnInit {
 
   @ViewChild('map', { static: true }) mapElement;
   map: any;
+
+  @Input() lugares: Lugar [] ; 
 
   constructor() { }
 
@@ -28,14 +32,18 @@ export class GoogleMapComponent implements OnInit {
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, 
       mapOptions)
-    console.log(this.map);
+   
 
-    let marker: google.maps.Marker = new google.maps.Marker({
-      map: this.map,
-      position: coords,
-      title: 'Hello World!',
-      draggable: true,
-      animation: google.maps.Animation.DROP
-    })
+    for ( var lugar of this.lugares){
+      console.log(typeof lugar.latitud);
+        let marker: google.maps.Marker = new google.maps.Marker({
+          map: this.map,
+          position:  new google.maps.LatLng(lugar.latitud, lugar.longitud),
+          title: lugar.descripcion,
+          draggable: true,
+          animation: google.maps.Animation.DROP
+        })
+    }
+    
   }
 }
