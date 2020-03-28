@@ -16,11 +16,11 @@ describe('CenterPage', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(CenterPage);
-    // component = fixture.componentInstance;
-    // fixture.detectChanges();
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   }));
 
   it('should create', () => {
-    // expect(component).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 });
