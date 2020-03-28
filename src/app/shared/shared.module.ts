@@ -8,6 +8,8 @@ import { SharedPageRoutingModule } from './shared-routing.module';
 
 import { SharedPage } from './shared.page';
 
+import { GoogleMapComponent } from './google-map/google-map.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +17,7 @@ import { SharedPage } from './shared.page';
     IonicModule,
     SharedPageRoutingModule
   ],
-  declarations: [SharedPage]
+  exports: [GoogleMapComponent], 
+  declarations: [SharedPage, GoogleMapComponent]
 })
 export class SharedPageModule {}

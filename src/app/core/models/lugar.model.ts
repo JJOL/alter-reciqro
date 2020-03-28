@@ -1,4 +1,4 @@
-import { TipoInstalacion } from './tipo-instalacion.model copy'
+import { TipoInstalacion } from './tipo-instalacion.model'
 
 export class Lugar {
     idlugar : string
