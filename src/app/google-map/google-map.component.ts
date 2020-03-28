@@ -32,7 +32,10 @@ export class GoogleMapComponent implements OnInit {
 
     let marker: google.maps.Marker = new google.maps.Marker({
       map: this.map,
-      position: coords
+      position: coords,
+      title: 'Hello World!',
+      draggable: true,
+      animation: google.maps.Animation.DROP
     })
   }
 }
