@@ -33,7 +33,6 @@ export class GoogleMapComponent implements OnInit {
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, 
       mapOptions)
-   
     if (this.lugares != null) {
     for ( var lugar of this.lugares){
         let marker: google.maps.Marker = new google.maps.Marker({
