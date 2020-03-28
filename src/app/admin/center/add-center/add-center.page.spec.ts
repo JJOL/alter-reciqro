@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 
 import { AddCenterPage } from './add-center.page';
 
@@ -10,7 +11,10 @@ describe('AddCenterPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AddCenterPage ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), ReactiveFormsModule],
+      providers: [
+        FormBuilder
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AddCenterPage);
