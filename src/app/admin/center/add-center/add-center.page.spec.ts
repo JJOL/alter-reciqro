@@ -1,7 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import {SharedPageModule} from '../../../shared/shared.module';
-import { FormBuilder, Validators } from '@angular/forms';
 
 import { AddCenterPage } from './add-center.page';
 
@@ -12,7 +10,7 @@ describe('AddCenterPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AddCenterPage ],
-      imports: [IonicModule.forRoot(),SharedPageModule]
+      imports: [IonicModule.forRoot()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AddCenterPage);
