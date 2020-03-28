@@ -12,4 +12,12 @@ export class Lugar {
     ciudad : string
     cp : number
     tipoDeInstalacion : TipoInstalacion
+
+
+    // distanceTo(otherLat: number, otherLng: number): number {
+    //     const latSqrd = Math.pow(this.latitud - otherLat, 2);
+    //     const lngSqrd = Math.pow(this.longitud - otherLng, 2);
+        
+    //     return Math.sqrt(latSqrd + lngSqrd);
+    // }
 }
