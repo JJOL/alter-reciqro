@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Lugar } from '../models/lugar.model';
+import { TipoInstalacion } from '../models/tipo-instalacion.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,19 @@ import { Lugar } from '../models/lugar.model';
 export class LugaresService {
 
   constructor() { }
+
+  _fakePlacetypes: TipoInstalacion[] = [
+    {
+      idTipoInstalacion : "1",
+      nombre : "Separación de desechos",
+      descripcion : "Separación de desechos de cualquier tamaño"
+    },
+    {
+      idTipoInstalacion : "2",
+      nombre : "Papelera Monumentalísima del Norte",
+      descripcion : "Recolección de cartón y papel"
+    }
+  ];
 
   fakePlaces : Lugar [] = [
     {
@@ -82,7 +96,11 @@ export class LugaresService {
         
     return Math.sqrt(latSqrd + lngSqrd);
   }
-
-
+  allPlaceTypes(){
+    return [...this._fakePlacetypes];
+  }
+  allPlaces(){
+    return [...this.fakePlaces];
+  }
 
 }
