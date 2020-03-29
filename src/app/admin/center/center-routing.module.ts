@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'add-center',
     loadChildren: () => import('./add-center/add-center.module').then( m => m.AddCenterPageModule)
+  },
+  {
+    path: 'list-centers',
+    loadChildren: () => import('./list-centers/list-centers.module').then( m => m.ListCentersPageModule)
   }
 ];
 

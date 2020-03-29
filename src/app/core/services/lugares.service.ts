@@ -5,8 +5,6 @@ import { Lugar } from '../models/lugar.model';
   providedIn: 'root'
 })
 
-
-
 export class LugaresService {
 
   constructor() { }
@@ -19,7 +17,7 @@ export class LugaresService {
       longitud : 100.1234,
       latitud : 100.1234,
       codigoQr : "QR",
-      foto : "FOTO",
+      foto : "https://i2.wp.com/www2.municipiodequeretaro.gob.mx/wp-content/uploads/2017/05/prensa_1494002771103.jpg?w=1245&ssl=1",
       calle : "Bernardo Quintana",
       ciudad : "Querétaro",
       cp : 76146,
@@ -36,7 +34,7 @@ export class LugaresService {
       longitud : 444.1234,
       latitud : 500.1234,
       codigoQr : "QR",
-      foto : "FOTO",
+      foto : "https://www.diariodequeretaro.com.mx/incoming/yxmvyc-papelera-monumental.jpg/ALTERNATES/LANDSCAPE_1140/Papelera%20monumental.JPG",
       calle : "Arteaga",
       ciudad : "Querétaro",
       cp : 76145,
@@ -46,21 +44,26 @@ export class LugaresService {
         descripcion : "Recolección de cartón y papel"
       } 
     },
-];
+  ];
 
-  getPlaces () {
-
+  getAllPlaces () {
+    return [...this.fakePlaces];
   }
 
-  getPlaceByID () {
+  getPlaceByID (placeId: string) {
+    return {
+      ...this.fakePlaces.find( place => {
+        return place.idlugar === placeId;
+    })};
+  }
 
+  deletePlaceByID (placeId: string) {
+    this.fakePlaces = this.fakePlaces.filter(place => {
+      return place.idlugar !== placeId;
+    });
   }
 
   createPlace () {
-
-  }
-
-  deletePlaceByID () {
 
   }
 
