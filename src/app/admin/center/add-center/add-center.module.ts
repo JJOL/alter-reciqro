@@ -8,7 +8,7 @@ import { AddCenterPageRoutingModule } from './add-center-routing.module';
 
 import { AddCenterPage } from './add-center.page';
 import { RouterModule } from '@angular/router';
-
+import {SharedPageModule} from '../../../shared/shared.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     IonicModule,
     FormsModule,
-    AddCenterPageRoutingModule
+    AddCenterPageRoutingModule,
   ],
   declarations: [AddCenterPage]
 })

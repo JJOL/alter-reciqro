@@ -8,7 +8,6 @@ import { CenterPageRoutingModule } from './center-routing.module';
 
 import { CenterPage } from './center.page';
 import { RouterModule } from '@angular/router';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -16,9 +15,9 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     IonicModule,
     RouterModule,
-    CenterPageRoutingModule
+    CenterPageRoutingModule,
   ],
-  declarations: [CenterPage],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  exports: [],
+  declarations: [CenterPage]
 })
 export class CenterPageModule {}
