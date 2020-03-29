@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { CenterPage } from './center.page';
+import { RouterModule } from '@angular/router';
 
 describe('CenterPage', () => {
   let component: CenterPage;
@@ -10,7 +11,8 @@ describe('CenterPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CenterPage ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), RouterModule],
+      providers: []
     }).compileComponents();
 
     fixture = TestBed.createComponent(CenterPage);
