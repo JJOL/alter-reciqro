@@ -112,7 +112,10 @@ export class AddCenterPage implements OnInit {
   ngOnInit() {
     this.loadedPlacetypes = this.placeTypeService.allPlaceTypes();
   }
-
+  onChangeMarker(lugar){
+    this.newCenterForm.controls['latitude'].setValue(lugar.latitud);
+    this.newCenterForm.controls['longitude'].setValue(lugar.longitud);
+  }
   public submit(){
     console.log(this.newCenterForm.value);
   }

@@ -1,5 +1,8 @@
 var google = {
     maps : {
+		event: {
+			addListener : function(map, action, func){}
+		},
 		Animation : {
 			DROP: true
 		},
