@@ -13,7 +13,24 @@ import { Lugar } from 'src/app/core/models/lugar.model';
 })
 export class CenterDetailPage implements OnInit {
 
-  loadedPlace : Lugar;
+  loadedPlace : Lugar = 
+  {
+    idlugar : "1",
+    nombre : "Basurero Municipal",
+    descripcion : "Basurero extremo de separación de desechos",
+    longitud : 100.1234,
+    latitud : 100.1234,
+    codigoQr : "QR",
+    foto : "https://i2.wp.com/www2.municipiodequeretaro.gob.mx/wp-content/uploads/2017/05/prensa_1494002771103.jpg?w=1245&ssl=1",
+    calle : "Bernardo Quintana",
+    ciudad : "Querétaro",
+    cp : 76146,
+    tipoDeInstalacion : {
+      idTipoInstalacion : "1",
+      nombre : "Separación de desechos",
+      descripcion : "Separación de desechos de cualquier tamaño"
+    }
+  };
 
   constructor(
     private activiatedRoute: ActivatedRoute,

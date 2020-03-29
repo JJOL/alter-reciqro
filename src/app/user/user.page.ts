@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { FBLugaresService } from '../core/services/lugares-fb.service';
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.page.html',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserPage implements OnInit {
 
-  constructor() { }
+  constructor(private lugaresService: FBLugaresService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    let places = await this.lugaresService.getAllPlaces();
+    console.log(places);
+    
   }
 
 }

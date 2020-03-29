@@ -5,6 +5,10 @@ module.exports = function (config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
+    files: [
+      'https://maps.googleapis.com/maps/api/js?sensor=false',
+      'mocks/google-maps.mock.js'
+    ],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),

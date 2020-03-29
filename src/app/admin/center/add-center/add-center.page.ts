@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { LugaresService } from 'src/app/core/services/lugares.service';
+import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
+
 
 /*tut https://www.youtube.com/watch?v=Yza_59DrRY8*/
 
@@ -9,6 +12,7 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./add-center.page.scss'],
 })
 export class AddCenterPage implements OnInit {
+  loadedPlacetypes: TipoInstalacion[];
 
   get name(){
     return this.newCenterForm.get('name');
@@ -46,6 +50,10 @@ export class AddCenterPage implements OnInit {
     return this.newCenterForm.get('address.zip');
   }
 
+  get instalationType(){
+    return this.newCenterForm.get('instalationType');
+  }
+
   public errorMessages = {
     name: [
       { type: 'required', message: 'Nombre es requerido' },
@@ -79,6 +87,9 @@ export class AddCenterPage implements OnInit {
     ],
     zip: [
       { type: 'required', message: 'Código Postal es requerido' },
+    ],
+    instalationType: [
+      { type: 'required', message: 'Tipo de Instalación es requerido' },
     ]
   };
 
@@ -93,14 +104,19 @@ export class AddCenterPage implements OnInit {
       street: ["", [Validators.required, Validators.maxLength(100)]],
       city: ["", [Validators.required, Validators.maxLength(100)]],/*City means 'municipio'*/
       zip: ["", [Validators.required, Validators.pattern('^\\d{5}$')]]
-    })
+    }),
+    instalationType: ["", [Validators.required]]
   });
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private placeTypeService: LugaresService) { }
 
   ngOnInit() {
+    this.loadedPlacetypes = this.placeTypeService.allPlaceTypes();
   }
-
+  onChangeMarker(lugar){
+    this.newCenterForm.controls['latitude'].setValue(lugar.latitud);
+    this.newCenterForm.controls['longitude'].setValue(lugar.longitud);
+  }
   public submit(){
     console.log(this.newCenterForm.value);
   }
