@@ -3,6 +3,20 @@ import { IonicModule } from '@ionic/angular';
 
 import { CenterDetailPage } from './center-detail.page';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { from } from 'rxjs';
+
+const arr = [[]];
+
+const data = from(arr);
+
+const collectionStub = {
+  valueChanges: jasmine.createSpy('valueChanges').and.returnValue(data)
+}
+
+const angularFirestoreStub = {
+  collection: jasmine.createSpy('collection').and.returnValue(collectionStub)
+}
 
 describe('CenterDetailPage', () => {
   let component: CenterDetailPage;
@@ -11,7 +25,10 @@ describe('CenterDetailPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CenterDetailPage ],
-      imports: [IonicModule.forRoot(), RouterTestingModule]
+      imports: [IonicModule.forRoot(), RouterTestingModule],
+      providers: [
+        { provide: AngularFirestore, useValue: angularFirestoreStub }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CenterDetailPage);
