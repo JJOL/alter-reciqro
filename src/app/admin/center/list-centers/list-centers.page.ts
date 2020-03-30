@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Lugar } from 'src/app/core/models/lugar.model';
 import { LugaresService } from 'src/app/core/services/lugares.service';
 
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-list-centers',
   templateUrl: './list-centers.page.html',
@@ -9,7 +11,7 @@ import { LugaresService } from 'src/app/core/services/lugares.service';
 })
 export class ListCentersPage implements OnInit {
 
-  places : Lugar [];
+  places : Observable<Lugar[]>;
 
   constructor(private centerService: LugaresService) { }
 

@@ -60,7 +60,7 @@ export class GoogleMapComponent implements OnInit {
     let max =  this.max>this.places.length?this.places.length-1:this.max+1;
     this.places = this.places.slice( min, max);
     for ( var place of this.places){
-      this.addMarker(new google.maps.LatLng(place.latitud, place.longitud));
+      this.addMarker(new google.maps.LatLng(place.location, place.location));
     }}
     
   }

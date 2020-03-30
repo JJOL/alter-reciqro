@@ -4,6 +4,7 @@ import { AlertController, NavController } from '@ionic/angular';
 
 import { LugaresService } from 'src/app/core/services/lugares.service';
 import { Lugar } from 'src/app/core/models/lugar.model';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -12,7 +13,26 @@ import { Lugar } from 'src/app/core/models/lugar.model';
   styleUrls: ['./center-detail.page.scss'],
 })
 export class CenterDetailPage implements OnInit {
-
+  
+  loadedPlace: Lugar = {
+    id : '',
+    name : '', 
+    description : '',
+    //longitud : number
+    //latitud : number
+    location: [],
+    qrCode : '',
+    urlPhoto : '',
+    street : '',
+    delegation : '',
+    zipCode : 0,
+    centreType : {
+      idTipoInstalacion : "",
+      nombre : "",
+      descripcion : ""
+    },
+  };
+  /*
   loadedPlace : Lugar = 
   {
     idlugar : "1",
@@ -30,27 +50,43 @@ export class CenterDetailPage implements OnInit {
       nombre : "Separación de desechos",
       descripcion : "Separación de desechos de cualquier tamaño"
     }
-  };
+  };*/
 
   constructor(
-    private activiatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private placeService: LugaresService,
     private router: Router,
     private alertCtrl: AlertController,
     private navCtrl: NavController
     ) { }
-
+  
+  
   ngOnInit() {
-    this.activiatedRoute.paramMap.subscribe(paraMap => {
+    this.activatedRoute.paramMap.subscribe(paraMap => {
       if (!paraMap.has('centerId')) {
         //redirect
         return;
       }
       const centerId = paraMap.get('centerId');
-      this.loadedPlace = this.placeService.getPlaceByID(centerId);
+      console.log("HOLA"+centerId);
+      if (centerId) {
+        this.placeService.getPlaceByID(centerId).subscribe(place => {
+          this.loadedPlace = place;
+        });
+      }
     });
   }
 
+  onDeletePlace() {
+    this.placeService.deletePlaceByID(this.loadedPlace.id).then(() => {
+      this.navCtrl.navigateBack(['/admin/center/list-centers']);
+      //this.showToast('Idea deleted');
+    }, err => {
+      //this.showToast('There was a problem deleting your idea :(');
+    });
+  }
+  
+  /*
   onDeletePlace() {
     this.alertCtrl.create ({
       header: '¿Estas segur@?', 
@@ -61,12 +97,12 @@ export class CenterDetailPage implements OnInit {
       }, {
         text: 'Borrar',
         handler: () => {
-          this.placeService.deletePlaceByID(this.loadedPlace.idlugar);
+          this.placeService.deletePlaceByID(this.loadedPlace.id);
           this.navCtrl.navigateBack(['/admin/center/list-centers']);
         }
       }]
     }).then(alertEl => {
       alertEl.present();
     });
-  }
+  }*/
 }

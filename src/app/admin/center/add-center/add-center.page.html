@@ -86,7 +86,7 @@
             <ion-label position="floating">Tipo de Instalación</ion-label>
             <ion-select class="myCustomSelect" formControlName="instalationType" placeholder="Elegir" multiple="false">
               <ion-select-option 
-              *ngFor="let placeType of loadedPlacetypes" 
+              *ngFor="let placeType of (loadedPlacetypes | async)" 
               value="{{placeType.idTipoInstalacion}}"
               > {{placeType.nombre}} </ion-select-option>
             </ion-select>
