@@ -9,16 +9,15 @@ import { LugaresService } from 'src/app/core/services/lugares.service';
 })
 export class ListCentersPage implements OnInit {
 
-  places : Lugar [];
+  places : any[];
 
-  constructor(private centerService: LugaresService) { }
+  constructor(private centerService: LugaresService) { 
+  }
 
   ngOnInit() {
-    
   }
 
   ionViewWillEnter() {
-    this.places = this.centerService.getAllPlaces();
-  }
 
+  }
 }

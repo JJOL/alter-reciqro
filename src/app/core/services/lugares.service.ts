@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Lugar } from '../models/lugar.model';
 import { TipoInstalacion } from '../models/tipo-instalacion.model';
+import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+const PLACE_KEY = '/center';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +14,9 @@ import { TipoInstalacion } from '../models/tipo-instalacion.model';
 
 export class LugaresService {
 
-  constructor() { }
+  constructor(private firedb: AngularFirestore) {
+    
+   }
 
   _fakePlacetypes: TipoInstalacion[] = [
     {
@@ -60,8 +68,37 @@ export class LugaresService {
     },
   ];
 
-  getAllPlaces () {
-    return [...this.fakePlaces];
+  getAllPlaces(): Promise<any[]> {
+    var array = [];
+    return new Promise((resolve, reject) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection(PLACE_KEY).valueChanges()
+      .pipe(map(snapshot => {
+        return snapshot.map(place => {
+          let lugar = {
+            centreType: place['centreType'],
+            delegation: place['delegation'],
+            description: place['description'],
+            location: place['location'], 
+            name: place['name'],
+            qrCode: place['qrCode'],
+            street: place['street'],
+            urlPhoto: place['urlPhoto'],
+            zipCode: place['zipCode']
+          };
+          console.log(lugar);
+          return lugar;
+        })
+      }))
+      .subscribe(places => {
+        resolve(places)
+        subscription.unsubscribe();
+      })
+    });
+  }
+
+  test(){
+    // console.log('Hello');
   }
 
   getPlaceByID (placeId: string) {

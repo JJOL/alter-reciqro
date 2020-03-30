@@ -72,10 +72,10 @@ export class AddCenterPage implements OnInit {
       { type: 'pattern', message: 'El formato no es correcto'}
     ],
     qrCode: [
-      { type: 'required', message: 'Código QR es requerido' },
+      { type: 'pattern', message: 'El URL no es correcto'}
     ],
     mainPicture: [
-      { type: 'required', message: 'Foto del Centro es requerida' },
+      { type: 'pattern', message: 'El URL no es correcto'}
     ],
     street: [
       { type: 'required', message: 'Calle es requerida' },
@@ -96,10 +96,10 @@ export class AddCenterPage implements OnInit {
   newCenterForm = this.formBuilder.group({
     name: ["", [Validators.required, Validators.maxLength(100)]],
     description: ["", [Validators.required, Validators.maxLength(100)]],
-    latitude: ["", [Validators.required, Validators.pattern('^-?([1-8]?[1-9]|[1-9]0)\\.{1}\\d{1,6}')]],
-    longitude: ["", [Validators.required, Validators.pattern('^-?((([1]?[0-7][0-9]|[1-9]?[0-9])\\.{1}\\d{1,6}$)|[1]?[1-8][0]\\.{1}0{1,6}$)')]],
-    qrCode: ["", [Validators.required]], /*This should be a picture*/
-    mainPicture: ["", [Validators.required]], /*This should be a picture*/
+    latitude: ["", [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
+    longitude: ["", [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
+    qrCode: ["", Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
+    mainPicture: ["", Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
     address: this.formBuilder.group({
       street: ["", [Validators.required, Validators.maxLength(100)]],
       city: ["", [Validators.required, Validators.maxLength(100)]],/*City means 'municipio'*/
