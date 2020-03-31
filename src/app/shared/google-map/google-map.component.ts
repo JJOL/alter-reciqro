@@ -48,9 +48,10 @@ export class GoogleMapComponent implements OnInit, OnChanges {
       console.log('GoogleMap', this.places);
 
       //Se acota deacuerdo al máximo
-      let min = this.max<this.places.length? this.max:0;
-      let max =  this.max>this.places.length?this.places.length-1:this.max+1;
-      this.places = this.places.slice( min, max);
+      // let min = this.max<this.places.length ? this.max : 0;
+      let max =  this.max < this.places.length ? this.max : this.places.length;
+
+      this.places = this.places.slice(0, max);
       for ( var place of this.places){
         this.addMarker(new google.maps.LatLng(place.location.lat, place.location.lng));
       }}

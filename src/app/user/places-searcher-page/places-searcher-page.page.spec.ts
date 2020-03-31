@@ -9,6 +9,9 @@ import { LugaresService } from '../../core/services/lugares.service';
 const mockPlacesService = {
   getAllPlaces: () => {
     return [];
+  },
+  searchMapPlaces: () => {
+    return [];
   }
 }
 
