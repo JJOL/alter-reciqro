@@ -86,9 +86,9 @@
             <ion-label position="floating">Tipo de Instalación</ion-label>
             <ion-select class="myCustomSelect" formControlName="instalationType" placeholder="Elegir" multiple="false">
               <ion-select-option 
-              *ngFor="let placeType of (loadedPlacetypes | async)" 
-              value="{{placeType.idTipoInstalacion}}"
-              > {{placeType.nombre}} </ion-select-option>
+              *ngFor="let placeType of loadedPlacetypes" 
+              value="{{placeType.id}}"
+              > {{placeType.name}} </ion-select-option>
             </ion-select>
           </ion-item>
 
@@ -110,16 +110,6 @@
           </ion-item>
           <div *ngFor="let error of errorMessages.street">
             <ng-container *ngIf="street.hasError(error.type) && (street.dirty || street.touched)">
-              <small class="error-message">{{error.message}}</small>
-            </ng-container>
-          </div>
-
-          <ion-item>
-            <ion-label position="floating">Ciudad</ion-label>
-            <ion-input formControlName="city"></ion-input>
-          </ion-item>
-          <div *ngFor="let error of errorMessages.city">
-            <ng-container *ngIf="city.hasError(error.type) && (city.dirty || city.touched)">
               <small class="error-message">{{error.message}}</small>
             </ng-container>
           </div>

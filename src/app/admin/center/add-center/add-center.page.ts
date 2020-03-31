@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController, NavController } from '@ionic/angular';
+
 import { FormBuilder, Validators } from '@angular/forms';
 import { LugaresService } from 'src/app/core/services/lugares.service';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
-import { Observable } from 'rxjs';
+import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 
 /*tut https://www.youtube.com/watch?v=Yza_59DrRY8*/
@@ -12,8 +15,9 @@ import { Observable } from 'rxjs';
   templateUrl: './add-center.page.html',
   styleUrls: ['./add-center.page.scss'],
 })
+
 export class AddCenterPage implements OnInit {
-  loadedPlacetypes:  TipoInstalacion[];
+  loadedPlacetypes: TipoInstalacion[];
 
   get name(){
     return this.newCenterForm.get('name');
@@ -41,10 +45,6 @@ export class AddCenterPage implements OnInit {
 
   get street(){
     return this.newCenterForm.get('address.street');
-  }
-
-  get city(){
-    return this.newCenterForm.get('address.city');
   }
 
   get zip(){
@@ -82,10 +82,6 @@ export class AddCenterPage implements OnInit {
       { type: 'required', message: 'Calle es requerida' },
       { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 100 caracteres'}
     ],
-    city: [
-      { type: 'required', message: 'Municipio es requerido' },
-      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 100 caracteres'}
-    ],
     zip: [
       { type: 'required', message: 'Código Postal es requerido' },
     ],
@@ -103,16 +99,21 @@ export class AddCenterPage implements OnInit {
     mainPicture: ["", Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
     address: this.formBuilder.group({
       street: ["", [Validators.required, Validators.maxLength(100)]],
-      city: ["", [Validators.required, Validators.maxLength(100)]],/*City means 'municipio'*/
       zip: ["", [Validators.required, Validators.pattern('^\\d{5}$')]]
     }),
     instalationType: ["", [Validators.required]]
   });
 
-  constructor(private formBuilder: FormBuilder, private placeTypeService: LugaresService) { }
+  constructor(
+    private formBuilder: FormBuilder, 
+    private placeTypeService: LugaresService,
+    private navCtrl: NavController,
+    private toastCtrl: ToastController,
+    private router: Router) { }
 
   ngOnInit() {
-    this.placeTypeService.getAllPlaces().then( data => { this.loadedPlacetypes=data});
+    this.placeTypeService.allPlaceTypes().then( data => { this.loadedPlacetypes=data });
+    console.log(this.loadedPlacetypes);
   }
   
   onChangeMarker(lugar){
@@ -120,8 +121,27 @@ export class AddCenterPage implements OnInit {
     this.newCenterForm.controls['longitude'].setValue(lugar.longitud);
   }
   
-  public submit(){
-    console.log(this.newCenterForm.value);
+  public submit() {
+    this.placeTypeService.createPlace(this.newCenterForm.value)
+    .then(id => {
+      // use id
+      this.showToast('Lugar creado de manera exitosa');
+      this.newCenterForm.reset();
+      //this.navCtrl.navigateBack(['/admin/center']);
+    })
+    .catch(err => {
+      this.showToast('Error al cargar el lugar');
+      this.newCenterForm.reset();
+    })
+  }
+
+  showToast(msg) {
+    this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      position: 'middle',
+      color: 'success'
+    }).then(toast => toast.present());
   }
 
 }

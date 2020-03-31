@@ -1,6 +1,7 @@
 import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import * as firebase from 'firebase/app'
 
 import { Injectable } from '@angular/core';
 import { Place } from '../models/lugar.model';
@@ -88,22 +89,29 @@ export class LugaresService {
     });  
   }
 
-  /*
-
-  
-
-  getPlaceTypeByID(id: string): Observable<Lugar> {
-    console.log(id);
-    return this.placeTypeCollection.doc<TipoInstalacion>(id).valueChanges().pipe(
-      take(1),
-      map(place => {
-        place.id = id;
-
-        return place
+  createPlace(placeObject){
+    let geoPoint = new firebase.firestore.GeoPoint(placeObject.latitude, placeObject.longitude);
+    return new Promise<any>((resolve, reject) => {
+      this.firedb.collection(PLACE_KEY).add({
+        address: placeObject.address.street,
+        description: placeObject.description,
+        location: geoPoint,
+        name: placeObject.name,
+        photo: placeObject.mainPicture,
+        places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
+        postal_code: placeObject.address.zip,
+        qr_code: placeObject.qrCode
       })
-    );
+      .then(
+        (res) => {
+          resolve(res)
+        },
+        err => reject(err)
+      )
+    })
   }
-  
+
+  /*
   getPlacesByPosition(lat: number, lng: number, radius: number): Lugar[] {
     return [...this.fakePlaces.filter(place => this.distanceBetween(place.latitud, place.longitud, lat, lng) <= radius )];
   }
