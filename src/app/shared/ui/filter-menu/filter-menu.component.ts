@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
+import {WastesService} from '../../../core/services/wastes.service';
+import {WasteType} from '../../../core/models/waste-type';
+
 @Component({
   selector: 'app-filter-menu',
   templateUrl: './filter-menu.component.html',
@@ -8,12 +11,14 @@ import {NgForOf, NgIf} from '@angular/common';
 
 export class FilterMenuComponent implements OnInit {
   
-  constructor() { }
-  @Input() filters : string[] = ["papel","latas","jabon","canicas","pilas","okas","lol"];
+  constructor(private service: WastesService) {}
+  @Input() filters : WasteType [] = [];
   activeFilters = this.filters;
-  @Output() change = new EventEmitter<string[]>();
+  @Output() change = new EventEmitter<WasteType[]>();
 
-  ngOnInit() {}
+  ngOnInit() {
+     this.service.getAllWasteTypes().then( data => { this.filters=data});
+  }
 
   add(filter){
     this.activeFilters.push(filter);

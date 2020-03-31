@@ -11,7 +11,7 @@ export class FilterButtonComponent implements OnInit {
   constructor() { }
   @Input() active : boolean = true;
   @Input() value : string = "";
-  @Input() source : string = "https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y";
+  @Input() icon : string = "https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y";
   @Output() selected = new EventEmitter<string>();
   @Output() unselected = new EventEmitter<string>();
 
