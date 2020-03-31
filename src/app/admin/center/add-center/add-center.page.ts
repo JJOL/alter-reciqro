@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LugaresService } from 'src/app/core/services/lugares.service';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
+import { Observable } from 'rxjs';
 
 
 /*tut https://www.youtube.com/watch?v=Yza_59DrRY8*/
@@ -12,7 +13,7 @@ import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
   styleUrls: ['./add-center.page.scss'],
 })
 export class AddCenterPage implements OnInit {
-  loadedPlacetypes: TipoInstalacion[];
+  loadedPlacetypes:  TipoInstalacion[];
 
   get name(){
     return this.newCenterForm.get('name');
@@ -111,12 +112,14 @@ export class AddCenterPage implements OnInit {
   constructor(private formBuilder: FormBuilder, private placeTypeService: LugaresService) { }
 
   ngOnInit() {
-    this.loadedPlacetypes = this.placeTypeService.allPlaceTypes();
+    this.placeTypeService.getAllPlaces().then( data => { this.loadedPlacetypes=data});
   }
+  
   onChangeMarker(lugar){
     this.newCenterForm.controls['latitude'].setValue(lugar.latitud);
     this.newCenterForm.controls['longitude'].setValue(lugar.longitud);
   }
+  
   public submit(){
     console.log(this.newCenterForm.value);
   }

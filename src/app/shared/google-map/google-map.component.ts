@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
-import {Lugar} from 'src/app/core/models/lugar.model';
+import {Place} from 'src/app/core/models/lugar.model';
 import { LugaresService } from 'src/app/core/services/lugares.service';
 
 declare const google: any;
@@ -14,7 +14,7 @@ export class GoogleMapComponent implements OnInit {
   @ViewChild('map', { static: true }) mapElement;
   map: any;
 
-  @Input() places: Lugar [] = [] ; 
+  @Input() places: Place [] = [] ; 
   @Input() editable: boolean; 
   @Input() max: number;
   //Falta agregar un tipo coordenada
@@ -60,7 +60,7 @@ export class GoogleMapComponent implements OnInit {
     let max =  this.max>this.places.length?this.places.length-1:this.max+1;
     this.places = this.places.slice( min, max);
     for ( var place of this.places){
-      this.addMarker(new google.maps.LatLng(place.latitud, place.longitud));
+      this.addMarker(new google.maps.LatLng(place.location, place.location));
     }}
     
   }

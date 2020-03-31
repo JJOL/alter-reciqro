@@ -19,17 +19,17 @@
 
       <ion-col size = "12" size-sm = "8" offset-sm="2" text-center>
         <ion-list>
-          <ion-item 
+          <ion-item button
+            [routerLink]="['/admin/center/list-centers', place.id]" 
             *ngFor="let place of places" 
-            [routerLink]="['/admin/center/list-centers', place.idlugar]"
             detail
           >
             <ion-thumbnail slot="start">
-              <ion-img [src]="place.foto"></ion-img>
+              <ion-img [src]="place.photo"></ion-img>
             </ion-thumbnail>
             <ion-label>
-              <h2> {{ place.nombre }} </h2>
-              <p> {{ place.descripcion }} </p>
+              <h2> {{ place.name }} </h2>
+              <p> {{ place.description }} </p>
             </ion-label>
           </ion-item>
         </ion-list>

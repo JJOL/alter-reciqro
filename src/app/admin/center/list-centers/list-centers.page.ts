@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Lugar } from 'src/app/core/models/lugar.model';
+import { Place } from 'src/app/core/models/lugar.model';
 import { LugaresService } from 'src/app/core/services/lugares.service';
+
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-centers',
@@ -9,15 +11,15 @@ import { LugaresService } from 'src/app/core/services/lugares.service';
 })
 export class ListCentersPage implements OnInit {
 
-  places : any[];
+  places : any [];
 
-  constructor(private centerService: LugaresService) { 
+  constructor(private placesService: LugaresService) { 
   }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
-
+    this.placesService.getAllPlaces().then( data => { this.places=data});
   }
 }
