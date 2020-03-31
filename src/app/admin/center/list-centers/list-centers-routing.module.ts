@@ -18,7 +18,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: '/edit-centers/',
+    path: '/edit-centers/:centerId',
     loadChildren: () => import('./edit-centers/edit-centers.module').then( m => m.EditCentersPageModule)
   }
 ];
