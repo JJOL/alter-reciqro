@@ -16,7 +16,10 @@ export class EditCentersPage implements OnInit {
     id : "",
     name : "", 
     description : "",
-    location: [],
+    location: {
+      lat: 0,
+      lng: 0
+  },
     qr_code : "",
     photo : "",
     address : "",
