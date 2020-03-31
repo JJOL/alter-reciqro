@@ -22,14 +22,30 @@ export class LugaresService {
     
   }
   
-  async getAllPlaces(): Promise<any[]> {
+  async getAllPlaces(): Promise<Place[]> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
-      subscription = this.firedb.collection<Place>(PLACE_KEY).snapshotChanges()
+      subscription = this.firedb.collection<any>(PLACE_KEY).snapshotChanges()
       .pipe(map(snapshot => {
         return snapshot.map(place  => {
           const data  = place.payload.doc.data();
           const id = place.payload.doc.id;
+          const p: Place = {
+            id: id,
+            name: data.name,
+            address: data.address,
+            description: data.description,
+            location: {
+              lat: data.location.latitude,
+              lng: data.location.longitude
+            },
+            photo: data.photo,
+            places_type: data.places_type,
+            qr_code: data.qr_code,
+            postal_code: data.postal_code,
+          }
+          return p;
+
           return {id, ...data};
         })
       }))

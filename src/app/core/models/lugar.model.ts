@@ -4,7 +4,10 @@ export class Place {
     id : string
     name : string 
     description : string
-    location: any []
+    location: {
+        lat: number,
+        lng: number
+    }
     //longitud : number
     //latitud : number
     qr_code : string
