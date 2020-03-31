@@ -17,6 +17,7 @@ import {SharedPageModule} from '../../../shared/shared.module';
     IonicModule,
     AddCenterPageRoutingModule,
     SharedPageModule
+    //FormsModule
   ],
   declarations: [AddCenterPage]
 })
