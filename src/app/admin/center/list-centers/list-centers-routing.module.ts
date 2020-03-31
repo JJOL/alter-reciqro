@@ -16,6 +16,10 @@ const routes: Routes = [
         loadChildren: () => import('./center-detail/center-detail.module').then( m => m.CenterDetailPageModule)
       }
     ]
+  },
+  {
+    path: '/edit-centers/',
+    loadChildren: () => import('./edit-centers/edit-centers.module').then( m => m.EditCentersPageModule)
   }
 ];
 
