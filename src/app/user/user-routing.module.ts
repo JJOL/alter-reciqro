@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: UserPage
+  },
+  {
+    path: 'places-searcher-page',
+    loadChildren: () => import('./places-searcher-page/places-searcher-page.module').then( m => m.PlacesSearcherPagePageModule)
   }
 ];
 
