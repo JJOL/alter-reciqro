@@ -15,11 +15,12 @@ const routes: Routes = [
         path: ':centerId',
         loadChildren: () => import('./center-detail/center-detail.module').then( m => m.CenterDetailPageModule)
       }
+      ,
+      {
+        path: 'edit-centers/:centerId',
+        loadChildren: () => import('./edit-centers/edit-centers.module').then( m => m.EditCentersPageModule)
+      }
     ]
-  },
-  {
-    path: '/edit-centers/:centerId',
-    loadChildren: () => import('./edit-centers/edit-centers.module').then( m => m.EditCentersPageModule)
   }
 ];
 

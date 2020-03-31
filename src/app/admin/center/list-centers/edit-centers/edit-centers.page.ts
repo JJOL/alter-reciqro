@@ -11,6 +11,7 @@ import { Place } from 'src/app/core/models/lugar.model';
 })
 export class EditCentersPage implements OnInit {
   updateBookingForm: FormGroup;
+  
   loadedPlace: Place={
     id : "",
     name : "", 
@@ -38,7 +39,22 @@ export class EditCentersPage implements OnInit {
     ) { }
 
   ngOnInit() {
-    
+    this.activatedRoute.paramMap.subscribe(paraMap => {
+      if (!paraMap.has('placeId')) {
+        //redirect
+        return;
+      }
+      const placeId = paraMap.get('placeId');
+      if (placeId) {
+        this.placeService.getPlaceByID(placeId).then(place => {
+          this.loadedPlace = place;
+          console.log(this.loadedPlace.places_type);
+          console.dir(this.loadedPlace.places_type);
+          console.log(this.loadedPlace.location);
+          
+        });
+      }
+    });
 
   }
 

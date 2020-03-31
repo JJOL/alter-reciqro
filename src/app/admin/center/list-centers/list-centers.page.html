@@ -19,10 +19,10 @@
 
       <ion-col size = "12" size-sm = "8" offset-sm="2" text-center>
         <ion-list>
-          <ion-item button
-            [routerLink]="['/admin/center/list-centers', place.id]" 
+          <ion-item 
+            
             *ngFor="let place of places" 
-            detail
+            class="user-list"
           >
             <ion-thumbnail slot="start">
               <ion-img [src]="place.photo"></ion-img>
@@ -31,6 +31,15 @@
               <h2> {{ place.name }} </h2>
               <p> {{ place.description }} </p>
             </ion-label>
+
+            <ion-button
+            [routerLink]="['/admin/center/list-centers', place.id]" 
+            >
+            <ion-label>Visualizar</ion-label>
+            </ion-button>
+            <ion-button [routerLink]="['/admin/center/list-centers/edit-centers', place.id]" >
+          <ion-icon name="create" style="zoom:1.5"></ion-icon> 
+          </ion-button>
           </ion-item>
         </ion-list>
       </ion-col>
