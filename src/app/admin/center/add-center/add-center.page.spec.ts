@@ -6,6 +6,7 @@ import { SharedPageModule } from 'src/app/shared/shared.module';
 import { from } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { LugaresService } from 'src/app/core/services/lugares.service';
+import { RouterModule } from '@angular/router';
 
 const arr = function(){};
 
@@ -35,7 +36,7 @@ describe('AddCenterPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AddCenterPage ],
-      imports: [IonicModule.forRoot(), ReactiveFormsModule, SharedPageModule],
+      imports: [IonicModule.forRoot(), ReactiveFormsModule, SharedPageModule, RouterModule.forRoot([])],
       providers: [
         FormBuilder,
         LugaresService,

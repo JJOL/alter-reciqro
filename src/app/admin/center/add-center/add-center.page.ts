@@ -6,6 +6,7 @@ import { LugaresService } from 'src/app/core/services/lugares.service';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import {Location} from '@angular/common';
 
 
 /*tut https://www.youtube.com/watch?v=Yza_59DrRY8*/
