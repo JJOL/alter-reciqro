@@ -1,5 +1,5 @@
 export class TipoInstalacion {
-    idTipoInstalacion : string
-    nombre : string 
-    descripcion : string
+    id : string
+    name : string 
+    description : string
 }

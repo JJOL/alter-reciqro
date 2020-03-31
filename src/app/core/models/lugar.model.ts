@@ -1,23 +1,16 @@
 import { TipoInstalacion } from './tipo-instalacion.model'
 
-export class Lugar {
-    idlugar : string
-    nombre : string 
-    descripcion : string
-    longitud : number
-    latitud : number
-    codigoQr : string
-    foto : string
-    calle : string
-    ciudad : string
-    cp : number
-    tipoDeInstalacion : TipoInstalacion
-
-
-    // distanceTo(otherLat: number, otherLng: number): number {
-    //     const latSqrd = Math.pow(this.latitud - otherLat, 2);
-    //     const lngSqrd = Math.pow(this.longitud - otherLng, 2);
-        
-    //     return Math.sqrt(latSqrd + lngSqrd);
-    // }
+export class Place {
+    id : string
+    name : string 
+    description : string
+    location: any []
+    //longitud : number
+    //latitud : number
+    qr_code : string
+    photo : string
+    address : string
+    postal_code : number
+    places_type : TipoInstalacion
+    
 }

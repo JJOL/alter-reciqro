@@ -10,8 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
 
 import { environment } from '../environments/environment';
 
@@ -24,12 +23,13 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.database.firebaseConfig),
     AngularFirestoreModule,
-    AngularFireDatabaseModule
+    
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: FirestoreSettingsToken, useValue: {} }
   ],
   bootstrap: [AppComponent],
 })

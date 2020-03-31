@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/admin/center/list-centers"></ion-back-button>
     </ion-buttons>
-    <ion-title> {{ loadedPlace.nombre }} </ion-title>
+    <ion-title> {{ loadedPlace.name }} </ion-title>
     <ion-buttons slot="primary">
       <ion-button (click)="onDeletePlace()">
         <ion-icon name="trash" slot="icon-only"> </ion-icon>
@@ -17,33 +17,33 @@
 
     <ion-row>
       <ion-col size = "12" size-sm = "8" offset-sm="2" text-center class="ion-text-center">
-        <h1> {{ loadedPlace.nombre }} </h1>
+        <h1> {{ loadedPlace.name }} </h1>
       </ion-col>
     </ion-row>
     
     <ion-row>
 
       <ion-col class="spacePhoto" size = "3" size-sm = "8"  >
-        <ion-img [src]="loadedPlace.foto"></ion-img>
+        <ion-img [src]="loadedPlace.photo"></ion-img>
       </ion-col>
       
       <ion-col class="spaceWithPhoto" text-center>
         <h4> Decripción: </h4>
-        <p> {{ loadedPlace.descripcion }} <p>
+        <p> {{ loadedPlace.description }} <p>
         <h4> Código QR: </h4>
-        <p> {{ loadedPlace.codigoQr }} <p>
+        <p> {{ loadedPlace.qr_code }} <p>
         <h4> Calle: </h4>
-        <p> {{ loadedPlace.calle }} <p>
+        <p> {{ loadedPlace.address }} <p>
         <h4> Ciudad: </h4>
-        <p> {{ loadedPlace.ciudad }} <p>
+        <p> {{ loadedPlace.address }} <p>
         <h4> Código Postal: </h4>
-        <p> {{ loadedPlace.cp }} <p>
+        <p> {{ loadedPlace.postal_code }} <p>
         <h4> Tipo de Instalación: </h4>
-        <p> {{ loadedPlace.tipoDeInstalacion.nombre }} <p>
+        <p> {{ loadedPlace.places_type.name }} <p>
       </ion-col>
+
 
     </ion-row>
 
   </ion-grid>
-  
 </ion-content>

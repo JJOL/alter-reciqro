@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
 
 import { LugaresService } from 'src/app/core/services/lugares.service';
-import { Lugar } from 'src/app/core/models/lugar.model';
+import { Place } from 'src/app/core/models/lugar.model';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -12,42 +13,48 @@ import { Lugar } from 'src/app/core/models/lugar.model';
   styleUrls: ['./center-detail.page.scss'],
 })
 export class CenterDetailPage implements OnInit {
-
-  loadedPlace : Lugar = 
-  {
-    idlugar : "1",
-    nombre : "Basurero Municipal",
-    descripcion : "Basurero extremo de separación de desechos",
-    longitud : 100.1234,
-    latitud : 100.1234,
-    codigoQr : "QR",
-    foto : "https://i2.wp.com/www2.municipiodequeretaro.gob.mx/wp-content/uploads/2017/05/prensa_1494002771103.jpg?w=1245&ssl=1",
-    calle : "Bernardo Quintana",
-    ciudad : "Querétaro",
-    cp : 76146,
-    tipoDeInstalacion : {
-      idTipoInstalacion : "1",
-      nombre : "Separación de desechos",
-      descripcion : "Separación de desechos de cualquier tamaño"
+  
+  loadedPlace: Place={
+    id : "",
+    name : "", 
+    description : "",
+    location: [],
+    qr_code : "",
+    photo : "",
+    address : "",
+    postal_code : 0,
+    places_type : {
+      id : "",
+      name : "",
+      description : ""
     }
   };
 
   constructor(
-    private activiatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private placeService: LugaresService,
     private router: Router,
     private alertCtrl: AlertController,
     private navCtrl: NavController
     ) { }
-
+  
+  
   ngOnInit() {
-    this.activiatedRoute.paramMap.subscribe(paraMap => {
+    this.activatedRoute.paramMap.subscribe(paraMap => {
       if (!paraMap.has('centerId')) {
         //redirect
         return;
       }
       const centerId = paraMap.get('centerId');
-      this.loadedPlace = this.placeService.getPlaceByID(centerId);
+      if (centerId) {
+        this.placeService.getPlaceByID(centerId).then(place => {
+          this.loadedPlace = place;
+          console.log(this.loadedPlace.places_type);
+          console.dir(this.loadedPlace.places_type);
+          console.log(this.loadedPlace.location);
+          
+        });
+      }
     });
   }
 
@@ -61,7 +68,7 @@ export class CenterDetailPage implements OnInit {
       }, {
         text: 'Borrar',
         handler: () => {
-          this.placeService.deletePlaceByID(this.loadedPlace.idlugar);
+          this.placeService.deletePlaceByID(this.loadedPlace.id);
           this.navCtrl.navigateBack(['/admin/center/list-centers']);
         }
       }]
@@ -69,4 +76,18 @@ export class CenterDetailPage implements OnInit {
       alertEl.present();
     });
   }
+
+  onChangeMarker(coords){
+    console.log(coords);
+  }
+  
+  /*
+    this.placeService.deletePlaceByID(this.loadedPlace.id).then(() => {
+      this.navCtrl.navigateBack(['/admin/center/list-centers']);
+      //this.showToast('Idea deleted');
+    }, err => {
+      //this.showToast('There was a problem deleting your idea :(');
+    });
+
+  }*/
 }

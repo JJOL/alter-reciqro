@@ -1,94 +1,109 @@
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
+import { Subscription } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+
 import { Injectable } from '@angular/core';
-import { Lugar } from '../models/lugar.model';
+import { Place } from '../models/lugar.model';
 import { TipoInstalacion } from '../models/tipo-instalacion.model';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+const PLACE_KEY = '/places';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class LugaresService {
-
-  constructor() { }
-
-  _fakePlacetypes: TipoInstalacion[] = [
-    {
-      idTipoInstalacion : "1",
-      nombre : "Separación de desechos",
-      descripcion : "Separación de desechos de cualquier tamaño"
-    },
-    {
-      idTipoInstalacion : "2",
-      nombre : "Papelera Monumentalísima del Norte",
-      descripcion : "Recolección de cartón y papel"
-    }
-  ];
-
-  fakePlaces : Lugar [] = [
-    {
-      idlugar : "1",
-      nombre : "Basurero Municipal",
-      descripcion : "Basurero extremo de separación de desechos",
-      longitud : 100.1234,
-      latitud : 100.1234,
-      codigoQr : "QR",
-      foto : "https://i2.wp.com/www2.municipiodequeretaro.gob.mx/wp-content/uploads/2017/05/prensa_1494002771103.jpg?w=1245&ssl=1",
-      calle : "Bernardo Quintana",
-      ciudad : "Querétaro",
-      cp : 76146,
-      tipoDeInstalacion : {
-        idTipoInstalacion : "1",
-        nombre : "Separación de desechos",
-        descripcion : "Separación de desechos de cualquier tamaño"
-      }
-    },
-    {
-      idlugar : "2",
-      nombre : "Papelera San Juan",
-      descripcion : "Recolección masiva de cartón y papel",
-      longitud : 444.1234,
-      latitud : 500.1234,
-      codigoQr : "QR",
-      foto : "https://www.diariodequeretaro.com.mx/incoming/yxmvyc-papelera-monumental.jpg/ALTERNATES/LANDSCAPE_1140/Papelera%20monumental.JPG",
-      calle : "Arteaga",
-      ciudad : "Querétaro",
-      cp : 76145,
-      tipoDeInstalacion : {
-        idTipoInstalacion : "2",
-        nombre : "Papelera",
-        descripcion : "Recolección de cartón y papel"
-      } 
-    },
-  ];
-
-  getAllPlaces () {
-    return [...this.fakePlaces];
-  }
-
-  getPlaceByID (placeId: string) {
-    return {
-      ...this.fakePlaces.find( place => {
-        return place.idlugar === placeId;
-    })};
-  }
-
-  deletePlaceByID (placeId: string) {
-    this.fakePlaces = this.fakePlaces.filter(place => {
-      return place.idlugar !== placeId;
-    });
-  }
-
-  createPlace () {
-
-  }
-
-  updatePlaceByID () {
-
-  }
-
-  getPlacesByFilter () {
+  placeTypes: any;
+  
+  constructor(private firedb: AngularFirestore) {
     
   }
+  
+  async getAllPlaces(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<Place>(PLACE_KEY).snapshotChanges()
+      .pipe(map(snapshot => {
+        return snapshot.map(place  => {
+          const data  = place.payload.doc.data();
+          const id = place.payload.doc.id;
+          return {id, ...data};
+        })
+      }))
+      .subscribe(places => {
+        resolve(places)
+        if(subscription)
+        subscription.unsubscribe();
+      })
+    });  
+  }
 
+  async getPlaceByID(id: string): Promise<Place> {
+    return new Promise((resolve, reject) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<Place>(PLACE_KEY).doc<Place>(id).valueChanges()
+      .pipe(
+        take(1),
+        map(
+          place => {
+            place.id = id;
+
+            return place
+          }
+        ))
+      .subscribe(places => {
+        resolve(places)
+        if(subscription)
+        subscription.unsubscribe();
+      })
+    });  
+  }
+
+  
+
+  async deletePlaceByID(id: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.firedb.collection<Place>(PLACE_KEY).doc<Place>(id).delete();
+    });  
+  }
+
+  async allPlaceTypes(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<Place>('place_type').snapshotChanges()
+      .pipe(map(snapshot => {
+        return snapshot.map(placeType  => {
+          const data  = placeType.payload.doc.data();
+          const id = placeType.payload.doc.id;
+          return {id, ...data};
+        })
+      }))
+      .subscribe(places => {
+        resolve(places)
+        if(subscription)
+        subscription.unsubscribe();
+      })
+    });  
+  }
+
+  /*
+
+  
+
+  getPlaceTypeByID(id: string): Observable<Lugar> {
+    console.log(id);
+    return this.placeTypeCollection.doc<TipoInstalacion>(id).valueChanges().pipe(
+      take(1),
+      map(place => {
+        place.id = id;
+
+        return place
+      })
+    );
+  }
+  
   getPlacesByPosition(lat: number, lng: number, radius: number): Lugar[] {
     return [...this.fakePlaces.filter(place => this.distanceBetween(place.latitud, place.longitud, lat, lng) <= radius )];
   }
@@ -98,12 +113,6 @@ export class LugaresService {
     const lngSqrd = Math.pow(lng1 - lng2, 2);
         
     return Math.sqrt(latSqrd + lngSqrd);
-  }
-  allPlaceTypes(){
-    return [...this._fakePlacetypes];
-  }
-  allPlaces(){
-    return [...this.fakePlaces];
-  }
+  }*/
 
 }

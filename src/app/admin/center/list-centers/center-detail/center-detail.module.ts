@@ -8,12 +8,15 @@ import { CenterDetailPageRoutingModule } from './center-detail-routing.module';
 
 import { CenterDetailPage } from './center-detail.page';
 
+import {SharedPageModule} from '../../../../shared/shared.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CenterDetailPageRoutingModule
+    CenterDetailPageRoutingModule,
+    SharedPageModule
   ],
   declarations: [CenterDetailPage]
 })

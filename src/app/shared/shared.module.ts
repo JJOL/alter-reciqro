@@ -9,6 +9,8 @@ import { SharedPageRoutingModule } from './shared-routing.module';
 import { SharedPage } from './shared.page';
 
 import { GoogleMapComponent } from './google-map/google-map.component';
+import {FilterButtonComponent} from './ui/filter-button/filter-button.component';
+import {FilterMenuComponent} from './ui/filter-menu/filter-menu.component';
 
 @NgModule({
   imports: [
@@ -18,6 +20,6 @@ import { GoogleMapComponent } from './google-map/google-map.component';
     SharedPageRoutingModule
   ],
   exports: [GoogleMapComponent], 
-  declarations: [SharedPage, GoogleMapComponent]
+  declarations: [SharedPage, GoogleMapComponent,FilterButtonComponent,FilterMenuComponent]
 })
 export class SharedPageModule {}
