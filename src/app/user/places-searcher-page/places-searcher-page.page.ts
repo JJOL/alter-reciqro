@@ -18,30 +18,6 @@ export class PlacesSearcherPagePage implements OnInit {
   async ngOnInit() {
     this.places = await this.placesService.getAllPlaces();
     console.log(this.places);
-    
-
-    setTimeout(() => {
-      console.log('Mira pendeje');
-      
-      this.places = [{
-        name: 'Default',
-        address: 'das',
-        description: 'das',
-        id: 'das',
-        location: {
-          lat: 20,
-          lng: -100
-        },
-        photo: 'dsada',
-        places_type: {
-          description: 'dsa',
-          id: 'dsa',
-          name: 'dsa' 
-        },
-        postal_code: 54634,
-        qr_code: 'dasd'
-      }]
-    }, 5000);
   }
 
 }
