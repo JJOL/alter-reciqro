@@ -38,22 +38,7 @@ export class EditCentersPage implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe(paraMap => {
-      if (!paraMap.has('centerId')) {
-        //redirect
-        return;
-      }
-      const centerId = paraMap.get('centerId');
-      if (centerId) {
-        this.placeService.getPlaceByID(centerId).then(place => {
-          this.loadedPlace = place;
-          console.log(this.loadedPlace.places_type);
-          console.dir(this.loadedPlace.places_type);
-          console.log(this.loadedPlace.location);
-          
-        });
-      }
-    });
+    
 
   }
 
