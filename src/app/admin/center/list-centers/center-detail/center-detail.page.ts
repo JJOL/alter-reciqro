@@ -58,8 +58,10 @@ export class CenterDetailPage implements OnInit {
       }, {
         text: 'Borrar',
         handler: () => {
-          this.placeService.deletePlaceByID(this.loadedPlace.id);
-          this.navCtrl.navigateBack(['/admin/center/list-centers']);
+          this.placeService.deletePlaceByID(this.loadedPlace.id).then(() => {
+            this.navCtrl.navigateBack(['/admin/center/list-centers']);
+          })
+          .catch(() => {});
         }
       }]
     }).then(alertEl => {

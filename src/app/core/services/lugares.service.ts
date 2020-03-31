@@ -82,7 +82,9 @@ export class LugaresService {
 
   async deletePlaceByID(id: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.firedb.collection<Place>(PLACE_KEY).doc<Place>(id).delete();
+      this.firedb.collection<Place>(PLACE_KEY).doc<Place>(id).delete().then(() => {
+        resolve();
+      });
     });  
   }
 
