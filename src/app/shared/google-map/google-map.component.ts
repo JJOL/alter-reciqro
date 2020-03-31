@@ -1,6 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges ,ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import {Place} from 'src/app/core/models/lugar.model';
 import { LugaresService } from 'src/app/core/services/lugares.service';
+import { Observable,from } from 'rxjs';
+
+
+const DEFAULT_CENTER_COORD = new google.maps.LatLng(20.610381, -100.382063);
 
 declare const google: any;
 
@@ -9,18 +13,27 @@ declare const google: any;
   templateUrl: './google-map.component.html',
   styleUrls: ['./google-map.component.scss'],
 })
-export class GoogleMapComponent implements OnInit {
+export class GoogleMapComponent implements OnInit, OnChanges {
 
   @ViewChild('map', { static: true }) mapElement;
   map: any;
 
-  @Input() places: Place [] = [] ; 
+  @Input() places: Place[] = [] ; 
   @Input() editable: boolean; 
   @Input() max: number;
+  @Input() center: {
+    lat: number,
+    lng: number
+  } = {
+    lat: 20.610381,
+    lng: -100.382063
+  };
   //Falta agregar un tipo coordenada
   @Output() placeChange = new EventEmitter(); 
 
   constructor( private placeTypeService: LugaresService) { }
+
+  
 
   ngOnInit(){
     
@@ -29,8 +42,23 @@ export class GoogleMapComponent implements OnInit {
     
   }
 
-  initMap(){ 
-    let coords = new google.maps.LatLng(20.610381, -100.382063);
+  ngOnChanges() {
+
+    if (this.places != null) {
+      console.log('GoogleMap', this.places);
+
+      //Se acota deacuerdo al máximo
+      let min = this.max<this.places.length? this.max:0;
+      let max =  this.max>this.places.length?this.places.length-1:this.max+1;
+      this.places = this.places.slice( min, max);
+      for ( var place of this.places){
+        this.addMarker(new google.maps.LatLng(place.location.lat, place.location.lng));
+      }}
+  }
+
+  initMap(){
+    
+    let coords = new google.maps.LatLng(this.center.lat, this.center.lng);
     let mapOptions: google.maps.MapOptions = {
       center: coords,
       zoom: 14,
@@ -43,25 +71,21 @@ export class GoogleMapComponent implements OnInit {
       if(this.editable){
         let self = this;
         google.maps.event.addListener(this.map, 'click', function(event) {
-          let place = {latitud:event.latLng.lat(), longitud: event.latLng.lng()};
+          let place = {
+            lat: event.latLng.lat(),
+            lng: event.latLng.lng()
+          };
           
           if(self.addPlace(place))
           {
           self.placeChange.emit(place);
-          self.addMarker(new google.maps.LatLng(place.latitud, place.longitud));
+          self.addMarker(new google.maps.LatLng(place.lat, place.lng));
           
           }
         });
     }
 
-    if (this.places != null) {
-    //Se acota deacuerdo al máximo
-    let min = this.max<this.places.length? this.max:0;
-    let max =  this.max>this.places.length?this.places.length-1:this.max+1;
-    this.places = this.places.slice( min, max);
-    for ( var place of this.places){
-      this.addMarker(new google.maps.LatLng(place.location, place.location));
-    }}
+    
     
   }
 
