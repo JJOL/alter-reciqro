@@ -1,7 +1,7 @@
 import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import * as firebase from 'firebase/app'
+import * as firebase from 'firebase/app';
 
 import { Injectable } from '@angular/core';
 import { Place } from '../models/lugar.model';
@@ -11,10 +11,37 @@ import { Observable } from 'rxjs';
 
 const PLACE_KEY = '/places';
 
+const GeoPoint = firebase.firestore.GeoPoint;
+
+function parseFBPlaceToPlace(fbPlace: any): Place {
+  const data  = fbPlace.payload.doc.data();
+  const id = fbPlace.payload.doc.id;
+  const place: Place = {
+    id: id,
+    name: data.name,
+    address: data.address,
+    description: data.description,
+    location: {
+      lat: data.location.latitude,
+      lng: data.location.longitude
+    },
+    photo: data.photo,
+    places_type: data.places_type,
+    qr_code: data.qr_code,
+    postal_code: data.postal_code,
+  }
+  return place;
+}
+
+function isWithin(val, min, max) {
+  return val > min && val < max;
+}
+
+
+
 @Injectable({
   providedIn: 'root'
 })
-
 export class LugaresService {
   placeTypes: any;
   
@@ -22,16 +49,12 @@ export class LugaresService {
     
   }
   
-  async getAllPlaces(): Promise<any[]> {
+  async getAllPlaces(): Promise<Place[]> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
-      subscription = this.firedb.collection<Place>(PLACE_KEY).snapshotChanges()
+      subscription = this.firedb.collection<any>(PLACE_KEY).snapshotChanges()
       .pipe(map(snapshot => {
-        return snapshot.map(place  => {
-          const data  = place.payload.doc.data();
-          const id = place.payload.doc.id;
-          return {id, ...data};
-        })
+        return snapshot.map(parseFBPlaceToPlace)
       }))
       .subscribe(places => {
         resolve(places)
@@ -66,7 +89,9 @@ export class LugaresService {
 
   async deletePlaceByID(id: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.firedb.collection<Place>(PLACE_KEY).doc<Place>(id).delete();
+      this.firedb.collection<Place>(PLACE_KEY).doc<Place>(id).delete().then(() => {
+        resolve();
+      });
     });  
   }
 
@@ -90,7 +115,7 @@ export class LugaresService {
   }
 
   createPlace(placeObject){
-    let geoPoint = new firebase.firestore.GeoPoint(placeObject.latitude, placeObject.longitude);
+    let geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(PLACE_KEY).add({
         address: placeObject.address.street,
@@ -109,6 +134,39 @@ export class LugaresService {
         err => reject(err)
       )
     })
+  }
+
+  searchMapPlaces(topLeftPos, botRightPos): Promise<Place[]> {
+
+    const minLat = Math.min(topLeftPos.lat, botRightPos.lat);
+    const minLng = Math.min(topLeftPos.lng, botRightPos.lng);
+    const maxLat = Math.max(topLeftPos.lat, botRightPos.lat);
+    const maxLng = Math.max(topLeftPos.lng, botRightPos.lng);
+
+    const maxPoint = new GeoPoint(maxLat, maxLng);
+    const minPoint = new GeoPoint(minLat, minLng);
+
+    // const maxPoint = new GeoPoint(topLeftPos.lat, topLeftPos.lng);
+    // const minPoint = new GeoPoint(botRightPos.lat, botRightPos.lng);
+
+
+    return new Promise((resolve, reject) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection(PLACE_KEY)
+        .snapshotChanges()
+        .pipe(map(snapshot => {
+          return snapshot.map(parseFBPlaceToPlace)
+            .filter(place => 
+              isWithin(place.location.lat, minLat, maxLat) && isWithin(place.location.lng, minLng, maxLng
+            )
+          );
+        }))
+        .subscribe(places => {
+          resolve(places);
+          subscription.unsubscribe();
+        })
+      
+    });
   }
 
   /*

@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/admin/center/list-centers"></ion-back-button>
     </ion-buttons>
-    <ion-title> {{ loadedPlace.name }} </ion-title>
+    <ion-title *ngIf="loadedPlace"> {{ loadedPlace.name }} </ion-title>
     <ion-buttons slot="primary">
       <ion-button (click)="onDeletePlace()">
         <ion-icon name="trash" slot="icon-only"> </ion-icon>
@@ -19,7 +19,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
+  <ion-grid *ngIf="loadedPlace">
 
     <ion-row>
       <ion-col size = "12" size-sm = "8" offset-sm="2" text-center class="ion-text-center">

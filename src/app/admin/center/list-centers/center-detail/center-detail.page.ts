@@ -6,6 +6,8 @@ import { LugaresService } from 'src/app/core/services/lugares.service';
 import { Place } from 'src/app/core/models/lugar.model';
 import { Observable } from 'rxjs';
 
+import { NgIf } from '@angular/common';
+
 
 @Component({
   selector: 'app-center-detail',
@@ -14,21 +16,9 @@ import { Observable } from 'rxjs';
 })
 export class CenterDetailPage implements OnInit {
   
-  loadedPlace: Place={
-    id : "",
-    name : "", 
-    description : "",
-    location: [],
-    qr_code : "",
-    photo : "",
-    address : "",
-    postal_code : 0,
-    places_type : {
-      id : "",
-      name : "",
-      description : ""
-    }
-  };
+
+
+  loadedPlace: Place;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -68,8 +58,10 @@ export class CenterDetailPage implements OnInit {
       }, {
         text: 'Borrar',
         handler: () => {
-          this.placeService.deletePlaceByID(this.loadedPlace.id);
-          this.navCtrl.navigateBack(['/admin/center/list-centers']);
+          this.placeService.deletePlaceByID(this.loadedPlace.id).then(() => {
+            this.navCtrl.navigateBack(['/admin/center/list-centers']);
+          })
+          .catch(() => {});
         }
       }]
     }).then(alertEl => {
