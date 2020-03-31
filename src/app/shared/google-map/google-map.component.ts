@@ -2,11 +2,11 @@ import { Component, OnInit, OnChanges ,ViewChild, ElementRef, Input, Output, Eve
 import {Place} from 'src/app/core/models/lugar.model';
 import { LugaresService } from 'src/app/core/services/lugares.service';
 import { Observable,from } from 'rxjs';
+declare const google: any;
 
 
 const DEFAULT_CENTER_COORD = new google.maps.LatLng(20.610381, -100.382063);
 
-declare const google: any;
 
 @Component({
   selector: 'app-shared-google-map',
@@ -16,7 +16,7 @@ declare const google: any;
 export class GoogleMapComponent implements OnInit, OnChanges {
 
   @ViewChild('map', { static: true }) mapElement;
-  map: any;
+  map: google.maps.Map;
 
   @Input() places: Place[] = [] ; 
   @Input() editable: boolean; 
@@ -36,15 +36,17 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   
 
   ngOnInit(){
-    
     this.max = this.max==null?Number.MAX_SAFE_INTEGER:this.max;
     this.initMap();
-    
   }
 
   ngOnChanges() {
 
-    if (this.places != null) {
+    if (this.center && this.map) 
+      this.map.setCenter(this.center)
+
+
+    if (this.places && this.map) {
       console.log('GoogleMap', this.places);
 
       //Se acota deacuerdo al máximo
@@ -59,7 +61,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
 
   initMap(){
     
-    let coords = new google.maps.LatLng(this.center.lat, this.center.lng);
+    let coords = DEFAULT_CENTER_COORD;
     let mapOptions: google.maps.MapOptions = {
       center: coords,
       zoom: 14,

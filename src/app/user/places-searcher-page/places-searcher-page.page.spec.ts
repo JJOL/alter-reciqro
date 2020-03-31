@@ -5,6 +5,9 @@ import { PlacesSearcherPagePage } from './places-searcher-page.page';
 
 import { SharedPageModule } from '../../shared/shared.module';
 import { LugaresService } from '../../core/services/lugares.service';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
+
 
 const mockPlacesService = {
   getAllPlaces: () => {
@@ -12,6 +15,19 @@ const mockPlacesService = {
   },
   searchMapPlaces: () => {
     return [];
+  }
+}
+
+const mockGeolocation = {
+  getCurrentPosition: () => {
+    return new Promise((res, rej) => {
+      res({
+        coords: {
+          latitude: 4,
+          longitude: 3
+        }
+      });
+    })
   }
 }
 
@@ -24,7 +40,8 @@ describe('PlacesSearcherPagePage', () => {
       declarations: [ PlacesSearcherPagePage ],
       imports: [IonicModule.forRoot(), SharedPageModule],
       providers: [
-        {provide: LugaresService, useValue: mockPlacesService}
+        { provide: LugaresService, useValue: mockPlacesService },
+        { provide: Geolocation, useValue: mockGeolocation }
       ]
     }).compileComponents();
 

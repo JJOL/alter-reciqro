@@ -10,6 +10,8 @@ import { PlacesSearcherPagePage } from './places-searcher-page.page';
 
 import { SharedPageModule } from '../../shared/shared.module';
 
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
 
 @NgModule({
   imports: [
@@ -19,6 +21,9 @@ import { SharedPageModule } from '../../shared/shared.module';
     PlacesSearcherPagePageRoutingModule,
     SharedPageModule
   ],
-  declarations: [PlacesSearcherPagePage]
+  declarations: [PlacesSearcherPagePage],
+  providers: [
+    Geolocation
+  ]
 })
 export class PlacesSearcherPagePageModule {}

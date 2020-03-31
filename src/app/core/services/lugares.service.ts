@@ -33,6 +33,11 @@ function parseFBPlaceToPlace(fbPlace: any): Place {
   return place;
 }
 
+function isWithin(val, min, max) {
+  return val > min && val < max;
+}
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -141,19 +146,22 @@ export class LugaresService {
     const maxPoint = new GeoPoint(maxLat, maxLng);
     const minPoint = new GeoPoint(minLat, minLng);
 
+    // const maxPoint = new GeoPoint(topLeftPos.lat, topLeftPos.lng);
+    // const minPoint = new GeoPoint(botRightPos.lat, botRightPos.lng);
 
 
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
-      subscription = this.firedb.collection(PLACE_KEY, ref => ref.where('location', '<', maxPoint).where('location', '>', minPoint))
+      subscription = this.firedb.collection(PLACE_KEY)
         .snapshotChanges()
         .pipe(map(snapshot => {
-          console.log(snapshot);
-          
           return snapshot.map(parseFBPlaceToPlace)
+            .filter(place => 
+              isWithin(place.location.lat, minLat, maxLat) && isWithin(place.location.lng, minLng, maxLng
+            )
+          );
         }))
         .subscribe(places => {
-          
           resolve(places);
           subscription.unsubscribe();
         })
