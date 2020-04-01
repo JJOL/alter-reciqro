@@ -185,16 +185,4 @@ export class LugaresService {
     });
   }
 
-  /*
-  getPlacesByPosition(lat: number, lng: number, radius: number): Lugar[] {
-    return [...this.fakePlaces.filter(place => this.distanceBetween(place.latitud, place.longitud, lat, lng) <= radius )];
-  }
-
-  private distanceBetween(lat1: number, lng1: number, lat2: number, lng2: number): number {
-    const latSqrd = Math.pow(lat1 - lat2, 2);
-    const lngSqrd = Math.pow(lng1 - lng2, 2);
-        
-    return Math.sqrt(latSqrd + lngSqrd);
-  }*/
-
 }
