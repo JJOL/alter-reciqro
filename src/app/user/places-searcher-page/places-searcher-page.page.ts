@@ -49,13 +49,17 @@ export class PlacesSearcherPagePage implements OnInit {
     
   }
 
-  async onViewportChange(topLeftPos, botRightPos) {
-    this.queryPlaces(topLeftPos, botRightPos);
+  async onViewportChange(bounds) {
+    this.places = await this.queryPlaces({lat:bounds.getNorthEast().lat(), lng:bounds.getNorthEast().lng()}, {lat:bounds.getSouthWest().lat(), lng:bounds.getSouthWest().lng()});
   }
 
 
   async queryPlaces(topLeftPos, botRightPos) {
     return await this.placesService.searchMapPlaces(topLeftPos, botRightPos);
+  }
+
+  test (jaja) {
+    console.log(jaja.getNorthEast(), jaja.getSouthWest());
   }
 
 }

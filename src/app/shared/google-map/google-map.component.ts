@@ -29,8 +29,11 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     lng: -100.382063
   };
   currentInfoWindow : any ;
+  markers : any[] = [];
   //Falta agregar un tipo coordenada
   @Output() placeChange = new EventEmitter(); 
+  @Output() change = new EventEmitter();
+  @Output() seletedMarker = new EventEmitter<Place>();
 
   constructor( private placeTypeService: LugaresService) { }
 
@@ -42,10 +45,12 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-
-    if (this.center && this.map) 
-      this.map.setCenter(this.center)
-
+    for(let marker of this.markers){
+      marker.setMap(null);
+    }
+    this.markers = [];
+    
+  
 
     if (this.places && this.map) {
       console.log('GoogleMap', this.places);
@@ -71,19 +76,23 @@ export class GoogleMapComponent implements OnInit, OnChanges {
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, 
       mapOptions)
+
+      google.maps.event.addListener(this.map, 'idle', () => {
+        this.change.emit(this.map.getBounds());
+      } );
     
       if(this.editable){
-        let self = this;
-        google.maps.event.addListener(this.map, 'click', function(event) {
+      
+        google.maps.event.addListener(this.map, 'click', event => {
           let place = {
             lat: event.latLng.lat(),
             lng: event.latLng.lng()
           };
           
-          if(self.addPlace(place))
+          if(this.addPlace(place))
           {
-          self.placeChange.emit(place);
-          self.addMarker(new google.maps.LatLng(place.lat, place.lng));
+          this.placeChange.emit(place);
+          this.addMarker(new google.maps.LatLng(place.lat, place.lng));
           
           }
         });
@@ -103,7 +112,8 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   }
 
   addMarker(place: Place){
-    var contentString = ' <ion-title>'+place.name+'</ion-title>';
+    var contentString = ' <ion-title>'+place.name+'</ion-title>'+
+                        '<ion-button></ion-button';
 
     var infowindow = new google.maps.InfoWindow({
       content: contentString
@@ -113,7 +123,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
       position:  new google.maps.LatLng(place.location.lat, place.location.lng),
     //  title: place.descripcion,
       draggable: this.editable ? true : false,
-      animation: google.maps.Animation.DROP
+     // animation: google.maps.Animation.DROP
   });
   marker.addListener('dragend', event =>{
     let place = {latitud:event.latLng.lat(), longitud: event.latLng.lng()};
@@ -124,6 +134,8 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     infowindow.open(this.map, marker);
     this.currentInfoWindow = infowindow;
   });
+
+  this.markers.push(marker);
 
   }
 }
