@@ -9,6 +9,9 @@ var google = {
         OverlayView : function () {
         },
         Marker : function () {
+			return {
+				addListener : function(event,func){}
+			}
         },
         InfoWindow : function () {
         },
