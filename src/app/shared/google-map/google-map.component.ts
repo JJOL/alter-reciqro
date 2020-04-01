@@ -112,12 +112,8 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   }
 
   addMarker(place: Place){
-    var contentString = ' <ion-title>'+place.name+'</ion-title>'+
-                        '<ion-button></ion-button';
+   
 
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString
-    });
     let marker: google.maps.Marker = new google.maps.Marker({
       map: this.map,
       position:  new google.maps.LatLng(place.location.lat, place.location.lng),
@@ -130,9 +126,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     this.placeChange.emit(place);
   });
   marker.addListener('click', () => {
-    if(this.currentInfoWindow) this.currentInfoWindow.close();
-    infowindow.open(this.map, marker);
-    this.currentInfoWindow = infowindow;
+    this.seletedMarker.emit(place);
   });
 
   this.markers.push(marker);

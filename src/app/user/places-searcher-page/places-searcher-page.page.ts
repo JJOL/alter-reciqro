@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LugaresService } from 'src/app/core/services/lugares.service';
 import { Place } from '../../core/models/lugar.model';
-
+import {NgIf} from '@angular/common';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
@@ -13,6 +13,7 @@ export class PlacesSearcherPagePage implements OnInit {
 
   places: Place[];
   position: { lat: number, lng: number};
+  placeSelected: Place;
 
   constructor(
     private placesService: LugaresService,
@@ -35,7 +36,7 @@ export class PlacesSearcherPagePage implements OnInit {
 
 
     this.places = await this.placesService.getAllPlaces();
-
+    
 
     console.log(this.places);
 
@@ -59,7 +60,7 @@ export class PlacesSearcherPagePage implements OnInit {
   }
 
   test (jaja) {
-    console.log(jaja.getNorthEast(), jaja.getSouthWest());
+    this.placeSelected=jaja;
   }
 
 }
