@@ -28,8 +28,12 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     lat: 20.610381,
     lng: -100.382063
   };
+  currentInfoWindow : any ;
+  markers : any[] = [];
   //Falta agregar un tipo coordenada
   @Output() placeChange = new EventEmitter(); 
+  @Output() change = new EventEmitter();
+  @Output() seletedMarker = new EventEmitter<Place>();
 
   constructor( private placeTypeService: LugaresService) { }
 
@@ -41,10 +45,12 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-
-    if (this.center && this.map) 
-      this.map.setCenter(this.center)
-
+    for(let marker of this.markers){
+      marker.setMap(null);
+    }
+    this.markers = [];
+    
+  
 
     if (this.places && this.map) {
       console.log('GoogleMap', this.places);
@@ -55,7 +61,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
 
       this.places = this.places.slice(0, max);
       for ( var place of this.places){
-        this.addMarker(new google.maps.LatLng(place.location.lat, place.location.lng));
+        this.addMarker(place);
       }}
   }
 
@@ -70,19 +76,23 @@ export class GoogleMapComponent implements OnInit, OnChanges {
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, 
       mapOptions)
+
+      google.maps.event.addListener(this.map, 'idle', () => {
+        this.change.emit(this.map.getBounds());
+      } );
     
       if(this.editable){
-        let self = this;
-        google.maps.event.addListener(this.map, 'click', function(event) {
+      
+        google.maps.event.addListener(this.map, 'click', event => {
           let place = {
             lat: event.latLng.lat(),
             lng: event.latLng.lng()
           };
           
-          if(self.addPlace(place))
+          if(this.addPlace(place))
           {
-          self.placeChange.emit(place);
-          self.addMarker(new google.maps.LatLng(place.lat, place.lng));
+          this.placeChange.emit(place);
+          this.addMarker(new google.maps.LatLng(place.lat, place.lng));
           
           }
         });
@@ -100,20 +110,32 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     }
     return false;
   }
+  
+  setCenter(coord){
+    this.map.setCenter(coord);
+  }
+  setZoom(zoom){
+    this.map.setZoom(zoom);
+  }
+  addMarker(place: Place){
+   
 
-  addMarker(location){
     let marker: google.maps.Marker = new google.maps.Marker({
       map: this.map,
-      position:  location,
+      position:  new google.maps.LatLng(place.location.lat, place.location.lng),
     //  title: place.descripcion,
       draggable: this.editable ? true : false,
-      animation: google.maps.Animation.DROP
+     // animation: google.maps.Animation.DROP
   });
-  let self = this;
-  marker.addListener('dragend', function(event) {
+  marker.addListener('dragend', event =>{
     let place = {latitud:event.latLng.lat(), longitud: event.latLng.lng()};
-    self.placeChange.emit(place);
+    this.placeChange.emit(place);
   });
+  marker.addListener('click', () => {
+    this.seletedMarker.emit(place);
+  });
+
+  this.markers.push(marker);
 
   }
 }
