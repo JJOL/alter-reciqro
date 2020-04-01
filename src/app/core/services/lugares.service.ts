@@ -56,9 +56,13 @@ export class LugaresService {
         return snapshot.map(parseFBPlaceToPlace)
       }))
       .subscribe(places => {
+        
+        if(subscription){
+          subscription.unsubscribe();
+        }
+        
         resolve(places)
-        if(subscription)
-        subscription.unsubscribe();
+
       })
     });  
   }
