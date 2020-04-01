@@ -110,7 +110,13 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     }
     return false;
   }
-
+  
+  setCenter(coord){
+    this.map.setCenter(coord);
+  }
+  setZoom(zoom){
+    this.map.setZoom(zoom);
+  }
   addMarker(place: Place){
    
 
