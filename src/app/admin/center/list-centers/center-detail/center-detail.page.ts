@@ -17,7 +17,24 @@ import { NgIf } from '@angular/common';
 export class CenterDetailPage implements OnInit {
   
 
-  loadedPlace: Place;
+  loadedPlace: Place={
+    id : "",
+    name : "", 
+    description : "",
+    location: {
+      lat: 0,
+      lng: 0
+  },
+    qr_code : "",
+    photo : "",
+    address : "",
+    postal_code : 0,
+    places_type : {
+      id : "",
+      name : "",
+      description : ""
+    }
+  };
 
   constructor(
     private activatedRoute: ActivatedRoute,

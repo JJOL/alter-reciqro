@@ -12,7 +12,7 @@ import { Place } from 'src/app/core/models/lugar.model';
 export class EditCentersPage implements OnInit {
   updateBookingForm: FormGroup;
   
-  loadedPlace: Place={
+  place: Place={
     id : "",
     name : "", 
     description : "",
@@ -42,18 +42,21 @@ export class EditCentersPage implements OnInit {
     ) { }
 
   ngOnInit() {
+    console.log()
     this.activatedRoute.paramMap.subscribe(paraMap => {
-      if (!paraMap.has('placeId')) {
+      if (!paraMap.has('centerId')) {
         //redirect
         return;
       }
-      const placeId = paraMap.get('placeId');
+      console.log()
+      const placeId = paraMap.get('centerId');
       if (placeId) {
         this.placeService.getPlaceByID(placeId).then(place => {
-          this.loadedPlace = place;
-          console.log(this.loadedPlace.places_type);
-          console.dir(this.loadedPlace.places_type);
-          console.log(this.loadedPlace.location);
+          this.place = place;
+          console.log(place)
+          console.log(this.place.places_type);
+          console.dir(this.place.places_type);
+          console.log(this.place.location);
           
         });
       }
