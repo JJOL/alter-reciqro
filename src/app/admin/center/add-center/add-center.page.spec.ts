@@ -3,14 +3,12 @@ import { IonicModule } from '@ionic/angular';
 import { AddCenterPage } from './add-center.page';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { SharedPageModule } from 'src/app/shared/shared.module';
-import { from } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { LugaresService } from 'src/app/core/services/lugares.service';
 import { RouterModule } from '@angular/router';
 
 const arr = function(){};
 
-//const data = from(arr);
 const collectionStub3 = {
   subscribe: jasmine.createSpy('subscribe').and.returnValue(arr)
 }
@@ -35,6 +33,11 @@ mockService.allPlaceTypes.and.returnValue(
   res([])
 }));
 
+mockService.createPlace.and.returnValue(
+  new Promise<any>((res, rej) => {
+  res([])
+}));
+
 describe('AddCenterPage', () => {
   let component: AddCenterPage;
   let fixture: ComponentFixture<AddCenterPage>;
@@ -46,8 +49,8 @@ describe('AddCenterPage', () => {
       imports: [IonicModule.forRoot(), ReactiveFormsModule, SharedPageModule, RouterModule.forRoot([])],
       providers: [
         FormBuilder,
-        { provide: LugaresService, mockService },
-        { provide: AngularFirestore, useValue: angularFirestoreStub }
+        { provide: LugaresService, useValue: mockService },
+        { provide: AngularFirestore, useValue: angularFirestoreStub },
       ]
     }).compileComponents();
 
@@ -60,10 +63,11 @@ describe('AddCenterPage', () => {
     expect(component).toBeTruthy();
   });
 
-
   it('should call create service', () => {
     const lugaresService = TestBed.get(LugaresService);/*Servicio simulado*/
+
     component.submit(); 
+    
     expect(lugaresService.createPlace.calls.count()).toBe(1);
   });
 });

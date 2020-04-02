@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { LugaresService } from 'src/app/core/services/lugares.service';
 import { Place } from '../../core/models/lugar.model';
-import {NgIf} from '@angular/common';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { InAppBrowserObject } from '@ionic-native/in-app-browser';
+import { Platform } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-places-searcher-page',
@@ -17,10 +19,13 @@ export class PlacesSearcherPagePage implements OnInit {
 
   constructor(
     private placesService: LugaresService,
-    private geolocationCont: Geolocation
+    private geolocationCont: Geolocation,
+    private platform: Platform
   ) { }
 
   async ngOnInit() {
+
+    
 
     try {
       let geoPosition = await this.geolocationCont.getCurrentPosition();
@@ -33,21 +38,20 @@ export class PlacesSearcherPagePage implements OnInit {
     } catch (err) {
       console.log(err);
     }
-
-
     this.places = await this.placesService.getAllPlaces();
-    
 
-    console.log(this.places);
+    
+  }
 
-    // let foundPlaces = await this.queryPlaces({lat: 20.618336, lng:   -100.394293},
-    //    {lat: 20.616157, lng:  -100.391332}
-    //    );
-    // console.log('Found Places');
-    // console.log(foundPlaces);
-    
-    
-    
+  gotoCenter(lat, lng){
+    //console.log("lat " + lat + "lng " + lng);
+    console.log(this.platform.platforms);
+    if (this.platform.is('ios')) {
+      // This will only print when on iOS
+      new InAppBrowserObject('http://maps.apple.com/?daddr='+lat+','+lng);
+     }else{
+      new InAppBrowserObject('https://www.google.com/maps/dir//'+lat+','+lng+'/@'+lat+','+lng+',17z');
+     }
   }
 
   async onViewportChange(bounds) {

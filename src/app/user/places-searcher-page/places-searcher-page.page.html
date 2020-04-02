@@ -16,7 +16,7 @@
   <ion-grid class="ly-grid ion-fixed">
     <ion-row class="ly-row">
       <ion-col size="12">
-        <p *ngIf="placeSelected">{{placeSelected.id}}</p>
+        <ion-button *ngIf="placeSelected" (click)="gotoCenter(placeSelected.location.lat, placeSelected.location.lng)">Go to the center!</ion-button>
         <app-shared-google-map (seletedMarker)="test($event)" (change)="onViewportChange($event)" [editable]="false" [max]="30" [places]="places" [center]="position"></app-shared-google-map>
       </ion-col>
     </ion-row>
