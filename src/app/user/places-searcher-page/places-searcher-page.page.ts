@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LugaresService } from 'src/app/core/services/lugares.service';
+import {WastesService} from 'src/app/core/services/wastes.service';
+
 import { Place } from '../../core/models/lugar.model';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { InAppBrowserObject } from '@ionic-native/in-app-browser';
@@ -18,6 +20,7 @@ export class PlacesSearcherPagePage implements OnInit {
 
   constructor(
     private placesService: LugaresService,
+    private wasteService: WastesService,
     private geolocationCont: Geolocation,
     private platform: Platform
   ) { }
@@ -64,6 +67,20 @@ export class PlacesSearcherPagePage implements OnInit {
 
   test (jaja) {
     this.placeSelected=jaja;
+  }
+
+  filterByType(filters){
+    if(filters.length!=0){
+      this.wasteService.getPlacesByType(filters).then(data => {
+        let places:Place[] = [];
+        for(let place_type of data)
+        {
+          this.placesService.getPlaceByID(place_type.place).then(lugar => places.push(lugar));
+        }  
+        return places;
+      }).then(data => {console.log(data)});
+    }
+    
   }
 
 }

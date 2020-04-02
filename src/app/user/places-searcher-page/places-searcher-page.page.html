@@ -19,6 +19,7 @@
       <ion-col size="12">
         
         <ion-button *ngIf="placeSelected"><a target="_blank" href="https://www.google.com/maps/dir//{{placeSelected.location.lat}},{{placeSelected.location.lng}}/@{{placeSelected.location.lat}},{{placeSelected.location.lng}},17z">Go to the center!</a></ion-button>
+        <app-filter-menu (change)="filterByType($event)"></app-filter-menu>
         <app-shared-google-map (seletedMarker)="test($event)" (change)="onViewportChange($event)" [editable]="false" [max]="30" [places]="places" [center]="position"></app-shared-google-map>
       </ion-col>
     </ion-row>
