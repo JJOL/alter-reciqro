@@ -5,6 +5,7 @@
       <ion-menu-button menu="m1"></ion-menu-button>
     </ion-buttons>
     <ion-title>Buscador de Centros</ion-title>
+    
     <!--Here we will replace with the government icon-->
     <ion-buttons slot="end" class="ion-padding">
       <ion-icon name="earth-outline"></ion-icon>
@@ -16,7 +17,8 @@
   <ion-grid class="ly-grid ion-fixed">
     <ion-row class="ly-row">
       <ion-col size="12">
-        <ion-button *ngIf="placeSelected" (click)="gotoCenter(placeSelected.location.lat, placeSelected.location.lng)">Go to the center!</ion-button>
+        
+        <ion-button *ngIf="placeSelected"><a target="_blank" href="https://www.google.com/maps/dir//{{placeSelected.location.lat}},{{placeSelected.location.lng}}/@{{placeSelected.location.lat}},{{placeSelected.location.lng}},17z">Go to the center!</a></ion-button>
         <app-shared-google-map (seletedMarker)="test($event)" (change)="onViewportChange($event)" [editable]="false" [max]="30" [places]="places" [center]="position"></app-shared-google-map>
       </ion-col>
     </ion-row>
