@@ -1,3 +1,4 @@
+import { MarkerCardComponent } from './../marker-card/marker-card.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
@@ -39,7 +40,7 @@ describe('PlacesSearcherPagePage', () => {
   beforeEach(async(() => {
     const firestoreMockSpy = jasmine.createSpyObj('AngularFirestore', ['collection']);
     TestBed.configureTestingModule({
-      declarations: [ PlacesSearcherPagePage ],
+      declarations: [ PlacesSearcherPagePage, MarkerCardComponent ],
       imports: [IonicModule.forRoot(), SharedPageModule],
       providers: [
         { provide: LugaresService, useValue: mockPlacesService },

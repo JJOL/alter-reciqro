@@ -1,3 +1,60 @@
-.ly-grid, .ly-row {
+.ly-grid-map {
     height: 100%;
+    position: relative;
 }
+.ly-grid-filter {
+    height: 80%;
+    position: relative;
+}
+
+.markerCardabsolute{
+  position: absolute;
+  bottom: 50%;
+  left: 20%;
+  padding: 1px;
+  --background:#0f2252;
+  --border-width:100%;
+}
+ion-title{
+    --color:white;
+}
+ion-toolbar{
+    --color:white;
+}
+
+.filters{
+    position: absolute;
+    bottom: 3%;
+    right: 5%;
+    padding: 1px;
+    --background:#0f2252;
+    --border-width:100%;
+}
+.cancelfilters{
+  visibility: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1px;
+    --background:#0f2252;
+    --border-width:100%;
+}
+
+.qro{
+    position: absolute;
+    top: 10%;
+    right: 0%;
+    padding: 1px;
+    --background:#0f2252;
+    --border-width:100%;
+}
+
+.bottomright{
+    position: absolute;
+    bottom: 3%;
+    right: 5%;
+    padding: 1px;
+    --background:#0f2252;
+    --border-width:100%;
+}
+
