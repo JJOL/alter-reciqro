@@ -56,9 +56,13 @@ export class LugaresService {
         return snapshot.map(parseFBPlaceToPlace)
       }))
       .subscribe(places => {
+        
+        if(subscription){
+          subscription.unsubscribe();
+        }
+        
         resolve(places)
-        if(subscription)
-        subscription.unsubscribe();
+
       })
     });  
   }
@@ -186,9 +190,9 @@ export class LugaresService {
 
     // const maxPoint = new GeoPoint(topLeftPos.lat, topLeftPos.lng);
     // const minPoint = new GeoPoint(botRightPos.lat, botRightPos.lng);
+    let subscription: Subscription;
 
     return new Promise((resolve, reject) => {
-      let subscription: Subscription;
       subscription = this.firedb.collection(PLACE_KEY)
         .snapshotChanges()
         .pipe(map(snapshot => {
@@ -200,22 +204,11 @@ export class LugaresService {
         }))
         .subscribe(places => {
           resolve(places);
-          subscription.unsubscribe();
+          if (subscription)
+            subscription.unsubscribe();
         })
       
     });
   }
-
-  /*
-  getPlacesByPosition(lat: number, lng: number, radius: number): Lugar[] {
-    return [...this.fakePlaces.filter(place => this.distanceBetween(place.latitud, place.longitud, lat, lng) <= radius )];
-  }
-
-  private distanceBetween(lat1: number, lng1: number, lat2: number, lng2: number): number {
-    const latSqrd = Math.pow(lat1 - lat2, 2);
-    const lngSqrd = Math.pow(lng1 - lng2, 2);
-        
-    return Math.sqrt(latSqrd + lngSqrd);
-  }*/
 
 }

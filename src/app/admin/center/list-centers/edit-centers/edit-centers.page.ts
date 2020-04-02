@@ -31,7 +31,7 @@ export class EditCentersPage implements OnInit {
     places_type : {
       id : "",
       name : "",
-      description : ""
+      icon : ""
     }
   };
   loadedPlacetypes: TipoInstalacion[];

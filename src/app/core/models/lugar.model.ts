@@ -13,5 +13,4 @@ export class Place {
     address : string
     postal_code : number
     places_type : TipoInstalacion
-    
 }

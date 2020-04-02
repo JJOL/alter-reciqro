@@ -23,15 +23,18 @@
     "@google/maps": "^1.1.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/geolocation": "^5.23.0",
+    "@ionic-native/in-app-browser": "^4.20.0",
     "@ionic-native/splash-screen": "^5.0.0",
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^5.0.0",
     "angularfire2": "^5.4.2",
+    "cordova-plugin-inappbrowser": "^3.2.0",
     "core-js": "^2.5.4",
     "firebase": "^7.13.1",
     "googlemaps": "^1.12.0",
     "net": "^1.0.2",
     "rxjs": "~6.5.1",
+    "rxjs-compat": "^6.5.4",
     "ts-node": "^8.8.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
@@ -60,5 +63,10 @@
     "tslint": "~5.15.0",
     "typescript": "~3.4.3"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-inappbrowser": {}
+    }
+  }
 }

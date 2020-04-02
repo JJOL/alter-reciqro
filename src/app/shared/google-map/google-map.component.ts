@@ -35,7 +35,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   @Output() change = new EventEmitter();
   @Output() seletedMarker = new EventEmitter<Place>();
 
-  constructor( private placeTypeService: LugaresService) { }
+  constructor() { }
 
   
 
@@ -105,10 +105,9 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   //Hay que ver la forma de explorar hacer tipos más pequeños
   addPlace(place){
     if(this.places.length<this.max){
-      this.places.push(place);
-      return true;
+      return this.places.push(place);
     }
-    return false;
+    return 0;
   }
   
   setCenter(coord){
@@ -118,7 +117,6 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     this.map.setZoom(zoom);
   }
   addMarker(place: Place){
-   
 
     let marker: google.maps.Marker = new google.maps.Marker({
       map: this.map,
@@ -135,7 +133,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     this.seletedMarker.emit(place);
   });
 
-  this.markers.push(marker);
+  return this.markers.push(marker);
 
   }
 }
