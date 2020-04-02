@@ -204,7 +204,7 @@ export class EditCentersPage implements OnInit {
       // use id
       this.showToast('Lugar editado de manera exitosa');
       this.newCenterForm.reset();
-      //this.navCtrl.navigateBack(['/admin/center']);
+      this.navCtrl.navigateBack(['/admin/center/list-centers']);
     })
     .catch(err => {
       this.showToast('Error al cargar el lugar');
