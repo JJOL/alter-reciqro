@@ -8,9 +8,11 @@ import { Place } from '../models/lugar.model';
 import { TipoInstalacion } from '../models/tipo-instalacion.model';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { WasteType } from '../models/waste-type';
 
 const PLACE_KEY = '/places';
 const PLACE_TYPE_KEY = '/place_type';
+const WASTE_TYPE_KEY = '/waste_types';
 
 const GeoPoint = firebase.firestore.GeoPoint;
 
@@ -44,11 +46,11 @@ function isWithin(val, min, max) {
 export class LugaresService {
   placeTypes: any;
   
-  constructor(private firedb: AngularFirestore) {
-    
+  constructor(
+    private firedb: AngularFirestore) {
   }
   
-  async getAllPlaces(): Promise<Place[]> {
+  getAllPlaces(): Promise<Place[]> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<any>(PLACE_KEY).snapshotChanges()
@@ -56,18 +58,15 @@ export class LugaresService {
         return snapshot.map(parseFBPlaceToPlace)
       }))
       .subscribe(places => {
-        
         if(subscription){
           subscription.unsubscribe();
         }
-        
         resolve(places)
-
       })
     });  
   }
 
-  async getPlaceByID(id: string): Promise<Place> {
+  getPlaceByID(id: string): Promise<Place> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<any>(PLACE_KEY).doc<any>(id).valueChanges()
@@ -82,19 +81,20 @@ export class LugaresService {
           }
         ))
       .subscribe(places => {
+        if(subscription){
+          subscription.unsubscribe();
+        }
         resolve(places)
-        if(subscription)
-        subscription.unsubscribe();
       })
-    });  
+    });
   }
-
+  
   async deletePlaceByID(id: string): Promise<void> {
     return new Promise((resolve, reject) => {
       this.firedb.collection<Place>(PLACE_KEY).doc<Place>(id).delete().then(() => {
         resolve();
       });
-    });  
+    });
   }
 
   async allPlaceTypes(): Promise<any[]> {
@@ -109,9 +109,10 @@ export class LugaresService {
         })
       }))
       .subscribe(places => {
+        if(subscription){
+          subscription.unsubscribe();
+        }
         resolve(places)
-        if(subscription)
-        subscription.unsubscribe();
       })
     });  
   }
@@ -129,9 +130,12 @@ export class LugaresService {
           }
         ))
       .subscribe(places => {
+        
+        if(subscription) {
+          subscription.unsubscribe();
+        }
         resolve(places)
-        if(subscription)
-        subscription.unsubscribe();
+        
       })
     });  
   }

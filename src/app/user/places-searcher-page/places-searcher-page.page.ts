@@ -101,7 +101,7 @@ export class PlacesSearcherPagePage implements OnInit {
       this.loadedPlaceType = {
         id: "",
         name: "¡Error! No se pudo cargar, el lugar no está asociado a un tipo de lugar",
-        description: ""
+        icon: ""
       };
     }
   }
