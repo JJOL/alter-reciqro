@@ -22,7 +22,7 @@ export class PlacesSearcherPagePage implements OnInit {
     'ion-no-padding': true,
     'ly-grid-filter': false
   }
-  
+
   loadedPlaceType: TipoInstalacion;
   places: Place[];
   position: { lat: number, lng: number};
