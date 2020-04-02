@@ -7,14 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { EditCentersPageRoutingModule } from './edit-centers-routing.module';
 
 import { EditCentersPage } from './edit-centers.page';
+import {SharedPageModule} from '../../../../shared/shared.module';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormsModule,
+    // FormsModule,
     IonicModule,
-    EditCentersPageRoutingModule
+    EditCentersPageRoutingModule,
+    SharedPageModule,
   ],
   declarations: [EditCentersPage]
 })

@@ -51,7 +51,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     this.markers = [];
     
   
-
+    console.log(this.places)
     if (this.places && this.map) {
       console.log('GoogleMap', this.places);
 

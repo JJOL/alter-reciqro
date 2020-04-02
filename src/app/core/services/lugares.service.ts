@@ -66,13 +66,14 @@ export class LugaresService {
   async getPlaceByID(id: string): Promise<Place> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
-      subscription = this.firedb.collection<Place>(PLACE_KEY).doc<Place>(id).valueChanges()
+      subscription = this.firedb.collection<any>(PLACE_KEY).doc<any>(id).valueChanges()
       .pipe(
         take(1),
         map(
           place => {
             place.id = id;
-
+            place.location = {lat:place.location.latitude,lng : place.location.longitude}
+            
             return place
           }
         ))
@@ -152,7 +153,27 @@ export class LugaresService {
       )
     })
   }
-
+  editPlace(placeObject,id:string) {
+    let geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
+    return new Promise<any>((resolve, reject) =>{
+     this.firedb.collection(PLACE_KEY).doc(id).set({
+      address: placeObject.address.street,
+      description: placeObject.description,
+      location: geoPoint,
+      name: placeObject.name,
+      photo: placeObject.mainPicture,
+      places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
+      postal_code: placeObject.address.zip,
+      qr_code: placeObject.qrCode
+    }, {merge: true} )
+    .then(
+      (res) => {
+        resolve(res)
+      },
+      err => reject(err)
+    )
+  })
+ }
   searchMapPlaces(topLeftPos, botRightPos): Promise<Place[]> {
 
     const minLat = Math.min(topLeftPos.lat, botRightPos.lat);
