@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { LugaresService } from './lugares.service';
 import { from } from 'rxjs';
 import { GeoPoint } from '../models/geopoint.model';
+import { resolve } from 'url';
 
 // const arr = [[]];
 // const data = from(arr);
@@ -13,12 +14,11 @@ import { GeoPoint } from '../models/geopoint.model';
 //   collection: jasmine.createSpy('collection').and.returnValue(collectionStub)
 // }
 
-
 function placeLocToFBLoc(placeLoc) {
   return new GeoPoint(placeLoc.lat, placeLoc.lng);
 }
 
-function makeFBCollectioFromData(testData: any[]) {
+function makeFBCollectionFromData_SnapshotChanges (testData: any[]) {
   let fbData = testData.map(testObj => {
     return {
       payload: {
@@ -31,7 +31,66 @@ function makeFBCollectioFromData(testData: any[]) {
   const fbMockCollection = {
     snapshotChanges: () => {
       return from([ fbData ]);
-    }
+    },
+    doc: () => {
+      return {
+        valueChanges: () => {
+          return from([ fbData ]);
+        },
+        delete: () => {
+          return from([ fbData ]);
+        }
+      }
+    },
+    
+  };
+  return fbMockCollection;
+}
+
+function makeFBCollectionFromData_ValueChanges (testData: any[]) {
+  const fbMockCollection = {
+    doc: (id) => {
+      testData = testData.filter(obj => {
+        return obj.id == id
+      } )
+      return {
+        valueChanges: () => {
+          return from( testData );
+        }
+      }
+    },
+    
+  };
+  return fbMockCollection;
+}
+
+function makeFBCollectionFromData_Delete (testData: any[]) {
+  let functionData = [...testData]
+  const fbMockCollection = {
+    snapshotChanges: () => {
+      let fbData = functionData.map(testObj => {
+        return {
+          payload: {
+            doc: {
+              data: () => testObj
+            }
+          }
+        };
+      })
+      return from([ fbData ]);
+    },
+    doc: (id) => {
+      return {
+        delete: () => {
+          functionData = functionData.filter(obj => {
+            return obj.id != id
+          } )
+          return new Promise((resolve,reject) => {
+            resolve();
+          });
+        }
+      }
+    },
   };
   return fbMockCollection;
 }
@@ -60,40 +119,64 @@ describe('LugaresService', () => {
     expect(placesService).toBeTruthy();
   });
 
-  it('#getAllPlaces should return all Places', (done: DoneFn) => {
-    // Test Data Setup
-    const p1 = {
-      id : "1",
-      name : "Centro Cívico", 
-      description : "Recolección de pilas, papel y llantas",
-      location: {
-        latitude: 4,
-        longitude: 4
-      },
-      qr_code : "none",
-      photo : "none",
-      address : "Centro Cívico",
-      postal_code : "76146",
-      places_type : {
-        id : "1",
-        name : "Papelera",
-        description : "Separación de cartón"
-      }
-    };
-    const testData = [p1];
-    
-    mockFirestoreSpy.collection.and.returnValue(makeFBCollectioFromData(testData) as unknown as AngularFirestoreCollection);
+  const place1 = {
+    id : "1", name : "Centro Cívico", description : "Recolección de pilas, papel y llantas",
+    location: { latitude: 4, longitude: 4 },
+    qr_code : "none", photo : "none", address : "Centro Cívico", postal_code : "76146",
+    places_type : { id : "1", name : "Papelera",  description : "Separación de cartón"}
+  };
 
+  const place2 = {
+    id : "2", name : "Basurero Municipal", description : "Recolección de desechos urbanos",
+    location: { latitude: 5, longitude: 5 },
+    qr_code : "none", photo : "none", address : "Bernardo Quintana", postal_code : "12345",
+    places_type : { id : "1", name : "Papelera",  description : "Separación de cartón"}
+  };
+
+  it('#getAllPlaces should return all Places', function(done) {
+    // Test Data Setup
+    const testData = [place1, place2];
+    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromData_SnapshotChanges(testData) as unknown as AngularFirestoreCollection);
     // Execute Function
     placesService.getAllPlaces()
-    .then(lugares => {
+    .then(places => {
       // Verify Results
-      expect(lugares.length).toBe(1);
+      expect(places.length).toBe(2);
+      expect(places[0].name).toBe("Centro Cívico");
       done();
     });
   });
 
-  it('#searchMapPlaces should return Places within query location range', (done: DoneFn) => {
+  it('#getPlaceByID should return a Place if it exists', function(done) {
+    // Test Data Setup
+    const testData = [place1, place2];
+    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromData_ValueChanges(testData) as unknown as AngularFirestoreCollection);
+    // Execute Function
+    placesService.getPlaceByID("2")
+    .then(place => {
+      // Verify Results
+      expect(place.name).toBe("Basurero Municipal");
+      done();
+    });
+  });
+  
+  it('#deletePlaceByID should delete a Place if it exists', function(done) {
+    // Test Data Setup
+    const testData = [place1, place2];
+    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromData_Delete(testData) as unknown as AngularFirestoreCollection);
+    // Execute Function
+    placesService.deletePlaceByID("1")
+    .then(place => {
+      // Verify Results
+      console.log(place);
+      placesService.getAllPlaces().then (lugares => {
+        expect(lugares.length).toBe(1);
+        done ();
+      })
+    });
+  });
+
+  it('#searchMapPlaces should return Places within query location range', function(done) {
     // Test Data Setup
     const ne = { lat: 40, lng: 120 };
     const sw = { lat: -40, lng: 40 };
@@ -111,7 +194,7 @@ describe('LugaresService', () => {
         location: p3
       },
     ];
-    mockFirestoreSpy.collection.and.returnValue(makeFBCollectioFromData(testData) as unknown as AngularFirestoreCollection);
+    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromData_SnapshotChanges(testData) as unknown as AngularFirestoreCollection);
 
     // Execute Function
     placesService.searchMapPlaces(ne, sw)
