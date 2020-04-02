@@ -21,10 +21,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   @Input() places: Place[] = [] ; 
   @Input() editable: boolean; 
   @Input() max: number;
-  @Input() center: {
-    lat: number,
-    lng: number
-  } = {
+  @Input() center: any  = {
     lat: 20.610381,
     lng: -100.382063
   };
@@ -34,7 +31,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   @Output() placeChange = new EventEmitter(); 
   @Output() change = new EventEmitter();
   @Output() seletedMarker = new EventEmitter<Place>();
-
+  toloaded : boolean = true;
   constructor() { }
 
   
@@ -42,19 +39,22 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   ngOnInit(){
     this.max = this.max==null?Number.MAX_SAFE_INTEGER:this.max;
     this.initMap();
+    //this.setCenter(new google.maps.LatLng(this.center.lat, this.center.lng))
   }
 
   ngOnChanges() {
+    if(this.center && this.toloaded && this) {
+     // this.setCenter(this.center);
+      this.toloaded=false;
+    }
     for(let marker of this.markers){
       marker.setMap(null);
     }
     this.markers = [];
     
   
-    console.log(this.places)
 
     if (this.places && this.map) {
-      console.log('GoogleMap', this.places);
 
       //Se acota deacuerdo al máximo
       // let min = this.max<this.places.length ? this.max : 0;
@@ -66,10 +66,8 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   }
 
   initMap(){
-    
-    let coords = DEFAULT_CENTER_COORD;
     let mapOptions: google.maps.MapOptions = {
-      center: coords,
+      center: DEFAULT_CENTER_COORD,
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
