@@ -169,9 +169,9 @@ export class LugaresService {
 
     // const maxPoint = new GeoPoint(topLeftPos.lat, topLeftPos.lng);
     // const minPoint = new GeoPoint(botRightPos.lat, botRightPos.lng);
+    let subscription: Subscription;
 
     return new Promise((resolve, reject) => {
-      let subscription: Subscription;
       subscription = this.firedb.collection(PLACE_KEY)
         .snapshotChanges()
         .pipe(map(snapshot => {
@@ -183,7 +183,8 @@ export class LugaresService {
         }))
         .subscribe(places => {
           resolve(places);
-          subscription.unsubscribe();
+          if (subscription)
+            subscription.unsubscribe();
         })
       
     });
