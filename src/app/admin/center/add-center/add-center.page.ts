@@ -112,7 +112,7 @@ export class AddCenterPage implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    //this.placeTypeService.allPlaceTypes().then( data => { this.loadedPlacetypes=data });
+    this.placeTypeService.allPlaceTypes().then( data => { this.loadedPlacetypes=data });
   }
 
   ionViewDidEnter(){
