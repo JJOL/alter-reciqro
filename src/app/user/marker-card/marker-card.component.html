@@ -7,7 +7,7 @@
     <ion-card-content>Dirección: {{placeSelected.address}}
     </ion-card-content>
     <ion-card-content>
-      <a  class="bottomright" href=''>Ir a {{placeSelected.name}}</a>
+      <ion-button fill="outline" *ngIf="placeSelected"><a target="_blank" href="https://www.google.com/maps/dir//{{placeSelected.location.lat}},{{placeSelected.location.lng}}/@{{placeSelected.location.lat}},{{placeSelected.location.lng}},17z">Ir a {{placeSelected.name}}</a></ion-button>
     </ion-card-content>
   </ion-card>  
 </ion-content>

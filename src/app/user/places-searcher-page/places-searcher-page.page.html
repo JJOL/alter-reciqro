@@ -16,10 +16,8 @@
   <ion-grid  [ngClass]="classname" >
     <ion-row  [ngClass]="classname">
       <ion-col size="12">
-        
-        <ion-button *ngIf="placeSelected"><a target="_blank" href="https://www.google.com/maps/dir//{{placeSelected.location.lat}},{{placeSelected.location.lng}}/@{{placeSelected.location.lat}},{{placeSelected.location.lng}},17z">Go to the center!</a></ion-button>
         <app-filter-menu (change)="filterByType($event)"></app-filter-menu>
-         <app-shared-google-map #mapElement (seletedMarker)="emitPlace($event)" (change)="onViewportChange($event)" [editable]="false" [max]="30" [places]="places" [center]="position">
+        <app-shared-google-map #mapElement (seletedMarker)="emitPlace($event)" (change)="onViewportChange($event)" [editable]="false" [max]="30" [places]="places" [center]="position">
         </app-shared-google-map>
         <app-marker-card  (changeView)="componentView($event)" [loadedPlaceType]="loadedPlaceType" [placeSelected]="placeSelected"></app-marker-card>
         <ion-button  shape="round" class="filters" (click)="openFilters()" >Filtros</ion-button>
