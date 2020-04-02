@@ -22,7 +22,8 @@ import { environment } from '../environments/environment';
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.database.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    
   ],
   providers: [
     StatusBar,

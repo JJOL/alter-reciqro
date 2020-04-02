@@ -1,33 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
 
 import { LugaresService } from 'src/app/core/services/lugares.service';
 import { Place } from 'src/app/core/models/lugar.model';
-import { Observable } from 'rxjs';
-
-import { NgIf } from '@angular/common';
-
+import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 
 @Component({
   selector: 'app-center-detail',
   templateUrl: './center-detail.page.html',
   styleUrls: ['./center-detail.page.scss'],
 })
+
 export class CenterDetailPage implements OnInit {
   
 
-
-  loadedPlace: Place;
-
-  constructor(
+  loadedPlace: Place={
+    id : "",
+    name : "", 
+    description : "",
+    location: {
+      lat: 0,
+      lng: 0
+  },
+    qr_code : "",
+    photo : "",
+    address : "",
+    postal_code : 0,
+    places_type : {
+      id : "",
+      name : "",
+      description : ""
+    }
+  };
+  loadedPlaceType: TipoInstalacion;
+  constructor (
     private activatedRoute: ActivatedRoute,
     private placeService: LugaresService,
-    private router: Router,
     private alertCtrl: AlertController,
     private navCtrl: NavController
-    ) { }
-  
+  ) { }
   
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
@@ -39,13 +51,26 @@ export class CenterDetailPage implements OnInit {
       if (centerId) {
         this.placeService.getPlaceByID(centerId).then(place => {
           this.loadedPlace = place;
-          console.log(this.loadedPlace.places_type);
-          console.dir(this.loadedPlace.places_type);
-          console.log(this.loadedPlace.location);
-          
+
+          //get placeType
+          if (this.loadedPlace.places_type.id) {
+            this.placeService.getPlaceTypeByID(""+this.loadedPlace.places_type.id).then(placeType => {
+              this.loadedPlaceType = placeType;
+            });
+          } else {
+            this.loadedPlaceType = {
+              id: "",
+              name: "¡Error! No se pudo cargar, el lugar no está asociado a un tipo de lugar",
+              description: ""
+            };
+          }
         });
       }
     });
+  }
+
+  ionViewWillEnter (){
+    
   }
 
   onDeletePlace() {
@@ -72,14 +97,4 @@ export class CenterDetailPage implements OnInit {
   onChangeMarker(coords){
     console.log(coords);
   }
-  
-  /*
-    this.placeService.deletePlaceByID(this.loadedPlace.id).then(() => {
-      this.navCtrl.navigateBack(['/admin/center/list-centers']);
-      //this.showToast('Idea deleted');
-    }, err => {
-      //this.showToast('There was a problem deleting your idea :(');
-    });
-
-  }*/
 }

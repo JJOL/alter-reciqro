@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 const PLACE_KEY = '/places';
+const PLACE_TYPE_KEY = '/place_type';
 
 const GeoPoint = firebase.firestore.GeoPoint;
 
@@ -28,7 +29,7 @@ function parseFBPlaceToPlace(fbPlace: any): Place {
     photo: data.photo,
     places_type: data.places_type,
     qr_code: data.qr_code,
-    postal_code: data.postal_code,
+    postal_code: data.postal_code
   }
   return place;
 }
@@ -36,8 +37,6 @@ function parseFBPlaceToPlace(fbPlace: any): Place {
 function isWithin(val, min, max) {
   return val > min && val < max;
 }
-
-
 
 @Injectable({
   providedIn: 'root'
@@ -57,9 +56,13 @@ export class LugaresService {
         return snapshot.map(parseFBPlaceToPlace)
       }))
       .subscribe(places => {
+        
+        if(subscription){
+          subscription.unsubscribe();
+        }
+        
         resolve(places)
-        if(subscription)
-        subscription.unsubscribe();
+
       })
     });  
   }
@@ -85,8 +88,6 @@ export class LugaresService {
     });  
   }
 
-  
-
   async deletePlaceByID(id: string): Promise<void> {
     return new Promise((resolve, reject) => {
       this.firedb.collection<Place>(PLACE_KEY).doc<Place>(id).delete().then(() => {
@@ -106,6 +107,26 @@ export class LugaresService {
           return {id, ...data};
         })
       }))
+      .subscribe(places => {
+        resolve(places)
+        if(subscription)
+        subscription.unsubscribe();
+      })
+    });  
+  }
+
+  async getPlaceTypeByID(id: string): Promise<TipoInstalacion> {
+    return new Promise((resolve, reject) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<TipoInstalacion>(PLACE_TYPE_KEY).doc<TipoInstalacion>(id).valueChanges()
+      .pipe(
+        take(1),
+        map(
+          placeType => {
+            placeType.id = id;
+            return placeType
+          }
+        ))
       .subscribe(places => {
         resolve(places)
         if(subscription)
@@ -149,7 +170,6 @@ export class LugaresService {
     // const maxPoint = new GeoPoint(topLeftPos.lat, topLeftPos.lng);
     // const minPoint = new GeoPoint(botRightPos.lat, botRightPos.lng);
 
-
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
       subscription = this.firedb.collection(PLACE_KEY)
@@ -168,17 +188,5 @@ export class LugaresService {
       
     });
   }
-
-  /*
-  getPlacesByPosition(lat: number, lng: number, radius: number): Lugar[] {
-    return [...this.fakePlaces.filter(place => this.distanceBetween(place.latitud, place.longitud, lat, lng) <= radius )];
-  }
-
-  private distanceBetween(lat1: number, lng1: number, lat2: number, lng2: number): number {
-    const latSqrd = Math.pow(lat1 - lat2, 2);
-    const lngSqrd = Math.pow(lng1 - lng2, 2);
-        
-    return Math.sqrt(latSqrd + lngSqrd);
-  }*/
 
 }

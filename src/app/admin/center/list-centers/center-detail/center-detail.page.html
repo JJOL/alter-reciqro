@@ -9,41 +9,75 @@
         <ion-icon name="trash" slot="icon-only"> </ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-buttons slot="secondary">
+      <ion-button  [routerLink]="['/admin/center/list-centers/edit-centers', loadedPlace.id]">
+        <ion-icon name="create" style="zoom:1.5"></ion-icon> 
+        <!-- <ion-label>Editar</ion-label> -->
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid *ngIf="loadedPlace">
 
+  
+  
+  <ion-grid *ngIf="loadedPlace">
+    
     <ion-row>
+      <ion-col size = "2" size-sm = "7" offset-sm="2" text-center>
+        <ion-card *ngIf="loadedPlace">
+          <ion-img [src]="loadedPlace.photo"></ion-img>
+          <ion-card-header>
+            <ion-card-subtitle>{{ loadedPlace.address }}</ion-card-subtitle>
+            <ion-card-title>{{ loadedPlace.name }}</ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <p> {{ loadedPlace.description }} </p>
+            <br>
+            <h4> <strong> Código QR: </strong> </h4>
+            <p> {{ loadedPlace.qr_code }} </p>
+            <br>
+            <h4> <strong> Código Postal: </strong> </h4>
+            <p> {{ loadedPlace.postal_code }} </p>
+            <br>
+            <h4> <strong> Tipo de Instalación: </strong> </h4>
+            <p *ngIf="!loadedPlaceType"> Cargando ... </p>
+            <p *ngIf="loadedPlaceType"> {{ loadedPlaceType.name }} </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!--ion-row>
       <ion-col size = "12" size-sm = "8" offset-sm="2" text-center class="ion-text-center">
-        <h1> {{ loadedPlace.name }} </h1>
+        <h1> <strong> {{ loadedPlace.name }} </strong> </h1>
       </ion-col>
     </ion-row>
     
     <ion-row>
 
-      <ion-col class="spacePhoto" size = "3" size-sm = "8"  >
+      <ion-col class="spacePhoto" size-sm = "6"  >
         <ion-img [src]="loadedPlace.photo"></ion-img>
       </ion-col>
       
       <ion-col class="spaceWithPhoto" text-center>
-        <h4> Decripción: </h4>
+        <h4> <strong> Decripción: </strong> </h4>
         <p> {{ loadedPlace.description }} <p>
-        <h4> Código QR: </h4>
+        <h4> <strong> Código QR: </strong> </h4>
         <p> {{ loadedPlace.qr_code }} <p>
-        <h4> Calle: </h4>
+        <h4> <strong> Dirección: </strong> </h4>
         <p> {{ loadedPlace.address }} <p>
-        <h4> Ciudad: </h4>
-        <p> {{ loadedPlace.address }} <p>
-        <h4> Código Postal: </h4>
+        <h4> <strong> Código Postal: </strong> </h4>
         <p> {{ loadedPlace.postal_code }} <p>
-        <h4> Tipo de Instalación: </h4>
-        <p> {{ loadedPlace.places_type.name }} <p>
+        <h4> <strong> Tipo de Instalación: </strong> </h4>
+        <p *ngIf="!loadedPlaceType"> Cargando ... </p>
+        <p *ngIf="loadedPlaceType"> {{ loadedPlaceType.name }} </p>
+
+
       </ion-col>
-
-
-    </ion-row>
+    </ion-row-->
 
   </ion-grid>
 </ion-content>

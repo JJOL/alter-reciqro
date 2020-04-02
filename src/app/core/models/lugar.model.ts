@@ -8,8 +8,6 @@ export class Place {
         lat: number,
         lng: number
     }
-    //longitud : number
-    //latitud : number
     qr_code : string
     photo : string
     address : string

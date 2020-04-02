@@ -1,3 +1,4 @@
+
 # RECIQRO
 ## Version 0.0.0
 Una experiencia digital que buscan forma ciudadanos ecologicamente responsables en la ciudad de Querétaro fomentandolos a:
@@ -20,9 +21,13 @@ Consulta la wiki de arquitectura en [Alter Arquitecture Handook](http://altermx.
  * Whatsapp
  * Slack
  * Discord
+	* Inicia Discord y unete al servidor de Gobierno al comienzo de tu jornada de trabajo.
+	* Siempre procura mantener tu "nickname" actualizado con la tarea que estas realizando.
+	* Utiliza los canales para realizar programción en parejas.
 
 - **Herramientas de Administración de Tiempo:**
  * Clockify
+ Registra tus horas de trabajo.
  * Wakatime
 
 - **Herramientas de Administración de Tareas:**
