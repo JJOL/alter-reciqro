@@ -22,7 +22,7 @@ describe('GoogleMapComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  let place = {id:"asd",name:"dasd",description:"dasd",location:{lat:100,lng:200},qr_code:"das", photo:"das", address:"dsa", postal_code:1, places_type:{id:"",name:"das",description:"das"}};
+  let place = {id:"asd",name:"dasd",description:"dasd",location:{lat:100,lng:200},qr_code:"das", photo:"das", address:"dsa", postal_code:1, places_type:{id:"",name:"das",icon:"das"}};
 
   it('should add marker', () => {
     expect(component.addPlace(place)).toEqual(1);

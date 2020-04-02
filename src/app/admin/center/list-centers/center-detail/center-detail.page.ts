@@ -30,7 +30,7 @@ export class CenterDetailPage implements OnInit {
     places_type : {
       id : "",
       name : "",
-      description : ""
+      icon : ""
     }
   };
   loadedPlaceType: TipoInstalacion;
@@ -61,7 +61,7 @@ export class CenterDetailPage implements OnInit {
             this.loadedPlaceType = {
               id: "",
               name: "¡Error! No se pudo cargar, el lugar no está asociado a un tipo de lugar",
-              description: ""
+              icon: ""
             };
           }
         });

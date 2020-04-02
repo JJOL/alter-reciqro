@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {WasteType} from '../models/waste-type';
 import { async } from '@angular/core/testing';
-const PLACE_KEY = '/waste_types';
+const PLACE_KEY = '/place_type';
 
 @Injectable({
   providedIn: 'root'
