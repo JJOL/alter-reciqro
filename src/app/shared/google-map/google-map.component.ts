@@ -82,17 +82,18 @@ export class GoogleMapComponent implements OnInit, OnChanges {
       } );
     
       if(this.editable){
-      
+        
         google.maps.event.addListener(this.map, 'click', event => {
-          let place = {
+          let place = { 
+            location: {
             lat: event.latLng.lat(),
-            lng: event.latLng.lng()
+            lng: event.latLng.lng()}
           };
           
           if(this.addPlace(place))
           {
           this.placeChange.emit(place);
-          this.addMarker(new google.maps.LatLng(place.lat, place.lng));
+          this.addMarker(place);
           
           }
         });
@@ -116,7 +117,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   setZoom(zoom){
     this.map.setZoom(zoom);
   }
-  addMarker(place: Place){
+  addMarker(place){
 
     let marker: google.maps.Marker = new google.maps.Marker({
       map: this.map,
@@ -126,7 +127,11 @@ export class GoogleMapComponent implements OnInit, OnChanges {
      // animation: google.maps.Animation.DROP
   });
   marker.addListener('dragend', event =>{
-    let place = {latitud:event.latLng.lat(), longitud: event.latLng.lng()};
+    let place = { 
+      location: {
+      lat: event.latLng.lat(),
+      lng: event.latLng.lng()}
+    };
     this.placeChange.emit(place);
   });
   marker.addListener('click', () => {
