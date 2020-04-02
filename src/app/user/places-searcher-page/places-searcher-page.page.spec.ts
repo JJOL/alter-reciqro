@@ -1,3 +1,4 @@
+import { MarkerCardComponent } from './../marker-card/marker-card.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
@@ -37,7 +38,7 @@ describe('PlacesSearcherPagePage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlacesSearcherPagePage ],
+      declarations: [ PlacesSearcherPagePage, MarkerCardComponent ],
       imports: [IonicModule.forRoot(), SharedPageModule],
       providers: [
         { provide: LugaresService, useValue: mockPlacesService },
