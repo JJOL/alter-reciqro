@@ -13,12 +13,19 @@ import { SharedPageModule } from 'src/app/shared/shared.module';
 const arr = [[]];
 
 const data = from(arr);
-
-const collectionStub = {
+const collectionStub3 = {
+  subscribe: jasmine.createSpy('subscribe').and.returnValue(arr)
+}
+const collectionStub2 = {
+  pipe: jasmine.createSpy('pipe').and.returnValue(collectionStub3)
+}
+const collectionStub5 = {
   valueChanges: jasmine.createSpy('valueChanges').and.returnValue(data)
 }
-
-const angularFirestoreStub = {
+const collectionStub = {
+  snapshotChanges: jasmine.createSpy('snapshotChanges').and.returnValue(collectionStub2)
+}
+const angularFirestoreStub4 = {
   collection: jasmine.createSpy('collection').and.returnValue(collectionStub)
 }
 
@@ -33,7 +40,7 @@ describe('EditCentersPage', () => {
       providers: [
         FormBuilder,
         LugaresService,
-        { provide: AngularFirestore, useValue: angularFirestoreStub }
+        { provide: AngularFirestore, useValue: angularFirestoreStub4 }
       ]
     }).compileComponents();
 
