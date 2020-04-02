@@ -6,8 +6,6 @@ import {WastesService} from 'src/app/core/services/wastes.service';
 
 import { Place } from '../../core/models/lugar.model';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { InAppBrowserObject } from '@ionic-native/in-app-browser';
-import { Platform } from '@ionic/angular';
 
 
 @Component({
@@ -35,7 +33,6 @@ export class PlacesSearcherPagePage implements OnInit {
     private placesService: LugaresService,
     private wasteService: WastesService,
     private geolocationCont: Geolocation,
-    private platform: Platform
   ) { }
 
   async ngOnInit() {
