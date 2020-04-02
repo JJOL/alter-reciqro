@@ -5,7 +5,7 @@ import { Observable,from } from 'rxjs';
 declare const google: any;
 
 
-const DEFAULT_CENTER_COORD = new google.maps.LatLng(20.610381, -100.382063);
+const DEFAULT_CENTER_COORD = new google.maps.LatLng(20.588772, -100.390292);
 
 
 @Component({
@@ -14,7 +14,7 @@ const DEFAULT_CENTER_COORD = new google.maps.LatLng(20.610381, -100.382063);
   styleUrls: ['./google-map.component.scss'],
 })
 export class GoogleMapComponent implements OnInit, OnChanges {
-
+//static true sino depende de una variable por ejemplo que tenga algun ngif
   @ViewChild('map', { static: true }) mapElement;
   map: google.maps.Map;
 
@@ -49,8 +49,6 @@ export class GoogleMapComponent implements OnInit, OnChanges {
       marker.setMap(null);
     }
     this.markers = [];
-    
-  
 
     if (this.places && this.map) {
       console.log('GoogleMap', this.places);
@@ -58,7 +56,6 @@ export class GoogleMapComponent implements OnInit, OnChanges {
       //Se acota deacuerdo al máximo
       // let min = this.max<this.places.length ? this.max : 0;
       let max =  this.max < this.places.length ? this.max : this.places.length;
-
       this.places = this.places.slice(0, max);
       for ( var place of this.places){
         this.addMarker(place);
@@ -70,7 +67,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     let coords = DEFAULT_CENTER_COORD;
     let mapOptions: google.maps.MapOptions = {
       center: coords,
-      zoom: 14,
+      zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
 

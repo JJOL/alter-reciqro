@@ -1,0 +1,13 @@
+<ion-content id="changeView">
+  <ion-card *ngIf="placeSelected" >
+    <div><img src="https://picsum.photos/500/200"/> </div> 
+      <ion-card-title class="card-title ion-text-center"  >{{placeSelected.name}}</ion-card-title>
+      <br>
+      <ion-card-subtitle class="ion-text-center" *ngIf="loadedPlaceType" >Tipo: {{loadedPlaceType.name}}</ion-card-subtitle>
+    <ion-card-content>Dirección: {{placeSelected.address}}
+    </ion-card-content>
+    <ion-card-content>
+      <a  class="bottomright" href=''>Ir a {{placeSelected.name}}</a>
+    </ion-card-content>
+  </ion-card>  
+</ion-content>

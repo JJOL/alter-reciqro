@@ -1,3 +1,5 @@
+import { MarkerCardComponent } from './../marker-card/marker-card.component';
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,7 +23,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
     PlacesSearcherPagePageRoutingModule,
     SharedPageModule
   ],
-  declarations: [PlacesSearcherPagePage],
+  declarations: [PlacesSearcherPagePage,MarkerCardComponent],
   providers: [
     Geolocation
   ]
