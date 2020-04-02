@@ -21,6 +21,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
   declarations: [PlacesSearcherPagePage,MarkerCardComponent],
   providers: [
     Geolocation
-  ]
+  ],
+  entryComponents:[MarkerCardComponent]
 })
 export class PlacesSearcherPagePageModule {}

@@ -3,10 +3,10 @@ import { SharedPage } from './../../shared/shared.page';
 import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { LugaresService } from 'src/app/core/services/lugares.service';
 import {WastesService} from 'src/app/core/services/wastes.service';
-
+import { ModalController } from '@ionic/angular';
 import { Place } from '../../core/models/lugar.model';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-
+import {MarkerCardComponent} from '../marker-card/marker-card.component';
 
 @Component({
   selector: 'app-places-searcher-page',
@@ -33,6 +33,7 @@ export class PlacesSearcherPagePage implements OnInit {
     private placesService: LugaresService,
     private wasteService: WastesService,
     private geolocationCont: Geolocation,
+    public modalController: ModalController,
   ) { }
 
   async ngOnInit() {
@@ -83,7 +84,16 @@ export class PlacesSearcherPagePage implements OnInit {
     }
     return this.classname;
   }
-
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: MarkerCardComponent,
+      componentProps: {
+        'placeSelected':this.placeSelected,
+        'loadedPlaceType':this.loadedPlaceType,
+      }
+    });
+    return await modal.present();
+  }
 
   emitPlace (place) {
     this.selectMarker();
@@ -93,6 +103,7 @@ export class PlacesSearcherPagePage implements OnInit {
     if (this.placeSelected.places_type.id) {
       this.placesService.getPlaceTypeByID(""+this.placeSelected.places_type.id).then(placeType => {
         this.loadedPlaceType = placeType;
+        this.presentModal();
       });
     } else {
       this.loadedPlaceType = {

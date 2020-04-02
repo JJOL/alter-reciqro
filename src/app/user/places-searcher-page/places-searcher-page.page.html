@@ -19,8 +19,8 @@
         <app-filter-menu (change)="filterByType($event)"></app-filter-menu>
         <app-shared-google-map #mapElement (seletedMarker)="emitPlace($event)" (change)="onViewportChange($event)" [editable]="false" [max]="30" [places]="places" [center]="position">
         </app-shared-google-map>
-        <app-marker-card [loadedPlaceType]="loadedPlaceType" [placeSelected]="placeSelected"></app-marker-card>
-        <ion-button  shape="round" class="filters" (click)="openFilters()" >Filtros</ion-button>
+        <!--app-marker-card [loadedPlaceType]="loadedPlaceType" [placeSelected]="placeSelected"></app-marker-card!-->
+        <ion-button  shape="round" class="filters" (click)="presentModal()" >Filtros</ion-button>
         <ion-button  shape="round" class="qro" (click)="viewQro()" >Vista Qro</ion-button>
        </ion-col>
     </ion-row>
