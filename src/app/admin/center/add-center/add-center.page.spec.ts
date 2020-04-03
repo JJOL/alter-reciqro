@@ -6,7 +6,6 @@ import { SharedPageModule } from 'src/app/shared/shared.module';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { LugaresService } from 'src/app/core/services/lugares.service';
 import { RouterModule } from '@angular/router';
-import { ToastController } from '@ionic/angular';
 
 const arr = function(){};
 
