@@ -17,10 +17,23 @@ jobs:
             - "node_modules"
       - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
       - run: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
+      - run:
+          name: Building
+          command: npm run build-prod
+      - save_cache:
+                key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+                paths:
+                    - www
+                    - package.json
+                    - firebase.json
+                    - .firebaserc
   deploy:
+    working_directory: ~/my-project
     docker:
       - image: 'circleci/node:13.8.0-browsers'
     steps:
+      - restore_cache:
+        key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: Install Firebase
           command: npm install --save-dev firebase-tools
@@ -30,13 +43,16 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - firebase-deploy/deploy:
-          token: $FIREBASE_DEPLOY_TOKEN
+          token: '1//0fLly0WkGtteWCgYIARAAGA8SNwF-L9Ir2bzV2ulSprOJsFudv2Dt3ORSP3VYpkuHyIEGflnwID2EM7LHe18Ca6XbyTT0CF8SpP0'
           
 
 workflows:
   build-and-deploy:
     jobs:
       - build
-      # - deploy:
-      #     requires:
-      #       - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: staging
