@@ -66,21 +66,8 @@ describe('AddCenterPage', () => {
 
   it('should call create service', () => {
     const lugaresService = TestBed.get(LugaresService);/*Servicio simulado*/
-
-    component.submit(); 
-    
+    component.submit();    
     expect(lugaresService.createPlace.calls.count()).toBeGreaterThanOrEqual(1);
-  });
+  })
 
-  it('should call toast function', () => {
-    const toastAction = TestBed.get(ToastController);
-    const showToastSpy = spyOn(component, 'showToast').and.returnValue();
-    component.submit(); 
-    //expect(toastAction.create as any).toHaveBeenCalled();
-    expect(showToastSpy.calls.count()).toBeGreaterThanOrEqual(1);
-    //expect(component.showToast)toHaveBeenCalledTimes(1);
-  });
 });
-
-//Casos esperados: 1. Que lo que haga submit sea lo que espere, es decir, que los validadores que se usen sean los adecuados. 2. Que se haya ejecutado la funcion de toast.
-
