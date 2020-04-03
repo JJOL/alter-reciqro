@@ -15,20 +15,5 @@ export class MarkerCardComponent implements OnInit {
 
   ngOnInit() {}
 
-  componentView(flag){
-    if(flag===true){
-      console.log("entro en true");
-      
-      var changeView=document.getElementById("changeView");
-      changeView.style.height="0%";
-      changeView.style.visibility="hidden";
-    }
-    else{
-      
-      console.log("entro en false");
-      var changeView=document.getElementById("changeView");
-      changeView.style.height="70%";
-      changeView.style.visibility="visible";
-    }
-  }
+
 }

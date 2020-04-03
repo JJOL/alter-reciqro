@@ -1,13 +1,24 @@
 ion-content{
-    visibility: visible;
-    height: 70%;
-    width: 40%;
-    position:relative;
-}
-ion-card{
-    height: auto;
+    height: 100%;
+    width: 100%;
 }
 img{
     max-width: 100%;
     max-height: 100%;
 }
+ion-content{
+  --background:#0f2252;
+}
+ion-card-title{
+  color:#0f2252; 
+  font-weight: bolder;
+}
+ion-button{
+    border-color:#0f2252;
+}
+ion-card-content{
+    color: black;
+}
+ion-card-subtitle{
+    color:black; 
+  }
