@@ -6,6 +6,7 @@ import { SharedPageModule } from 'src/app/shared/shared.module';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { LugaresService } from 'src/app/core/services/lugares.service';
 import { RouterModule } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 const arr = function(){};
 
@@ -68,7 +69,16 @@ describe('AddCenterPage', () => {
 
     component.submit(); 
     
-    expect(lugaresService.createPlace.calls.count()).toBe(1);
+    expect(lugaresService.createPlace.calls.count()).toBeGreaterThanOrEqual(1);
+  });
+
+  it('should call toast function', () => {
+    const toastAction = TestBed.get(ToastController);
+    const showToastSpy = spyOn(component, 'showToast').and.returnValue();
+    component.submit(); 
+    //expect(toastAction.create as any).toHaveBeenCalled();
+    expect(showToastSpy.calls.count()).toBeGreaterThanOrEqual(1);
+    //expect(component.showToast)toHaveBeenCalledTimes(1);
   });
 });
 
