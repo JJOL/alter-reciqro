@@ -42,7 +42,6 @@ export class PlacesSearcherPagePage implements OnInit {
 
     try {
       let geoPosition = await this.geolocationCont.getCurrentPosition();
-      console.log(geoPosition);
 
       this.position = {
         lat: geoPosition.coords.latitude,

@@ -4,7 +4,7 @@
       <!--This opens the default menu we have-->
       <ion-menu-button menu="m1"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Agrega un Nuevo Centro</ion-title>
+    <ion-title>Agregar Centro</ion-title>
     <!--Here we will replace with the government icon-->
     <ion-buttons slot="end" class="ion-padding">
       <ion-icon name="earth-outline"></ion-icon>
@@ -13,13 +13,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-row class="ion-padding">
-    <ion-col size-lg="5" size-md="5" offset-lg="1" offset-md="1" size-sm="12">
-      
-      <app-shared-google-map (placeChange)="onChangeMarker($event)" [editable]="true" [max]="1" ></app-shared-google-map>
-
-    </ion-col>
-    <ion-col size-lg="5" size-md="5" offset-lg="0" offset-md="0" size-sm="12">
+  <ion-grid>
+  <ion-row class="ion-padding-horizontal" >
+    <ion-col size="12" size-sm size-md>
       <form [formGroup]="newCenterForm" (ngSubmit)="submit()">
         <ion-list>
           <ion-item>
@@ -131,5 +127,9 @@
         </ion-list>
       </form>
     </ion-col>
+    <ion-col size="12" size-sm size-md class="gMap">
+      <app-shared-google-map (placeChange)="onChangeMarker($event)" [editable]="true" [max]="1" ></app-shared-google-map>
+    </ion-col>
   </ion-row>
+  </ion-grid>
 </ion-content>

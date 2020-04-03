@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-
 import { FormBuilder, Validators } from '@angular/forms';
 import { LugaresService } from 'src/app/core/services/lugares.service';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
@@ -112,7 +111,7 @@ export class AddCenterPage implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    //this.placeTypeService.allPlaceTypes().then( data => { this.loadedPlacetypes=data });
+    this.placeTypeService.allPlaceTypes().then( data => { this.loadedPlacetypes=data });
   }
 
   ionViewDidEnter(){
@@ -131,14 +130,13 @@ export class AddCenterPage implements OnInit {
       this.showToast('Lugar creado de manera exitosa');
       this.newCenterForm.reset();
       //this.navCtrl.navigateBack(['/admin/center']);
-    })
-    .catch(err => {
+    }).catch(err => {
       this.showToast('Error al cargar el lugar');
       this.newCenterForm.reset();
     })
   }
 
-  showToast(msg) {
+  public showToast(msg) {
     this.toastCtrl.create({
       message: msg,
       duration: 2000,
