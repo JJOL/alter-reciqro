@@ -112,6 +112,8 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   }
   
   setCenter(coord){
+    console.log('MAPA', coord);
+    
     this.map.setCenter(coord);
   }
   setZoom(zoom){

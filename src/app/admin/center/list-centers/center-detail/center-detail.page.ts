@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
 
 import { LugaresService } from 'src/app/core/services/lugares.service';
 import { Place } from 'src/app/core/models/lugar.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
+import { GeoPoint } from 'src/app/core/models/geopoint.model';
 
 @Component({
   selector: 'app-center-detail',
@@ -35,6 +36,7 @@ export class CenterDetailPage implements OnInit {
 
   loadedPlaceType: TipoInstalacion;
   
+  @ViewChild ('mapElement', {static: false}) mapEl;
   constructor (
     private activatedRoute: ActivatedRoute,
     private placeService: LugaresService,
@@ -42,7 +44,7 @@ export class CenterDetailPage implements OnInit {
     private navCtrl: NavController
   ) { }
   
-  ngOnInit() {
+  ngOnInit() {    
     this.activatedRoute.paramMap.subscribe(paraMap => {
       if (!paraMap.has('centerId')) {
         //redirect
@@ -52,7 +54,9 @@ export class CenterDetailPage implements OnInit {
       if (centerId) {
         this.placeService.getPlaceByID(centerId).then(place => {
           this.loadedPlace = place;
-          console.log(this.loadedPlace);
+
+          this.mapEl.setCenter(this.loadedPlace.location);
+          
 
           //get placeType
           if (this.loadedPlace.places_type.id) {

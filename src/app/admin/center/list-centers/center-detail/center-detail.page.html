@@ -26,6 +26,11 @@
     
     <ion-row>
       <ion-col size = "2" size-sm = "7" offset-sm="2" text-center>
+
+        <ion-col *ngIf="loadedPlace">
+          <app-shared-google-map #mapElement [editable]="false" [max]="1" [places]="[ loadedPlace ]"></app-shared-google-map>
+        </ion-col>
+
         <ion-card *ngIf="loadedPlace">
           <ion-img [src]="loadedPlace.photo"></ion-img>
           <ion-card-header>
@@ -34,6 +39,7 @@
           </ion-card-header>
         
           <ion-card-content>
+            
             <p> {{ loadedPlace.description }} </p>
             <br>
             <h4> <strong> Código QR: </strong> </h4>

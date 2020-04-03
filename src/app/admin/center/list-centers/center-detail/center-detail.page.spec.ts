@@ -5,6 +5,7 @@ import { CenterDetailPage } from './center-detail.page';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from } from 'rxjs';
+import { GoogleMapComponent } from 'src/app/shared/google-map/google-map.component';
 
 const arr = [[]];
 
@@ -24,7 +25,7 @@ describe('CenterDetailPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CenterDetailPage ],
+      declarations: [ CenterDetailPage, GoogleMapComponent ],
       imports: [IonicModule.forRoot(), RouterTestingModule],
       providers: [
         { provide: AngularFirestore, useValue: angularFirestoreStub }
