@@ -139,6 +139,8 @@ export class PlacesSearcherPagePage implements OnInit {
   viewQro(){
     this.map.setCenter({lat:20.588772, lng:-100.390292});
     this.map.setZoom(12);
+
+    this.placeSelected = null;
   }
 
 
