@@ -8,6 +8,7 @@ import { Place } from '../../core/models/lugar.model';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {MarkerCardComponent} from '../marker-card/marker-card.component';
 
+
 @Component({
   selector: 'app-places-searcher-page',
   templateUrl: './places-searcher-page.page.html',
@@ -17,8 +18,7 @@ import {MarkerCardComponent} from '../marker-card/marker-card.component';
 export class PlacesSearcherPagePage implements OnInit {
   classname={
     'ly-grid-map': true,
-    'ion-no-padding': true,
-    'ly-grid-filter': false
+    'ion-no-padding': true
   }
 
   loadedPlaceType: TipoInstalacion;
@@ -74,17 +74,21 @@ export class PlacesSearcherPagePage implements OnInit {
   async queryPlaces(topLeftPos, botRightPos) {
     return await this.placesService.searchMapPlaces(topLeftPos, botRightPos);
   }
-  selectMarker(){
-    this.changeToVisible();
-    this.classname= {
-      'ion-no-padding': true,
-      'ly-grid-map': false,
-      'ly-grid-filter': true
-    }
-    return this.classname;
-  }
-  async presentModal() {
+ /* async presentModal() {
     const modal = await this.modalController.create({
+      component: MarkerCardComponent,
+      cssClass:'my-custom-modal-css',
+      componentProps: {
+        'placeSelected':this.placeSelected,
+        'loadedPlaceType':this.loadedPlaceType,
+      }
+    });
+    return await modal.present();
+  }*/
+
+  async presentFilterModal() {
+    const modal = await this.modalController.create({
+      //cahnge component
       component: MarkerCardComponent,
       componentProps: {
         'placeSelected':this.placeSelected,
@@ -95,14 +99,13 @@ export class PlacesSearcherPagePage implements OnInit {
   }
 
   emitPlace (place) {
-    this.selectMarker();
     this.placeSelected=place;
     console.log(this.placeSelected);
     //get placeType
     if (this.placeSelected.places_type.id) {
       this.placesService.getPlaceTypeByID(""+this.placeSelected.places_type.id).then(placeType => {
         this.loadedPlaceType = placeType;
-        this.presentModal();
+        //this.presentModal();
       });
     } else {
       this.loadedPlaceType = {
@@ -130,42 +133,7 @@ export class PlacesSearcherPagePage implements OnInit {
 
   
 
-
-
-  openFilters(){
-    this.changeToVisible();
-    this.classname= {
-      'ion-no-padding': true,
-      'ly-grid-map': false,
-      'ly-grid-filter': true
-    }
-    return this.classname;
-  }
   
-  changeToVisible(){
-    var cancel= document.getElementById("cancel");
-    cancel.style.visibility="visible";
-    var flag=false;
-    console.log(flag);
-    this.changeView.emit(flag);
-  }
-
-  changeToInVisible(){
-    var cancel= document.getElementById("cancel");
-    cancel.style.visibility="hidden";
-    var flag=true;
-    this.changeView.emit(flag);
-    console.log(flag);
-  }
-  closeFilters(){
-    this.changeToInVisible();
-    this.classname= {
-      'ly-grid-filter': false,
-      'ion-no-padding': true,
-      'ly-grid-map': true
-    }
-    return this.classname;
-  }
 
   
   viewQro(){

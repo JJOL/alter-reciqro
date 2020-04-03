@@ -19,15 +19,10 @@
         <app-filter-menu (change)="filterByType($event)"></app-filter-menu>
         <app-shared-google-map #mapElement (seletedMarker)="emitPlace($event)" (change)="onViewportChange($event)" [editable]="false" [max]="30" [places]="places" [center]="position">
         </app-shared-google-map>
-        <!--app-marker-card [loadedPlaceType]="loadedPlaceType" [placeSelected]="placeSelected"></app-marker-card!-->
-        <ion-button  shape="round" class="filters" (click)="presentModal()" >Filtros</ion-button>
+        <app-marker-card class="fixedPosition" [loadedPlaceType]="loadedPlaceType" [placeSelected]="placeSelected"></app-marker-card>
+        <ion-button  shape="round" class="filters" (click)="presentFilterModal()" >Filtros</ion-button>
         <ion-button  shape="round" class="qro" (click)="viewQro()" >Vista Qro</ion-button>
        </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12">
-        <ion-button  id="cancel" shape="round" class="cancelfilters" (click)="closeFilters()"><ion-icon slot="icon-only" name="close-outline"></ion-icon></ion-button>
-      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

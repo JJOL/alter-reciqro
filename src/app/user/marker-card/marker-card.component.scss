@@ -1,13 +1,39 @@
-ion-content{
-    visibility: visible;
-    height: 70%;
-    width: 40%;
-    position:relative;
-}
-ion-card{
-    height: auto;
-}
+
 img{
     max-width: 100%;
     max-height: 100%;
+}
+ion-card-title{
+  color:#0f2252; 
+  font-weight: bolder;
+}
+ion-button{
+    border-color:#0f2252;
+}
+ion-card-content{
+    color: black;
+}
+ion-card-subtitle{
+    color:black; 
+  }
+
+ion-content{
+    --background:#0f2252;
+}
+ion-button{
+    display: block;
+    display: inline-block;
+    text-align: center;
+}
+
+.markerCard{
+    padding: 0%;
+    height: 100%;
+    overflow-y: scroll;
+    display: none;
+}
+
+.markerCard.active{
+    padding: 0%;
+    display: block;
 }
