@@ -1,7 +1,6 @@
 import { Place } from 'src/app/core/models/lugar.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { Component, OnInit, Input } from '@angular/core';
-
 @Component({
   selector: 'app-marker-card',
   templateUrl: './marker-card.component.html',
@@ -14,6 +13,8 @@ export class MarkerCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {}
+
+  
 
 
 }

@@ -8,6 +8,7 @@ import { Place } from '../../core/models/lugar.model';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {MarkerCardComponent} from '../marker-card/marker-card.component';
 
+
 @Component({
   selector: 'app-places-searcher-page',
   templateUrl: './places-searcher-page.page.html',
@@ -73,16 +74,17 @@ export class PlacesSearcherPagePage implements OnInit {
   async queryPlaces(topLeftPos, botRightPos) {
     return await this.placesService.searchMapPlaces(topLeftPos, botRightPos);
   }
-  async presentModal() {
+ /* async presentModal() {
     const modal = await this.modalController.create({
       component: MarkerCardComponent,
+      cssClass:'my-custom-modal-css',
       componentProps: {
         'placeSelected':this.placeSelected,
         'loadedPlaceType':this.loadedPlaceType,
       }
     });
     return await modal.present();
-  }
+  }*/
 
   async presentFilterModal() {
     const modal = await this.modalController.create({
@@ -103,7 +105,7 @@ export class PlacesSearcherPagePage implements OnInit {
     if (this.placeSelected.places_type.id) {
       this.placesService.getPlaceTypeByID(""+this.placeSelected.places_type.id).then(placeType => {
         this.loadedPlaceType = placeType;
-        this.presentModal();
+        //this.presentModal();
       });
     } else {
       this.loadedPlaceType = {
