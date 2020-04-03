@@ -21,12 +21,12 @@ jobs:
           name: Building
           command: npm run build-prod
       - save_cache:
-                key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-                paths:
-                    - www
-                    - package.json
-                    - firebase.json
-                    - .firebaserc
+        key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+        paths:
+          - www
+          - package.json
+          - firebase.json
+          - .firebaserc
   deploy:
     working_directory: ~/my-project
     docker:
