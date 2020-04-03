@@ -14,7 +14,6 @@ import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 
 export class CenterDetailPage implements OnInit {
   
-
   loadedPlace: Place={
     id : "",
     name : "", 
@@ -33,7 +32,9 @@ export class CenterDetailPage implements OnInit {
       icon : ""
     }
   };
+
   loadedPlaceType: TipoInstalacion;
+  
   constructor (
     private activatedRoute: ActivatedRoute,
     private placeService: LugaresService,
@@ -51,6 +52,7 @@ export class CenterDetailPage implements OnInit {
       if (centerId) {
         this.placeService.getPlaceByID(centerId).then(place => {
           this.loadedPlace = place;
+          console.log(this.loadedPlace);
 
           //get placeType
           if (this.loadedPlace.places_type.id) {

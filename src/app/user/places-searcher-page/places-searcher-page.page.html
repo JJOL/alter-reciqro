@@ -4,23 +4,33 @@
       <!--This opens the default menu we have-->
       <ion-menu-button menu="m1"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Buscador de Centros</ion-title>
-    
+    <ion-title class="ion-text-center">Buscador de Centros</ion-title>
     <!--Here we will replace with the government icon-->
     <ion-buttons slot="end" class="ion-padding">
-      <ion-icon name="earth-outline"></ion-icon>
+      ReciQro 
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid class="ly-grid ion-fixed">
-    <ion-row class="ly-row">
+  <ion-grid  [ngClass]="classname" >
+    <ion-row  [ngClass]="classname">
       <ion-col size="12">
-        
-        <ion-button *ngIf="placeSelected"><a target="_blank" href="https://www.google.com/maps/dir//{{placeSelected.location.lat}},{{placeSelected.location.lng}}/@{{placeSelected.location.lat}},{{placeSelected.location.lng}},17z">Go to the center!</a></ion-button>
-        <app-shared-google-map (seletedMarker)="test($event)" (change)="onViewportChange($event)" [editable]="false" [max]="30" [places]="places" [center]="position"></app-shared-google-map>
+        <app-filter-menu (change)="filterByType($event)"></app-filter-menu>
+        <app-shared-google-map #mapElement (seletedMarker)="emitPlace($event)" (change)="onViewportChange($event)" [editable]="false" [max]="30" [places]="places" [center]="position">
+        </app-shared-google-map>
+        <!--app-marker-card [loadedPlaceType]="loadedPlaceType" [placeSelected]="placeSelected"></app-marker-card!-->
+        <ion-button  shape="round" class="filters" (click)="presentModal()" >Filtros</ion-button>
+        <ion-button  shape="round" class="qro" (click)="viewQro()" >Vista Qro</ion-button>
+       </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button  id="cancel" shape="round" class="cancelfilters" (click)="closeFilters()"><ion-icon slot="icon-only" name="close-outline"></ion-icon></ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
+
+
+ 

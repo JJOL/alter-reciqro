@@ -118,9 +118,9 @@ export class AddCenterPage implements OnInit {
 
   }
   
-  onChangeMarker(lugar: { latitud: any; longitud: any; }){
-    this.newCenterForm.controls['latitude'].setValue(lugar.latitud);
-    this.newCenterForm.controls['longitude'].setValue(lugar.longitud);
+  onChangeMarker(lugar){
+    this.newCenterForm.controls['latitude'].setValue(lugar.location.lat);
+    this.newCenterForm.controls['longitude'].setValue(lugar.location.lng);
   }
   
   public submit() {

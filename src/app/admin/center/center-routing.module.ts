@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'list-centers',
     loadChildren: () => import('./list-centers/list-centers.module').then( m => m.ListCentersPageModule)
+  },
+  {
+    path: 'waste-categories',
+    loadChildren: () => import('./waste-categories/waste-categories.module').then( m => m.WasteCategoriesPageModule)
   }
 ];
 

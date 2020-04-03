@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
-import {WastesService} from '../../../core/services/wastes.service';
 import {WasteType} from '../../../core/models/waste-type';
 
 @Component({
@@ -11,13 +10,12 @@ import {WasteType} from '../../../core/models/waste-type';
 
 export class FilterMenuComponent implements OnInit {
   
-  constructor(private service: WastesService) {}
+  constructor() {}
   @Input() filters : WasteType [] = [];
   activeFilters = this.filters;
   @Output() change = new EventEmitter<WasteType[]>();
 
   ngOnInit() {
-     this.service.getAllWasteTypes().then( data => { this.filters=data});
   }
 
   add(filter){

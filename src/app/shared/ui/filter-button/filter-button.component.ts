@@ -16,7 +16,7 @@ export class FilterButtonComponent implements OnInit {
   @Output() unselected = new EventEmitter<string>();
 
   ngOnInit() {
-    
+    this.emit();
   }
   select(){
     this.active = this.active?false:true;

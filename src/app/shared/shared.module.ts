@@ -19,7 +19,7 @@ import { FilterMenuComponent } from './ui/filter-menu/filter-menu.component';
     IonicModule,
     SharedPageRoutingModule
   ],
-  exports: [GoogleMapComponent], 
+  exports: [GoogleMapComponent,FilterMenuComponent], 
   declarations: [SharedPage, GoogleMapComponent, FilterButtonComponent, FilterMenuComponent]
 })
 export class SharedPageModule {}
