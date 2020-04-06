@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LugaresService } from 'src/app/core/services/lugares.service';
+import { PlacesService } from 'src/app/core/services/places.service';
 
 @Component({
   selector: 'app-trash-categories',
@@ -10,7 +10,7 @@ export class WasteCategoriesPage implements OnInit {
 
   placeTypes : any [];
 
-  constructor(private placesService: LugaresService) { 
+  constructor(private placesService: PlacesService) { 
   }
 
   ngOnInit() {

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { LugaresService } from 'src/app/core/services/lugares.service';
-import { Place } from 'src/app/core/models/lugar.model';
+import { PlacesService } from 'src/app/core/services/places.service';
+import { Place } from 'src/app/core/models/place.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 
 import * as firebase from 'firebase/app';
@@ -16,24 +16,25 @@ const GeoPoint = firebase.firestore.GeoPoint;
 export class EditCentersPage implements OnInit {
   updateBookingForm: FormGroup;
   
-  place : Place={
-    id : "",
-    name : "", 
-    description : "",
-    location: {
-      lat: 0.0,
-      lng: 0.0,
-  },
-    qr_code : "",
-    photo : "",
-    address : "",
-    postal_code : 0,
-    places_type : {
-      id : "",
-      name : "",
-      icon : ""
-    }
-  };
+  place : Place;
+  // place : Place={
+  //   id : "",
+  //   name : "", 
+  //   description : "",
+  //   location: {
+  //     lat: 0.0,
+  //     lng: 0.0,
+  // },
+  //   qr_code : "",
+  //   photo : "",
+  //   address : "",
+  //   postal_code : 0,
+  //   places_type : {
+  //     id : "",
+  //     name : "",
+  //     icon_url : ""
+  //   }
+  // };
   loadedPlacetypes: TipoInstalacion[];
 
   get name(){
@@ -123,7 +124,7 @@ export class EditCentersPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private placeService: LugaresService,
+    private placeService: PlacesService,
     private router: Router,
     private alertCtrl: AlertController,
     private navCtrl: NavController,

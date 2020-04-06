@@ -7,7 +7,7 @@ import { async } from '@angular/core/testing';
 const PLACE_KEY = '/place_type';
 const PLACE_TYPE_PLACE = '/places_waste_types';
 const PLACE_TYPE_KEY = '/place_type';
-import {LugaresService} from './lugares.service';
+import {PlacesService} from './places.service';
 
 @Injectable({
   providedIn: 'root'

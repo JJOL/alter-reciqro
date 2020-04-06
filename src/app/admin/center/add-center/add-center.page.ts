@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { FormBuilder, Validators } from '@angular/forms';
-import { LugaresService } from 'src/app/core/services/lugares.service';
+import { PlacesService } from 'src/app/core/services/places.service';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -105,7 +105,7 @@ export class AddCenterPage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder, 
-    private placeTypeService: LugaresService,
+    private placeTypeService: PlacesService,
     private navCtrl: NavController,
     private toastCtrl: ToastController,
     private router: Router) { }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
-import { LugaresService } from 'src/app/core/services/lugares.service';
+import { PlacesService } from 'src/app/core/services/places.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -14,7 +14,7 @@ export class WasteDetailPage implements OnInit {
   
   constructor(
     private activatedRoute: ActivatedRoute,
-    private placeService: LugaresService
+    private placeService: PlacesService
   ) { }
 
   ngOnInit() {

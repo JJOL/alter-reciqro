@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
 
-import { LugaresService } from 'src/app/core/services/lugares.service';
-import { Place } from 'src/app/core/models/lugar.model';
+import { PlacesService } from 'src/app/core/services/places.service';
+import { Place } from 'src/app/core/models/place.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { GeoPoint } from 'src/app/core/models/geopoint.model';
 
@@ -15,31 +15,34 @@ import { GeoPoint } from 'src/app/core/models/geopoint.model';
 
 export class CenterDetailPage implements OnInit {
   
-  loadedPlace: Place={
-    id : "",
-    name : "", 
-    description : "",
-    location: {
-      lat: 0,
-      lng: 0
-  },
-    qr_code : "",
-    photo : "",
-    address : "",
-    postal_code : 0,
-    places_type : {
-      id : "",
-      name : "",
-      icon : ""
-    }
-  };
+  // loadedPlace: Place={
+  //   id : "",
+  //   name : "", 
+  //   description : "",
+  //   location: {
+  //     lat: 0,
+  //     lng: 0
+  // },
+  //   qr_code : "",
+  //   photo : "",
+  //   address : "",
+  //   postal_code : 0,
+  //   places_type : {
+  //     id : "",
+  //     name : "",
+  //     icon_url : ""
+  //   }
+  // };
+
+  loadedPlace: Place;
 
   loadedPlaceType: TipoInstalacion;
+  mapPlaces: Place[] = [];
   
   @ViewChild ('mapElement', {static: false}) mapEl;
   constructor (
     private activatedRoute: ActivatedRoute,
-    private placeService: LugaresService,
+    private placeService: PlacesService,
     private alertCtrl: AlertController,
     private navCtrl: NavController
   ) { }
@@ -55,6 +58,10 @@ export class CenterDetailPage implements OnInit {
         this.placeService.getPlaceByID(centerId).then(place => {
           this.loadedPlace = place;
 
+          console.log('Place has loaded!');
+          console.log(this.mapEl);
+          
+          this.mapPlaces = [ this.loadedPlace ];
           this.mapEl.setCenter(this.loadedPlace.location);
           
 
@@ -67,7 +74,7 @@ export class CenterDetailPage implements OnInit {
             this.loadedPlaceType = {
               id: "",
               name: "¡Error! No se pudo cargar, el lugar no está asociado a un tipo de lugar",
-              icon: ""
+              icon_url: ""
             };
           }
         });
@@ -103,4 +110,5 @@ export class CenterDetailPage implements OnInit {
   onChangeMarker(coords){
     console.log(coords);
   }
+
 }

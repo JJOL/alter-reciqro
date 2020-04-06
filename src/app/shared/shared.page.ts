@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {WastesService} from '../core/services/wastes.service';
-import {LugaresService} from '../core/services/lugares.service';
+import {PlacesService} from '../core/services/places.service';
 
 @Component({
   selector: 'app-shared',

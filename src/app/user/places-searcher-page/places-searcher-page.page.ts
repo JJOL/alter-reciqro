@@ -1,10 +1,10 @@
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { SharedPage } from './../../shared/shared.page';
 import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
-import { LugaresService } from 'src/app/core/services/lugares.service';
+import { PlacesService } from 'src/app/core/services/places.service';
 import {WastesService} from 'src/app/core/services/wastes.service';
 import { ModalController } from '@ionic/angular';
-import { Place } from '../../core/models/lugar.model';
+import { Place } from '../../core/models/place.model';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {MarkerCardComponent} from '../marker-card/marker-card.component';
 
@@ -30,7 +30,7 @@ export class PlacesSearcherPagePage implements OnInit {
   @Output() changeView = new EventEmitter();
   
   constructor(
-    private placesService: LugaresService,
+    private placesService: PlacesService,
     private wasteService: WastesService,
     private geolocationCont: Geolocation,
     public modalController: ModalController,
@@ -111,7 +111,7 @@ export class PlacesSearcherPagePage implements OnInit {
       this.loadedPlaceType = {
         id: "",
         name: "¡Error! No se pudo cargar, el lugar no está asociado a un tipo de lugar",
-        icon: ""
+        icon_url: ""
       };
     }
   }
@@ -141,6 +141,11 @@ export class PlacesSearcherPagePage implements OnInit {
     this.map.setZoom(12);
 
     this.placeSelected = null;
+  }
+
+  onMapInteract() {
+    console.log('MAP INTERACT');
+    
   }
 
 

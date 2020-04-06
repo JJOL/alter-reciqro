@@ -4,7 +4,7 @@ import { AddCenterPage } from './add-center.page';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { SharedPageModule } from 'src/app/shared/shared.module';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { LugaresService } from 'src/app/core/services/lugares.service';
+import { PlacesService } from 'src/app/core/services/places.service';
 import { RouterModule } from '@angular/router';
 
 const arr = function(){};
@@ -49,7 +49,7 @@ describe('AddCenterPage', () => {
       imports: [IonicModule.forRoot(), ReactiveFormsModule, SharedPageModule, RouterModule.forRoot([])],
       providers: [
         FormBuilder,
-        { provide: LugaresService, useValue: mockService },
+        { provide: PlacesService, useValue: mockService },
         { provide: AngularFirestore, useValue: angularFirestoreStub },
       ]
     }).compileComponents();
@@ -64,7 +64,7 @@ describe('AddCenterPage', () => {
   });
 
   it('should call create service', () => {
-    const lugaresService = TestBed.get(LugaresService);/*Servicio simulado*/
+    const lugaresService = TestBed.get(PlacesService);/*Servicio simulado*/
     component.submit();    
     expect(lugaresService.createPlace.calls.count()).toBeGreaterThanOrEqual(1);
   })

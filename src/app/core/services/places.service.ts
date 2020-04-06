@@ -4,7 +4,7 @@ import { map, take } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 
 import { Injectable } from '@angular/core';
-import { Place } from '../models/lugar.model';
+import { Place } from '../models/place.model';
 import { TipoInstalacion } from '../models/tipo-instalacion.model';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -19,20 +19,34 @@ const GeoPoint = firebase.firestore.GeoPoint;
 function parseFBPlaceToPlace(fbPlace: any): Place {
   const data  = fbPlace.payload.doc.data();
   const id = fbPlace.payload.doc.id;
-  const place: Place = {
-    id: id,
-    name: data.name,
-    address: data.address,
-    description: data.description,
-    location: {
+  const place = new Place(
+    id,
+    data.name,
+    data.description,
+    {
       lat: data.location.latitude,
-      lng: data.location.longitude
+      lng: data.location.longitude,
     },
-    photo: data.photo,
-    places_type: data.places_type,
-    qr_code: data.qr_code,
-    postal_code: data.postal_code
-  }
+    data.address,
+    data.postal_code,
+    data.places_type,
+    data.photo,
+    data.qr_code
+  );
+  // const place: Place = {
+  //   id: id,
+  //   name: data.name,
+  //   address: data.address,
+  //   description: data.description,
+  //   location: {
+  //     lat: data.location.latitude,
+  //     lng: data.location.longitude
+  //   },
+  //   photo: data.photo,
+  //   places_type: data.places_type,
+  //   qr_code: data.qr_code,
+  //   postal_code: data.postal_code
+  // }
   return place;
 }
 
@@ -43,7 +57,7 @@ function isWithin(val, min, max) {
 @Injectable({
   providedIn: 'root'
 })
-export class LugaresService {
+export class PlacesService {
   placeTypes: any;
   
   constructor(

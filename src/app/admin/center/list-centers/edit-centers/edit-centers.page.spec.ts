@@ -6,7 +6,7 @@ import { EditCentersPage } from './edit-centers.page';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from } from 'rxjs';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
-import { LugaresService } from 'src/app/core/services/lugares.service';
+import { PlacesService } from 'src/app/core/services/places.service';
 
 import { SharedPageModule } from 'src/app/shared/shared.module';
 
@@ -39,7 +39,7 @@ describe('EditCentersPage', () => {
       imports: [IonicModule.forRoot(), ReactiveFormsModule, SharedPageModule,RouterTestingModule],
       providers: [
         FormBuilder,
-        LugaresService,
+        PlacesService,
         { provide: AngularFirestore, useValue: angularFirestoreStub4 }
       ]
     }).compileComponents();
