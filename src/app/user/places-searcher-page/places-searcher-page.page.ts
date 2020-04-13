@@ -1,10 +1,9 @@
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { SharedPage } from './../../shared/shared.page';
 import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
-import { LugaresService } from 'src/app/core/services/lugares.service';
-import {WastesService} from 'src/app/core/services/wastes.service';
+import { PlacesService } from 'src/app/core/services/places.service';
 import { ModalController } from '@ionic/angular';
-import { Place } from '../../core/models/lugar.model';
+import { Place } from '../../core/models/place.model';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {MarkerCardComponent} from '../marker-card/marker-card.component';
 
@@ -30,8 +29,7 @@ export class PlacesSearcherPagePage implements OnInit {
   @Output() changeView = new EventEmitter();
   
   constructor(
-    private placesService: LugaresService,
-    private wasteService: WastesService,
+    private placesService: PlacesService,
     private geolocationCont: Geolocation,
     public modalController: ModalController,
   ) { }
@@ -52,6 +50,7 @@ export class PlacesSearcherPagePage implements OnInit {
       console.log(err);
     }
     this.places = await this.placesService.getAllPlaces();
+    this.filterByType(["0pBVMBkSLD6F7yIk6lih"]).then(data => Promise.all(data).then(values => {console.log(values)})   )
 
   }
 
@@ -111,7 +110,7 @@ export class PlacesSearcherPagePage implements OnInit {
       this.loadedPlaceType = {
         id: "",
         name: "¡Error! No se pudo cargar, el lugar no está asociado a un tipo de lugar",
-        icon: ""
+        icon_url: ""
       };
     }
   }
@@ -119,14 +118,11 @@ export class PlacesSearcherPagePage implements OnInit {
 
   filterByType(filters){
     if(filters.length!=0){
-      this.wasteService.getPlacesByType(filters).then(data => {
-        let places:Place[] = [];
-        for(let place_type of data)
-        {
-          this.placesService.getPlaceByID(place_type.place).then(lugar => places.push(lugar));
-        }  
-        return places;
-      }).then(data => {console.log(data)});
+      return this.placesService.getIDPlacesByWaste(filters).then(data => {
+        return data.map( lugar => { 
+           return this.placesService.getPlaceByID(lugar.place).then( place => {return place});
+        });
+      });
     }
     
   }
@@ -141,6 +137,11 @@ export class PlacesSearcherPagePage implements OnInit {
     this.map.setZoom(12);
 
     this.placeSelected = null;
+  }
+
+  onMapInteract() {
+    console.log('MAP INTERACT');
+    
   }
 
 

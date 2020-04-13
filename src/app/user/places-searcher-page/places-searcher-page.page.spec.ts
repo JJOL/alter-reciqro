@@ -5,7 +5,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { PlacesSearcherPagePage } from './places-searcher-page.page';
 
 import { SharedPageModule } from '../../shared/shared.module';
-import { LugaresService } from '../../core/services/lugares.service';
+import { PlacesService } from '../../core/services/places.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 
@@ -16,7 +16,13 @@ const mockPlacesService = {
   },
   searchMapPlaces: () => {
     return [];
-  }
+  },
+  getIDPlacesByWaste: () => {
+  return new Promise((resolve,reject) => {
+    resolve([]);
+    });
+  },
+
 }
 
 const mockGeolocation = {
@@ -43,7 +49,7 @@ describe('PlacesSearcherPagePage', () => {
       declarations: [ PlacesSearcherPagePage, MarkerCardComponent ],
       imports: [IonicModule.forRoot(), SharedPageModule],
       providers: [
-        { provide: LugaresService, useValue: mockPlacesService },
+        { provide: PlacesService, useValue: mockPlacesService },
         { provide: Geolocation, useValue: mockGeolocation },
         { provide: AngularFirestore, useValue: firestoreMockSpy },
       ]

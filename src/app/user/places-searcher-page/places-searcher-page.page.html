@@ -17,7 +17,7 @@
     <ion-row  [ngClass]="classname">
       <ion-col size="12">
         <app-filter-menu (change)="filterByType($event)"></app-filter-menu>
-        <app-shared-google-map #mapElement (seletedMarker)="emitPlace($event)" (change)="onViewportChange($event)" [editable]="false" [max]="30" [places]="places" [center]="position">
+        <app-shared-google-map (click)="onMapInteract()" #mapElement (seletedMarker)="emitPlace($event)" (change)="onViewportChange($event)" [editable]="false" [max]="30" [places]="places" [center]="position">
         </app-shared-google-map>
         <app-marker-card class="fixedPosition" [loadedPlaceType]="loadedPlaceType" [placeSelected]="placeSelected"></app-marker-card>
         <ion-button  shape="round" class="filters" (click)="presentFilterModal()" >Filtros</ion-button>

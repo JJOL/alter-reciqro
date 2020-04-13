@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges ,ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
-import {Place} from 'src/app/core/models/lugar.model';
-import { LugaresService } from 'src/app/core/services/lugares.service';
+import {Place} from 'src/app/core/models/place.model';
+import { PlacesService } from 'src/app/core/services/places.service';
 import { Observable,from } from 'rxjs';
 declare const google: any;
 
@@ -55,7 +55,8 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   
 
     if (this.places && this.map) {
-
+      console.log('Rendering Map Places...');
+      
       //Se acota deacuerdo al máximo
       // let min = this.max<this.places.length ? this.max : 0;
       let max =  this.max < this.places.length ? this.max : this.places.length;
@@ -66,6 +67,8 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   }
 
   initMap(){
+    console.log('Map HAS INIT');
+    
     let mapOptions: google.maps.MapOptions = {
       center: DEFAULT_CENTER_COORD,
       zoom: 15,

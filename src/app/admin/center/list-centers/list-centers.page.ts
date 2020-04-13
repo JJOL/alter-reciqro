@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Place } from 'src/app/core/models/lugar.model';
-import { LugaresService } from 'src/app/core/services/lugares.service';
+import { Place } from 'src/app/core/models/place.model';
+import { PlacesService } from 'src/app/core/services/places.service';
 
 import { Observable } from 'rxjs';
 
@@ -13,7 +13,7 @@ export class ListCentersPage implements OnInit {
 
   places : any [];
 
-  constructor(private placesService: LugaresService) { 
+  constructor(private placesService: PlacesService) { 
   }
 
   ngOnInit() {

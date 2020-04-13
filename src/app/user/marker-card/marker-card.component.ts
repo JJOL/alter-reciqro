@@ -1,4 +1,4 @@
-import { Place } from 'src/app/core/models/lugar.model';
+import { Place } from 'src/app/core/models/place.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { Component, OnInit, Input } from '@angular/core';
 @Component({

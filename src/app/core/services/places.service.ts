@@ -4,35 +4,50 @@ import { map, take } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 
 import { Injectable } from '@angular/core';
-import { Place } from '../models/lugar.model';
+import { Place } from '../models/place.model';
 import { TipoInstalacion } from '../models/tipo-instalacion.model';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { WasteType } from '../models/waste-type';
+import { WasteType,PlacesWasteTypes } from '../models/waste-type';
 
 const PLACE_KEY = '/places';
 const PLACE_TYPE_KEY = '/place_type';
-const WASTE_TYPE_KEY = '/waste_types';
+const WASTE_TYPE_KEY = '/waste_type';
+const PLACE_TYPE_PLACE = '/places_waste_types';
 
 const GeoPoint = firebase.firestore.GeoPoint;
 
 function parseFBPlaceToPlace(fbPlace: any): Place {
   const data  = fbPlace.payload.doc.data();
   const id = fbPlace.payload.doc.id;
-  const place: Place = {
-    id: id,
-    name: data.name,
-    address: data.address,
-    description: data.description,
-    location: {
+  const place = new Place(
+    id,
+    data.name,
+    data.description,
+    {
       lat: data.location.latitude,
-      lng: data.location.longitude
+      lng: data.location.longitude,
     },
-    photo: data.photo,
-    places_type: data.places_type,
-    qr_code: data.qr_code,
-    postal_code: data.postal_code
-  }
+    data.address,
+    data.postal_code,
+    data.places_type,
+    data.photo,
+    data.qr_code
+  );
+  // const place: Place = {
+  //   id: id,
+  //   name: data.name,
+  //   address: data.address,
+  //   description: data.description,
+  //   location: {
+  //     lat: data.location.latitude,
+  //     lng: data.location.longitude
+  //   },
+  //   photo: data.photo,
+  //   places_type: data.places_type,
+  //   qr_code: data.qr_code,
+  //   postal_code: data.postal_code
+  // }
   return place;
 }
 
@@ -43,7 +58,7 @@ function isWithin(val, min, max) {
 @Injectable({
   providedIn: 'root'
 })
-export class LugaresService {
+export class PlacesService {
   placeTypes: any;
   
   constructor(
@@ -212,6 +227,43 @@ export class LugaresService {
             subscription.unsubscribe();
         })
       
+    });
+  }
+  async getAllWasteTypes(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<WasteType>(WASTE_TYPE_KEY).snapshotChanges()
+      .pipe(map(snapshot => {
+        return snapshot.map(wastetype  => {
+          let data = wastetype.payload.doc.data()
+          let id = wastetype.payload.doc.id;
+          return {id:id,...data};
+        })
+      }))
+      .subscribe(places => {
+        resolve(places)
+        if(subscription)
+        subscription.unsubscribe();
+      })
+    });
+  }
+  async getIDPlacesByWaste(filters:string[]): Promise<PlacesWasteTypes[]> {
+    return new Promise((resolve, reject) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<PlacesWasteTypes>(PLACE_TYPE_PLACE,ref => ref.where('waste_type','in',filters)  ).snapshotChanges()
+      .pipe(map(snapshot => 
+        {
+        return snapshot.map(wastetype  => {
+          let data = wastetype.payload.doc.data()
+          let id = wastetype.payload.doc.id;
+          return {id:id,...data};
+        })
+      }))
+      .subscribe(places => {
+        resolve(places)
+        if(subscription)
+        subscription.unsubscribe();
+      })
     });
   }
 

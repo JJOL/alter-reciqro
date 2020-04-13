@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { LugaresService } from './lugares.service';
+import { PlacesService } from './places.service';
 import { from } from 'rxjs';
 import { GeoPoint } from '../models/geopoint.model';
 import { resolve } from 'url';
@@ -95,9 +95,9 @@ function makeFBCollectionFromData_Delete (testData: any[]) {
   return fbMockCollection;
 }
 
-describe('LugaresService', () => {
+describe('PlacesService', () => {
   
-  let placesService: LugaresService;
+  let placesService: PlacesService;
   let mockFirestoreSpy: jasmine.SpyObj<AngularFirestore>; 
 
   beforeEach(() => {
@@ -105,12 +105,12 @@ describe('LugaresService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        LugaresService,
+        PlacesService,
         { provide: AngularFirestore, useValue: firestoreMockSpy }
       ],
     });
 
-    placesService = TestBed.get(LugaresService);
+    placesService = TestBed.get(PlacesService);
     mockFirestoreSpy = TestBed.get(AngularFirestore);
   });
 
