@@ -50,6 +50,7 @@ export class PlacesSearcherPagePage implements OnInit {
       console.log(err);
     }
     this.places = await this.placesService.getAllPlaces();
+    this.filterByType(["0pBVMBkSLD6F7yIk6lih"]).then(data => Promise.all(data).then(values => {console.log(values)})   )
 
   }
 
@@ -117,14 +118,11 @@ export class PlacesSearcherPagePage implements OnInit {
 
   filterByType(filters){
     if(filters.length!=0){
-      this.placesService.getPlacesByWaste(filters).then(data => {
-        let places:Place[] = [];
-        for(let place_type of data)
-        {
-          this.placesService.getPlaceByID(place_type.place).then(lugar => places.push(lugar));
-        }  
-        return places;
-      }).then(data => {console.log(data)});
+      return this.placesService.getIDPlacesByWaste(filters).then(data => {
+        return data.map( lugar => { 
+           return this.placesService.getPlaceByID(lugar.place).then( place => {return place});
+        });
+      });
     }
     
   }

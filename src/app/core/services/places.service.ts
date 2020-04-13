@@ -247,7 +247,7 @@ export class PlacesService {
       })
     });
   }
-  async getPlacesByWaste(filters:string[]): Promise<PlacesWasteTypes[]> {
+  async getIDPlacesByWaste(filters:string[]): Promise<PlacesWasteTypes[]> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<PlacesWasteTypes>(PLACE_TYPE_PLACE,ref => ref.where('waste_type','in',filters)  ).snapshotChanges()
