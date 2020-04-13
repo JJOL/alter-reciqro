@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import {APP_BASE_HREF} from '@angular/common';
 import { AddCenterPage } from './add-center.page';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { SharedPageModule } from 'src/app/shared/shared.module';
@@ -51,6 +52,7 @@ describe('AddCenterPage', () => {
         FormBuilder,
         { provide: PlacesService, useValue: mockService },
         { provide: AngularFirestore, useValue: angularFirestoreStub },
+        { provide: APP_BASE_HREF, useValue: '/'}
       ]
     }).compileComponents();
 

@@ -16,7 +16,13 @@ const mockPlacesService = {
   },
   searchMapPlaces: () => {
     return [];
-  }
+  },
+  getIDPlacesByWaste: () => {
+  return new Promise((resolve,reject) => {
+    resolve([]);
+    });
+  },
+
 }
 
 const mockGeolocation = {

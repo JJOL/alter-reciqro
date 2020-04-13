@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {WastesService} from '../core/services/wastes.service';
-import {PlacesService} from '../core/services/places.service';
+//import {PlacesService} from '../core/services/places.service';
 
 @Component({
   selector: 'app-shared',
@@ -9,11 +8,11 @@ import {PlacesService} from '../core/services/places.service';
 })
 export class SharedPage implements OnInit {
 
-  constructor() { }
+  constructor(/*private service:PlacesService*/) { }
 
   ngOnInit() {
+    //this.service.getAllWasteTypes().then(types => this.service.getPlacesByWaste(["0pBVMBkSLD6F7yIk6lih"]).then( result => console.log(result)))
     
-
   }
   test(filters:[]){
   
