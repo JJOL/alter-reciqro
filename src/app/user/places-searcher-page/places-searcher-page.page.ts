@@ -2,7 +2,6 @@ import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { SharedPage } from './../../shared/shared.page';
 import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { PlacesService } from 'src/app/core/services/places.service';
-import {WastesService} from 'src/app/core/services/wastes.service';
 import { ModalController } from '@ionic/angular';
 import { Place } from '../../core/models/place.model';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
@@ -31,7 +30,6 @@ export class PlacesSearcherPagePage implements OnInit {
   
   constructor(
     private placesService: PlacesService,
-    private wasteService: WastesService,
     private geolocationCont: Geolocation,
     public modalController: ModalController,
   ) { }
@@ -119,7 +117,7 @@ export class PlacesSearcherPagePage implements OnInit {
 
   filterByType(filters){
     if(filters.length!=0){
-      this.wasteService.getPlacesByType(filters).then(data => {
+      this.placesService.getPlacesByWaste(filters).then(data => {
         let places:Place[] = [];
         for(let place_type of data)
         {

@@ -5,7 +5,6 @@ import { FilterMenuComponent } from './filter-menu.component';
 import {FilterButtonComponent} from '../filter-button/filter-button.component';
 
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore'; 
-import { WastesService } from '../../../core/services/wastes.service';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../../environments/environment';
 import { from } from 'rxjs';
@@ -31,7 +30,7 @@ describe('FilterMenuComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ FilterMenuComponent,FilterButtonComponent],
       imports: [IonicModule.forRoot()],
-      providers: [WastesService,   { provide: AngularFirestore, useValue: angularFirestoreStub }]
+      providers: [   { provide: AngularFirestore, useValue: angularFirestoreStub }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(FilterMenuComponent);

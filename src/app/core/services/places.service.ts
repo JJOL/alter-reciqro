@@ -8,11 +8,12 @@ import { Place } from '../models/place.model';
 import { TipoInstalacion } from '../models/tipo-instalacion.model';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { WasteType } from '../models/waste-type';
+import { WasteType,PlacesWasteTypes } from '../models/waste-type';
 
 const PLACE_KEY = '/places';
 const PLACE_TYPE_KEY = '/place_type';
-const WASTE_TYPE_KEY = '/waste_types';
+const WASTE_TYPE_KEY = '/waste_type';
+const PLACE_TYPE_PLACE = '/places_waste_types';
 
 const GeoPoint = firebase.firestore.GeoPoint;
 
@@ -226,6 +227,43 @@ export class PlacesService {
             subscription.unsubscribe();
         })
       
+    });
+  }
+  async getAllWasteTypes(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<WasteType>(WASTE_TYPE_KEY).snapshotChanges()
+      .pipe(map(snapshot => {
+        return snapshot.map(wastetype  => {
+          let data = wastetype.payload.doc.data()
+          let id = wastetype.payload.doc.id;
+          return {id:id,...data};
+        })
+      }))
+      .subscribe(places => {
+        resolve(places)
+        if(subscription)
+        subscription.unsubscribe();
+      })
+    });
+  }
+  async getPlacesByWaste(filters:string[]): Promise<PlacesWasteTypes[]> {
+    return new Promise((resolve, reject) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<PlacesWasteTypes>(PLACE_TYPE_PLACE,ref => ref.where('waste_type','in',filters)  ).snapshotChanges()
+      .pipe(map(snapshot => 
+        {
+        return snapshot.map(wastetype  => {
+          let data = wastetype.payload.doc.data()
+          let id = wastetype.payload.doc.id;
+          return {id:id,...data};
+        })
+      }))
+      .subscribe(places => {
+        resolve(places)
+        if(subscription)
+        subscription.unsubscribe();
+      })
     });
   }
 
