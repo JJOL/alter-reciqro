@@ -64,6 +64,8 @@ ion-toolbar{
     height: 45%;
     width: 50%;
     position: fixed;
-
+    display: none;
 }
-
+.fixedPosition.active {
+    display: block;
+}
