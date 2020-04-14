@@ -5,13 +5,8 @@ language: node_js
 node_js:
   - "12"
 
-addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
-
+before_script:
+  - sudo -E apt-get -yq --no-install-suggests --no-install-recommends $(travis_apt_get_options) install google-chrome-stable
 cache:
   directories:
      - ./node_modules
