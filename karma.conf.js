@@ -7,8 +7,10 @@ module.exports = function (config) {
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     files: [
       'https://maps.googleapis.com/maps/api/js?sensor=false',
-      'mocks/google-maps.mock.js'
+      'mocks/google-maps.mock.js',
+      {'pattern': 'coverage/**',  'served': true, 'nocache':true,included: false, 'watched':false}
     ],
+   
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
@@ -20,8 +22,8 @@ module.exports = function (config) {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, '../coverage'),
-      reports: ['html', 'lcovonly', 'text-summary'],
+      dir: require('path').join(__dirname, '/coverage'),
+      reports: ['html', 'lcovonly', 'text-summary', 'json-summary'],
       fixWebpackSourcePaths: true
     },
     reporters: ['progress', 'kjhtml'],
