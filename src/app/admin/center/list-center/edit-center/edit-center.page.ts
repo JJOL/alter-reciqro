@@ -163,15 +163,11 @@ export class EditCenterPage implements OnInit {
           this.newCenterForm.controls['qrCode'].setValue(place.qr_code);
           this.newCenterForm.controls['mainPicture'].setValue(place.photo);
           this.newCenterForm.patchValue({
-            
+            instalationType: place.places_type.id,
             address: {
               zip: place.postal_code,
               street: place.address
             }
-          });
-          this.newCenterForm.patchValue({
-            instalationType: place.places_type.id
-            
           });
           
         });
@@ -180,13 +176,11 @@ export class EditCenterPage implements OnInit {
     
   }
 
-  updateIdPlaces(){
-    this.newCenterForm.controls['instalationType'].setValue(this.place.places_type.id);
-  }
+  
 
   onChangeMarker(lugar){
-    this.newCenterForm.controls['latitude'].setValue(lugar.latitud);
-    this.newCenterForm.controls['longitude'].setValue(lugar.longitud);
+    this.newCenterForm.controls['latitude'].setValue(lugar.location.lat);
+    this.newCenterForm.controls['longitude'].setValue(lugar.location.lng);
   }
 
 
@@ -212,7 +206,7 @@ export class EditCenterPage implements OnInit {
       this.newCenterForm.reset();
     })
   })}
-
+  
   showToast(msg) {
     this.toastCtrl.create({
       message: msg,

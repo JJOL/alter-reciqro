@@ -43,7 +43,7 @@
             <p> {{ loadedPlace.postal_code }} </p>
             <br>
             <h4> <strong> Tipo de Instalación: </strong> </h4>
-            <p *ngIf="!loadedPlaceType"> Cargando ... </p>
+            <p *ngIf="!loadedPlaceType"> ¡Error! No se pudo cargar el tipo de lugar, verificarlo</p>
             <p *ngIf="loadedPlaceType"> {{ loadedPlaceType.name }} </p>
           </ion-card-content>
         </ion-card>

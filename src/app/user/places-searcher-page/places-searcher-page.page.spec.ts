@@ -17,11 +17,16 @@ const mockPlacesService = {
   searchMapPlaces: () => {
     return [];
   },
-  getIDPlacesByWaste: () => {
+  getIDPlacesTypesByWaste : () => {
   return new Promise((resolve,reject) => {
     resolve([]);
     });
   },
+  getIDPlacesByPlacesType: () => {
+    return new Promise((resolve,reject) => {
+      resolve([]);
+      });
+    },
 
 }
 

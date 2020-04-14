@@ -43,6 +43,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    console.log(this.editable)
     if(this.center && this.toloaded && this) {
      // this.setCenter(this.center);
       this.toloaded=false;
@@ -56,7 +57,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
 
     if (this.places && this.map) {
       console.log('Rendering Map Places...');
-      
+      console.log(this.places)
       //Se acota deacuerdo al máximo
       // let min = this.max<this.places.length ? this.max : 0;
       let max =  this.max < this.places.length ? this.max : this.places.length;
