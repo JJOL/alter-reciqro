@@ -16,7 +16,7 @@ jobs:
           key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
             - "node_modules"
-            - "~/my-project/coverage"
+            - "coverage"
       
           
   build:
@@ -71,6 +71,8 @@ workflows:
     jobs:
       - testing
       - build:
+          requires:
+            - testing
           filters:
             branches:
               only: staging
