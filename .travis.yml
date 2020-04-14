@@ -21,4 +21,5 @@ jobs:
   - stage: test
     script: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
   - stage: build
+    install: skip
     script: npm run build --prod
