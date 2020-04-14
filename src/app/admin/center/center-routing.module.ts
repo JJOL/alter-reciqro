@@ -13,8 +13,8 @@ const routes: Routes = [
     loadChildren: () => import('./add-center/add-center.module').then( m => m.AddCenterPageModule)
   },
   {
-    path: 'list-centers',
-    loadChildren: () => import('./list-centers/list-centers.module').then( m => m.ListCentersPageModule)
+    path: 'list-center',
+    loadChildren: () => import('./list-center/list-center.module').then( m => m.ListCenterPageModule)
   },
   {
     path: 'waste-categories',

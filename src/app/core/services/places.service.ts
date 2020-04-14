@@ -140,6 +140,8 @@ export class PlacesService {
         take(1),
         map(
           placeType => {
+            console.log("PLACE TYPE: ");
+            console.log(placeType);
             placeType.id = id;
             return placeType
           }

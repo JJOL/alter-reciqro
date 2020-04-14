@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CenterDetailPageRoutingModule } from './center-detail-routing.module';
+import { CenterDetailPageRoutingModule } from './detail-center-routing.module';
 
-import { CenterDetailPage } from './center-detail.page';
+import { CenterDetailPage } from './detail-center.page';
 
 import {SharedPageModule} from '../../../../shared/shared.module';
 

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ListCentersPage } from './list-centers.page';
+import { ListCenterPage } from './list-center.page';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from } from 'rxjs';
@@ -18,20 +18,20 @@ const angularFirestoreStub = {
   collection: jasmine.createSpy('collection').and.returnValue(collectionStub)
 }
 
-describe('ListCentersPage', () => {
-  let component: ListCentersPage;
-  let fixture: ComponentFixture<ListCentersPage>;
+describe('ListCenterPage', () => {
+  let component: ListCenterPage;
+  let fixture: ComponentFixture<ListCenterPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListCentersPage ],
+      declarations: [ ListCenterPage ],
       imports: [IonicModule.forRoot(), RouterTestingModule],
       providers: [
         { provide: AngularFirestore, useValue: angularFirestoreStub }
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ListCentersPage);
+    fixture = TestBed.createComponent(ListCenterPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

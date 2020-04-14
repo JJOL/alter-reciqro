@@ -8,9 +8,9 @@ import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { GeoPoint } from 'src/app/core/models/geopoint.model';
 
 @Component({
-  selector: 'app-center-detail',
-  templateUrl: './center-detail.page.html',
-  styleUrls: ['./center-detail.page.scss'],
+  selector: 'app-detail-center',
+  templateUrl: './detail-center.page.html',
+  styleUrls: ['./detail-center.page.scss'],
 })
 
 export class CenterDetailPage implements OnInit {
@@ -62,7 +62,7 @@ export class CenterDetailPage implements OnInit {
           console.log(this.mapEl);
           
           this.mapPlaces = [ this.loadedPlace ];
-          this.mapEl.setCenter(this.loadedPlace.location);
+          //this.mapEl.setCenter(this.loadedPlace.location);
           
 
           //get placeType
@@ -97,7 +97,7 @@ export class CenterDetailPage implements OnInit {
         text: 'Borrar',
         handler: () => {
           this.placeService.deletePlaceByID(this.loadedPlace.id).then(() => {
-            this.navCtrl.navigateBack(['/admin/center/list-centers']);
+            this.navCtrl.navigateBack(['/admin/center/list-center']);
           })
           .catch(() => {});
         }

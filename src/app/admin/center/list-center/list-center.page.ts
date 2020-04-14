@@ -5,11 +5,11 @@ import { PlacesService } from 'src/app/core/services/places.service';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-list-centers',
-  templateUrl: './list-centers.page.html',
-  styleUrls: ['./list-centers.page.scss'],
+  selector: 'app-list-center',
+  templateUrl: './list-center.page.html',
+  styleUrls: ['./list-center.page.scss'],
 })
-export class ListCentersPage implements OnInit {
+export class ListCenterPage implements OnInit {
 
   places : any [];
 

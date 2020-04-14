@@ -9,11 +9,11 @@ import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import * as firebase from 'firebase/app';
 const GeoPoint = firebase.firestore.GeoPoint;
 @Component({
-  selector: 'app-edit-centers',
-  templateUrl: './edit-centers.page.html',
-  styleUrls: ['./edit-centers.page.scss'],
+  selector: 'app-edit-center',
+  templateUrl: './edit-center.page.html',
+  styleUrls: ['./edit-center.page.scss'],
 })
-export class EditCentersPage implements OnInit {
+export class EditCenterPage implements OnInit {
   updateBookingForm: FormGroup;
   
   place : Place;
@@ -205,7 +205,7 @@ export class EditCentersPage implements OnInit {
       // use id
       this.showToast('Lugar editado de manera exitosa');
       this.newCenterForm.reset();
-      this.navCtrl.navigateBack(['/admin/center/list-centers']);
+      this.navCtrl.navigateBack(['/admin/center/list-center']);
     })
     .catch(err => {
       this.showToast('Error al cargar el lugar');

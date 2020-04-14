@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ListCentersPageRoutingModule } from './list-centers-routing.module';
+import { ListCenterPageRoutingModule } from './list-center-routing.module';
 
-import { ListCentersPage } from './list-centers.page';
+import { ListCenterPage } from './list-center.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ListCentersPageRoutingModule
+    ListCenterPageRoutingModule
   ],
-  declarations: [ListCentersPage]
+  declarations: [ListCenterPage]
 })
-export class ListCentersPageModule {}
+export class ListCenterPageModule {}
