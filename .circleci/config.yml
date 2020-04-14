@@ -12,7 +12,7 @@ jobs:
       - run: npm install
       - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
       - save_cache:
-          key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum ".circleci/package-lock.json" }}
+          key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum ".circleci/config.yml" }}
           paths:
             - "node_modules"
             - "coverage"
@@ -25,7 +25,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum ".circleci/package-lock.json" }}
+          key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum ".circleci/config.yml" }}
       - run:
           name: Building
           command: npm run build --prod
@@ -70,6 +70,8 @@ workflows:
     jobs:
       - testing
       - build:
+        requires:
+            - testing
           filters:
             branches:
               only: staging
