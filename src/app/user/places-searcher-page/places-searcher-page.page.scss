@@ -58,12 +58,14 @@ ion-toolbar{
     --border-width:100%;
 }
 
-.fixedPosition{
+app-marker-card {
     left: 0;
     bottom: 10%;
     height: 45%;
     width: 50%;
     position: fixed;
-
+    display: none;
 }
-
+app-marker-card.active {
+    display: block;
+}
