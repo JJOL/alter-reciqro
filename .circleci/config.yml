@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   firebase-deploy: azdevs/firebase-deploy@1.0.0
+  slack: circleci/slack@x.y.z/*
 jobs:
   testing:
     working_directory: ~/my-project
@@ -14,6 +15,9 @@ jobs:
           key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
             - "node_modules"
+      - slack/status:
+          message: "Test nuclear"
+          webhook: "https://hooks.slack.com/services/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" 
   build:
     working_directory: ~/my-project
     docker:
