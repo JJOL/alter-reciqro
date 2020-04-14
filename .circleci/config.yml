@@ -15,7 +15,7 @@ jobs:
           key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
             - "node_modules"
-            - "coverage"
+            - "~/my-project/coverage"
       
           
   build:
