@@ -13,7 +13,7 @@ import { WasteType,PlacesWasteTypes } from '../models/waste-type';
 const PLACE_KEY = '/places';
 const PLACE_TYPE_KEY = '/place_type';
 const WASTE_TYPE_KEY = '/waste_type';
-const PLACE_TYPE_PLACE = '/places_waste_types';
+const PLACE_TYPE_WASTE_TYPE = '/place_type_waste_type';
 
 const GeoPoint = firebase.firestore.GeoPoint;
 
@@ -247,10 +247,11 @@ export class PlacesService {
       })
     });
   }
-  async getIDPlacesByWaste(filters:string[]): Promise<PlacesWasteTypes[]> {
+  //Esta está bien
+  async getIDPlacesTypesByWaste(filters:string[]): Promise<TipoInstalacion[]> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
-      subscription = this.firedb.collection<PlacesWasteTypes>(PLACE_TYPE_PLACE,ref => ref.where('waste_type','in',filters)  ).snapshotChanges()
+      subscription = this.firedb.collection<TipoInstalacion>(PLACE_TYPE_WASTE_TYPE,ref => ref.where('waste_type','in',filters)  ).snapshotChanges()
       .pipe(map(snapshot => 
         {
         return snapshot.map(wastetype  => {
@@ -266,5 +267,29 @@ export class PlacesService {
       })
     });
   }
+
+  async getIDPlacesByPlacesType(placetype:any[]): Promise<Place[]> {
+    let clean =  Array.from(new Set (placetype.map(data => {return data.place_type }))) 
+    let placetyperef =   clean.map( ele => { return this.firedb.doc('place_type/' + ele).ref});
+    return new Promise((resolve, reject) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<Place>(PLACE_KEY,ref => ref.where('places_type','in',placetyperef)  ).snapshotChanges()
+      .pipe(map(snapshot => 
+        {
+        return snapshot.map(wastetype  => {
+          let data = wastetype.payload.doc.data()
+          let id = wastetype.payload.doc.id;
+          return {id:id,...data};
+        })
+      }))
+      .subscribe(places => {
+        resolve(places)
+        if(subscription)
+        subscription.unsubscribe();
+      })
+    });
+  }
+
+
 
 }
