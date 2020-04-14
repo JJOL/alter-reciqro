@@ -16,7 +16,7 @@ jobs:
           paths:
             - "node_modules"
       - run: sudo apt-get install lftp;
-      - run: lftp ftp://altefxyj:UV07XAyx80JW@ftp.altermx.website -e "set ftp:ssl-allow no; mirror -R coverage/index.html public_html/logs/"{{ .Environment.CIRCLE_SHA1 }}"; quit"
+      - run: lftp ftp://altefxyj:UV07XAyx80JW@ftp.altermx.website -e "set ftp:ssl-allow no; mirror -R coverage/index.html public_html/logs/${CIRCLE_BRANCH}"; quit"
       - slack/notify:
           message: 
           webhook: "https://hooks.slack.com/services/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"
