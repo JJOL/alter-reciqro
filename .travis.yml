@@ -10,9 +10,15 @@ before_script:
 cache:
   directories:
      - ./node_modules
+     - ./coverage
 
 install:
   - npm install
 
-script:
-  - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+
+jobs:
+  include:
+  - stage: test
+    script: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+  - stage: build
+    script: npm run build --prod
