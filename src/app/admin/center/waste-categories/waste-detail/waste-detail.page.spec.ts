@@ -5,18 +5,11 @@ import { WasteDetailPage } from './waste-detail.page';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from } from 'rxjs';
+import {MockAngularFirestore} from 'src/app/core/services/mock/firestoremock.model';
 
 const arr = [[]];
 
-const data = from(arr);
 
-const collectionStub = {
-  valueChanges: jasmine.createSpy('valueChanges').and.returnValue(data)
-}
-
-const angularFirestoreStub = {
-  collection: jasmine.createSpy('collection').and.returnValue(collectionStub)
-}
 
 describe('WasteDetailPage', () => {
   let component: WasteDetailPage;
@@ -27,7 +20,7 @@ describe('WasteDetailPage', () => {
       declarations: [ WasteDetailPage ],
       imports: [IonicModule.forRoot(), RouterTestingModule],
       providers: [
-        { provide: AngularFirestore, useValue: angularFirestoreStub }
+        { provide: AngularFirestore, useValue: MockAngularFirestore }
       ]
     }).compileComponents();
 

@@ -7,17 +7,8 @@ import {FilterButtonComponent} from './ui/filter-button/filter-button.component'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { environment } from '../../environments/environment';
 import { from } from 'rxjs';
-const arr = [[]];
+import {MockAngularFirestore} from 'src/app/core/services/mock/firestoremock.model';
 
-const data = from(arr);
-
-const collectionStub = {
-  valueChanges: jasmine.createSpy('valueChanges').and.returnValue(data)
-}
-
-const angularFirestoreStub = {
-  collection: jasmine.createSpy('collection').and.returnValue(collectionStub)
-}
 
 describe('SharedPage', () => {
   let component: SharedPage;
@@ -27,7 +18,7 @@ describe('SharedPage', () => {
     TestBed.configureTestingModule({
       declarations: [ SharedPage,FilterMenuComponent,FilterButtonComponent ],
       imports: [IonicModule.forRoot()],
-      providers: [AngularFirestore, { provide: AngularFirestore, useValue: angularFirestoreStub }]
+      providers: [ { provide: AngularFirestore, useValue: MockAngularFirestore }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SharedPage);

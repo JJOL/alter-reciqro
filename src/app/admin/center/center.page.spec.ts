@@ -1,22 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { RouterTestingModule } from '@angular/router/testing'
-
 import { CenterPage } from './center.page';
-import { from } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
+import {MockAngularFirestore} from 'src/app/core/services/mock/firestoremock.model';
 
-const arr = [[]];
-
-const data = from(arr);
-
-const collectionStub = {
-  valueChanges: jasmine.createSpy('valueChanges').and.returnValue(data)
-}
-
-const angularFirestoreStub = {
-  collection: jasmine.createSpy('collection').and.returnValue(collectionStub)
-}
 
 describe('CenterPage', () => {
   let component: CenterPage;
@@ -27,7 +15,7 @@ describe('CenterPage', () => {
       declarations: [ CenterPage ],
       imports: [IonicModule.forRoot(), RouterTestingModule],
       providers: [
-        { provide: AngularFirestore, useValue: angularFirestoreStub }
+        { provide: AngularFirestore, useValue: MockAngularFirestore }
       ]
     }).compileComponents();
 

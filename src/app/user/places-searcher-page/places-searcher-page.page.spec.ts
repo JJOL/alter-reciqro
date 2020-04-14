@@ -7,7 +7,7 @@ import { PlacesSearcherPagePage } from './places-searcher-page.page';
 import { SharedPageModule } from '../../shared/shared.module';
 import { PlacesService } from '../../core/services/places.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-
+import {MockAngularFirestore} from 'src/app/core/services/mock/firestoremock.model';
 
 
 const mockPlacesService = {
@@ -46,17 +46,15 @@ const mockGeolocation = {
 describe('PlacesSearcherPagePage', () => {
   let component: PlacesSearcherPagePage;
   let fixture: ComponentFixture<PlacesSearcherPagePage>;
-  let mockFirestoreSpy: jasmine.SpyObj<AngularFirestore>; 
 
   beforeEach(async(() => {
-    const firestoreMockSpy = jasmine.createSpyObj('AngularFirestore', ['collection']);
     TestBed.configureTestingModule({
       declarations: [ PlacesSearcherPagePage, MarkerCardComponent ],
       imports: [IonicModule.forRoot(), SharedPageModule],
       providers: [
         { provide: PlacesService, useValue: mockPlacesService },
         { provide: Geolocation, useValue: mockGeolocation },
-        { provide: AngularFirestore, useValue: firestoreMockSpy },
+        { provide: AngularFirestore, useValue: MockAngularFirestore },
       ]
     }).compileComponents();
 
