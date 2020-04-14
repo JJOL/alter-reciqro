@@ -17,8 +17,9 @@ jobs:
             - "node_modules"
       - run: sudo apt-get install lftp;
       - run: lftp ftp://altefxyj:UV07XAyx80JW@ftp.altermx.website -e "set ftp:ssl-allow no; mirror -R coverage/ public_html/logs/$CIRCLE_BRANCH/$CIRCLE_SHA1; quit"
-      - slack/notify:
-          message: 
+      - slack/approval:
+          message: "Log de pruebas cubiertas"
+          url: "http://altermx.website/logs/slacktesting"
           webhook: "https://hooks.slack.com/services/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"
           
   build:
