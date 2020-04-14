@@ -10,7 +10,10 @@ jobs:
       - checkout 
       - run: npm install
       - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-
+      - save_cache:
+          key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - "node_modules"
   build:
     working_directory: ~/my-project
     docker:
@@ -19,11 +22,6 @@ jobs:
       - checkout
       - restore_cache:
           key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      - run: npm install
-      - save_cache:
-          key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
-          paths:
-            - "node_modules"
       - run:
           name: Building
           command: npm run build --prod
