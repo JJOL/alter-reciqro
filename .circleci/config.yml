@@ -15,7 +15,7 @@ jobs:
           key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
             - "node_modules"
-      - slack/status:
+      - slack/notify:
           message: "Test nuclear"
           webhook: "https://hooks.slack.com/services/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" 
   build:
