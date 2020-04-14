@@ -6,8 +6,8 @@
   "scripts": {
     "ng": "ng",
     "start": "npm install && ng serve --poll=2000",
-    "build": "npm install && ng build",
-    "test": "npm install && ng test --poll=2000",
+    "build": "ng build",
+    "test": "ng test --poll=2000",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
