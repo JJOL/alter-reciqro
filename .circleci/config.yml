@@ -8,6 +8,7 @@ jobs:
       - image: circleci/node:13.8.0-browsers
     steps:
       - checkout 
+      - run: npm install
       - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
 
   build:
