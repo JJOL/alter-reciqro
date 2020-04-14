@@ -17,6 +17,10 @@ jobs:
             - "node_modules"
       - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
       #- run: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
+     - slack/notify:
+          message: "Test nuclear" # Optional: Enter your own message
+          color: "#42e2f4" # Optional: Assign custom colors for each notification
+          webhook: "https://hooks.slack.com/services/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" # Optional: Enter a specific webhook here or the default will use $SLACK_WEBHOOK
       - run:
           name: Building
           command: npm run build --prod
