@@ -276,11 +276,7 @@ export class PlacesService {
       subscription = this.firedb.collection<Place>(PLACE_KEY,ref => ref.where('places_type','in',placetyperef)  ).snapshotChanges()
       .pipe(map(snapshot => 
         {
-        return snapshot.map(wastetype  => {
-          let data = wastetype.payload.doc.data()
-          let id = wastetype.payload.doc.id;
-          return {id:id,...data};
-        })
+        return snapshot.map(parseFBPlaceToPlace)
       }))
       .subscribe(places => {
         resolve(places)

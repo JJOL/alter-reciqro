@@ -49,8 +49,9 @@ export class PlacesSearcherPagePage implements OnInit {
     } catch (err) {
       console.log(err);
     }
-    this.places = await this.placesService.getAllPlaces();
-   this.filterByType(["Y0fyyM3URa9hwkKgxWN3","gvgouJxdtD22qN0mU8Ty"]).then(data => console.log(data))
+    this.places = await this.filterByType(["Y0fyyM3URa9hwkKgxWN3","gvgouJxdtD22qN0mU8Ty"])
+    console.log(this.places)
+    //this.placesService.getIDPlacesByPlacesType([{place_type:"6sYHE4U4kung8EFmhyJL"}])
   }
 
   // gotoCenter(lat, lng){
@@ -115,7 +116,7 @@ export class PlacesSearcherPagePage implements OnInit {
   }
 
 
-  filterByType(filters){
+  async filterByType(filters){
     if(filters.length!=0){
       return this.placesService.getIDPlacesTypesByWaste(filters).then(dataplacetype => {
            return this.placesService.getIDPlacesByPlacesType(dataplacetype).then( place => {return place});
