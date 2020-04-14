@@ -5,7 +5,7 @@ import { WasteDetailPage } from './waste-detail.page';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from } from 'rxjs';
-import {MockAngularFirestore} from 'src/app/core/services/mock/firestoremock.model';
+import {MockAngularFirestore} from 'src/app/core/services/mocks/firestore.mocks';
 
 const arr = [[]];
 

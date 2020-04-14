@@ -7,7 +7,7 @@ import { PlacesSearcherPagePage } from './places-searcher-page.page';
 import { SharedPageModule } from '../../shared/shared.module';
 import { PlacesService } from '../../core/services/places.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import {MockAngularFirestore} from 'src/app/core/services/mock/firestoremock.model';
+import {MockAngularFirestore} from 'src/app/core/services/mocks/firestore.mocks';
 
 
 const mockPlacesService = {

@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 import { RouterTestingModule } from '@angular/router/testing'
 import { CenterPage } from './center.page';
 import { AngularFirestore } from '@angular/fire/firestore';
-import {MockAngularFirestore} from 'src/app/core/services/mock/firestoremock.model';
+import {MockAngularFirestore} from 'src/app/core/services/mocks/firestore.mocks';
 
 
 describe('CenterPage', () => {
