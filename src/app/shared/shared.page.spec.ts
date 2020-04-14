@@ -7,7 +7,7 @@ import {FilterButtonComponent} from './ui/filter-button/filter-button.component'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { environment } from '../../environments/environment';
 import { from } from 'rxjs';
-import {MockAngularFirestore} from 'src/app/core/services/mocks/firestore.mocks';
+import {MockAngularFirestore} from 'src/app/core/services/mocks/firestore.mock';
 
 
 describe('SharedPage', () => {
