@@ -37,3 +37,9 @@ jobs:
     before_script: skip
     install: skip
     script: ./firebase-deploy/node_modules/.bin/firebase deploy --token='1//0fLly0WkGtteWCgYIARAAGA8SNwF-L9Ir2bzV2ulSprOJsFudv2Dt3ORSP3VYpkuHyIEGflnwID2EM7LHe18Ca6XbyTT0CF8SpP0'
+stages:
+  - test
+  - name: build
+    if: branch = staging
+  - name: deploy
+    if: branch = staging
