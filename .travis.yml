@@ -8,9 +8,12 @@ language: node_js
 node_js:
   - "12"
 
+
 cache:
   directories:
-     - ./
+     - ./node_modules
+     - ./coverage
+
 install:
   - npm install
 
@@ -23,6 +26,4 @@ jobs:
   - stage: build
     before_script: skip
     install: skip
-    git:
-      clone: false
     script: npm run build --prod
