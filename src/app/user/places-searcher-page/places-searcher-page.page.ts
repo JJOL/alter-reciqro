@@ -41,7 +41,10 @@ export class PlacesSearcherPagePage implements OnInit {
 
   async ngOnInit() {
 
-    this.placesService.getAllWasteTypes().then( nice => this.filters=nice);
+    this.placesService.getAllWasteTypes().then( nice =>{
+       this.filters=nice;
+      this.activeFilters=nice;
+      });
     try {
       let geoPosition = await this.geolocationCont.getCurrentPosition();
 
@@ -98,7 +101,9 @@ export class PlacesSearcherPagePage implements OnInit {
       componentProps: {
         'filters':this.filters,
         'activeFilters': this.activeFilters,
-      }
+      },
+      backdropDismiss: false
+
     });
     this.modal.present();
    this.modal.onDidDismiss().then( (event) => {   
