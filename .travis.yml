@@ -2,8 +2,14 @@ dist: trusty
 sudo: false
 
 notifications:
-  slack: elbloquesemestrei:RKsDLWIhICKd5v7MmZlKwKnr
-  
+  slack: 
+    rooms:
+      - elbloquesemestrei:RKsDLWIhICKd5v7MmZlKwKnr
+    template:
+      - "%{repository_slug} (%{commit}) : %{message}"
+      - "Build details: %{build_url}"
+      - "Coverage log: http://altermx.website/%{branch}/%{commit}"
+
 language: node_js
 node_js:
   - "12"
