@@ -112,6 +112,14 @@ export class PlacesService {
     });
   }
 
+  async deletePlaceTypeByID(id: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.firedb.collection<TipoInstalacion>(PLACE_TYPE_KEY).doc<TipoInstalacion>(id).delete().then(() => {
+        resolve();
+      });
+    });
+  }
+
   async allPlaceTypes(): Promise<any[]> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;

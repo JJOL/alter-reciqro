@@ -24,7 +24,7 @@
             class="user-list"
           >
             <ion-thumbnail slot="start">
-              <ion-img [src]="placeType.icon"></ion-img>
+              <ion-img [src]="placeType.icon_url"></ion-img>
             </ion-thumbnail>
 
             <ion-label>
@@ -32,14 +32,15 @@
               
             </ion-label>
 
-            <ion-button
-            [routerLink]="['/admin/center/waste-categories', placeType.id]" 
+            <ion-button fill="clear" class="bold"
+            [routerLink]="['/admin/center/place-type', placeType.id]"  
             >
-            <ion-label>Visualizar</ion-label>
+            <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
+            </ion-button >
+
+            <ion-button fill="clear" class="bold" [routerLink]="['/admin/center/list-center/edit-center', placeType.id]" >
+              <ion-icon slot="icon-only" name="create-outline"></ion-icon>
             </ion-button>
-            <ion-button >
-          <ion-icon name="create" style="zoom:1.5"></ion-icon> 
-          </ion-button>
           </ion-item>
         </ion-list>
       </ion-col>
