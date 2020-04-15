@@ -1,8 +1,13 @@
+<ion-card >
+  <ion-card-content>
 <ion-grid>
   <ion-row responsive-sm wrap>
     <ion-col width-50 *ngFor="let filter of filters">
-      <app-filter-button  [value]="filter.id" [icon]="filter.icon" [active]="true" (unselected)="remove($event)" (selected)="add($event)" ></app-filter-button>
+      <app-filter-button  [value]="filter" [icon]="filter.icon" [active]="activeFilters.includes(filter)" (unselected)="remove($event)" (selected)="add($event)" ></app-filter-button>
     </ion-col>    
   </ion-row>
 </ion-grid>
-  
+</ion-card-content>
+
+</ion-card>
+<ion-button color="success" (click)=" dismiss()">Filtrar</ion-button>
