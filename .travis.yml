@@ -29,6 +29,7 @@ jobs:
   include:
   - stage: test
     script: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+  - stage: reporting
     script: lftp ftp://altefxyj:UV07XAyx80JW@ftp.altermx.website -e "set ftp:ssl-allow no; mirror -R coverage/ public_html/logs/$TRAVIS_BRANCH/$TRAVIS_COMMIT; quit"
   - stage: build
     before_script: skip
