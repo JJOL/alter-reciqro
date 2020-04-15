@@ -8,7 +8,7 @@ notifications:
     template:
       - "%{repository_slug} (%{commit}) : %{message}"
       - "Build details: %{build_url}"
-      - "Coverage log: http://altermx.website/%{branch}/%{commit}"
+      - "Coverage log: http://altermx.website/%{branch}/$TRAVIS_COMMIT"
 
 language: node_js
 node_js:
