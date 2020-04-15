@@ -3,6 +3,9 @@ sudo: false
 
 notifications:
   slack: elbloquesemestrei:RKsDLWIhICKd5v7MmZlKwKnr
+    template:
+        - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author} %{result} in %{duration}"
+
 
 language: node_js
 node_js:
