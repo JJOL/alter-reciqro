@@ -1,7 +1,10 @@
 export class WasteType {
-    id: string;
-    icon : string;
-    name : string;
+    constructor(
+        public readonly id: string,  
+        public readonly name : string, 
+        public readonly description : string,
+        public readonly icon : string,        
+    ) {}
 };
 export class PlacesWasteTypes{
     place: string;
