@@ -1,6 +1,9 @@
 dist: trusty
 sudo: false
 
+notifications:
+  slack: elbloquesemestrei:RKsDLWIhICKd5v7MmZlKwKnr
+
 language: node_js
 node_js:
   - "12"
