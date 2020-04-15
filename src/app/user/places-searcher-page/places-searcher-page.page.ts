@@ -4,9 +4,11 @@ import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/cor
 import { PlacesService } from 'src/app/core/services/places.service';
 import { ModalController } from '@ionic/angular';
 import { Place } from '../../core/models/place.model';
+import {WasteType} from '../../core/models/waste-type';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {MarkerCardComponent} from '../marker-card/marker-card.component';
-
+import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-places-searcher-page',
@@ -24,6 +26,9 @@ export class PlacesSearcherPagePage implements OnInit {
   places: Place[];
   position: { lat: number, lng: number};
   placeSelected: Place;
+  filters: WasteType[] = [];
+  activeFilters: WasteType[] = [];
+  modal: any;
   @ViewChild ('mapElement', {static: true}) map;
 
   @Output() changeView = new EventEmitter();
@@ -36,8 +41,7 @@ export class PlacesSearcherPagePage implements OnInit {
 
   async ngOnInit() {
 
-    
-
+    this.placesService.getAllWasteTypes().then( nice => this.filters=nice);
     try {
       let geoPosition = await this.geolocationCont.getCurrentPosition();
 
@@ -49,8 +53,9 @@ export class PlacesSearcherPagePage implements OnInit {
     } catch (err) {
       console.log(err);
     }
-    this.places = await this.filterByType(["Y0fyyM3URa9hwkKgxWN3","gvgouJxdtD22qN0mU8Ty"])
+   // this.places = await this.filterByType(["Y0fyyM3URa9hwkKgxWN3","gvgouJxdtD22qN0mU8Ty"])
     console.log(this.places)
+    
     //this.placesService.getIDPlacesByPlacesType([{place_type:"6sYHE4U4kung8EFmhyJL"}])
   }
 
@@ -86,17 +91,28 @@ export class PlacesSearcherPagePage implements OnInit {
   }*/
 
   async presentFilterModal() {
-    const modal = await this.modalController.create({
+    console.log(this.activeFilters);
+    this.modal = await this.modalController.create({
       //cahnge component
-      component: MarkerCardComponent,
+      component: FilterMenuComponent,
       componentProps: {
-        'placeSelected':this.placeSelected,
-        'loadedPlaceType':this.loadedPlaceType,
+        'filters':this.filters,
+        'activeFilters': this.activeFilters,
       }
     });
-    return await modal.present();
-  }
+    this.modal.present();
+   this.modal.onDidDismiss().then( (event) => {   
+    this.activeFilters=event.data;
+    console.log("activos", this.activeFilters);
 
+      this.filterByType(event.data).then(places => {
+        console.log(places);
+        this.places=places
+      });
+  });
+  }
+  
+  
   emitPlace (place) {
     this.placeSelected=place;
     console.log(this.placeSelected);
@@ -116,7 +132,7 @@ export class PlacesSearcherPagePage implements OnInit {
   }
 
 
-  async filterByType(filters){
+  async filterByType(filters:WasteType[]){
     if(filters.length!=0){
       return this.placesService.getIDPlacesTypesByWaste(filters).then(dataplacetype => {
            return this.placesService.getIDPlacesByPlacesType(dataplacetype).then( place => {return place});

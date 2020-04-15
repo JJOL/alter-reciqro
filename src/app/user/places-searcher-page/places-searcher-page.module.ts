@@ -8,6 +8,7 @@ import { PlacesSearcherPagePageRoutingModule } from './places-searcher-page-rout
 import { PlacesSearcherPagePage } from './places-searcher-page.page';
 import { SharedPageModule } from '../../shared/shared.module';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
 
 
 @NgModule({
@@ -22,6 +23,6 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
   providers: [
     Geolocation
   ],
-  entryComponents:[MarkerCardComponent]
+  entryComponents:[FilterMenuComponent]
 })
 export class PlacesSearcherPagePageModule {}

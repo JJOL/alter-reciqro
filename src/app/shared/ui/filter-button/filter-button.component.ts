@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {NgStyle, NgClass} from '@angular/common';
 import { IonicModule } from '@ionic/angular';
+import {WasteType} from '../../../core/models/waste-type';
+
 @Component({
   selector: 'app-filter-button',
   templateUrl: './filter-button.component.html',
@@ -16,13 +18,13 @@ export class FilterButtonComponent implements OnInit {
   @Output() unselected = new EventEmitter<string>();
 
   ngOnInit() {
-    this.emit();
   }
   select(){
     this.active = this.active?false:true;
     this.emit();
   }
   emit(){
+    
     if(this.active) this.selected.emit(this.value);
     else this.unselected.emit(this.value);
   }
