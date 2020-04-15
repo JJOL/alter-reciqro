@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { WasteCategoriesPageRoutingModule } from './waste-categories-routing.module';
+import { EditPlaceTypePageRoutingModule } from './edit-place-type-routing.module';
 
-import { WasteCategoriesPage } from './waste-categories.page';
+import { EditPlaceTypePage } from './edit-place-type.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    WasteCategoriesPageRoutingModule
+    EditPlaceTypePageRoutingModule
   ],
-  declarations: [WasteCategoriesPage]
+  declarations: [EditPlaceTypePage]
 })
-export class WasteCategoriesPageModule {}
+export class EditPlaceTypePageModule {}

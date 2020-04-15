@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { WasteCategoriesPage } from './waste-categories.page';
+import { PlaceTypePage } from './place-type.page';
 
 const routes: Routes = [
   {
@@ -9,11 +9,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: WasteCategoriesPage
+        component: PlaceTypePage
       },
       {
         path: ':wasteId',
-        loadChildren: () => import('./waste-detail/waste-detail.module').then( m => m.WasteDetailPageModule)
+        loadChildren: () => import('./detail-place-type/detail-place-type.module').then( m => m.DetailPlaceTypePageModule)
       }
     ]
   }
@@ -23,4 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class WasteCategoriesPageRoutingModule {}
+export class PlaceTypePageRoutingModule {}

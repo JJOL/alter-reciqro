@@ -1,30 +1,29 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { WasteDetailPage } from './waste-detail.page';
+import { PlaceTypePage } from './place-type.page';
+
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from } from 'rxjs';
 import {MockAngularFirestore} from 'src/app/core/services/mocks/firestore.mock';
 
-const arr = [[]];
 
 
-
-describe('WasteDetailPage', () => {
-  let component: WasteDetailPage;
-  let fixture: ComponentFixture<WasteDetailPage>;
+describe('PlaceTypePage', () => {
+  let component: PlaceTypePage;
+  let fixture: ComponentFixture<PlaceTypePage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WasteDetailPage ],
+      declarations: [ PlaceTypePage ],
       imports: [IonicModule.forRoot(), RouterTestingModule],
       providers: [
         { provide: AngularFirestore, useValue: MockAngularFirestore }
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(WasteDetailPage);
+    fixture = TestBed.createComponent(PlaceTypePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

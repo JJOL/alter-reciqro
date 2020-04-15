@@ -17,8 +17,8 @@ const routes: Routes = [
     loadChildren: () => import('./list-center/list-center.module').then( m => m.ListCenterPageModule)
   },
   {
-    path: 'waste-categories',
-    loadChildren: () => import('./waste-categories/waste-categories.module').then( m => m.WasteCategoriesPageModule)
+    path: 'place-type',
+    loadChildren: () => import('./place-type/place-type.module').then( m => m.PlaceTypePageModule)
   }
 ];
 
