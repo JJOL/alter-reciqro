@@ -14,13 +14,14 @@ cache:
      - ./node_modules
      - ./coverage
      - ./www
+     -./firebase-deploy
      - package.json
      - firebase.json
      - .firebaserc
 
 install:
   - npm install
-
+  - npm install --prefix=./firebase-deploy firebase-tools
 
 jobs:
   include:
@@ -34,5 +35,4 @@ jobs:
   - stage: deploy
     before_script: skip
     install: skip
-    script: npm install --prefix=./firebase-deploy firebase-tools
     script: ./firebase-deploy/node_modules/.bin/firebase deploy --token='1//0fLly0WkGtteWCgYIARAAGA8SNwF-L9Ir2bzV2ulSprOJsFudv2Dt3ORSP3VYpkuHyIEGflnwID2EM7LHe18Ca6XbyTT0CF8SpP0'
