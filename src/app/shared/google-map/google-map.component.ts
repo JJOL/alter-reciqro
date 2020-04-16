@@ -70,7 +70,8 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     const mapOptions: google.maps.MapOptions = {
       center: DEFAULT_CENTER_COORD,
       zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      disableDefaultUI: true
     };
 
     this.map = new google.maps.Map(this.mapElement.nativeElement,
