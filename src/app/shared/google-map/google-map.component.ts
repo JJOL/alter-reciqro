@@ -111,8 +111,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   }
   
   setCenter(coord){
-    
-    this.map.setCenter(coord);
+    return this.map.setCenter(coord);
   }
   setZoom(zoom){
     this.map.setZoom(zoom);
