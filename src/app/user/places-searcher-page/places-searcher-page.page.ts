@@ -41,10 +41,9 @@ export class PlacesSearcherPagePage implements OnInit {
 
   async ngOnInit() {
 
-    this.placesService.getAllWasteTypes().then( nice =>{
-       this.filters=nice;
-      this.activeFilters=nice;
-      });
+    this.filters = await  this.placesService.getAllWasteTypes();
+    this.activeFilters = this.filters;
+    this.places = await this.filterByType(this.activeFilters);
     try {
       let geoPosition = await this.geolocationCont.getCurrentPosition();
 
