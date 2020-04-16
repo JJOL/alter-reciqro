@@ -75,8 +75,9 @@ function getNewToken(oAuth2Client, callback) {
     let values = [];
     let datos =  JSON.parse(fs.readFileSync('coverage/coverage-summary.json', 'utf8'))
     let fecha = new Date();
+    let mes = fecha.getMonth()+1;
     values.push(
-        [fecha.getFullYear()+"-"+fecha.getMonth()+"-"+fecha.getDate(),
+        [fecha.getFullYear()+"-"+mes+"-"+fecha.getDate(),
         process.env.TRAVIS_BRANCH?process.env.TRAVIS_BRANCH:"no travis_BRANCH",
         process.env.TRAVIS_COMMIT?process.env.TRAVIS_COMMIT:"no travis_commit",
          process.env.TRAVIS_COMMIT_MESSAGE?process.env.TRAVIS_COMMIT_MESSAGE:"no travis_BRANCH",
