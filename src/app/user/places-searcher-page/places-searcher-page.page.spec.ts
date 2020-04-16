@@ -1,9 +1,9 @@
 import { MarkerCardComponent } from './../marker-card/marker-card.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { PlacesSearcherPagePage } from './places-searcher-page.page';
-
+import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
 import { SharedPageModule } from '../../shared/shared.module';
 import { PlacesService } from '../../core/services/places.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
@@ -53,6 +53,7 @@ describe('PlacesSearcherPagePage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+    
       declarations: [ PlacesSearcherPagePage, MarkerCardComponent ],
       imports: [IonicModule.forRoot(), SharedPageModule],
       providers: [
@@ -69,5 +70,9 @@ describe('PlacesSearcherPagePage', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should not center Qro because map doesnt exist', () => {
+    let center = component.viewQro();
+    expect(center).toBeTruthy();
   });
 });

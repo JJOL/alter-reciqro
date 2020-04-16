@@ -93,7 +93,6 @@ export class PlacesSearcherPagePage implements OnInit {
   }*/
 
   async presentFilterModal() {
-    console.log(this.activeFilters);
     this.modal = await this.modalController.create({
       //cahnge component
       component: FilterMenuComponent,
@@ -105,7 +104,7 @@ export class PlacesSearcherPagePage implements OnInit {
 
     });
     this.modal.present();
-   this.modal.onDidDismiss().then( (event) => {   
+    this.modal.onDidDismiss().then( (event) => {   
     this.activeFilters=event.data;
     console.log("activos", this.activeFilters);
 
@@ -114,6 +113,7 @@ export class PlacesSearcherPagePage implements OnInit {
         this.places=places
       });
   });
+    return true;
   }
   
   
@@ -151,10 +151,13 @@ export class PlacesSearcherPagePage implements OnInit {
 
   
   viewQro(){
-    this.map.setCenter({lat:20.588772, lng:-100.390292});
-    this.map.setZoom(12);
-
-    this.placeSelected = null;
+    if(this.map){
+      this.map.setCenter({lat:20.588772, lng:-100.390292});
+      this.map.setZoom(12);
+      this.placeSelected = null;
+      return true;
+    }
+    return false;
   }
 
   onMapInteract() {

@@ -19,7 +19,14 @@ var google = {
         	return [lat, lng];
         },
         Map: function(obj){
-
+			return {
+				setCenter: function(coords){
+					return true;
+				},
+				setZoom: function(coords){
+					return true;
+				},
+			}
         },
         MapTypeId: {ROADMAP: true},
         places: {
