@@ -15,11 +15,7 @@ const routes: Routes = [
   {
     path: 'shared',
     loadChildren: () => import('./shared/shared.module').then( m => m.SharedPageModule)
-  },
-  {
-    path: 'place-type',
-    loadChildren: () => import('./src/app/admin/center/place-type/place-type.module').then( m => m.PlaceTypePageModule)
-  },
+  }
 ];
 
 @NgModule({
