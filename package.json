@@ -8,6 +8,7 @@
     "start": "npm install && ng serve --poll=2000",
     "build": "ng build",
     "test": "ng test --poll=2000",
+    "coverage-report": "node metrics",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -29,6 +30,7 @@
     "angularfire2": "^5.4.2",
     "core-js": "^2.5.4",
     "firebase": "^7.13.1",
+    "googleapis": "^39.2.0",
     "googlemaps": "^1.12.0",
     "net": "^1.0.2",
     "rxjs": "~6.5.1",
