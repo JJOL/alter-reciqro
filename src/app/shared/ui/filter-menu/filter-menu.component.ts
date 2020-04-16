@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {WasteType} from '../../../core/models/waste-type';
+import {ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-filter-menu',
@@ -10,20 +11,23 @@ import {WasteType} from '../../../core/models/waste-type';
 
 export class FilterMenuComponent implements OnInit {
   
-  constructor() {}
+  constructor(public modalCtrl: ModalController) {}
   @Input() filters : WasteType [] = [];
-  activeFilters = this.filters;
-  @Output() change = new EventEmitter<WasteType[]>();
+  @Input() activeFilters : WasteType [] = [];
+
 
   ngOnInit() {
   }
 
   add(filter){
     this.activeFilters.push(filter);
-    this.change.emit(this.activeFilters);
   }
   remove(filter){
-    this.activeFilters=this.activeFilters.filter(item => item !== filter);
-    this.change.emit(this.activeFilters);
+    this.activeFilters=this.activeFilters.filter(item => item !== filter);    
   }
+  dismiss() {
+    this.modalCtrl.dismiss(this.activeFilters);
+  }
+
+  
 }

@@ -106,12 +106,10 @@ export class AddCenterPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder, 
     private placeTypeService: PlacesService,
-    private navCtrl: NavController,
-    private toastCtrl: ToastController,
-    private router: Router) { }
+    private toastCtrl: ToastController) { }
 
   ngOnInit() {
-    this.placeTypeService.allPlaceTypes().then( data => { this.loadedPlacetypes=data });
+    //this.placeTypeService.allPlaceTypes().then( data => { this.loadedPlacetypes=data });
   }
 
   ionViewDidEnter(){

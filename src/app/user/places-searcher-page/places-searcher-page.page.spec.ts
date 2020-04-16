@@ -27,7 +27,11 @@ const mockPlacesService = {
       resolve([]);
       });
     },
-
+    getAllWasteTypes: () => {
+      return new Promise((resolve,reject) => {
+        resolve([]);
+        });
+      },
 }
 
 const mockGeolocation = {

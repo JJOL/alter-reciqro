@@ -5,15 +5,6 @@ import { from } from 'rxjs';
 import { GeoPoint } from '../models/geopoint.model';
 import { resolve } from 'url';
 
-// const arr = [[]];
-// const data = from(arr);
-// const collectionStub = {
-//   valueChanges: jasmine.createSpy('valueChanges').and.returnValue(data),
-// }
-// const angularFirestoreStub = {
-//   collection: jasmine.createSpy('collection').and.returnValue(collectionStub)
-// }
-
 function placeLocToFBLoc(placeLoc) {
   return new GeoPoint(placeLoc.lat, placeLoc.lng);
 }

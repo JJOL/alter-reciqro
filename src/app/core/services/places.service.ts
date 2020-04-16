@@ -112,6 +112,14 @@ export class PlacesService {
     });
   }
 
+  async deletePlaceTypeByID(id: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.firedb.collection<TipoInstalacion>(PLACE_TYPE_KEY).doc<TipoInstalacion>(id).delete().then(() => {
+        resolve();
+      });
+    });
+  }
+
   async allPlaceTypes(): Promise<any[]> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
@@ -248,10 +256,10 @@ export class PlacesService {
     });
   }
   //Esta está bien
-  async getIDPlacesTypesByWaste(filters:string[]): Promise<TipoInstalacion[]> {
+  async getIDPlacesTypesByWaste(filters:WasteType[]): Promise<TipoInstalacion[]> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
-      subscription = this.firedb.collection<TipoInstalacion>(PLACE_TYPE_WASTE_TYPE,ref => ref.where('waste_type','in',filters)  ).snapshotChanges()
+      subscription = this.firedb.collection<TipoInstalacion>(PLACE_TYPE_WASTE_TYPE,ref => ref.where('waste_type','in',filters.map(item => {return item.id}))  ).snapshotChanges()
       .pipe(map(snapshot => 
         {
         return snapshot.map(wastetype  => {
