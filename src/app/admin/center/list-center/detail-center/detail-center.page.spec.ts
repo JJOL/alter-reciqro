@@ -13,11 +13,11 @@ const data = from(arr);
 
 const collectionStub = {
   valueChanges: jasmine.createSpy('valueChanges').and.returnValue(data)
-}
+};
 
 const angularFirestoreStub = {
   collection: jasmine.createSpy('collection').and.returnValue(collectionStub)
-}
+};
 
 describe('CenterDetailPage', () => {
   let component: CenterDetailPage;

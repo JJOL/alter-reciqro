@@ -10,16 +10,16 @@ import { RouterModule } from '@angular/router';
 import {MockAngularFirestore} from 'src/app/core/services/mocks/firestore.mock';
 
 
-const mockService = jasmine.createSpyObj("placeService", ["createPlace", "allPlaceTypes"]);
+const mockService = jasmine.createSpyObj('placeService', ['createPlace', 'allPlaceTypes']);
 
 mockService.allPlaceTypes.and.returnValue(
   new Promise<any>((res, rej) => {
-  res([])
+  res([]);
 }));
 
 mockService.createPlace.and.returnValue(
   new Promise<any>((res, rej) => {
-  res([])
+  res([]);
 }));
 
 describe('AddCenterPage', () => {
@@ -49,9 +49,9 @@ describe('AddCenterPage', () => {
   });
 
   it('should call create service', () => {
-    const lugaresService = TestBed.get(PlacesService);/*Servicio simulado*/
-    component.submit();    
+    const lugaresService = TestBed.get(PlacesService); /*Servicio simulado*/
+    component.submit();
     expect(lugaresService.createPlace.calls.count()).toBeGreaterThanOrEqual(1);
-  })
+  });
 
 });

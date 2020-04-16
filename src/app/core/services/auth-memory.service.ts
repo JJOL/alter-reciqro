@@ -20,7 +20,7 @@ const fakeUsers = [
 
 function findUser(userSet: any[], username: string, password: string) {
     return userSet.find(user => {
-        return user.username == username && user.password == password
+        return user.username == username && user.password == password;
     });
 }
 
@@ -28,7 +28,7 @@ export class AuthMemoryService implements AuthService {
 
     private loggedUser: LoginSession;
 
-    constructor(){
+    constructor() {
         this.loggedUser = this.makeClearLoginSesion();
     }
 
@@ -40,7 +40,7 @@ export class AuthMemoryService implements AuthService {
                 userLoggedId:  userFound.userId,
                 userLoggedRole: userFound.role,
                 userLoggedTime: new Date(),
-                userLoggedToken: 'token-'+userFound.userId
+                userLoggedToken: 'token-' + userFound.userId
             };
 
             return true;
@@ -51,7 +51,7 @@ export class AuthMemoryService implements AuthService {
     logout() {
         this.loggedUser = this.makeClearLoginSesion();
     }
-    
+
     getLoggedSession(): LoginSession {
         return {...this.loggedUser};
     }

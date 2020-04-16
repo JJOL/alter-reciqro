@@ -18,7 +18,7 @@ export class AppComponent {
     this.initializeApp();
   }
 
-  onLogout(){
+  onLogout() {
     console.log('Logging out');
   }
 

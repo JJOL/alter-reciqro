@@ -32,14 +32,14 @@ export class WasteService {
       let subscription: Subscription;
       subscription = this.firedb.collection<any>(WASTE_TYPE_KEY).snapshotChanges()
       .pipe(map(snapshot => {
-        return snapshot.map(parseFBPWasteToWaste)
+        return snapshot.map(parseFBPWasteToWaste);
       }))
       .subscribe(wastes => {
-        if(subscription){
+        if (subscription) {
           subscription.unsubscribe();
         }
-        resolve(wastes)
-      })
-    });  
+        resolve(wastes);
+      });
+    });
   }
 }

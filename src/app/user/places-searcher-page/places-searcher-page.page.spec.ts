@@ -18,21 +18,21 @@ const mockPlacesService = {
     return [];
   },
   getIDPlacesTypesByWaste : () => {
-  return new Promise((resolve,reject) => {
+  return new Promise((resolve, reject) => {
     resolve([]);
     });
   },
   getIDPlacesByPlacesType: () => {
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
       resolve([]);
       });
     },
     getAllWasteTypes: () => {
-      return new Promise((resolve,reject) => {
+      return new Promise((resolve, reject) => {
         resolve([]);
         });
       },
-}
+};
 
 const mockGeolocation = {
   getCurrentPosition: () => {
@@ -43,9 +43,9 @@ const mockGeolocation = {
           longitude: 3
         }
       });
-    })
+    });
   }
-}
+};
 
 describe('PlacesSearcherPagePage', () => {
   let component: PlacesSearcherPagePage;
@@ -53,7 +53,7 @@ describe('PlacesSearcherPagePage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    
+
       declarations: [ PlacesSearcherPagePage, MarkerCardComponent ],
       imports: [IonicModule.forRoot(), SharedPageModule],
       providers: [
@@ -72,7 +72,7 @@ describe('PlacesSearcherPagePage', () => {
     expect(component).toBeTruthy();
   });
   it('should not center Qro because map doesnt exist', () => {
-    let center = component.viewQro();
+    const center = component.viewQro();
     expect(center).toBeTruthy();
   });
 });

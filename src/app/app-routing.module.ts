@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  //dummy, at the end it should redirect to auth!
+  // dummy, at the end it should redirect to auth!
   { path: '', redirectTo: 'user/places-searcher-page', pathMatch: 'full' },
   {
     path: 'admin',

@@ -11,21 +11,20 @@ import {WasteType} from '../../../core/models/waste-type';
 export class FilterButtonComponent implements OnInit {
 
   constructor() { }
-  @Input() active : boolean = true;
-  @Input() value : string = "";
-  @Input() icon : string = "https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y";
+  @Input() active = true;
+  @Input() value = '';
+  @Input() icon = 'https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y';
   @Output() selected = new EventEmitter<string>();
   @Output() unselected = new EventEmitter<string>();
 
   ngOnInit() {
   }
-  select(){
-    this.active = this.active?false:true;
+  select() {
+    this.active = this.active ? false : true;
     this.emit();
   }
-  emit(){
-    
-    if(this.active) this.selected.emit(this.value);
-    else this.unselected.emit(this.value);
+  emit() {
+
+    if (this.active) { this.selected.emit(this.value); } else { this.unselected.emit(this.value); }
   }
 }

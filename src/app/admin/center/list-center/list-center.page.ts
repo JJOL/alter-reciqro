@@ -11,15 +11,15 @@ import { Observable } from 'rxjs';
 })
 export class ListCenterPage implements OnInit {
 
-  places : any [];
+  places: any [];
 
-  constructor(private placesService: PlacesService) { 
+  constructor(private placesService: PlacesService) {
   }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
-    this.placesService.getAllPlaces().then( data => { this.places=data});
+    this.placesService.getAllPlaces().then( data => { this.places = data; });
   }
 }

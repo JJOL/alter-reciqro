@@ -1,10 +1,9 @@
 
 
 export class MockAngularFirestore {
-    constructor()
-    {
+    constructor() {
         return  jasmine.createSpyObj('AngularFirestore', [
-            jasmine.createSpyObj('collection',['and']),
-        ])
+            jasmine.createSpyObj('collection', ['and']),
+        ]);
     }
 }

@@ -14,10 +14,10 @@ import { GeoPoint } from 'src/app/core/models/geopoint.model';
 })
 
 export class CenterDetailPage implements OnInit {
-  
+
   // loadedPlace: Place={
   //   id : "",
-  //   name : "", 
+  //   name : "",
   //   description : "",
   //   location: {
   //     lat: 0,
@@ -38,19 +38,19 @@ export class CenterDetailPage implements OnInit {
 
   loadedPlaceType: TipoInstalacion;
   mapPlaces: Place[] = [];
-  
+
   @ViewChild ('mapElement', {static: false}) mapEl;
-  constructor (
+  constructor(
     private activatedRoute: ActivatedRoute,
     private placeService: PlacesService,
     private alertCtrl: AlertController,
     private navCtrl: NavController
   ) { }
-  
-  ngOnInit() {    
+
+  ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
       if (!paraMap.has('centerId')) {
-        //redirect
+        // redirect
         return;
       }
       const centerId = paraMap.get('centerId');
@@ -60,21 +60,21 @@ export class CenterDetailPage implements OnInit {
 
           console.log('Place has loaded!');
           console.log(this.mapEl);
-          
-          this.mapPlaces = [ this.loadedPlace ];
-          //this.mapEl.setCenter(this.loadedPlace.location);
-          
 
-          //get placeType
+          this.mapPlaces = [ this.loadedPlace ];
+          // this.mapEl.setCenter(this.loadedPlace.location);
+
+
+          // get placeType
           if (this.loadedPlace.places_type.id) {
-            this.placeService.getPlaceTypeByID(""+this.loadedPlace.places_type.id).then(placeType => {
+            this.placeService.getPlaceTypeByID('' + this.loadedPlace.places_type.id).then(placeType => {
               this.loadedPlaceType = placeType;
             });
           } else {
             this.loadedPlaceType = {
-              id: "",
-              name: "¡Error! No se pudo cargar, el lugar no está asociado a un tipo de lugar",
-              icon_url: ""
+              id: '',
+              name: '¡Error! No se pudo cargar, el lugar no está asociado a un tipo de lugar',
+              icon_url: ''
             };
           }
         });
@@ -82,14 +82,14 @@ export class CenterDetailPage implements OnInit {
     });
   }
 
-  ionViewWillEnter (){
-    
+  ionViewWillEnter() {
+
   }
 
   onDeletePlace() {
     this.alertCtrl.create ({
-      header: '¿Estas segur@?', 
-      message: '¿De verdad quieres eliminar este lugar?', 
+      header: '¿Estas segur@?',
+      message: '¿De verdad quieres eliminar este lugar?',
       buttons: [{
         text: 'Cancelar',
         role: 'cancel'
@@ -107,7 +107,7 @@ export class CenterDetailPage implements OnInit {
     });
   }
 
-  onChangeMarker(coords){
+  onChangeMarker(coords) {
     console.log(coords);
   }
 

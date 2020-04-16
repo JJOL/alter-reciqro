@@ -18,7 +18,7 @@ export class FBLugaresService {
     // addPlace(place: Lugar) {
     //   this.firedb.collection(PLACE_KEY).add({
     //     placeId: place.idlugar,
-    //     placeName: place.nombre 
+    //     placeName: place.nombre
     //   })
     // }
 
@@ -28,19 +28,19 @@ export class FBLugaresService {
         subscription = this.firedb.collection(PLACE_KEY).valueChanges()
         .pipe(map(snapshot => {
           return snapshot.map(place => {
-            let lugar = {
-              nombre: place['name']
+            const lugar = {
+              nombre: place.name
             };
             return lugar;
-          })
+          });
         }))
         .subscribe(places => {
-          resolve(places)
+          resolve(places);
           subscription.unsubscribe();
-        })
+        });
       });
-      
+
     }
 
   }
-  
+

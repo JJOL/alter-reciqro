@@ -16,7 +16,7 @@ describe('SharedPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SharedPage,FilterMenuComponent,FilterButtonComponent ],
+      declarations: [ SharedPage, FilterMenuComponent, FilterButtonComponent ],
       imports: [IonicModule.forRoot()],
       providers: [ { provide: AngularFirestore, useValue: MockAngularFirestore }]
     }).compileComponents();

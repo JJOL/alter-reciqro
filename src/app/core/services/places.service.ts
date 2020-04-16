@@ -8,7 +8,7 @@ import { Place } from '../models/place.model';
 import { TipoInstalacion } from '../models/tipo-instalacion.model';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { WasteType,PlacesWasteTypes } from '../models/waste-type';
+import { WasteType, PlacesWasteTypes } from '../models/waste-type';
 
 const PLACE_KEY = '/places';
 const PLACE_TYPE_KEY = '/place_type';
@@ -60,25 +60,25 @@ function isWithin(val, min, max) {
 })
 export class PlacesService {
   placeTypes: any;
-  
+
   constructor(
     private firedb: AngularFirestore) {
   }
-  
+
   getAllPlaces(): Promise<Place[]> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<any>(PLACE_KEY).snapshotChanges()
       .pipe(map(snapshot => {
-        return snapshot.map(parseFBPlaceToPlace)
+        return snapshot.map(parseFBPlaceToPlace);
       }))
       .subscribe(places => {
-        if(subscription){
+        if (subscription) {
           subscription.unsubscribe();
         }
-        resolve(places)
-      })
-    });  
+        resolve(places);
+      });
+    });
   }
 
   getPlaceByID(id: string): Promise<Place> {
@@ -90,20 +90,20 @@ export class PlacesService {
         map(
           place => {
             place.id = id;
-            place.location = {lat:place.location.latitude,lng : place.location.longitude}
-            
-            return place
+            place.location = {lat: place.location.latitude, lng : place.location.longitude};
+
+            return place;
           }
         ))
       .subscribe(places => {
-        if(subscription){
+        if (subscription) {
           subscription.unsubscribe();
         }
-        resolve(places)
-      })
+        resolve(places);
+      });
     });
   }
-  
+
   async deletePlaceByID(id: string): Promise<void> {
     return new Promise((resolve, reject) => {
       this.firedb.collection<Place>(PLACE_KEY).doc<Place>(id).delete().then(() => {
@@ -129,15 +129,15 @@ export class PlacesService {
           const data  = placeType.payload.doc.data();
           const id = placeType.payload.doc.id;
           return {id, ...data};
-        })
+        });
       }))
       .subscribe(places => {
-        if(subscription){
+        if (subscription) {
           subscription.unsubscribe();
         }
-        resolve(places)
-      })
-    });  
+        resolve(places);
+      });
+    });
   }
 
   getPlaceTypeByID(id: string): Promise<TipoInstalacion> {
@@ -149,22 +149,22 @@ export class PlacesService {
         map(
           placeType => {
             placeType.id = id;
-            return placeType
+            return placeType;
           }
         ))
       .subscribe(places => {
-        
-        if(subscription) {
+
+        if (subscription) {
           subscription.unsubscribe();
         }
-        resolve(places)
-        
-      })
-    });  
+        resolve(places);
+
+      });
+    });
   }
 
-  createPlace(placeObject){
-    let geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
+  createPlace(placeObject) {
+    const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(PLACE_KEY).add({
         address: placeObject.address.street,
@@ -178,15 +178,15 @@ export class PlacesService {
       })
       .then(
         (res) => {
-          resolve(res)
+          resolve(res);
         },
         err => reject(err)
-      )
-    })
+      );
+    });
   }
-  editPlace(placeObject,id:string) {
-    let geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
-    return new Promise<any>((resolve, reject) =>{
+  editPlace(placeObject, id: string) {
+    const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
+    return new Promise<any>((resolve, reject) => {
      this.firedb.collection(PLACE_KEY).doc(id).set({
       address: placeObject.address.street,
       description: placeObject.description,
@@ -199,11 +199,11 @@ export class PlacesService {
     }, {merge: true} )
     .then(
       (res) => {
-        resolve(res)
+        resolve(res);
       },
       err => reject(err)
-    )
-  })
+    );
+  });
  }
   searchMapPlaces(topLeftPos, botRightPos): Promise<Place[]> {
 
@@ -224,17 +224,18 @@ export class PlacesService {
         .snapshotChanges()
         .pipe(map(snapshot => {
           return snapshot.map(parseFBPlaceToPlace)
-            .filter(place => 
+            .filter(place =>
               isWithin(place.location.lat, minLat, maxLat) && isWithin(place.location.lng, minLng, maxLng
             )
           );
         }))
         .subscribe(places => {
           resolve(places);
-          if (subscription)
+          if (subscription) {
             subscription.unsubscribe();
-        })
-      
+          }
+        });
+
     });
   }
   async getAllWasteTypes(): Promise<any[]> {
@@ -243,54 +244,55 @@ export class PlacesService {
       subscription = this.firedb.collection<WasteType>(WASTE_TYPE_KEY).snapshotChanges()
       .pipe(map(snapshot => {
         return snapshot.map(wastetype  => {
-          let data = wastetype.payload.doc.data()
-          let id = wastetype.payload.doc.id;
-          return {id:id,...data};
-        })
+          const data = wastetype.payload.doc.data();
+          const id = wastetype.payload.doc.id;
+          return {id, ...data};
+        });
       }))
       .subscribe(places => {
-        resolve(places)
-        if(subscription)
+        resolve(places);
+        if (subscription) {
         subscription.unsubscribe();
-      })
+        }
+      });
     });
   }
-  //Esta está bien
-  async getIDPlacesTypesByWaste(filters:WasteType[]): Promise<TipoInstalacion[]> {
+  // Esta está bien
+  async getIDPlacesTypesByWaste(filters: WasteType[]): Promise<TipoInstalacion[]> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
-      subscription = this.firedb.collection<TipoInstalacion>(PLACE_TYPE_WASTE_TYPE,ref => ref.where('waste_type','in',filters.map(item => {return item.id}))  ).snapshotChanges()
-      .pipe(map(snapshot => 
-        {
+      subscription = this.firedb.collection<TipoInstalacion>(PLACE_TYPE_WASTE_TYPE, ref => ref.where('waste_type', 'in', filters.map(item => item.id))  ).snapshotChanges()
+      .pipe(map(snapshot => {
         return snapshot.map(wastetype  => {
-          let data = wastetype.payload.doc.data()
-          let id = wastetype.payload.doc.id;
-          return {id:id,...data};
-        })
+          const data = wastetype.payload.doc.data();
+          const id = wastetype.payload.doc.id;
+          return {id, ...data};
+        });
       }))
       .subscribe(places => {
-        resolve(places)
-        if(subscription)
+        resolve(places);
+        if (subscription) {
         subscription.unsubscribe();
-      })
+        }
+      });
     });
   }
 
-  async getIDPlacesByPlacesType(placetype:any[]): Promise<Place[]> {
-    let clean =  Array.from(new Set (placetype.map(data => {return data.place_type }))) 
-    let placetyperef =   clean.map( ele => { return this.firedb.doc('place_type/' + ele).ref});
+  async getIDPlacesByPlacesType(placetype: any[]): Promise<Place[]> {
+    const clean =  Array.from(new Set (placetype.map(data => data.place_type)));
+    const placetyperef =   clean.map( ele => this.firedb.doc('place_type/' + ele).ref);
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
-      subscription = this.firedb.collection<Place>(PLACE_KEY,ref => ref.where('places_type','in',placetyperef)  ).snapshotChanges()
-      .pipe(map(snapshot => 
-        {
-        return snapshot.map(parseFBPlaceToPlace)
+      subscription = this.firedb.collection<Place>(PLACE_KEY, ref => ref.where('places_type', 'in', placetyperef)  ).snapshotChanges()
+      .pipe(map(snapshot => {
+        return snapshot.map(parseFBPlaceToPlace);
       }))
       .subscribe(places => {
-        resolve(places)
-        if(subscription)
+        resolve(places);
+        if (subscription) {
         subscription.unsubscribe();
-      })
+        }
+      });
     });
   }
 

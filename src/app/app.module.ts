@@ -23,7 +23,7 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.database.firebaseConfig),
     AngularFirestoreModule,
-    
+
   ],
   providers: [
     StatusBar,

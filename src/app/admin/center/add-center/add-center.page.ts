@@ -18,39 +18,39 @@ import { Router } from '@angular/router';
 export class AddCenterPage implements OnInit {
   loadedPlacetypes: TipoInstalacion[];
 
-  get name(){
+  get name() {
     return this.newCenterForm.get('name');
   }
 
-  get description(){
+  get description() {
     return this.newCenterForm.get('description');
   }
 
-  get latitude(){
+  get latitude() {
     return this.newCenterForm.get('latitude');
   }
 
-  get longitude(){
+  get longitude() {
     return this.newCenterForm.get('longitude');
   }
 
-  get qrCode(){
+  get qrCode() {
     return this.newCenterForm.get('qrCode');
   }
 
-  get mainPicture(){
+  get mainPicture() {
     return this.newCenterForm.get('mainPicture');
   }
 
-  get street(){
+  get street() {
     return this.newCenterForm.get('address.street');
   }
 
-  get zip(){
+  get zip() {
     return this.newCenterForm.get('address.zip');
   }
 
-  get instalationType(){
+  get instalationType() {
     return this.newCenterForm.get('instalationType');
   }
 
@@ -90,48 +90,48 @@ export class AddCenterPage implements OnInit {
   };
 
   newCenterForm = this.formBuilder.group({
-    name: ["", [Validators.required, Validators.maxLength(100)]],
-    description: ["", [Validators.required, Validators.maxLength(100)]],
-    latitude: ["", [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
-    longitude: ["", [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
-    qrCode: ["", Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
-    mainPicture: ["", Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
+    name: ['', [Validators.required, Validators.maxLength(100)]],
+    description: ['', [Validators.required, Validators.maxLength(100)]],
+    latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
+    longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
+    qrCode: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
+    mainPicture: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
     address: this.formBuilder.group({
-      street: ["", [Validators.required, Validators.maxLength(100)]],
-      zip: ["", [Validators.required, Validators.pattern('^\\d{5}$')]]
+      street: ['', [Validators.required, Validators.maxLength(100)]],
+      zip: ['', [Validators.required, Validators.pattern('^\\d{5}$')]]
     }),
-    instalationType: ["", [Validators.required]]
+    instalationType: ['', [Validators.required]]
   });
 
   constructor(
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
     private placeTypeService: PlacesService,
     private toastCtrl: ToastController) { }
 
   ngOnInit() {
-    //this.placeTypeService.allPlaceTypes().then( data => { this.loadedPlacetypes=data });
+    // this.placeTypeService.allPlaceTypes().then( data => { this.loadedPlacetypes=data });
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
 
   }
-  
-  onChangeMarker(lugar){
-    this.newCenterForm.controls['latitude'].setValue(lugar.location.lat);
-    this.newCenterForm.controls['longitude'].setValue(lugar.location.lng);
+
+  onChangeMarker(lugar) {
+    this.newCenterForm.controls.latitude.setValue(lugar.location.lat);
+    this.newCenterForm.controls.longitude.setValue(lugar.location.lng);
   }
-  
+
   public submit() {
     this.placeTypeService.createPlace(this.newCenterForm.value)
     .then(id => {
       // use id
       this.showToast('Lugar creado de manera exitosa');
       this.newCenterForm.reset();
-      //this.navCtrl.navigateBack(['/admin/center']);
+      // this.navCtrl.navigateBack(['/admin/center']);
     }).catch(err => {
       this.showToast('Error al cargar el lugar');
       this.newCenterForm.reset();
-    })
+    });
   }
 
   public showToast(msg) {

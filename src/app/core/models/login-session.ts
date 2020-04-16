@@ -1,8 +1,8 @@
 export interface LoginSession {
-    isUserLogged: boolean
+    isUserLogged: boolean;
 
-    userLoggedId: string
-    userLoggedTime: Date
-    userLoggedRole: string
-    userLoggedToken: string
+    userLoggedId: string;
+    userLoggedTime: Date;
+    userLoggedRole: string;
+    userLoggedToken: string;
 }

@@ -15,19 +15,19 @@ const arr = [[]];
 const data = from(arr);
 const collectionStub3 = {
   subscribe: jasmine.createSpy('subscribe').and.returnValue(arr)
-}
+};
 const collectionStub2 = {
   pipe: jasmine.createSpy('pipe').and.returnValue(collectionStub3)
-}
+};
 const collectionStub5 = {
   valueChanges: jasmine.createSpy('valueChanges').and.returnValue(data)
-}
+};
 const collectionStub = {
   snapshotChanges: jasmine.createSpy('snapshotChanges').and.returnValue(collectionStub2)
-}
+};
 const angularFirestoreStub4 = {
   collection: jasmine.createSpy('collection').and.returnValue(collectionStub)
-}
+};
 
 describe('EditCenterPage', () => {
   let component: EditCenterPage;
@@ -36,7 +36,7 @@ describe('EditCenterPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ EditCenterPage ],
-      imports: [IonicModule.forRoot(), ReactiveFormsModule, SharedPageModule,RouterTestingModule],
+      imports: [IonicModule.forRoot(), ReactiveFormsModule, SharedPageModule, RouterTestingModule],
       providers: [
         FormBuilder,
         PlacesService,
@@ -47,7 +47,7 @@ describe('EditCenterPage', () => {
     fixture = TestBed.createComponent(EditCenterPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    
+
   }));
 
   it('should create', () => {

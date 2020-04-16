@@ -1,7 +1,7 @@
 import { IonApp, IonAvatar, IonBackButton, IonBackdrop, IonBadge, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCheckbox, IonChip, IonCol, IonContent, IonDatetime, IonFab, IonFabButton, IonFabList, IonFooter, IonGrid, IonHeader, IonIcon, IonImg, IonInfiniteScroll, IonInfiniteScrollContent, IonInput, IonItem, IonItemDivider, IonItemGroup, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonListHeader, IonMenu, IonMenuButton, IonMenuToggle, IonNav, IonNavLink, IonNote, IonProgressBar, IonRadio, IonRadioGroup, IonRange, IonRefresher, IonRefresherContent, IonReorder, IonReorderGroup, IonRippleEffect, IonRow, IonSearchbar, IonSegment, IonSegmentButton, IonSelect, IonSelectOption, IonSkeletonText, IonSlide, IonSlides, IonSpinner, IonSplitPane, IonTabBar, IonTabButton, IonText, IonTextarea, IonThumbnail, IonTitle, IonToggle, IonToolbar, IonTabs, IonRouterOutlet, IonBackButtonDelegate, NavDelegate, RouterLinkDelegate, VirtualFooter, VirtualHeader, VirtualItem, IonVirtualScroll, BooleanValueAccessor, NumericValueAccessor, RadioValueAccessor, SelectValueAccessor, TextValueAccessor } from '@ionic/angular';
 
 
-export function returnAllHTMLComponents(arr?){
+export function returnAllHTMLComponents(arr?) {
     const comp = [
         ...arr,
         // proxies
@@ -76,7 +76,7 @@ export function returnAllHTMLComponents(arr?){
         IonToggle,
         IonToolbar,
         IonTitle,
-      
+
         IonTabs,
 
          // ngModel accessors
@@ -91,7 +91,7 @@ export function returnAllHTMLComponents(arr?){
         IonBackButtonDelegate,
         NavDelegate,
         RouterLinkDelegate,
-      
+
         // virtual scroll
         VirtualFooter,
         VirtualHeader,

@@ -10,24 +10,24 @@ import {ModalController } from '@ionic/angular';
 })
 
 export class FilterMenuComponent implements OnInit {
-  
+
   constructor(public modalCtrl: ModalController) {}
-  @Input() filters : WasteType [] = [];
-  @Input() activeFilters : WasteType [] = [];
+  @Input() filters: WasteType [] = [];
+  @Input() activeFilters: WasteType [] = [];
 
 
   ngOnInit() {
   }
 
-  add(filter){
+  add(filter) {
     this.activeFilters.push(filter);
   }
-  remove(filter){
-    this.activeFilters=this.activeFilters.filter(item => item !== filter);    
+  remove(filter) {
+    this.activeFilters = this.activeFilters.filter(item => item !== filter);
   }
   dismiss() {
     this.modalCtrl.dismiss(this.activeFilters);
   }
 
-  
+
 }

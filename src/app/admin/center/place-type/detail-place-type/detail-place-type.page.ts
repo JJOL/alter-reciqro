@@ -12,7 +12,7 @@ import { AlertController, NavController } from '@ionic/angular';
 export class DetailPlaceTypePage implements OnInit {
 
   loadedPlaceType: TipoInstalacion;
-  
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private placeService: PlacesService,
@@ -23,7 +23,7 @@ export class DetailPlaceTypePage implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
       if (!paraMap.has('wasteId')) {
-        //redirect
+        // redirect
         return;
       }
       const wasteId = paraMap.get('wasteId');
@@ -38,8 +38,8 @@ export class DetailPlaceTypePage implements OnInit {
 
   onDeletePlaceType() {
     this.alertCtrl.create ({
-      header: '¿Estas segur@?', 
-      message: '¿De verdad quieres eliminar este tipo de lugar?', 
+      header: '¿Estas segur@?',
+      message: '¿De verdad quieres eliminar este tipo de lugar?',
       buttons: [{
         text: 'Cancelar',
         role: 'cancel'

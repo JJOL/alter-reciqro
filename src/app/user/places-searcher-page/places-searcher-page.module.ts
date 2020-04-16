@@ -19,10 +19,10 @@ import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.com
     PlacesSearcherPagePageRoutingModule,
     SharedPageModule
   ],
-  declarations: [PlacesSearcherPagePage,MarkerCardComponent],
+  declarations: [PlacesSearcherPagePage, MarkerCardComponent],
   providers: [
     Geolocation
   ],
-  entryComponents:[FilterMenuComponent]
+  entryComponents: [FilterMenuComponent]
 })
 export class PlacesSearcherPagePageModule {}

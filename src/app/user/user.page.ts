@@ -12,9 +12,9 @@ export class UserPage implements OnInit {
   constructor(private lugaresService: FBLugaresService) { }
 
   async ngOnInit() {
-    let places = await this.lugaresService.getAllPlaces();
+    const places = await this.lugaresService.getAllPlaces();
     console.log(places);
-    
+
   }
 
 }

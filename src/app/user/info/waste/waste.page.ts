@@ -3,7 +3,7 @@ import { WasteService } from 'src/app/core/services/waste.service';
 import { WasteType } from 'src/app/core/models/waste-type';
 
 function shuffle(arra1) {
-  var ctr = arra1.length, temp, index;
+  let ctr = arra1.length, temp, index;
 
 // While there are elements in the array
   while (ctr > 0) {
@@ -26,14 +26,14 @@ function shuffle(arra1) {
 })
 export class WastePage implements OnInit {
 
-  wastes : any[];
+  wastes: any[];
 
   constructor(private wasteService: WasteService) { }
 
   ngOnInit() {
     this.wasteService.getWastes().then( waste => {
-      this.wastes = waste
-      this.wastes = shuffle(this.wastes)
+      this.wastes = waste;
+      this.wastes = shuffle(this.wastes);
     });
   }
 }

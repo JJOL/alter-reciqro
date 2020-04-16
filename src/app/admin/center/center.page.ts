@@ -8,9 +8,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 
 export class CenterPage implements OnInit {
-  
-  constructor(private firedb: AngularFirestore) { 
-    
+
+  constructor(private firedb: AngularFirestore) {
+
   }
 
   ngOnInit() {

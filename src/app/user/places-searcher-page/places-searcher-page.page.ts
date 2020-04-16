@@ -17,10 +17,10 @@ import { filter } from 'rxjs/operators';
 })
 
 export class PlacesSearcherPagePage implements OnInit {
-  classname={
+  classname = {
     'ly-grid-map': true,
     'ion-no-padding': true
-  }
+  };
 
   loadedPlaceType: TipoInstalacion;
   places: Place[];
@@ -32,7 +32,7 @@ export class PlacesSearcherPagePage implements OnInit {
   @ViewChild ('mapElement', {static: true}) map;
 
   @Output() changeView = new EventEmitter();
-  
+
   constructor(
     private placesService: PlacesService,
     private geolocationCont: Geolocation,
@@ -45,7 +45,7 @@ export class PlacesSearcherPagePage implements OnInit {
     this.activeFilters = this.filters;
     this.places = await this.filterByType(this.activeFilters);
     try {
-      let geoPosition = await this.geolocationCont.getCurrentPosition();
+      const geoPosition = await this.geolocationCont.getCurrentPosition();
 
       this.position = {
         lat: geoPosition.coords.latitude,
@@ -56,9 +56,9 @@ export class PlacesSearcherPagePage implements OnInit {
       console.log(err);
     }
    // this.places = await this.filterByType(["Y0fyyM3URa9hwkKgxWN3","gvgouJxdtD22qN0mU8Ty"])
-    console.log(this.places)
-    
-    //this.placesService.getIDPlacesByPlacesType([{place_type:"6sYHE4U4kung8EFmhyJL"}])
+    console.log(this.places);
+
+    // this.placesService.getIDPlacesByPlacesType([{place_type:"6sYHE4U4kung8EFmhyJL"}])
   }
 
   // gotoCenter(lat, lng){
@@ -73,7 +73,7 @@ export class PlacesSearcherPagePage implements OnInit {
   // }
 
   async onViewportChange(bounds) {
-    this.places = await this.queryPlaces({lat:bounds.getNorthEast().lat(), lng:bounds.getNorthEast().lng()}, {lat:bounds.getSouthWest().lat(), lng:bounds.getSouthWest().lng()});
+    this.places = await this.queryPlaces({lat: bounds.getNorthEast().lat(), lng: bounds.getNorthEast().lng()}, {lat: bounds.getSouthWest().lat(), lng: bounds.getSouthWest().lng()});
   }
 
 
@@ -94,65 +94,65 @@ export class PlacesSearcherPagePage implements OnInit {
 
   async presentFilterModal() {
     this.modal = await this.modalController.create({
-      //cahnge component
+      // cahnge component
       component: FilterMenuComponent,
       componentProps: {
-        'filters':this.filters,
-        'activeFilters': this.activeFilters,
+        filters: this.filters,
+        activeFilters: this.activeFilters,
       },
       backdropDismiss: false
 
     });
     this.modal.present();
-    this.modal.onDidDismiss().then( (event) => {   
-    this.activeFilters=event.data;
-    console.log("activos", this.activeFilters);
+    this.modal.onDidDismiss().then( (event) => {
+    this.activeFilters = event.data;
+    console.log('activos', this.activeFilters);
 
-      this.filterByType(event.data).then(places => {
+    this.filterByType(event.data).then(places => {
         console.log(places);
-        this.places=places
+        this.places = places;
       });
   });
     return true;
   }
-  
-  
-  emitPlace (place) {
-    this.placeSelected=place;
+
+
+  emitPlace(place) {
+    this.placeSelected = place;
     console.log(this.placeSelected);
-    //get placeType
+    // get placeType
     if (this.placeSelected.places_type.id) {
-      this.placesService.getPlaceTypeByID(""+this.placeSelected.places_type.id).then(placeType => {
+      this.placesService.getPlaceTypeByID('' + this.placeSelected.places_type.id).then(placeType => {
         this.loadedPlaceType = placeType;
-        //this.presentModal();
+        // this.presentModal();
       });
     } else {
       this.loadedPlaceType = {
-        id: "",
-        name: "¡Error! No se pudo cargar, el lugar no está asociado a un tipo de lugar",
-        icon_url: ""
+        id: '',
+        name: '¡Error! No se pudo cargar, el lugar no está asociado a un tipo de lugar',
+        icon_url: ''
       };
     }
   }
 
 
-  async filterByType(filters:WasteType[]){
-    if(filters.length!=0){
+  async filterByType(filters: WasteType[]) {
+    if (filters.length != 0) {
       return this.placesService.getIDPlacesTypesByWaste(filters).then(dataplacetype => {
-           return this.placesService.getIDPlacesByPlacesType(dataplacetype).then( place => {return place});
+           return this.placesService.getIDPlacesByPlacesType(dataplacetype).then( place => place);
       });
     }
-    
+
   }
 
-  
 
-  
 
-  
-  viewQro(){
-    if(this.map){
-      this.map.setCenter({lat:20.588772, lng:-100.390292});
+
+
+
+  viewQro() {
+    if (this.map) {
+      this.map.setCenter({lat: 20.588772, lng: -100.390292});
       this.map.setZoom(12);
       this.placeSelected = null;
       return true;
@@ -162,7 +162,7 @@ export class PlacesSearcherPagePage implements OnInit {
 
   onMapInteract() {
     console.log('MAP INTERACT');
-    
+
   }
 
 

@@ -9,12 +9,12 @@ import { Component, OnInit, Input } from '@angular/core';
 export class MarkerCardComponent implements OnInit {
   @Input() loadedPlaceType: TipoInstalacion;
   @Input() placeSelected: Place;
-  
+
   constructor() { }
 
   ngOnInit() {}
 
-  
+
 
 
 }

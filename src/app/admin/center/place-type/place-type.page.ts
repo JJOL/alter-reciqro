@@ -8,15 +8,15 @@ import { PlacesService } from 'src/app/core/services/places.service';
 })
 export class PlaceTypePage implements OnInit {
 
-  placeTypes : any [];
+  placeTypes: any [];
 
-  constructor(private placesService: PlacesService) { 
+  constructor(private placesService: PlacesService) {
   }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
-    this.placesService.allPlaceTypes().then( data => { this.placeTypes=data});
+    this.placesService.allPlaceTypes().then( data => { this.placeTypes = data; });
   }
 }

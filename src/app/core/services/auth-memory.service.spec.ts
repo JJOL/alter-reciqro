@@ -16,7 +16,7 @@ describe('AuthMemoryService', () => {
   beforeEach(() => {
     // authService = new AuthMemoryService();
     authService = TestBed.get(AuthService);
-  })
+  });
 
   it('should allow login known user', () => {
     const username = 'jjol';
