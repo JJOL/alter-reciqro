@@ -130,7 +130,7 @@ export class EditCenterPage implements OnInit {
     private navCtrl: NavController,
     public formBuilder: FormBuilder,
     private toastCtrl: ToastController
-    ) { }
+  ) { }
 
   ngOnInit() {
     console.log();
@@ -195,17 +195,17 @@ export class EditCenterPage implements OnInit {
 
 
       this.placeService.editPlace(this.newCenterForm.value, placeId)
-    .then(id => {
-      // use id
-      this.showToast('Lugar editado de manera exitosa');
-      this.newCenterForm.reset();
-      this.navCtrl.navigateBack(['/admin/center/list-center']);
-    })
-    .catch(err => {
-      this.showToast('Error al cargar el lugar');
-      this.newCenterForm.reset();
-    });
-  }); }
+          .then(id => {
+            // use id
+            this.showToast('Lugar editado de manera exitosa');
+            this.newCenterForm.reset();
+            this.navCtrl.navigateBack(['/admin/center/list-center']);
+          })
+          .catch(err => {
+            this.showToast('Error al cargar el lugar');
+            this.newCenterForm.reset();
+          });
+    }); }
 
   showToast(msg) {
     this.toastCtrl.create({

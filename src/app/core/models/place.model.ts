@@ -1,7 +1,7 @@
 import { TipoInstalacion } from './tipo-instalacion.model';
 
 export class Place {
-    constructor(
+  constructor(
         public readonly id: string,
         public readonly name: string,
         public readonly description: string,
@@ -14,5 +14,5 @@ export class Place {
         public readonly places_type: TipoInstalacion,
         public readonly photo: string,
         public readonly qr_code: string,
-    ) {}
+  ) {}
 }

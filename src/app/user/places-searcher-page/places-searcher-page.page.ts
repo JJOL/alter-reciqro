@@ -55,7 +55,7 @@ export class PlacesSearcherPagePage implements OnInit {
     } catch (err) {
       console.log(err);
     }
-   // this.places = await this.filterByType(["Y0fyyM3URa9hwkKgxWN3","gvgouJxdtD22qN0mU8Ty"])
+    // this.places = await this.filterByType(["Y0fyyM3URa9hwkKgxWN3","gvgouJxdtD22qN0mU8Ty"])
     console.log(this.places);
 
     // this.placesService.getIDPlacesByPlacesType([{place_type:"6sYHE4U4kung8EFmhyJL"}])
@@ -78,9 +78,9 @@ export class PlacesSearcherPagePage implements OnInit {
 
 
   async queryPlaces(topLeftPos, botRightPos) {
-    return await this.placesService.searchMapPlaces(topLeftPos, botRightPos);
+    return this.placesService.searchMapPlaces(topLeftPos, botRightPos);
   }
- /* async presentModal() {
+  /* async presentModal() {
     const modal = await this.modalController.create({
       component: MarkerCardComponent,
       cssClass:'my-custom-modal-css',
@@ -105,14 +105,14 @@ export class PlacesSearcherPagePage implements OnInit {
     });
     this.modal.present();
     this.modal.onDidDismiss().then( (event) => {
-    this.activeFilters = event.data;
-    console.log('activos', this.activeFilters);
+      this.activeFilters = event.data;
+      console.log('activos', this.activeFilters);
 
-    this.filterByType(event.data).then(places => {
+      this.filterByType(event.data).then(places => {
         console.log(places);
         this.places = places;
       });
-  });
+    });
     return true;
   }
 
@@ -139,7 +139,7 @@ export class PlacesSearcherPagePage implements OnInit {
   async filterByType(filters: WasteType[]) {
     if (filters.length != 0) {
       return this.placesService.getIDPlacesTypesByWaste(filters).then(dataplacetype => {
-           return this.placesService.getIDPlacesByPlacesType(dataplacetype).then( place => place);
+        return this.placesService.getIDPlacesByPlacesType(dataplacetype).then( place => place);
       });
     }
 
@@ -166,7 +166,7 @@ export class PlacesSearcherPagePage implements OnInit {
   }
 
 
-/*
+  /*
   goToCenter(lat, lng){
     //console.log("lat " + lat + "lng " + lng);
     console.log(this.platform.platforms);

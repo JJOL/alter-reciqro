@@ -21,18 +21,18 @@ function parseFBPlaceToPlace(fbPlace: any): Place {
   const data  = fbPlace.payload.doc.data();
   const id = fbPlace.payload.doc.id;
   const place = new Place(
-    id,
-    data.name,
-    data.description,
-    {
-      lat: data.location.latitude,
-      lng: data.location.longitude,
-    },
-    data.address,
-    data.postal_code,
-    data.places_type,
-    data.photo,
-    data.qr_code
+      id,
+      data.name,
+      data.description,
+      {
+        lat: data.location.latitude,
+        lng: data.location.longitude,
+      },
+      data.address,
+      data.postal_code,
+      data.places_type,
+      data.photo,
+      data.qr_code
   );
   // const place: Place = {
   //   id: id,
@@ -69,15 +69,15 @@ export class PlacesService {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<any>(PLACE_KEY).snapshotChanges()
-      .pipe(map(snapshot => {
-        return snapshot.map(parseFBPlaceToPlace);
-      }))
-      .subscribe(places => {
-        if (subscription) {
-          subscription.unsubscribe();
-        }
-        resolve(places);
-      });
+          .pipe(map(snapshot => {
+            return snapshot.map(parseFBPlaceToPlace);
+          }))
+          .subscribe(places => {
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+            resolve(places);
+          });
     });
   }
 
@@ -85,22 +85,22 @@ export class PlacesService {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<any>(PLACE_KEY).doc<any>(id).valueChanges()
-      .pipe(
-        take(1),
-        map(
-          place => {
-            place.id = id;
-            place.location = {lat: place.location.latitude, lng : place.location.longitude};
+          .pipe(
+              take(1),
+              map(
+                  place => {
+                    place.id = id;
+                    place.location = {lat: place.location.latitude, lng : place.location.longitude};
 
-            return place;
-          }
-        ))
-      .subscribe(places => {
-        if (subscription) {
-          subscription.unsubscribe();
-        }
-        resolve(places);
-      });
+                    return place;
+                  }
+              ))
+          .subscribe(places => {
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+            resolve(places);
+          });
     });
   }
 
@@ -124,19 +124,19 @@ export class PlacesService {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<Place>('place_type').snapshotChanges()
-      .pipe(map(snapshot => {
-        return snapshot.map(placeType  => {
-          const data  = placeType.payload.doc.data();
-          const id = placeType.payload.doc.id;
-          return {id, ...data};
-        });
-      }))
-      .subscribe(places => {
-        if (subscription) {
-          subscription.unsubscribe();
-        }
-        resolve(places);
-      });
+          .pipe(map(snapshot => {
+            return snapshot.map(placeType  => {
+              const data  = placeType.payload.doc.data();
+              const id = placeType.payload.doc.id;
+              return {id, ...data};
+            });
+          }))
+          .subscribe(places => {
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+            resolve(places);
+          });
     });
   }
 
@@ -144,22 +144,22 @@ export class PlacesService {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<any>(PLACE_TYPE_KEY).doc<any>(id).valueChanges()
-      .pipe(
-        take(1),
-        map(
-          placeType => {
-            placeType.id = id;
-            return placeType;
-          }
-        ))
-      .subscribe(places => {
+          .pipe(
+              take(1),
+              map(
+                  placeType => {
+                    placeType.id = id;
+                    return placeType;
+                  }
+              ))
+          .subscribe(places => {
 
-        if (subscription) {
-          subscription.unsubscribe();
-        }
-        resolve(places);
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+            resolve(places);
 
-      });
+          });
     });
   }
 
@@ -176,35 +176,35 @@ export class PlacesService {
         postal_code: placeObject.address.zip,
         qr_code: placeObject.qrCode
       })
-      .then(
-        (res) => {
-          resolve(res);
-        },
-        err => reject(err)
-      );
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
     });
   }
   editPlace(placeObject, id: string) {
     const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
     return new Promise<any>((resolve, reject) => {
-     this.firedb.collection(PLACE_KEY).doc(id).set({
-      address: placeObject.address.street,
-      description: placeObject.description,
-      location: geoPoint,
-      name: placeObject.name,
-      photo: placeObject.mainPicture,
-      places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
-      postal_code: placeObject.address.zip,
-      qr_code: placeObject.qrCode
-    }, {merge: true} )
-    .then(
-      (res) => {
-        resolve(res);
-      },
-      err => reject(err)
-    );
-  });
- }
+      this.firedb.collection(PLACE_KEY).doc(id).set({
+        address: placeObject.address.street,
+        description: placeObject.description,
+        location: geoPoint,
+        name: placeObject.name,
+        photo: placeObject.mainPicture,
+        places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
+        postal_code: placeObject.address.zip,
+        qr_code: placeObject.qrCode
+      }, {merge: true} )
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
+    });
+  }
   searchMapPlaces(topLeftPos, botRightPos): Promise<Place[]> {
 
     const minLat = Math.min(topLeftPos.lat, botRightPos.lat);
@@ -221,20 +221,20 @@ export class PlacesService {
 
     return new Promise((resolve, reject) => {
       subscription = this.firedb.collection(PLACE_KEY)
-        .snapshotChanges()
-        .pipe(map(snapshot => {
-          return snapshot.map(parseFBPlaceToPlace)
-            .filter(place =>
-              isWithin(place.location.lat, minLat, maxLat) && isWithin(place.location.lng, minLng, maxLng
-            )
-          );
-        }))
-        .subscribe(places => {
-          resolve(places);
-          if (subscription) {
-            subscription.unsubscribe();
-          }
-        });
+          .snapshotChanges()
+          .pipe(map(snapshot => {
+            return snapshot.map(parseFBPlaceToPlace)
+                .filter(place =>
+                  isWithin(place.location.lat, minLat, maxLat) && isWithin(place.location.lng, minLng, maxLng
+                  )
+                );
+          }))
+          .subscribe(places => {
+            resolve(places);
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+          });
 
     });
   }
@@ -242,19 +242,19 @@ export class PlacesService {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<WasteType>(WASTE_TYPE_KEY).snapshotChanges()
-      .pipe(map(snapshot => {
-        return snapshot.map(wastetype  => {
-          const data = wastetype.payload.doc.data();
-          const id = wastetype.payload.doc.id;
-          return {id, ...data};
-        });
-      }))
-      .subscribe(places => {
-        resolve(places);
-        if (subscription) {
-        subscription.unsubscribe();
-        }
-      });
+          .pipe(map(snapshot => {
+            return snapshot.map(wastetype  => {
+              const data = wastetype.payload.doc.data();
+              const id = wastetype.payload.doc.id;
+              return {id, ...data};
+            });
+          }))
+          .subscribe(places => {
+            resolve(places);
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+          });
     });
   }
   // Esta está bien
@@ -262,19 +262,19 @@ export class PlacesService {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<TipoInstalacion>(PLACE_TYPE_WASTE_TYPE, ref => ref.where('waste_type', 'in', filters.map(item => item.id))  ).snapshotChanges()
-      .pipe(map(snapshot => {
-        return snapshot.map(wastetype  => {
-          const data = wastetype.payload.doc.data();
-          const id = wastetype.payload.doc.id;
-          return {id, ...data};
-        });
-      }))
-      .subscribe(places => {
-        resolve(places);
-        if (subscription) {
-        subscription.unsubscribe();
-        }
-      });
+          .pipe(map(snapshot => {
+            return snapshot.map(wastetype  => {
+              const data = wastetype.payload.doc.data();
+              const id = wastetype.payload.doc.id;
+              return {id, ...data};
+            });
+          }))
+          .subscribe(places => {
+            resolve(places);
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+          });
     });
   }
 
@@ -284,15 +284,15 @@ export class PlacesService {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<Place>(PLACE_KEY, ref => ref.where('places_type', 'in', placetyperef)  ).snapshotChanges()
-      .pipe(map(snapshot => {
-        return snapshot.map(parseFBPlaceToPlace);
-      }))
-      .subscribe(places => {
-        resolve(places);
-        if (subscription) {
-        subscription.unsubscribe();
-        }
-      });
+          .pipe(map(snapshot => {
+            return snapshot.map(parseFBPlaceToPlace);
+          }))
+          .subscribe(places => {
+            resolve(places);
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+          });
     });
   }
 

@@ -123,15 +123,15 @@ export class AddCenterPage implements OnInit {
 
   public submit() {
     this.placeTypeService.createPlace(this.newCenterForm.value)
-    .then(id => {
-      // use id
-      this.showToast('Lugar creado de manera exitosa');
-      this.newCenterForm.reset();
-      // this.navCtrl.navigateBack(['/admin/center']);
-    }).catch(err => {
-      this.showToast('Error al cargar el lugar');
-      this.newCenterForm.reset();
-    });
+        .then(id => {
+          // use id
+          this.showToast('Lugar creado de manera exitosa');
+          this.newCenterForm.reset();
+          // this.navCtrl.navigateBack(['/admin/center']);
+        }).catch(err => {
+          this.showToast('Error al cargar el lugar');
+          this.newCenterForm.reset();
+        });
   }
 
   public showToast(msg) {

@@ -18,20 +18,20 @@ const mockPlacesService = {
     return [];
   },
   getIDPlacesTypesByWaste : () => {
-  return new Promise((resolve, reject) => {
-    resolve([]);
+    return new Promise((resolve, reject) => {
+      resolve([]);
     });
   },
   getIDPlacesByPlacesType: () => {
     return new Promise((resolve, reject) => {
       resolve([]);
-      });
-    },
-    getAllWasteTypes: () => {
-      return new Promise((resolve, reject) => {
-        resolve([]);
-        });
-      },
+    });
+  },
+  getAllWasteTypes: () => {
+    return new Promise((resolve, reject) => {
+      resolve([]);
+    });
+  },
 };
 
 const mockGeolocation = {

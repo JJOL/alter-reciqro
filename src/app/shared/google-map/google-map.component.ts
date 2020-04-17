@@ -44,7 +44,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     if (this.center && this.toloaded && this) {
-     // this.setCenter(this.center);
+      // this.setCenter(this.center);
       this.toloaded = false;
     }
     for (const marker of this.markers) {
@@ -75,27 +75,27 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     };
 
     this.map = new google.maps.Map(this.mapElement.nativeElement,
-      mapOptions);
+        mapOptions);
 
     google.maps.event.addListener(this.map, 'idle', () => {
-        this.change.emit(this.map.getBounds());
-      } );
+      this.change.emit(this.map.getBounds());
+    } );
 
     if (this.editable) {
 
-        google.maps.event.addListener(this.map, 'click', event => {
-          const place = {
-            location: {
+      google.maps.event.addListener(this.map, 'click', event => {
+        const place = {
+          location: {
             lat: event.latLng.lat(),
             lng: event.latLng.lng()}
-          };
+        };
 
-          if (this.addPlace(place)) {
+        if (this.addPlace(place)) {
           this.placeChange.emit(place);
           this.addMarker(place);
 
-          }
-        });
+        }
+      });
     }
 
 
@@ -121,21 +121,21 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     const marker: google.maps.Marker = new google.maps.Marker({
       map: this.map,
       position:  new google.maps.LatLng(place.location.lat, place.location.lng),
-    //  title: place.descripcion,
+      //  title: place.descripcion,
       draggable: this.editable ? true : false,
-     // animation: google.maps.Animation.DROP
-  });
+      // animation: google.maps.Animation.DROP
+    });
     marker.addListener('dragend', event => {
-    const place = {
-      location: {
-      lat: event.latLng.lat(),
-      lng: event.latLng.lng()}
-    };
-    this.placeChange.emit(place);
-  });
+      const place = {
+        location: {
+          lat: event.latLng.lat(),
+          lng: event.latLng.lng()}
+      };
+      this.placeChange.emit(place);
+    });
     marker.addListener('click', () => {
-    this.seletedMarker.emit(place);
-  });
+      this.seletedMarker.emit(place);
+    });
 
     return this.markers.push(marker);
 

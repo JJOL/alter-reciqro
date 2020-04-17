@@ -130,12 +130,12 @@ describe('PlacesService', () => {
     mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromData_SnapshotChanges(testData) as unknown as AngularFirestoreCollection);
     // Execute Function
     placesService.getAllPlaces()
-    .then(places => {
-      // Verify Results
-      expect(places.length).toBe(2);
-      expect(places[0].name).toBe('Centro Cívico');
-      done();
-    });
+        .then(places => {
+          // Verify Results
+          expect(places.length).toBe(2);
+          expect(places[0].name).toBe('Centro Cívico');
+          done();
+        });
   });
 
   it('#getPlaceByID should return a Place if it exists', function(done) {
@@ -144,11 +144,11 @@ describe('PlacesService', () => {
     mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromData_ValueChanges(testData) as unknown as AngularFirestoreCollection);
     // Execute Function
     placesService.getPlaceByID('2')
-    .then(place => {
-      // Verify Results
-      expect(place.name).toBe('Basurero Municipal');
-      done();
-    });
+        .then(place => {
+          // Verify Results
+          expect(place.name).toBe('Basurero Municipal');
+          done();
+        });
   });
 
   it('#deletePlaceByID should delete a Place if it exists', function(done) {
@@ -157,14 +157,14 @@ describe('PlacesService', () => {
     mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromData_Delete(testData) as unknown as AngularFirestoreCollection);
     // Execute Function
     placesService.deletePlaceByID('1')
-    .then(place => {
-      // Verify Results
-      console.log(place);
-      placesService.getAllPlaces().then (lugares => {
-        expect(lugares.length).toBe(1);
-        done ();
-      });
-    });
+        .then(place => {
+          // Verify Results
+          console.log(place);
+          placesService.getAllPlaces().then (lugares => {
+            expect(lugares.length).toBe(1);
+            done ();
+          });
+        });
   });
 
   it('#searchMapPlaces should return Places within query location range', function(done) {
@@ -172,8 +172,8 @@ describe('PlacesService', () => {
     const ne = { lat: 40, lng: 120 };
     const sw = { lat: -40, lng: 40 };
     const p1 = new GeoPoint(34, 100),
-          p2 = new GeoPoint(50, 100),
-          p3 = new GeoPoint(-1, 42);
+      p2 = new GeoPoint(50, 100),
+      p3 = new GeoPoint(-1, 42);
     const testData = [
       {
         location: p1
@@ -190,12 +190,12 @@ describe('PlacesService', () => {
     // Execute Function
     placesService.searchMapPlaces(ne, sw)
 
-    .then(lugares => {
-      // Verify Results
-      expect(placeLocToFBLoc(lugares[0].location)).toEqual(p1);
-      expect(placeLocToFBLoc(lugares[1].location)).toEqual(p3);
-      done();
-    });
+        .then(lugares => {
+          // Verify Results
+          expect(placeLocToFBLoc(lugares[0].location)).toEqual(p1);
+          expect(placeLocToFBLoc(lugares[1].location)).toEqual(p3);
+          done();
+        });
   });
 
   it('#searchMapPlaces should not return Places within query location range', (done: DoneFn) => {
@@ -203,8 +203,8 @@ describe('PlacesService', () => {
     const ne = { lat: 40, lng: 120 };
     const sw = { lat: -40, lng: 40 };
     const p1 = new GeoPoint(34, 100),
-          p2 = new GeoPoint(50, 100),
-          p3 = new GeoPoint(-1, 42);
+      p2 = new GeoPoint(50, 100),
+      p3 = new GeoPoint(-1, 42);
     const testData = [
       {
         location: p1
@@ -221,11 +221,11 @@ describe('PlacesService', () => {
     // Execute Function
     placesService.searchMapPlaces(ne, sw)
 
-    .then(lugares => {
-      // Verify Results
-      expect(lugares.find(lugar => placeLocToFBLoc(lugar.location).isEqual(p2))).toBeFalsy();
-      done();
-    });
+        .then(lugares => {
+          // Verify Results
+          expect(lugares.find(lugar => placeLocToFBLoc(lugar.location).isEqual(p2))).toBeFalsy();
+          done();
+        });
   });
 
   it('#searchMapPlaces should call Firestore.collection() once', (done: DoneFn) => {
@@ -237,11 +237,11 @@ describe('PlacesService', () => {
 
     // Execute Function
     placesService.searchMapPlaces(ne, sw)
-    .then(_ => {
-      // Verify Results
-      expect(mockFirestoreSpy.collection.calls.count()).toBe(1);
-      done();
-    });
+        .then(_ => {
+          // Verify Results
+          expect(mockFirestoreSpy.collection.calls.count()).toBe(1);
+          done();
+        });
   });
 
 });

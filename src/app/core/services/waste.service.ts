@@ -12,10 +12,10 @@ function parseFBPWasteToWaste(fbWaste: any): WasteType {
   const data  = fbWaste.payload.doc.data();
   const id = fbWaste.payload.doc.id;
   const waste = new WasteType(
-    id,
-    data.name,
-    data.description,
-    data.icon,
+      id,
+      data.name,
+      data.description,
+      data.icon,
   );
   return waste;
 }
@@ -31,15 +31,15 @@ export class WasteService {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<any>(WASTE_TYPE_KEY).snapshotChanges()
-      .pipe(map(snapshot => {
-        return snapshot.map(parseFBPWasteToWaste);
-      }))
-      .subscribe(wastes => {
-        if (subscription) {
-          subscription.unsubscribe();
-        }
-        resolve(wastes);
-      });
+          .pipe(map(snapshot => {
+            return snapshot.map(parseFBPWasteToWaste);
+          }))
+          .subscribe(wastes => {
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+            resolve(wastes);
+          });
     });
   }
 }
