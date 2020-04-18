@@ -60,10 +60,17 @@ export class EditCenterPage implements OnInit {
 
   /**
    * Regresa la longitud de la coordenada
-   * @param  {string} {longitude}
+   * @param  {number} {longitude}
    */
   get longitude() {
     return this.newCenterForm.get('longitude');
+  }
+  /**
+   * Regresa la latitud de la coordenada
+   * @param  {number}
+   */
+  get latitude() {
+    return this.newCenterForm.get('latitude');
   }
   /**
    * Regresa la url del código qr
