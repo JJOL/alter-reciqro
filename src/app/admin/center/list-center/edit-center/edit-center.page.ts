@@ -6,13 +6,17 @@ import { PlacesService } from 'src/app/core/services/places.service';
 import { Place } from 'src/app/core/models/place.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 
-import * as firebase from 'firebase/app';
-const GeoPoint = firebase.firestore.GeoPoint;
+
 @Component({
   selector: 'app-edit-center',
   templateUrl: './edit-center.page.html',
   styleUrls: ['./edit-center.page.scss'],
 })
+
+/**
+   * Componente de página para edición de centros
+   * 
+   */
 export class EditCenterPage implements OnInit {
   updateBookingForm: FormGroup;
 
@@ -37,38 +41,65 @@ export class EditCenterPage implements OnInit {
   // };
   loadedPlacetypes: TipoInstalacion[];
 
+  /**
+   * Regresa el nombre
+   * @returns {string}
+   */
   get name() {
     return this.newCenterForm.get('name');
   }
 
+  
+  /**
+   * Regresa la descripción del lugar
+   * @param  {string} {description}
+   */
   get description() {
     return this.newCenterForm.get('description');
   }
 
-  get latitude() {
-    return this.newCenterForm.get('latitude');
-  }
-
+  /**
+   * Regresa la longitud de la coordenada
+   * @param  {string} {longitude}
+   */
   get longitude() {
     return this.newCenterForm.get('longitude');
   }
-
+  /**
+   * Regresa la url del código qr
+   * @param  {string} {qrCode}
+   */
   get qrCode() {
     return this.newCenterForm.get('qrCode');
   }
-
+  /**
+   * Regresa la url de la imagen
+   * @param  {string} {picture}
+   */
   get mainPicture() {
     return this.newCenterForm.get('mainPicture');
   }
 
+  
+  /**
+   * Regresa la calle 
+   * @param  {string} {street}
+   */
   get street() {
     return this.newCenterForm.get('address.street');
   }
-
+  /**
+   * Regresa el código postal 
+   * @param  {number} {zip}
+   */
   get zip() {
     return this.newCenterForm.get('address.zip');
   }
 
+  /**
+   * Regresa el tipo de instalación que es lo mismo que el tipo del lugar 
+   * @param  {string} {instalationType}
+   */
   get instalationType() {
     return this.newCenterForm.get('instalationType');
   }
@@ -122,40 +153,37 @@ export class EditCenterPage implements OnInit {
     instalationType: ['', [Validators.required]]
   });
 
+  
+  /**
+   * @param  {ActivatedRoute} privateactivatedRoute
+   * @param  {PlacesService} privateplaceService
+   * @param  {NavController} privatenavCtrl
+   * @param  {FormBuilder} publicformBuilder
+   * @param  {ToastController} privatetoastCtrl
+   */ 
   constructor(
     private activatedRoute: ActivatedRoute,
     private placeService: PlacesService,
-    private router: Router,
-    private alertCtrl: AlertController,
     private navCtrl: NavController,
     public formBuilder: FormBuilder,
     private toastCtrl: ToastController
   ) { }
-
+  /**
+   * Obtenemos los catalogos necesarios para la edición del centro
+   */
   ngOnInit() {
-    console.log();
-
     this.placeService.allPlaceTypes().then( data => { this.loadedPlacetypes = data;
-
-
     });
-    console.log(this.loadedPlacetypes);
-
     this.activatedRoute.paramMap.subscribe(paraMap => {
       if (!paraMap.has('centerId')) {
         // redirect
         return;
 
       }
-      console.log();
       const placeId = paraMap.get('centerId');
       if (placeId) {
         this.placeService.getPlaceByID(placeId).then(place => {
           this.place = place;
-          console.log(place);
-          console.log(this.place.places_type.id);
-          console.dir(this.place.places_type);
-          console.log(this.place.location);
           this.newCenterForm.controls.latitude.setValue(place.location.lat);
           this.newCenterForm.controls.longitude.setValue(place.location.lng);
           this.newCenterForm.controls.name.setValue(place.name);
@@ -177,36 +205,43 @@ export class EditCenterPage implements OnInit {
   }
 
 
-
+  /**
+   * Esta función se llama cuando se inserta o se arrastra un marcador
+   * @param  {Location} lugar 
+   */
   onChangeMarker(lugar) {
     this.newCenterForm.controls.latitude.setValue(lugar.location.lat);
     this.newCenterForm.controls.longitude.setValue(lugar.location.lng);
   }
 
-
+  /**
+   * Esta función se dispara cuando el usuario decide hacer submit del formulario
+   */
   public submit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
       if (!paraMap.has('centerId')) {
         // redirect
         return;
       }
-      console.log();
       const placeId = paraMap.get('centerId');
 
 
       this.placeService.editPlace(this.newCenterForm.value, placeId)
-          .then(id => {
+          .then(() => {
             // use id
             this.showToast('Lugar editado de manera exitosa');
             this.newCenterForm.reset();
             this.navCtrl.navigateBack(['/admin/center/list-center']);
           })
-          .catch(err => {
+          .catch(() => {
             this.showToast('Error al cargar el lugar');
             this.newCenterForm.reset();
           });
     }); }
-
+  /**
+   * Esta función hace que muestre un string en un toast
+   * @param  {string} msg
+   */
   showToast(msg) {
     this.toastCtrl.create({
       message: msg,
