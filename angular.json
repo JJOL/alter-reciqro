@@ -131,7 +131,8 @@
               "e2e/tsconfig.json"
             ],
             "exclude": ["**/node_modules/**"],
-            "format": "json"
+            "format": "./formatter.js",
+            "force": true
           }
         },
         "e2e": {
