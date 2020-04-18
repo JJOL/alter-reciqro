@@ -229,6 +229,8 @@ module.exports = {
               enforceConst: true,
       /* options */}],
           "eqeqeq": ["error", "always", {"null": "ignore"}],
+          "no-empty-function": "off",
+          "@typescript-eslint/no-empty-function": ["error"],
           "@typescript-eslint/no-explicit-any": ["warn"],
           yoda: ["error", "always", { "onlyEquality": true }],
         },

@@ -73,7 +73,7 @@ function getNewToken(oAuth2Client, callback) {
  */
  function append(auth) {
     let values = [];
-    let datos =  JSON.parse(fs.readFileSync('metrics/coverage/coverage-summary.json', 'utf8'))
+    let datos =  JSON.parse(fs.readFileSync('coverage/coverage-summary.json', 'utf8'))
     let fecha = new Date();
     let mes = fecha.getMonth()+1;
     values.push(
