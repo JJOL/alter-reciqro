@@ -184,6 +184,12 @@ export class PlacesService {
       );
     });
   }
+
+  /*
+    Description: This function edits a place and it changes the fields only if 
+    they are different than the ones in the database
+  */
+  //User Story ID: M1NG2
   editPlace(placeObject, id: string) {
     const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
     return new Promise<any>((resolve, reject) => {
