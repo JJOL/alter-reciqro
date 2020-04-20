@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin/center/place-type"  [text]="''"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="loadedPlaceType" size = "small"> {{ loadedPlaceType.name }} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen *ngIf="loadedPlaceType" >
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-md = "6" size-sm = "12" >
+        <ion-card class="ion-justify-content-center">
+          <img [src]="loadedPlaceType.icon_url" />
+          <ion-card-header>
+            <ion-card-title>
+              <ion-label position="floating">Tipo de Residuo</ion-label>
+              <ion-input [value]="loadedPlaceType.name" placeholder = "Ejemplo: Libros" type = "text" required = "true" maxlength = "30"></ion-input>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label position="floating">Url del Residuo</ion-label>
+            <ion-input [value]="loadedPlaceType.icon_url" placeholder = "Ejemplo: http://ejemplo.com/ejemplo.jpg" type = "url" required = "true"></ion-input>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

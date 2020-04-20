@@ -10,8 +10,8 @@
 <ion-content fullscreen *ngIf="loadedPlaceType" >
   <ion-grid>
     <ion-row class="ion-justify-content-center">
-      <ion-col size-md = "8" size-sm = "12" >
-        <ion-list>
+      <ion-col size-md = "6" size-sm = "12" >
+       <!-- <ion-list>
           <ion-item>
             <ion-thumbnail slot = "start">
               <ion-img [src]="loadedPlaceType.icon_url"></ion-img>
@@ -35,7 +35,18 @@
               </ion-row>
             </ion-grid>
           </ion-item>
-        </ion-list>
+        </ion-list>-->
+        <ion-card class="ion-justify-content-center">
+          <img [src]="loadedPlaceType.icon_url" />
+          <ion-card-header>
+            <ion-card-subtitle>Tipo de Residuo</ion-card-subtitle>
+            <ion-card-title>{{ loadedPlaceType.name }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-card-subtitle>Url de la Foto</ion-card-subtitle>
+            {{ loadedPlaceType.icon_url }}
+          </ion-card-content>
+        </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>

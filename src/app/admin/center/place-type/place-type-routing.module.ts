@@ -14,9 +14,14 @@ const routes: Routes = [
       {
         path: ':wasteId',
         loadChildren: () => import('./detail-place-type/detail-place-type.module').then( m => m.DetailPlaceTypePageModule)
+      },
+      {
+        path: 'update/:updatePlaceTypeId',
+        loadChildren: () => import('./update-place-type/update-place-type.module').then( m => m.UpdatePlaceTypePageModule)
       }
     ]
-  }
+  },
+  
 ];
 
 @NgModule({
