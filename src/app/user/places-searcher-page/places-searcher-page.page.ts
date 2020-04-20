@@ -1,3 +1,5 @@
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AuthService } from './../../core/services/auth.service';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { SharedPage } from './../../shared/shared.page';
 import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
@@ -10,6 +12,7 @@ import {MarkerCardComponent} from '../marker-card/marker-card.component';
 import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
 import { filter } from 'rxjs/operators';
 
+
 @Component({
   selector: 'app-places-searcher-page',
   templateUrl: './places-searcher-page.page.html',
@@ -17,6 +20,8 @@ import { filter } from 'rxjs/operators';
 })
 
 export class PlacesSearcherPagePage implements OnInit {
+  
+  public isLogged: boolean= false;
   classname = {
     'ly-grid-map': true,
     'ion-no-padding': true
@@ -37,10 +42,12 @@ export class PlacesSearcherPagePage implements OnInit {
     private placesService: PlacesService,
     private geolocationCont: Geolocation,
     public modalController: ModalController,
+    private authService: AuthService,
+    private afsAuth: AngularFireAuth
   ) { }
 
   async ngOnInit() {
-
+    this.getCurrentUser(); 
     this.filters = await  this.placesService.getAllWasteTypes();
     this.activeFilters = this.filters;
     this.places = await this.filterByType(this.activeFilters);
@@ -165,6 +172,18 @@ export class PlacesSearcherPagePage implements OnInit {
 
   }
 
+  getCurrentUser() {
+      this.authService.isAuth().subscribe( auth=> {
+        if(auth){
+          console.log('user looged');
+          this.isLogged=true;
+        }
+        else {
+          console.log('not logged');
+          this.isLogged=false;
+        }
+      })
+  }
 
   /*
   goToCenter(lat, lng){

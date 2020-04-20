@@ -1,13 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
+    <ion-buttons col-4 col-sm slot="start">
       <!--This opens the default menu we have-->
       <ion-menu-button menu="m1"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">Buscador de Centros</ion-title>
+    
+    <ion-title> hola: {{isLogged}} </ion-title>
+    <!--ion-title    class="ion-text-center">Buscador de Centros</ion-title-->
     <!--Here we will replace with the government icon-->
-    <ion-buttons slot="end" class="ion-padding">
-      ReciQro 
+    <ion-buttons slot="primary" class="login">
+      <ion-button col-2 col-sm  slot="end" color="secondary" class="login">
+        Regístrate<ion-icon name="person-add-outline"></ion-icon> 
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

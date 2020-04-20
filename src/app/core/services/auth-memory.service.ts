@@ -17,15 +17,15 @@ const fakeUsers = [
     role: 'Admin'
   },
 ];
-
+/*
 function findUser(userSet: any[], username: string, password: string) {
   return userSet.find(user => {
     return user.username == username && user.password == password;
   });
-}
+}*/
 
-export class AuthMemoryService implements AuthService {
-
+export class AuthMemoryService  {
+/*
     private loggedUser: LoginSession;
 
     constructor() {
@@ -64,6 +64,6 @@ export class AuthMemoryService implements AuthService {
         userLoggedTime: new Date(),
         userLoggedToken: ''
       };
-    }
+    }*/
 
 }
