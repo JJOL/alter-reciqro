@@ -119,11 +119,11 @@ export class GoogleMapComponent implements OnInit, OnChanges {
    * @param  {} place
    * @returns number
    */
-  addPlace(place): number {
+  addPlace(place) {
     if (this.places.length < this.max) {
       return this.places.push(place);
     }
-    return this.places.length;
+    return false;
   }
   /**
    * Centra el map a determinada coordenada
@@ -146,11 +146,13 @@ export class GoogleMapComponent implements OnInit, OnChanges {
    * @param  {} place
    */
   async addMarker(place) {
-    let icon = await this.placesServices.getPlaceTypeByID(place.places_type.id);
+    let icon;
+    if(null!=place.places_type)
+    { icon = await this.placesServices.getPlaceTypeByID(place.places_type.id)}
     const marker: google.maps.Marker = new google.maps.Marker({
       map: this.map,
       position:  new google.maps.LatLng(place.location.lat, place.location.lng),
-      icon: icon.icon_url? icon.icon_url:'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+      icon: icon? icon.icon_url:'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
       draggable: this.editable ? true : false,
       // animation: google.maps.Animation.DROP
     });
