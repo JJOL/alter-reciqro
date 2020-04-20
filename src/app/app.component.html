@@ -14,8 +14,8 @@
       <ion-list>
         <!--This allows to click an item and then close the menu-->
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="/admin/center">
-            <ion-icon name="business" slot="start"></ion-icon>
+          <ion-item lines="none" routerLink="/user/login">
+            <ion-icon  color="primary" name="enter-outline" slot="start"></ion-icon>
             <ion-label>Iniciar Sesión</ion-label>
           </ion-item>
         </ion-menu-toggle>
@@ -39,13 +39,13 @@
         </ion-menu-toggle>
         <ion-menu-toggle>
           <ion-item lines="none" routerLink="/user/places-searcher-page">
-            <ion-icon name="star" slot="start"></ion-icon>
+            <ion-icon name="search-circle-outline" slot="start"></ion-icon>
             <ion-label>Buscador de Centros</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
           <ion-item lines="none" (click)="onLogout()" button>
-            <ion-icon name="exit" slot="start"></ion-icon>
+            <ion-icon name="exit-outline" slot="start"></ion-icon>
             <ion-label>Cerrar Sesión</ion-label>
           </ion-item>
         </ion-menu-toggle>

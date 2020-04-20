@@ -27,4 +27,5 @@ import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.com
   ],
   entryComponents: [FilterMenuComponent]
 })
+// eslint-disable-next-line require-jsdoc
 export class PlacesSearcherPagePageModule {}
