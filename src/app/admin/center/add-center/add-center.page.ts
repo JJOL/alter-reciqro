@@ -109,7 +109,7 @@ export class AddCenterPage implements OnInit {
     private toastCtrl: ToastController) { }
 
   ngOnInit() {
-    // this.placeTypeService.allPlaceTypes().then( data => { this.loadedPlacetypes=data });
+     this.placeTypeService.allPlaceTypes().then( data => { this.loadedPlacetypes=data });
   }
 
   ionViewDidEnter() {
