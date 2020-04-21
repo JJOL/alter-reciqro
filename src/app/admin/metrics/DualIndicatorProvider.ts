@@ -1,5 +1,5 @@
-class IndicatorInstance<T> {
-    inst: T;
+export interface IndicatorInstance {
+    name: string;
 }
 
 interface DualIndicatorProvider {

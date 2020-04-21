@@ -6,7 +6,7 @@ module.exports = function (config) {
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     files: [
-      'https://maps.googleapis.com/maps/api/js?sensor=false',
+      'https://cdn.jsdelivr.net/npm/chart.js@2.8.0',
       'mocks/google-maps.mock.js',
       {'pattern': 'coverage/**',  'served': true, 'nocache':true,included: false, 'watched':false}
     ],

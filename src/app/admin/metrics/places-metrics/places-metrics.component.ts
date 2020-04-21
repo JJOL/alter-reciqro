@@ -9,8 +9,8 @@ import { IndicatorGraphService } from '../indicator-graph.service';
 export class PlacesMetricsComponent implements OnInit {
 
 
-  instances: string[] = ["Perro", "Gato", "Nini"];
-  indicatorClassName: string = "Centros";
+  // instances: string[] = ["Perro", "Gato", "Nini"];
+  // indicatorClassName: string = "Centros";
 
 
   constructor(
@@ -18,12 +18,12 @@ export class PlacesMetricsComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-    this.indicatorGraphService.loadInstances(this.onIndicatorInstancesLoad.bind(this));
+    // this.indicatorGraphService.loadInstances(this.onIndicatorInstancesLoad.bind(this));
     // this.indicatorGraphService.loadInstances((i) => this.onIndicatorInstancesLoad(i))
   }
 
   onIndicatorInstancesLoad(instances) {
-    this.instances = instances;
+    // this.instances = instances;
   }
 
 }

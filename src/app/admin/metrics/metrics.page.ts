@@ -8,17 +8,17 @@ import { Component, OnInit } from '@angular/core';
 export class MetricsPage implements OnInit {
 
 
-  delegationDataProvider: DualIndicatorProvider;
-  placesDataProvider:     DualIndicatorProvider;
+  // delegationDataProvider: DualIndicatorProvider;
+  // placesDataProvider:     DualIndicatorProvider;
 
 
   constructor(
-    private metricsService: MetricsFacade
+    // private metricsService: MetricsFacade
   ) { }
 
   ngOnInit() {
-    this.delegationDataProvider = this.metricsService.getPlacesProvider();
-    this.placesDataProvider     = this.metricsService.getPlacesProvider();
+    // this.delegationDataProvider = this.metricsService.getPlacesProvider();
+    // this.placesDataProvider     = this.metricsService.getPlacesProvider();
   }
 
 }
