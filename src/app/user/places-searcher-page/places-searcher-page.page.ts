@@ -1,3 +1,4 @@
+import { OnChanges } from '@angular/core';
 /* eslint-disable require-jsdoc */
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from './../../core/services/auth.service';
@@ -52,6 +53,7 @@ export class PlacesSearcherPagePage implements OnInit {
   ) { }
 
   async ngOnInit() {
+    
     this.getCurrentUser(); 
     this.filters = await  this.placesService.getAllWasteTypes();
     this.activeFilters = this.filters;
@@ -70,7 +72,6 @@ export class PlacesSearcherPagePage implements OnInit {
     // eslint-disable-next-line no-console
     console.log(this.places);
   }
-
 
   async onViewportChange(bounds) {
     this.places = await this.queryPlaces({lat: bounds.getNorthEast().lat(), lng: bounds.getNorthEast().lng()},
@@ -130,7 +131,7 @@ export class PlacesSearcherPagePage implements OnInit {
 
 
   async filterByType(filters: WasteType[]) {
-    if (filters.length != 0) {
+    if (filters.length !== 0) {
       return this.placesService.getIDPlacesTypesByWaste(filters).then(dataplacetype => {
         return this.placesService.getIDPlacesByPlacesType(dataplacetype).then( place => place);
       });
@@ -160,7 +161,7 @@ export class PlacesSearcherPagePage implements OnInit {
       if (auth) {
         // eslint-disable-next-line no-console
         console.log('user looged');
-        this.isLogged=true;
+        this.isLogged = true;
       } else {
         // eslint-disable-next-line no-console
         console.log('not logged');
