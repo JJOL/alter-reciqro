@@ -1,7 +1,9 @@
+import { AuthService } from 'src/app/core/services/auth.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import {AngularFirestore} from '@angular/fire/firestore';
 import { UserPage } from './user.page';
+import { empty } from 'rxjs';
 
 const arr = function() {};
 
@@ -21,6 +23,43 @@ const angularFirestoreStub = {
   collection: jasmine.createSpy('collection').and.returnValue(collectionStub),
 };
 
+
+const mockAuthentication ={
+  registerUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  loginEmailUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  loginGoogleUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  logoutUser: () => {
+    return [];
+  },
+  isAuth:  () => {
+    return empty();
+  },
+  updateUserData: () => {
+    return [];
+  },
+};
+
+const authStub: any = {
+  authState: {},
+  auth: {
+    signInWithEmailAndPassword() {
+      return Promise.resolve();
+    }
+  }
+};
+
 describe('UserPage', () => {
   let component: UserPage;
   let fixture: ComponentFixture<UserPage>;
@@ -31,6 +70,7 @@ describe('UserPage', () => {
       imports: [IonicModule.forRoot()],
       providers: [
         {provide: AngularFirestore, useValue: angularFirestoreStub},
+        { provide: AuthService, useValue: mockAuthentication }
       ]
     }).compileComponents();
 

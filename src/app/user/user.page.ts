@@ -1,3 +1,4 @@
+import { AuthService } from './../core/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { DelegationService } from '../core/services/delegation.service';
 
@@ -7,16 +8,26 @@ import { DelegationService } from '../core/services/delegation.service';
   templateUrl: './user.page.html',
   styleUrls: ['./user.page.scss'],
 })
+// eslint-disable-next-line require-jsdoc
 export class UserPage implements OnInit {
 
   delegations: any[];
 
-  constructor(private delegationService: DelegationService) { }
+  // eslint-disable-next-line require-jsdoc
+  constructor(private delegationService: DelegationService,
+              private authService: AuthService ) { }
 
   ngOnInit() {
     this.delegationService.getDelegations().then(delegation => {
       this.delegations = delegation;
     });
+  }
+  /**
+   * Metodo para cerrar sesion
+   */
+  logout() {
+    console.log("aqui esta entrando");
+    this.authService.logoutUser();
   }
 
 }

@@ -15,7 +15,8 @@ export class AuthService {
   user: Observable<User>;
   // eslint-disable-next-line require-jsdoc
   constructor(private afAuth: AngularFireAuth,
-              private afs: AngularFirestore) {
+              private afs: AngularFirestore,
+              private router: Router) {
   }
   /**
    * Metodo Registra usuario, toma como entrada email y correo y crea una promesa con los servicio de autenticacionde firebase
@@ -85,7 +86,9 @@ export class AuthService {
    * Metodo Logout: Uso de servicio de autentificacion de firebase para poder terminar la sesion
    */
   logoutUser() {
-    return this.afAuth.auth.signOut();
+    return this.afAuth.auth.signOut().then(()=>{
+      this.router.navigate(['user/places-searcher-page']);
+    });
   }
   /**
    * Metodo para saber si el usuario se encuentra autentificado
