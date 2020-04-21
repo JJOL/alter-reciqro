@@ -55,6 +55,7 @@ export class PlacesSearcherPagePage implements OnInit {
   async ngOnInit() {
     
     this.getCurrentUser(); 
+    this.authService.getCurrentUser().then(user => console.log(user))
     this.filters = await  this.placesService.getAllWasteTypes();
     this.activeFilters = this.filters;
     this.places = await this.filterByType(this.activeFilters);

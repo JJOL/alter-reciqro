@@ -97,6 +97,7 @@ export class AuthService {
   isAuth() {
     return this.afAuth.authState.pipe(map(auth => auth));
   }
+  
   /**
    * Returns the user info by uid
    * @param  {string} iud
@@ -121,6 +122,25 @@ export class AuthService {
     });
   }
 
+  /**
+   *    * Gets the current llogged user
+   * @returns Promise
+   */
+  getCurrentUser():Promise<any>{
+    return new Promise((resolve) => {
+      let subscription: Subscription;
+      subscription = this.afAuth.authState.pipe(map(auth => auth)).subscribe( user =>
+      {
+        if (subscription) {
+          subscription.unsubscribe();
+        }
+        resolve(this.getUserByUID(user?user.uid:null));
+        
+      }
+      );
+    
+    });
+  }
   /**
    * Metodo updateuserdata:
    * recibe un usuario el cual se le modificaran los atributos para cuando se agreagn usuarios nuevos con un rol especifico

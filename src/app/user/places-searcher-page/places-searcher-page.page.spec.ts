@@ -75,6 +75,11 @@ const mockAuthentication ={
   updateUserData: () => {
     return [];
   },
+  getCurrentUser : () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
 };
 
 const authStub: any = {
