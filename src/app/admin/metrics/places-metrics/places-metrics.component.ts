@@ -14,7 +14,6 @@ export class PlacesMetricsComponent implements OnInit {
 
 
   constructor(
-    private indicatorGraphService: IndicatorGraphService
     ) {}
 
   ngOnInit() {
@@ -22,7 +21,7 @@ export class PlacesMetricsComponent implements OnInit {
     // this.indicatorGraphService.loadInstances((i) => this.onIndicatorInstancesLoad(i))
   }
 
-  onIndicatorInstancesLoad(instances) {
+  onIndicatorInstancesLoad() {
     // this.instances = instances;
   }
 
