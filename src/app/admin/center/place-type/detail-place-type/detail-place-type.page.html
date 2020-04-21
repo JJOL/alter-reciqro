@@ -20,6 +20,9 @@
           <ion-card-content>
             <ion-card-subtitle>Url del Tipo de Centro de Residuo</ion-card-subtitle>
             {{ loadedPlaceType.icon_url }}
+            <p *ngIf="wastes">
+              {{wastes}}
+            </p>
           </ion-card-content>
         </ion-card>
       </ion-col>

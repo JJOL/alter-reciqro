@@ -15,6 +15,7 @@ const PLACE_TYPE_KEY = '/place_type';
 const WASTE_TYPE_KEY = '/waste_type';
 const PLACE_TYPE_WASTE_TYPE = '/place_type_waste_type';
 
+
 const GeoPoint = firebase.firestore.GeoPoint;
 
 /**
@@ -259,6 +260,33 @@ export class PlacesService {
           });
     });
   }
+
+  /**
+   * Esta función la tabla que relaciona place type con waste type
+   * @param  {TipoInstalacion[]} filters
+   * @returns Promise<WasteType[]>
+   */
+  async getIDWasteTypeByPlace(filters: TipoInstalacion): Promise<WasteType[]> {
+    return new Promise((resolve) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<WasteType>(PLACE_TYPE_WASTE_TYPE, ref => ref.where('place_type', 'in', filters.id)).snapshotChanges()
+          .pipe(map(snapshot => {
+            return snapshot.map(wastetype  => {
+              const data = wastetype.payload.doc.data();
+              const id = wastetype.payload.doc.id;
+              return {id, ...data};
+            });
+          }))
+          .subscribe(places => {
+            resolve(places);
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+          });
+    });
+  }
+
+
  
   /**
    * Esta función regresa todos los lugares en base de los filtros de WasteType
@@ -284,6 +312,7 @@ export class PlacesService {
           });
     });
   }
+
   /**
    * @param  {any[]} placetype
    * @returns Promise
