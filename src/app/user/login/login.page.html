@@ -15,54 +15,44 @@
   </ion-toolbar>
 </ion-header>
 
-<section id="login" class="mb-5 mt-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
-        <div class="card_login">
-          <div class="card">
-            <div class="card-body text-center">
-              <form #formLogin="ngForm" (submit)="onLogin()">
-                <h1 class="h3 mb-3 font-weight-normal" >Inicio de Sesion a ReciQro</h1>
-                <div class="form-group">
-                  <ion-list >
-                    <ion-item>
-                      <ion-label position="floating">Email</ion-label>
-                      <ion-input [(ngModel)]="email" name="email" type="email" required></ion-input>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label position="floating">Password</ion-label>
-                      <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
-                    </ion-item>
-                  </ion-list>
-                </div>
-                <ion-button type="submit" color="secondary" (click)="onLogin">Login</ion-button>
-                <br><br><br>
-                <div class="form-group">
-                  <ion-label>Registrate o inicia sesion con Google</ion-label><br><br>
-                  <ion-button class="btn btn-block btn-social" color="danger" (click)="onLoginGoogle()">
-                    <span class="fa fa-google"></span>
-                        GOOGLE
-                  </ion-button>
-                  <!--button class="btn btn-block btn-social btn-google" (click)="onLogout()">
-                    <span class="fa fa-google"></span>
-                    salir
-                  </!--button -->
-                </div>
-                <br><br>
-                <div class="form-group">
-                  <a routerLink="/user/register" class="form-control login-user">No tiene cuenta aun?</a>
-                </div>
-              </form>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <ion-content>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-lg="6" size-md="6" offset-lg="3" offset-md="3">
+        <form #formLogin="ngForm" (submit)="onLogin()">
+          <h1 class="h3 mb-3 font-weight-normal" >Inicio de Sesion a ReciQro</h1>
+          <div class="form-group">
+            <ion-list >
+              <ion-item>
+                <ion-label position="floating">Email</ion-label>
+                <ion-input [(ngModel)]="email" name="email" type="email" required></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Password</ion-label>
+                <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
+              </ion-item>
+            </ion-list>
+          </div>
+          <ion-button type="submit" color="secondary" (click)="onLogin()">Login</ion-button>
+          <br><br><br>
+          <div class="form-group">
+            <ion-label>Registrate o inicia sesion con Google</ion-label><br><br>
+            <ion-button class="btn btn-block btn-social" color="danger" (click)="onLoginGoogle()">
+              <span class="fa fa-google"></span>
+                  GOOGLE
+            </ion-button>
+            <!--button class="btn btn-block btn-social btn-google" (click)="onLogout()">
+              <span class="fa fa-google"></span>
+              salir
+            </!--button -->
+          </div>
+          <br><br>
+          <div class="form-group">
+            <a routerLink="/user/register" class="form-control login-user">No tiene cuenta aun?</a>
+          </div>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+
