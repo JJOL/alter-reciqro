@@ -1,3 +1,4 @@
+import { AuthService } from './../../core/services/auth.service';
 import { MarkerCardComponent } from './../marker-card/marker-card.component';
 
 import { NgModule } from '@angular/core';
@@ -21,8 +22,10 @@ import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.com
   ],
   declarations: [PlacesSearcherPagePage, MarkerCardComponent],
   providers: [
-    Geolocation
+    Geolocation,
+    AuthService
   ],
   entryComponents: [FilterMenuComponent]
 })
+// eslint-disable-next-line require-jsdoc
 export class PlacesSearcherPagePageModule {}

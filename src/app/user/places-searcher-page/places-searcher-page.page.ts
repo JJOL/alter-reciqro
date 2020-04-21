@@ -1,3 +1,7 @@
+import { OnChanges } from '@angular/core';
+/* eslint-disable require-jsdoc */
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AuthService } from './../../core/services/auth.service';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { SharedPage } from './../../shared/shared.page';
 import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
@@ -10,18 +14,23 @@ import {MarkerCardComponent} from '../marker-card/marker-card.component';
 import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
 import { filter } from 'rxjs/operators';
 
+
 @Component({
   selector: 'app-places-searcher-page',
   templateUrl: './places-searcher-page.page.html',
   styleUrls: ['./places-searcher-page.page.scss'],
 })
 
+/**
+ * Place Searcher Page se dedica a mostrar los marcadores de los centros
+ * en el mapa ademas de poder manejar un poco de filtros y vistas del mapa
+ */
 export class PlacesSearcherPagePage implements OnInit {
+  public isLogged = false;
   classname = {
     'ly-grid-map': true,
     'ion-no-padding': true
   };
-
   loadedPlaceType: TipoInstalacion;
   places: Place[];
   position: { lat: number, lng: number};
@@ -33,64 +42,46 @@ export class PlacesSearcherPagePage implements OnInit {
 
   @Output() changeView = new EventEmitter();
 
+  // en este caso si se necesitan esto valores
+  // eslint-disable-next-line max-params
   constructor(
     private placesService: PlacesService,
     private geolocationCont: Geolocation,
     public modalController: ModalController,
+    private authService: AuthService,
+    private afsAuth: AngularFireAuth
   ) { }
 
   async ngOnInit() {
-
+    
+    this.getCurrentUser(); 
     this.filters = await  this.placesService.getAllWasteTypes();
     this.activeFilters = this.filters;
     this.places = await this.filterByType(this.activeFilters);
     try {
       const geoPosition = await this.geolocationCont.getCurrentPosition();
-
       this.position = {
         lat: geoPosition.coords.latitude,
         lng: geoPosition.coords.longitude
       };
       this.map.setCenter(this.position);
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log(err);
     }
-   // this.places = await this.filterByType(["Y0fyyM3URa9hwkKgxWN3","gvgouJxdtD22qN0mU8Ty"])
+    // eslint-disable-next-line no-console
     console.log(this.places);
-
-    // this.placesService.getIDPlacesByPlacesType([{place_type:"6sYHE4U4kung8EFmhyJL"}])
   }
 
-  // gotoCenter(lat, lng){
-  //   console.log("lat " + lat + "lng " + lng);
-  //   console.log(this.platform.platforms);
-  //   if (this.platform.is('ios')) {
-  //     // This will only print when on iOS
-  //     // new InAppBrowserObject('http://maps.apple.com/?daddr='+lat+','+lng);
-  //    }else{
-  //     // new InAppBrowserObject('https://www.google.com/maps/dir//'+lat+','+lng+'/@'+lat+','+lng+',17z');
-  //    }
-  // }
-
   async onViewportChange(bounds) {
-    this.places = await this.queryPlaces({lat: bounds.getNorthEast().lat(), lng: bounds.getNorthEast().lng()}, {lat: bounds.getSouthWest().lat(), lng: bounds.getSouthWest().lng()});
+    this.places = await this.queryPlaces({lat: bounds.getNorthEast().lat(), lng: bounds.getNorthEast().lng()},
+        {lat: bounds.getSouthWest().lat(), lng: bounds.getSouthWest().lng()});
   }
 
 
   async queryPlaces(topLeftPos, botRightPos) {
-    return await this.placesService.searchMapPlaces(topLeftPos, botRightPos);
+    return this.placesService.searchMapPlaces(topLeftPos, botRightPos);
   }
- /* async presentModal() {
-    const modal = await this.modalController.create({
-      component: MarkerCardComponent,
-      cssClass:'my-custom-modal-css',
-      componentProps: {
-        'placeSelected':this.placeSelected,
-        'loadedPlaceType':this.loadedPlaceType,
-      }
-    });
-    return await modal.present();
-  }*/
 
   async presentFilterModal() {
     this.modal = await this.modalController.create({
@@ -105,20 +96,23 @@ export class PlacesSearcherPagePage implements OnInit {
     });
     this.modal.present();
     this.modal.onDidDismiss().then( (event) => {
-    this.activeFilters = event.data;
-    console.log('activos', this.activeFilters);
+      this.activeFilters = event.data;
+      // eslint-disable-next-line no-console
+      console.log('activos', this.activeFilters);
 
-    this.filterByType(event.data).then(places => {
+      this.filterByType(event.data).then(places => {
+        // eslint-disable-next-line no-console
         console.log(places);
         this.places = places;
       });
-  });
+    });
     return true;
   }
 
 
   emitPlace(place) {
     this.placeSelected = place;
+    // eslint-disable-next-line no-console
     console.log(this.placeSelected);
     // get placeType
     if (this.placeSelected.places_type.id) {
@@ -137,22 +131,18 @@ export class PlacesSearcherPagePage implements OnInit {
 
 
   async filterByType(filters: WasteType[]) {
-    if (filters.length != 0) {
+    if (filters.length !== 0) {
       return this.placesService.getIDPlacesTypesByWaste(filters).then(dataplacetype => {
-           return this.placesService.getIDPlacesByPlacesType(dataplacetype).then( place => place);
+        return this.placesService.getIDPlacesByPlacesType(dataplacetype).then( place => place);
       });
     }
 
   }
 
-
-
-
-
-
   viewQro() {
     if (this.map) {
       this.map.setCenter({lat: 20.588772, lng: -100.390292});
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       this.map.setZoom(12);
       this.placeSelected = null;
       return true;
@@ -161,21 +151,22 @@ export class PlacesSearcherPagePage implements OnInit {
   }
 
   onMapInteract() {
+    // eslint-disable-next-line no-console
     console.log('MAP INTERACT');
 
   }
 
-
-/*
-  goToCenter(lat, lng){
-    //console.log("lat " + lat + "lng " + lng);
-    console.log(this.platform.platforms);
-    if (this.platform.is('ios')) {
-      // This will only print when on iOS
-      new InAppBrowserObject('http://maps.apple.com/?daddr='+lat+','+lng);
-     }else{
-      new InAppBrowserObject('https://www.google.com/maps/dir//'+lat+','+lng+'/@'+lat+','+lng+',17z');
-     }
-  }*/
-
+  getCurrentUser() {
+    this.authService.isAuth().subscribe( auth=> {
+      if (auth) {
+        // eslint-disable-next-line no-console
+        console.log('user looged');
+        this.isLogged = true;
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('not logged');
+        this.isLogged = false;
+      }
+    });
+  }
 }

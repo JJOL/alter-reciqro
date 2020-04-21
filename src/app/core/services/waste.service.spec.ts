@@ -62,22 +62,22 @@ describe('WasteService', () => {
   }));
 
   it('should be created', () => {
-      const service: WasteService = TestBed.get(WasteService);
-      expect(service).toBeTruthy();
-    });
+    const service: WasteService = TestBed.get(WasteService);
+    expect(service).toBeTruthy();
+  });
 
   it('#getAllWastes should return all wastes', function(done) {
-      // Test Data Setup
-      const testData = [waste1, waste2];
-      mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromData_SnapshotChanges(testData) as unknown as AngularFirestoreCollection);
-      // Execute Function
-      wasteService.getWastes()
-      .then(wastes => {
+    // Test Data Setup
+    const testData = [waste1, waste2];
+    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromData_SnapshotChanges(testData) as unknown as AngularFirestoreCollection);
+    // Execute Function
+    wasteService.getWastes()
+        .then(wastes => {
         // Verify Results
-        expect(wastes.length).toBe(2);
-        expect(wastes[0].name).toBe('Pilas');
-        done();
-      });
-    });
+          expect(wastes.length).toBe(2);
+          expect(wastes[0].name).toBe('Pilas');
+          done();
+        });
+  });
 
 });

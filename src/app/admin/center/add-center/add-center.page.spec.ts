@@ -13,14 +13,14 @@ import {MockAngularFirestore} from 'src/app/core/services/mocks/firestore.mock';
 const mockService = jasmine.createSpyObj('placeService', ['createPlace', 'allPlaceTypes']);
 
 mockService.allPlaceTypes.and.returnValue(
-  new Promise<any>((res, rej) => {
-  res([]);
-}));
+    new Promise<any>((res, rej) => {
+      res([]);
+    }));
 
 mockService.createPlace.and.returnValue(
-  new Promise<any>((res, rej) => {
-  res([]);
-}));
+    new Promise<any>((res, rej) => {
+      res([]);
+    }));
 
 describe('AddCenterPage', () => {
   let component: AddCenterPage;

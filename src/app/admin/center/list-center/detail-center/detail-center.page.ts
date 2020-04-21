@@ -99,7 +99,7 @@ export class CenterDetailPage implements OnInit {
           this.placeService.deletePlaceByID(this.loadedPlace.id).then(() => {
             this.navCtrl.navigateBack(['/admin/center/list-center']);
           })
-          .catch(() => {});
+              .catch(() => {});
         }
       }]
     }).then(alertEl => {

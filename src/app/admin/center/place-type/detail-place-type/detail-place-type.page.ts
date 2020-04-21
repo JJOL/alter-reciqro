@@ -49,7 +49,7 @@ export class DetailPlaceTypePage implements OnInit {
           this.placeService.deletePlaceTypeByID(this.loadedPlaceType.id).then(() => {
             this.navCtrl.navigateBack(['/admin/center/place-type']);
           })
-          .catch(() => {});
+              .catch(() => {});
         }
       }]
     }).then(alertEl => {

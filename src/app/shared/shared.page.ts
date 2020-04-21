@@ -16,5 +16,5 @@ export class SharedPage implements OnInit {
   }
   test(filters: []) {
 
-}
+  }
 }

@@ -69,3 +69,23 @@ app-marker-card {
 app-marker-card.active {
     display: block;
 }
+@media (max-width: 576px) {
+    ion-title {
+        font-size: 80% !important;
+    }
+    ion-button{
+        font-size: 80% !important;
+    }
+}
+
+@media (max-width: 400px) {
+    ion-title {
+        font-size: 70% !important;
+    }
+    ion-button{
+        font-size: 70% !important;
+    }
+}
+ion-icon{
+    padding: 2px;
+}

@@ -1,3 +1,5 @@
+import { AuthService } from './core/services/auth.service';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
@@ -30,9 +32,12 @@ import { environment } from '../environments/environment';
   providers: [
     StatusBar,
     SplashScreen,
+    AngularFireAuth,
+    AuthService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {} }
   ],
   bootstrap: [AppComponent],
 })
+// eslint-disable-next-line require-jsdoc
 export class AppModule {}
