@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
 import { IndicatorInstance } from '../DualIndicatorProvider';
 
@@ -22,7 +22,7 @@ export interface IGCParametersEvent {
  * from a given instance, and time interval.
  * It also inputs the parameters from the user to configure the data calculation.
  */
-export class IndicatorGraphComponent implements OnInit {
+export class IndicatorGraphComponent implements OnInit, OnChanges {
 
 
   // Data Information
@@ -32,8 +32,9 @@ export class IndicatorGraphComponent implements OnInit {
   dataArr: number[];
 
   // Population Information
-  @Input() instances: IndicatorInstance[] = [];
+  @Input() instances: IndicatorInstance[];
   @Input() indicatorClassName: string;
+  @Input() indicatorDisplayData: number[];
 
   @Output() dataParametersChange = new EventEmitter<IGCParametersEvent>();
 
@@ -48,16 +49,47 @@ export class IndicatorGraphComponent implements OnInit {
     this.selectedInstance = { name: 'Centro Tec de Monterrey' };
     this.lowerDate = new Date();
     this.lowerDate.setMonth(1);
-    this.dataArr = [23,42,2,111,21,121,67,7,23,55,65,22,12,12,45,67,89,100,130];
-    this.onShowGraphFromData();
+    this.upperDate = new Date();
+    this.indicatorDisplayData = [23,42,2,111,21,121,67,7,23,55,65,22,12,12,45,67,89,100,130];
+    //this.onShowGraphFromData();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+    if (this.inputPropHasChanged(changes, "indicatorDisplayData")) {
+      console.log('Data has changed');
+      this.onShowGraphFromData();
+    }
+
+    if (this.inputPropHasChanged(changes, "instances")) {
+      this.selectedInstance = this.instances[0];
+      console.log(this.instances);
+      console.log('READY TO MAKE TEST');
+    }
+  }
+  /**
+   * Helper Function for checking if a property is within the changed properties of ngOnChanges()
+   * @param  {SimpleChanges} changes
+   * @param  {string} propName
+   * @returns boolean
+   */
+  inputPropHasChanged(changes: SimpleChanges, propName: string): boolean {
+    return changes[propName] && changes[propName].previousValue != changes[propName].currentValue;
   }
 
   /**
    * Function to execute to attemp to show data.
    */
   onShowGraphFromData() {
-    if (this.dataArr && this.dataArr.length > 0 && this.lowerDate) {
-      this.showGraphFromData(this.dataArr, this.lowerDate, this.selectedInstance.name)
+    this.selectedInstance = { name: 'Centro Tec de Monterrey' };
+    this.lowerDate = new Date();
+    this.lowerDate.setMonth(1);
+    this.upperDate = new Date();
+
+    if (this.indicatorDisplayData && this.indicatorDisplayData.length > 0 && this.lowerDate && this.selectedInstance) {
+      console.log('Displaying data');
+      
+      this.showGraphFromData(this.indicatorDisplayData, this.lowerDate, this.selectedInstance.name)
     }
   }
 
@@ -91,7 +123,7 @@ export class IndicatorGraphComponent implements OnInit {
    * Returns an array of n month names starting from the month of startDate
    * @param  {Date} startDate
    * @param  {number} nMonths
-   * @returns string
+   * @returns string[]
    */
   getMonthLabels(startDate: Date, nMonths: number): string[] {
     const MONTH_FULLNAMES_MAP = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
