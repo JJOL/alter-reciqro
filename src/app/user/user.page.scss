@@ -73,3 +73,21 @@ ion-chip {
         }
     }
 }
+
+@media (max-width: 576px) {
+    ion-title {
+        font-size: 80% !important;
+    }
+    ion-button{
+        font-size: 80% !important;
+    }
+}
+
+@media (max-width: 400px) {
+    ion-title {
+        font-size: 70% !important;
+    }
+    ion-button{
+        font-size: 70% !important;
+    }
+}
