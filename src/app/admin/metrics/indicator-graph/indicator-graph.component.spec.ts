@@ -22,6 +22,30 @@ describe('AppIndicatorGraphComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('#inputPropHasChanged() should return true for a changed marked prop', () => {
+    let propName = "prop1";
+    let changes = {};
+    changes[propName] = {
+      previousValue: 0,
+      currentValue: undefined
+    };
+    expect(component.inputPropHasChanged(changes, propName)).toBeTruthy();
+  });
+  it('#inputPropHasChanged() should return false for a not changed showed marked prop', () => {
+    let propName = "prop1";
+    let changes = {};
+    changes[propName] = {
+      previousValue: 0,
+      currentValue: 0
+    };
+    expect(component.inputPropHasChanged(changes, propName)).toBeFalsy();
+  });
+  it('#inputPropHasChanged() should return false for a not changed not showed marked prop', () => {
+    let propName = "prop1";
+    let changes = {};
+    expect(component.inputPropHasChanged(changes, propName)).toBeFalsy();
+  });
+
   it ('#getMonthLabels() should create an array of n months names starting from date 0', () => {
     let startDate = new Date();
     startDate.setMonth(4); // Start in Mayo
