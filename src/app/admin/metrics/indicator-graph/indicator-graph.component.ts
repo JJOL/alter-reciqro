@@ -1,9 +1,15 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 
 import { IndicatorInstance } from '../DualIndicatorProvider';
 
 
 declare const Chart: any;
+
+export interface IGCParametersEvent {
+  selectedInstance: IndicatorInstance
+  lowerDate: Date
+  upperDate: Date
+}
 
 @Component({
   selector: 'app-indicator-graph',
@@ -18,6 +24,7 @@ declare const Chart: any;
  */
 export class IndicatorGraphComponent implements OnInit {
 
+
   // Data Information
   lowerDate: Date;
   upperDate: Date;
@@ -27,6 +34,8 @@ export class IndicatorGraphComponent implements OnInit {
   // Population Information
   @Input() instances: IndicatorInstance[] = [];
   @Input() indicatorClassName: string;
+
+  @Output() dataParametersChange = new EventEmitter<IGCParametersEvent>();
 
   // Elements
   @ViewChild('chartCanvasEl', {static: true}) chartEl;
@@ -95,6 +104,19 @@ export class IndicatorGraphComponent implements OnInit {
     }
 
     return monthLabelsArr;
+  }
+
+  /**
+   * Sends a valid ParametersChangeEvent to handler to furtherly calculate data.
+   */
+  sendParametersChangeEvent() {
+    let changeEvent: IGCParametersEvent = {
+      selectedInstance: this.selectedInstance,
+      lowerDate: this.lowerDate,
+      upperDate: this.upperDate
+    };
+    
+    this.dataParametersChange.emit(changeEvent);
   }
 
 }
