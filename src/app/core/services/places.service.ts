@@ -306,6 +306,35 @@ export class PlacesService {
     });
   }
 
+  updatePlaceType(id: string, name_waste_type: string, url_waste_type: string){
+    return new Promise<any>((resolve, reject) => {
+      this.firedb.collection(PLACE_TYPE_KEY).doc(id).set({
+        name: name_waste_type,
+        icon_url: url_waste_type
+      }, {merge: true} )
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
+    });
+  }
+
+  addPlaceTypeFB(name_waste_type:string, url_waste_type: string){
+    return new Promise<any>((resolve, reject) => {
+      this.firedb.collection(PLACE_TYPE_KEY).add({
+        name: name_waste_type,
+        icon_url: url_waste_type
+      })
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
+    });
+  }
 
 
 }

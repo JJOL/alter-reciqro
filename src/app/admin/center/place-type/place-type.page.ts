@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PlacesService } from 'src/app/core/services/places.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
@@ -13,10 +13,10 @@ export class PlaceTypePage implements OnInit {
   placeTypes: any [];
 
   constructor(  
-    private activatedRoute: ActivatedRoute,
     private placesService: PlacesService,
     private alertCtrl: AlertController,
-    private navCtrl: NavController) {
+    private navCtrl: NavController,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -37,7 +37,7 @@ export class PlaceTypePage implements OnInit {
         text: 'Borrar',
         handler: () => {
           this.placesService.deletePlaceTypeByID(placeTypeId).then(() => {
-            this.navCtrl.navigateBack(['/admin/center/place-type']);
+            this.placesService.allPlaceTypes().then( data => { this.placeTypes = data; });
           })
               .catch(() => {});
         }

@@ -3,9 +3,9 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/admin/center" [text]="''"></ion-back-button>
     </ion-buttons>
-    <ion-title size = "small">Categorías de Desechos</ion-title>
+    <ion-title size = "small">Categorías de Centros de Desecho</ion-title>
     <ion-buttons slot="primary">
-      <ion-button routerLink="/admin/center/add-center">
+      <ion-button routerLink='/admin/center/place-type/add'>
         <ion-icon name="add" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -36,7 +36,7 @@
                     <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
                   </ion-button>
       
-                  <ion-button fill="clear" class="bold" [routerLink]="['/admin/center/place-type', placeType.id]" >
+                  <ion-button fill="clear" class="bold" [routerLink]="['/admin/center/place-type/detail', placeType.id]" >
                     <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
                   </ion-button >
       
