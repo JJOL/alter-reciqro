@@ -31,7 +31,7 @@ export class WastePage implements OnInit {
   constructor(private wasteService: WasteService) { }
 
   ngOnInit() {
-    this.wasteService.getWastes().then( waste => {
+    this.wasteService.getWastes().then(waste => {
       this.wastes = waste;
       this.wastes = shuffle(this.wastes);
     });

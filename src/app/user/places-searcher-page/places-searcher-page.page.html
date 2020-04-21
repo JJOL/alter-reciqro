@@ -18,8 +18,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid  [ngClass]="classname" >
-    <ion-row  [ngClass]="classname">
+  <ion-grid [ngClass]="classname" >
+    <ion-row [ngClass]="classname">
       <ion-col size="12">
         <app-shared-google-map  #mapElement (seletedMarker)="emitPlace($event)"  [editable]="false" [max]="30" [places]="places" [center]="position">
         </app-shared-google-map>

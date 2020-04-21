@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DelegationService } from '../core/services/delegation.service';
 
 
 @Component({
@@ -8,10 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserPage implements OnInit {
 
-  constructor() { }
+  delegations: any[];
 
-  async ngOnInit() {
+  constructor(private delegationService: DelegationService) { }
 
+  ngOnInit() {
+    this.delegationService.getDelegations().then(delegation => {
+      this.delegations = delegation;
+    });
   }
 
 }
