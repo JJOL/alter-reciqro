@@ -23,7 +23,7 @@ export class UserPage implements OnInit {
     this.delegationService.getDelegations().then(delegation => {
       this.delegations = delegation;
     });
-    this.authService.getUserByUID("yBM2MxbTmHfPt0hTh0ek19i01W73").then(user => console.log(user))
+   // this.authService.getUserByUID("yBM2MxbTmHfPt0hTh0ek19i01W73").then(user => console.log(user))
   }
   /**
    * Logout methos to close fireauth
