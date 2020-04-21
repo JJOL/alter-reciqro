@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-buttons slot="start">
+      <!--This opens the default menu we have-->
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-title >Registrarse como Usuario</ion-title>
+    <!--Here we will replace with the government icon-->
+    <ion-buttons slot="end" class="ion-padding">
+      <ion-icon name="earth-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-padding-horizontal">
+      <ion-col size="2" size-s></ion-col>
+    <ion-col size="12" size-sm size-md>
+<form [formGroup]= "newCenterForm" (ngSubmit)="submit()">
+  <ion-list>
+
+    <ion-item>
+      <ion-label position="floating">Alias</ion-label>
+      <ion-input formControlName="alias" inputmode="text" ></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.email">
+      <ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input formControlName="email" inputmode="email" ></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.email">
+      <ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input formControlName="password" inputmode="password" ></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.email">
+      <ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Confirmacion de Contraseña</ion-label>
+      <ion-input formControlName="confirmPassword" inputmode="password" ></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.email">
+      <ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <!-- <ion-item>
+      <ion-label position="floating">Delegacion</ion-label>
+      <ion-select class="myCustomSelect" formControlName="delegation_id" placeholder="Elegir" multiple="false">
+        
+        <ion-select-option 
+        *ngFor="let placeType of loadedPlacetypes" 
+        value="{{placeType.id}}"
+
+        > {{placeType.name}} </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <div *ngFor="let error of errorMessages.instalationType">
+      <ng-container *ngIf="instalationType.hasError(error.type) && (instalationType.dirty || instalationType.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div> -->
+
+
+    <ion-button [disabled]="!newCenterForm.valid" type="submit" expand="block">
+      Registrarme
+      <ion-icon slot="end" name="send"></ion-icon>
+    </ion-button>
+    </ion-list>
+</form>
+</ion-col>
+<ion-col size="2" size-s></ion-col>
+</ion-row>
+</ion-grid>
+</ion-content>

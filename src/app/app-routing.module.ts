@@ -18,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'recover-password',
-    loadChildren: () => import('./core/recover-password/recover-password.module').then( m => m.RecoverPasswordPageModule)
+    loadChildren: () => import('./user/recover-password/recover-password.module').then( m => m.RecoverPasswordPageModule)
   }
 ];
 
