@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { MetricsPage } from './metrics.page';
+import { PlacesMetricsComponent } from './places-metrics/places-metrics.component';
+import { IndicatorGraphComponent } from './indicator-graph/indicator-graph.component';
 
 describe('MetricsPage', () => {
   let component: MetricsPage;
@@ -9,7 +11,7 @@ describe('MetricsPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MetricsPage ],
+      declarations: [ MetricsPage, PlacesMetricsComponent, IndicatorGraphComponent],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 

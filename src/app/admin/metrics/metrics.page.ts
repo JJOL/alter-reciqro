@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MetricsPage implements OnInit {
 
-  constructor() { }
+
+  // delegationDataProvider: DualIndicatorProvider;
+  // placesDataProvider:     DualIndicatorProvider;
+
+
+  constructor(
+    // private metricsService: MetricsFacade
+  ) { }
 
   ngOnInit() {
+    // this.delegationDataProvider = this.metricsService.getPlacesProvider();
+    // this.placesDataProvider     = this.metricsService.getPlacesProvider();
   }
 
 }
