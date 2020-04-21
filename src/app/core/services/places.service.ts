@@ -17,7 +17,13 @@ const PLACE_TYPE_WASTE_TYPE = '/place_type_waste_type';
 
 const GeoPoint = firebase.firestore.GeoPoint;
 
+/**
+ * Castea un snapshot de FB  a Place type
+ * @param  {any} fbPlace
+ * @returns Place
+ */
 function parseFBPlaceToPlace(fbPlace: any): Place {
+  const icon ='sss';
   const data  = fbPlace.payload.doc.data();
   const id = fbPlace.payload.doc.id;
   const place = new Place(
@@ -32,22 +38,9 @@ function parseFBPlaceToPlace(fbPlace: any): Place {
       data.postal_code,
       data.places_type,
       data.photo,
-      data.qr_code
+      data.qr_code,
   );
-  // const place: Place = {
-  //   id: id,
-  //   name: data.name,
-  //   address: data.address,
-  //   description: data.description,
-  //   location: {
-  //     lat: data.location.latitude,
-  //     lng: data.location.longitude
-  //   },
-  //   photo: data.photo,
-  //   places_type: data.places_type,
-  //   qr_code: data.qr_code,
-  //   postal_code: data.postal_code
-  // }
+
   return place;
 }
 
@@ -58,6 +51,10 @@ function isWithin(val, min, max) {
 @Injectable({
   providedIn: 'root'
 })
+
+ /**
+   * Servicio para obtener lugares
+   */
 export class PlacesService {
   placeTypes: any;
 
@@ -139,7 +136,12 @@ export class PlacesService {
           });
     });
   }
-
+  
+  /**
+   * Obtenemos el tipo de lugar por 
+   * @param  {string} id
+   * @returns Promise
+   */
   getPlaceTypeByID(id: string): Promise<TipoInstalacion> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
@@ -184,6 +186,12 @@ export class PlacesService {
           );
     });
   }
+
+  /*
+    Description: This function edits a place and it changes the fields only if 
+    they are different than the ones in the database
+  */
+  //User Story ID: M1NG2
   editPlace(placeObject, id: string) {
     const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
     return new Promise<any>((resolve, reject) => {
@@ -257,9 +265,14 @@ export class PlacesService {
           });
     });
   }
-  // Esta está bien
+ 
+  /**
+   * Esta función regresa todos los lugares en base de los filtros de WasteType
+   * @param  {WasteType[]} filters
+   * @returns Promise<TipoInstalacion[]>
+   */
   async getIDPlacesTypesByWaste(filters: WasteType[]): Promise<TipoInstalacion[]> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<TipoInstalacion>(PLACE_TYPE_WASTE_TYPE, ref => ref.where('waste_type', 'in', filters.map(item => item.id))  ).snapshotChanges()
           .pipe(map(snapshot => {
@@ -277,11 +290,14 @@ export class PlacesService {
           });
     });
   }
-
+  /**
+   * @param  {any[]} placetype
+   * @returns Promise
+   */
   async getIDPlacesByPlacesType(placetype: any[]): Promise<Place[]> {
     const clean =  Array.from(new Set (placetype.map(data => data.place_type)));
     const placetyperef =   clean.map( ele => this.firedb.doc('place_type/' + ele).ref);
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<Place>(PLACE_KEY, ref => ref.where('places_type', 'in', placetyperef)  ).snapshotChanges()
           .pipe(map(snapshot => {

@@ -15,7 +15,21 @@ const routes: Routes = [
   {
     path: 'info',
     loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  
+  {
+    path: 'recover-password',
+    loadChildren: () => import('./recover-password/recover-password.module').then( m => m.RecoverPasswordPageModule)
   }
+
 ];
 
 @NgModule({

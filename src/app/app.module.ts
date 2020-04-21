@@ -1,3 +1,5 @@
+import { AuthService } from './core/services/auth.service';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
@@ -11,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
 
@@ -23,14 +26,18 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.database.firebaseConfig),
     AngularFirestoreModule,
+    AngularFireAuthModule,
 
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    AngularFireAuth,
+    AuthService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {} }
   ],
   bootstrap: [AppComponent],
 })
+// eslint-disable-next-line require-jsdoc
 export class AppModule {}

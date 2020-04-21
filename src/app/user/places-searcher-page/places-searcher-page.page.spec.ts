@@ -1,3 +1,6 @@
+import { empty } from 'rxjs';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AuthService } from './../../core/services/auth.service';
 import { MarkerCardComponent } from './../marker-card/marker-card.component';
 import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
@@ -47,6 +50,43 @@ const mockGeolocation = {
   }
 };
 
+const mockAuthentication ={
+  registerUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  loginEmailUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  loginGoogleUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  logoutUser: () => {
+    return [];
+  },
+  isAuth:  () => {
+    return empty();
+  },
+  updateUserData: () => {
+    return [];
+  },
+};
+
+const authStub: any = {
+  authState: {},
+  auth: {
+    signInWithEmailAndPassword() {
+      return Promise.resolve();
+    }
+  }
+};
+
+
 describe('PlacesSearcherPagePage', () => {
   let component: PlacesSearcherPagePage;
   let fixture: ComponentFixture<PlacesSearcherPagePage>;
@@ -59,7 +99,9 @@ describe('PlacesSearcherPagePage', () => {
       providers: [
         { provide: PlacesService, useValue: mockPlacesService },
         { provide: Geolocation, useValue: mockGeolocation },
+        { provide: AuthService, useValue: mockAuthentication },
         { provide: AngularFirestore, useValue: MockAngularFirestore },
+        { provide: AngularFireAuth, useValue: authStub }
       ]
     }).compileComponents();
 
