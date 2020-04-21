@@ -4,10 +4,59 @@
       <!--This opens the default menu we have-->
       <ion-menu-button menu="m1"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Usuario</ion-title>
+    <ion-title>Bienvenido</ion-title>
     <!--Here we will replace with the government icon-->
     <ion-buttons slot="end" class="ion-padding">
-      <ion-icon name="earth-outline"></ion-icon>
+      <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+<ion-content fullscreen="true" slot="fixed">
+  <ion-grid>
+    <ion-row>
+      <ion-virtual-scroll>
+        
+      </ion-virtual-scroll>
+      <ion-col size="12" size-sm size-md size-lg="8" offset-lg="2">
+        <div class="card">
+          <div class="header">
+            <div class="avatar">
+              <img src="../../assets/img/icon.png" alt="icono">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="user-meta ion-text-center">
+              <h3 class="playername">Ciudadano X</h3>
+              <h5 class="country">Centro Histórico</h5>
+              <h6 class="ranking">Nivel actual: <ion-chip>
+                  <ion-label>2</ion-label>
+                </ion-chip>
+              </h6>
+            </div>
+
+            <ion-list>
+              <ion-item *ngIf="delegations">
+                <ion-label>Delegación</ion-label>
+                <ion-select cancelText="CANCEL" okText="OK" multiple="false">
+                  <ion-select-option 
+                  *ngFor="let delegation of delegations" 
+                  value="{{delegation.id}}"
+                  >{{delegation.name}}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item *ngIf="!delegations">
+                <ion-spinner name="circles"></ion-spinner>
+              </ion-item>
+            </ion-list>
+      
+            <ion-button expand="full" color="primary">Mis datos</ion-button>
+            <ion-button expand="full" color="secondary">Logros</ion-button>
+            <ion-button expand="full" color="secondary">Objetivos</ion-button>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import { TestBed } from '@angular/core/testing';
 import {AngularFirestore} from '@angular/fire/firestore';
-import { UserPage } from './user.page';
+import { IonicModule } from '@ionic/angular';
+import { DelegationService } from './delegation.service';
 
 const arr = function() {};
 
@@ -21,26 +21,17 @@ const angularFirestoreStub = {
   collection: jasmine.createSpy('collection').and.returnValue(collectionStub),
 };
 
-describe('UserPage', () => {
-  let component: UserPage;
-  let fixture: ComponentFixture<UserPage>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ UserPage ],
+describe('DelegationService', () => {
+  beforeEach(() => 
+  TestBed.configureTestingModule({
       imports: [IonicModule.forRoot()],
       providers: [
         {provide: AngularFirestore, useValue: angularFirestoreStub},
       ]
-    }).compileComponents();
+  }));
 
-  fixture = TestBed.createComponent(UserPage);
-  component = fixture.componentInstance;
-  fixture.detectChanges();
-
-}));
-
-it('should create', () => {
-  expect(component).toBeTruthy();
+  it('should be created', () => {
+    const service: DelegationService = TestBed.get(DelegationService);
+    expect(service).toBeTruthy();
   });
 });

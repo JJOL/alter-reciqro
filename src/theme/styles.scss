@@ -1,7 +1,11 @@
 /*Global styles, only use it when there is no other option!*/
 
+.sc-ion-alert-sm-h {
+    --min-width: 70% !important;	
+}
+
 .sc-ion-alert-md-h {
-    --min-width: 50% !important;	
+    --min-width: 70% !important;	
 }
 
 .sc-ion-alert-lg-h {
