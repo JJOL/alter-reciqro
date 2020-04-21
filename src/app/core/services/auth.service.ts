@@ -8,7 +8,6 @@ import {AngularFirestore , AngularFirestoreDocument} from '@angular/fire/firesto
 import { User } from '../models/user.model';
 import { switchMap, map, take } from 'rxjs/operators';
 import { auth } from 'firebase';
-import { stringify } from 'querystring';
 
 const USER_KEY = '/users';
 @Injectable()
@@ -102,6 +101,30 @@ loginGoogleUser() {
   isAuth() {
     return this.afAuth.authState.pipe(map(auth =>  auth));
   }
+  /**
+   * Returns the user info by uid
+   * @param  {string} iud
+   */
+  getUserByUID(uid:string):Promise<any>{
+    return new Promise((resolve) => {
+      let subscription: Subscription;
+      subscription = this.afs.doc<any>(`users/${uid}`).valueChanges()
+          .pipe(
+              take(1),
+              map(
+                  user => {
+                    return user;
+                  }
+              ))
+          .subscribe(user => {
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+            resolve(user);
+          });
+    });
+  }
+
   /**
    * Metodo updateuserdata:
    * recibe un usuario el cual se le modificaran los atributos para cuando se agreagn usuarios nuevos con un rol especifico
