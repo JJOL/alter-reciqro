@@ -26,7 +26,7 @@ import { filter } from 'rxjs/operators';
  * en el mapa ademas de poder manejar un poco de filtros y vistas del mapa
  */
 export class PlacesSearcherPagePage implements OnInit {
-  public isLogged = false;
+  public isLogged;
   classname = {
     'ly-grid-map': true,
     'ion-no-padding': true
@@ -38,6 +38,7 @@ export class PlacesSearcherPagePage implements OnInit {
   filters: WasteType[] = [];
   activeFilters: WasteType[] = [];
   modal: any;
+  authproof: string ;
   @ViewChild ('mapElement', {static: true}) map;
 
   @Output() changeView = new EventEmitter();
@@ -155,18 +156,18 @@ export class PlacesSearcherPagePage implements OnInit {
     console.log('MAP INTERACT');
 
   }
-
-  getCurrentUser() {
-    this.authService.isAuth().subscribe( auth=> {
+  getCurrentUser() { 
+    this.authService.isAuth().subscribe(auth =>{
       if (auth) {
         // eslint-disable-next-line no-console
-        console.log('user looged');
+        console.log('user looged', auth);
         this.isLogged = true;
+  
       } else {
         // eslint-disable-next-line no-console
         console.log('not logged');
         this.isLogged = false;
       }
-    });
-  }
+    }
+    )};
 }

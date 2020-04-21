@@ -1,22 +1,26 @@
+import { ToastController } from '@ionic/angular';
 import { resolve } from 'url';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore , AngularFirestoreDocument} from '@angular/fire/firestore';
 import { User } from '../models/user.model';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, take } from 'rxjs/operators';
 import { auth } from 'firebase';
+import { stringify } from 'querystring';
 
 const USER_KEY = '/users';
 @Injectable()
 /** Servicio para autenticaciom de usuario */
 export class AuthService {
+  auxiliar: string;
   user: Observable<User>;
   // eslint-disable-next-line require-jsdoc
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
-              private router: Router) {
+              private router: Router,
+              private toastCtrl: ToastController) {
   }
   /**
    * Metodo Registra usuario, toma como entrada email y correo y crea una promesa con los servicio de autenticacionde firebase
@@ -28,8 +32,8 @@ export class AuthService {
       this.afAuth.auth.createUserWithEmailAndPassword(userObject.email, userObject.password)
           .then(userData => {
             resolve(userData),
-            this.createUser(userObject,userData.user.uid);
-            this.loginEmailUser(userObject.email,userObject.password);
+            this.createUser(userObject, userData.user.uid);
+            this.loginEmailUser(userObject.email, userObject.password);
           // eslint-disable-next-line no-console
           }).catch(err => console.log(reject(err)));
     });
@@ -40,15 +44,13 @@ export class AuthService {
    * @param  {string} email
    * @param  {string} pass
    */ 
-  createUser(userObject,userUID){
+  createUser(userObject, userUID){
     return new Promise<any>((resolve, reject) => {
       this.afs.collection(USER_KEY).doc(userUID).set({
         alias: userObject.alias,
         points: 0,
         roles: ["user"],
         delegation_id: userObject.delegation_id,
-        
-        
       })
           .then(
               (res) => {
@@ -66,9 +68,11 @@ export class AuthService {
    */
   loginEmailUser(email: string, password: string) {
     return new Promise ((resolve, reject) => {
-      this.afAuth.auth.signInWithEmailAndPassword(email,password)
-          .then(userData =>  resolve(userData),
-              err => reject(err));
+      this.afAuth.auth.signInWithEmailAndPassword(email, password)
+          .then(userData => {
+            resolve(userData);
+            this.showToast('Bienvenido a ReciQro');
+          });
     });
   }
   /**
@@ -76,27 +80,28 @@ export class AuthService {
    * Despliega un popup de google el cual se llama a partir de un google provider
    * regresa la informacion del usuario
    */
-  loginGoogleUser() {
+loginGoogleUser() {
     return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
         .then((credential) => {
-          this.updateUserData(credential.user)
+          this.updateUserData(credential.user);
+          this.showToast('Bienvenido a ReciQro');
         });
   }
   /**
    * Metodo Logout: Uso de servicio de autentificacion de firebase para poder terminar la sesion
    */
   logoutUser() {
-    return this.afAuth.auth.signOut().then(()=>{
+    return this.afAuth.auth.signOut().then(() => {
       this.router.navigate(['user/places-searcher-page']);
+      this.showToast('Hasta luego, has cerrado sesión');
     });
   }
   /**
    * Metodo para saber si el usuario se encuentra autentificado
    */
   isAuth() {
-    return this.afAuth.authState.pipe(map(auth => auth));
+    return this.afAuth.authState.pipe(map(auth =>  auth));
   }
-
   /**
    * Metodo updateuserdata:
    * recibe un usuario el cual se le modificaran los atributos para cuando se agreagn usuarios nuevos con un rol especifico
@@ -104,17 +109,34 @@ export class AuthService {
    */
   private updateUserData(user){
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    let useraux=userRef.valueChanges()
+    let galias: string =useraux.alias;
+    let gdelegation_id: string = useraux.delegation_id;
+    let gpoints: number = useraux.points;
+    let groles: [string] = useraux.roles;
+    console.log(useraux);
+   if ('' == galias){
+      galias = 'no name';
+    }
+    if ('' == gdelegation_id){
+      gdelegation_id = 'sLiPWGpvVzATetdO7CD9';
+    }
+    if (0 >= gpoints){
+      gpoints = 0;
+    }
+    if (0 >= groles.length) {
+      groles = ['user'];
+    }
+
     const data: User = {
-      alias: user.uid,
-      delegation_id: "",
-      points: 0,
-      //email: user.email,
-      roles: {
-        admin: true
-      }
+      alias: galias,
+      delegation_id: gdelegation_id,
+      points: gpoints,
+      roles: groles
     };
     return userRef.set(data, {merge: true});
   }
+
 
   //Description: It sends an email to the user, so they can reset their password
   //User story ID: M4NG2 
@@ -126,12 +148,27 @@ export class AuthService {
   sendPasswordResetEmail(email: string){
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth.sendPasswordResetEmail(email).then(
-       (res) => {
-         resolve(res);
-       },
-       err => reject(err)
-     );
-   });
+          (res) => {
+            resolve(res);
+          },
+          err => reject(err)
+      );
+    });
 
+  }
+
+  /**
+   * Metodo showtoast:
+   *  creaun toast
+   * para mostrar en pantalla
+   * @param  {} msg
+   */
+  showToast(msg) {
+    this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'middle',
+      color: 'success'
+    }).then(toast => toast.present());
   }
 }

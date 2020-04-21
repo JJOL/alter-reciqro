@@ -33,7 +33,6 @@ export class LoginPage implements OnInit {
    */
   onLogin(): void {
     // eslint-disable-next-line no-console
-    console.log(this.email,this.password);
     this.authService.loginEmailUser(this.email, this.password)
         .then( () => {
           this.router.navigate(['user/places-searcher-page']);
@@ -45,8 +44,6 @@ export class LoginPage implements OnInit {
    * @returns void
    */
   onLoginGoogle(): void{
-    //console.log("Entro a google");
-    //this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
     this.authService.loginGoogleUser()
         .then(() => {
           this.router.navigate(['user/places-searcher-page']);
@@ -57,7 +54,6 @@ export class LoginPage implements OnInit {
    * Metodo on logout, madna a llamar de auth service el termianr la sesion
    */
   onLogout() {
-    //console.log("Salio a google");
     this.authService.logoutUser();
   }
   /**
@@ -67,7 +63,7 @@ export class LoginPage implements OnInit {
    * del cual compara el tipo de error y despliega una alerta
    */
   async isAnError(error) {
-    if('auth/invalid-email' ==error.code){
+    if('auth/invalid-email' == error.code){
       const alert = await this.alertController.create({
         header: 'Error',
         message: 'Escribe un email correcto.',

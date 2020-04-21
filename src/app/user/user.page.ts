@@ -16,7 +16,10 @@ export class UserPage implements OnInit {
   // eslint-disable-next-line require-jsdoc
   constructor(private delegationService: DelegationService,
               private authService: AuthService ) { }
-
+  /**
+   * NgInit: 
+   * Obtiene todos las delegaciones para poder mostrarlas en el html
+   */
   ngOnInit() {
     this.delegationService.getDelegations().then(delegation => {
       this.delegations = delegation;
@@ -26,8 +29,8 @@ export class UserPage implements OnInit {
    * Metodo para cerrar sesion
    */
   logout() {
-    console.log("aqui esta entrando");
     this.authService.logoutUser();
   }
+
 
 }
