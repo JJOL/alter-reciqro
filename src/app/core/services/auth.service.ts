@@ -5,8 +5,9 @@ import { Injectable } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore , AngularFirestoreDocument} from '@angular/fire/firestore';
 import { User } from '../models/user.model';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, take } from 'rxjs/operators';
 import { auth } from 'firebase';
+import { Subscription } from 'rxjs';
 
 const USER_KEY = '/users';
 @Injectable()
@@ -96,6 +97,29 @@ export class AuthService {
   isAuth() {
     return this.afAuth.authState.pipe(map(auth => auth));
   }
+  /**
+   * Returns the user info by uid
+   * @param  {string} iud
+   */
+  getUserByUID(uid:string):Promise<any>{
+    return new Promise((resolve) => {
+      let subscription: Subscription;
+      subscription = this.afs.doc<any>(`users/${uid}`).valueChanges()
+          .pipe(
+              take(1),
+              map(
+                  user => {
+                    return user;
+                  }
+              ))
+          .subscribe(user => {
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+            resolve(user);
+          });
+    });
+  }
 
   /**
    * Metodo updateuserdata:
@@ -126,12 +150,12 @@ export class AuthService {
   sendPasswordResetEmail(email: string){
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth.sendPasswordResetEmail(email).then(
-       (res) => {
-         resolve(res);
-       },
-       err => reject(err)
-     );
-   });
+          (res) => {
+            resolve(res);
+          },
+          err => reject(err)
+      );
+    });
 
   }
 }
