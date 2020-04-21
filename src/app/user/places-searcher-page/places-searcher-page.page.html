@@ -7,12 +7,13 @@
     
     <ion-title  class="ion-text-center">Buscador de Centros</ion-title>
     <!--ion-title    class="ion-text-center">Buscador de Centros flag: {{isLogged}}</ion-title-->
-    <!--Here we will replace with the government icon-->
     <ion-buttons  slot="primary" >
       <ion-button  *ngIf="!isLogged"  col-2 col-sm  slot="end" color="secondary" >
-        Regístrate<ion-icon name="person-add-outline"></ion-icon></ion-button> 
-      <ion-button  *ngIf="isLogged" col-2 col-sm  slot="end" color="secondary">
-    Perfil<ion-icon name="person-circle-outline"></ion-icon></ion-button>
+        Regístrate<ion-icon name="person-add-outline"></ion-icon>
+      </ion-button> 
+      <ion-button  *ngIf="isLogged" col-2 col-sm  slot="end" routerLink="/user/">
+        <ion-icon slot="icon-only" name="person-circle"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
