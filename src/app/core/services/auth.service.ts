@@ -8,6 +8,7 @@ import { User } from '../models/user.model';
 import { switchMap, map } from 'rxjs/operators';
 import { auth } from 'firebase';
 
+const USER_KEY = '/users';
 @Injectable()
 /** Servicio para autenticaciom de usuario */
 export class AuthService {
@@ -19,16 +20,41 @@ export class AuthService {
   /**
    * Metodo Registra usuario, toma como entrada email y correo y crea una promesa con los servicio de autenticacionde firebase
    * @param  {string} email
-   * @param  {string} pass
    */
-  registerUser(email: string, pass: string) {
+  registerUser(userObject) {
     return new Promise((resolve , reject) => {
-      this.afAuth.auth.createUserWithEmailAndPassword(email, pass)
+      console.log(userObject.email)
+      this.afAuth.auth.createUserWithEmailAndPassword(userObject.email, userObject.password)
           .then(userData => {
             resolve(userData),
-            this.updateUserData(userData.user);
+            this.createUser(userObject,userData.user.uid);
+            this.loginEmailUser(userObject.email,userObject.password);
           // eslint-disable-next-line no-console
           }).catch(err => console.log(reject(err)));
+    });
+    
+  }
+  /**
+   * Metodo Registra usuario, toma como entrada email y correo y crea una promesa con los servicio de autenticacionde firebase
+   * @param  {string} email
+   * @param  {string} pass
+   */ 
+  createUser(userObject,userUID){
+    return new Promise<any>((resolve, reject) => {
+      this.afs.collection(USER_KEY).doc(userUID).set({
+        alias: userObject.alias,
+        points: 0,
+        roles: ["user"],
+        delegation_id: userObject.delegation_id,
+        
+        
+      })
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
     });
   }
   /**

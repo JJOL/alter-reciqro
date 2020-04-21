@@ -1,23 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { RegisterPageRoutingModule } from './register-routing.module';
 
 import { RegisterPage } from './register.page';
-import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   imports: [
     CommonModule,
-    BrowserModule,
+    
     ReactiveFormsModule,
     // FormsModule,
     IonicModule,
-    RegisterPageRoutingModule
+    RegisterPageRoutingModule,
+    
+  
   ],
   declarations: [RegisterPage]
+  
 })
+// eslint-disable-next-line require-jsdoc
 export class RegisterPageModule {}

@@ -58,7 +58,7 @@ describe('RecoverPasswordPage', () => {
       imports: [IonicModule.forRoot(),ReactiveFormsModule, SharedPageModule, RouterTestingModule],
       providers: [
         FormBuilder,
-        AuthService,
+        
         { provide: AngularFireAuth, useValue: authStub },
         { provide: AuthService, useValue: mockAuthentication }
         

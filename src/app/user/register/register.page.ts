@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 
-
 import * as firebase from 'firebase/app';
+import { DelegationService } from 'src/app/core/services/delegation.service';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +13,7 @@ import * as firebase from 'firebase/app';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
+  delegations:any[];
   updateBookingForm: FormGroup;
   get email() {
     return this.newCenterForm.get('email');
@@ -49,7 +50,7 @@ export class RegisterPage implements OnInit {
       { type: 'required', message: 'La confirmacion de contraseña es requerida' }
     ],
     
-    delegationId: [
+    delegation_id: [
       { type: 'required', message: 'Es necesario elegir una delegación'}
     ],
     
@@ -60,7 +61,7 @@ export class RegisterPage implements OnInit {
     email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmPassword: ['', Validators.required],
-    delegationId: ['', Validators.required], 
+    delegation_id: ['', Validators.required], 
    });
 
   constructor(
@@ -70,22 +71,29 @@ export class RegisterPage implements OnInit {
     private alertCtrl: AlertController,
     private navCtrl: NavController,
     public formBuilder: FormBuilder,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private delegationService: DelegationService,
     ) { }
 
   ngOnInit() {
+    this.delegationService.getDelegations().then(delegation => {
+      this.delegations = delegation;
+    });
   }
   public submit() {
-    this.authService.sendPasswordResetEmail(this.newCenterForm.value.email).then(id => {
+    this.authService.registerUser(this.newCenterForm.value).then(res => {
     
-    this.showToast('Si tu email esta registrado te llegara un correo para restablecer tu contraseña');
+    this.showToast('Usuario fue registrado');
     this.newCenterForm.reset();
+    
     this.navCtrl.navigateBack(['/']);
   })
   .catch(err => {
-    this.showToast('Error al de enviar correo de restauracion, el email no existe.');
+    this.showToast('Error el usuario con este correo ya existe');
+    console.log(err);
     this.newCenterForm.reset();
   });
+  return
 }
 
   showToast(msg) {

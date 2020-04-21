@@ -15,10 +15,6 @@ const routes: Routes = [
   {
     path: 'shared',
     loadChildren: () => import('./shared/shared.module').then( m => m.SharedPageModule)
-  },
-  {
-    path: 'recover-password',
-    loadChildren: () => import('./user/recover-password/recover-password.module').then( m => m.RecoverPasswordPageModule)
   }
 
 ];

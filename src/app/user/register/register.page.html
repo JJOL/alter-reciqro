@@ -24,8 +24,8 @@
       <ion-label position="floating">Alias</ion-label>
       <ion-input formControlName="alias" inputmode="text" ></ion-input>
     </ion-item>
-    <div *ngFor="let error of errorMessages.email">
-      <ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
+    <div *ngFor="let error of errorMessages.alias">
+      <ng-container *ngIf="alias.hasError(error.type) && (alias.dirty || alias.touched)">
         <small class="error-message">{{error.message}}</small>
       </ng-container>
     </div>
@@ -42,42 +42,64 @@
 
     <ion-item>
       <ion-label position="floating">Contraseña</ion-label>
-      <ion-input formControlName="password" inputmode="password" ></ion-input>
+      <ion-input formControlName="password" inputmode="password" type="password"></ion-input>
     </ion-item>
-    <div *ngFor="let error of errorMessages.email">
-      <ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
+    <div *ngFor="let error of errorMessages.password">
+      <ng-container *ngIf="password.hasError(error.type) && (password.dirty || password.touched)">
         <small class="error-message">{{error.message}}</small>
       </ng-container>
     </div>
 
     <ion-item>
       <ion-label position="floating">Confirmacion de Contraseña</ion-label>
-      <ion-input formControlName="confirmPassword" inputmode="password" ></ion-input>
+      <ion-input formControlName="confirmPassword" inputmode="password" type="password" ></ion-input>
     </ion-item>
-    <div *ngFor="let error of errorMessages.email">
-      <ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
+    <div *ngFor="let error of errorMessages.confirmPassword">
+      <ng-container *ngIf="confirmPassword.hasError(error.type) && (confirmPassword.dirty || confirmPassword.touched)">
         <small class="error-message">{{error.message}}</small>
       </ng-container>
     </div>
+ 
 
-    <!-- <ion-item>
-      <ion-label position="floating">Delegacion</ion-label>
+    <!-- <ion-list>
+      <ion-item *ngIf="delegations">
+        <ion-label>Delegación</ion-label>
+        <ion-select cancelText="CANCEL" okText="OK" multiple="false">
+          <ion-select-option 
+          *ngFor="let delegation of delegations" 
+          value="{{delegation.id}}"
+          >{{delegation.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="!delegations">
+        <ion-spinner name="circles"></ion-spinner>
+      </ion-item>
+      <div *ngFor="let error of errorMessages.delegation_id">
+        <ng-container *ngIf="delegation_id.hasError(error.type) && (delegation_id.dirty || delegation_id.touched)">
+          <small class="error-message">{{error.message}}</small>
+        </ng-container>
+      </div>
+    </ion-list> -->
+
+
+    <ion-item *ngIf="delegations" >
+      <ion-label position="floating">Delegación</ion-label>
       <ion-select class="myCustomSelect" formControlName="delegation_id" placeholder="Elegir" multiple="false">
         
         <ion-select-option 
-        *ngFor="let placeType of loadedPlacetypes" 
-        value="{{placeType.id}}"
+        *ngFor="let delegation of delegations" 
+        value="{{delegation.id}}"
 
-        > {{placeType.name}} </ion-select-option>
+        > {{delegation.name}} </ion-select-option>
       </ion-select>
     </ion-item>
 
-    <div *ngFor="let error of errorMessages.instalationType">
-      <ng-container *ngIf="instalationType.hasError(error.type) && (instalationType.dirty || instalationType.touched)">
+    <div *ngFor="let error of errorMessages.delegation_id">
+      <ng-container *ngIf="delegation_id.hasError(error.type) && (delegation_id.dirty || delegation_id.touched)">
         <small class="error-message">{{error.message}}</small>
       </ng-container>
-    </div> -->
-
+    </div>
 
     <ion-button [disabled]="!newCenterForm.valid" type="submit" expand="block">
       Registrarme
