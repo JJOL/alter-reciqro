@@ -3,7 +3,6 @@ import { AlertController, NavController, ToastController } from '@ionic/angular'
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
-
 import * as firebase from 'firebase/app';
 import { DelegationService } from 'src/app/core/services/delegation.service';
 
@@ -14,7 +13,7 @@ import { DelegationService } from 'src/app/core/services/delegation.service';
 })
 export class RegisterPage implements OnInit {
   delegations:any[];
-  updateBookingForm: FormGroup;
+  get f() { return this.newCenterForm.controls; }
   get email() {
     return this.newCenterForm.get('email');
   }
@@ -47,7 +46,9 @@ export class RegisterPage implements OnInit {
       { type: 'minlength', message: 'Debe tener una longitud minima de 8 caracteres'}
     ],
     confirmPassword: [
-      { type: 'required', message: 'La confirmacion de contraseña es requerida' }
+      { type: 'required', message: 'La confirmacion de contraseña es requerida' },
+      { type: 'mustMatch', message: 'La contraseña de confirmacion debe coincidir con la contraseña' }
+
     ],
     
     delegation_id: [
@@ -62,6 +63,8 @@ export class RegisterPage implements OnInit {
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmPassword: ['', Validators.required],
     delegation_id: ['', Validators.required], 
+   },{
+    validator: this.mustMatch('password', 'confirmPassword')
   });
 
   constructor(
@@ -104,4 +107,23 @@ export class RegisterPage implements OnInit {
       color: 'success'
     }).then(toast => toast.present());
   }
+
+  mustMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+        const control = formGroup.controls[controlName];
+        const matchingControl = formGroup.controls[matchingControlName];
+
+        if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+            // return if another validator has already found an error on the matchingControl
+            return;
+        }
+
+        // set error on matchingControl if validation fails
+        if (control.value !== matchingControl.value) {
+            matchingControl.setErrors({ mustMatch: true });
+        } else {
+            matchingControl.setErrors(null);
+        }
+    }
+}
 }

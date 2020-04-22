@@ -24,10 +24,10 @@ export class AuthService {
               private router: Router,
               private toastCtrl: ToastController) {
   }
+  //User Story ID: M4NC1
   /**
-   * USID: M4NC2
-   * Returns a promise that uses firebase auth methods in order to register a new user
-   * @param  {string} email
+   * Metodo Registra usuario, toma como entrada el objeto del form y crea una promesa con los servicio de autenticacion de firebase
+   * @param  {any} userObject
    */
   registerUser(userObject) {
     return new Promise((resolve , reject) => {
@@ -42,12 +42,13 @@ export class AuthService {
     });
     
   }
+  
   /**
-   * USID: M4NC2
-   * Returns a promise that uses firebase auth methods in order to create a new user
-   * with default role and form information
-   * @param  {string} email
-   * @param  {string} pass
+   * * USID: M4NC2
+   * UserStoryID: M4NC1
+   * Metodo crea usuario en la tabla users con su informacion adicional, toma como entrada el form y el userUID que se creo y crea una promesa con los servicio de firestore firebase
+   * @param  {any} userObject
+   * @param  {string} userUID
    */ 
   createUser(userObject, userUID){
     return new Promise<any>((resolve, reject) => {
@@ -193,11 +194,13 @@ export class AuthService {
     });
   }
 
+  
   /**
    * Description: It sends an email to the user, so they can reset their password
    * User story ID: M4NG2 
+   * User story ID: M4NC3
    * 
-   * @param  {} user
+   * @param  {string} email
    */
   sendPasswordResetEmail(email: string){
     return new Promise<any>((resolve, reject) => {

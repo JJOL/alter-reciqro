@@ -236,23 +236,15 @@ export class PlacesService {
     });
   }
 
-  
+
   /**
    * User Story ID: M1NG2
-   * Function that edits an existing place on the database, taking from 1 to n parameters.
-   * @param  {{latitude:number;longitude:number;address:{street:any;zip:any;};
-   * description:any;name:any;mainPicture:any;instalationType:string;qrCode:any;}} placeObject
+   * This function edits a place and it changes the fields only if 
+    they are different than the ones in the database
    * @param  {string} id
+   * @returns Promise
    */
-  editPlace(placeObject: 
-    { latitude: number; 
-      longitude: number; 
-      address: { street: any; zip: any; }; 
-      description: any; 
-      name: any; 
-      mainPicture: any; 
-      instalationType: string; 
-      qrCode: any; }, id: string) {
+  editPlace(placeObject, id: string) {
     const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(PLACE_KEY).doc(id).set({
