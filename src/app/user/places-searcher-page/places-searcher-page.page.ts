@@ -22,11 +22,11 @@ import { filter } from 'rxjs/operators';
 })
 
 /**
- * Place Searcher Page se dedica a mostrar los marcadores de los centros
- * en el mapa ademas de poder manejar un poco de filtros y vistas del mapa
+ * Place Searcher Page is in charge of handling filters,map view and map markers, so that the user
+ * interact with them.
  */
 export class PlacesSearcherPagePage implements OnInit {
-  public isLogged = false;
+  public isLogged;
   classname = {
     'ly-grid-map': true,
     'ion-no-padding': true
@@ -38,11 +38,11 @@ export class PlacesSearcherPagePage implements OnInit {
   filters: WasteType[] = [];
   activeFilters: WasteType[] = [];
   modal: any;
+  authproof: string ;
   @ViewChild ('mapElement', {static: true}) map;
 
   @Output() changeView = new EventEmitter();
 
-  // en este caso si se necesitan esto valores
   // eslint-disable-next-line max-params
   constructor(
     private placesService: PlacesService,
@@ -53,9 +53,6 @@ export class PlacesSearcherPagePage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    
-    this.getCurrentUser(); 
-    this.authService.getCurrentUser().then(user => console.log(user))
     this.filters = await  this.placesService.getAllWasteTypes();
     this.activeFilters = this.filters;
     this.places = await this.filterByType(this.activeFilters);
@@ -67,11 +64,7 @@ export class PlacesSearcherPagePage implements OnInit {
       };
       this.map.setCenter(this.position);
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log(err);
     }
-    // eslint-disable-next-line no-console
-    console.log(this.places);
   }
 
   async onViewportChange(bounds) {
@@ -155,19 +148,5 @@ export class PlacesSearcherPagePage implements OnInit {
     // eslint-disable-next-line no-console
     console.log('MAP INTERACT');
 
-  }
-
-  getCurrentUser() {
-    this.authService.isAuth().subscribe( auth=> {
-      if (auth) {
-        // eslint-disable-next-line no-console
-        console.log('user looged');
-        this.isLogged = true;
-      } else {
-        // eslint-disable-next-line no-console
-        console.log('not logged');
-        this.isLogged = false;
-      }
-    });
   }
 }
