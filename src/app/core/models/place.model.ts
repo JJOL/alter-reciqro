@@ -1,5 +1,5 @@
 import { TipoInstalacion } from './tipo-instalacion.model';
-  /**
+/**
    * Definición del modelo de lugar
    */
 export class Place {
@@ -15,6 +15,7 @@ export class Place {
    * @param  {string} publicreadonlyphoto
    * @param  {string} publicreadonlyqr_code
    */
+  
   constructor(
         public readonly id: string,
         public readonly name: string,

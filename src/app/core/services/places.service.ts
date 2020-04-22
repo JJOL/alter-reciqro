@@ -62,8 +62,54 @@ export class PlacesService {
     private firedb: AngularFirestore) {
   }
 
+  /**
+   * User Story ID: M1NG1
+   * Description: This function creates a place in firebase
+   * @param  {} placeObject
+   */
+  createPlace(placeObject) {
+    const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
+    return new Promise<any>((resolve, reject) => {
+      this.firedb.collection(PLACE_KEY).add({
+        address: placeObject.address.street,
+        description: placeObject.description,
+        location: geoPoint,
+        name: placeObject.name,
+        photo: placeObject.mainPicture,
+        places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
+        postal_code: placeObject.address.zip,
+        qr_code: placeObject.qrCode
+      })
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
+    });
+  }
+
+  /**
+   * User Story ID: M1NG3
+   * Description: This function deletes a specific place in firebase using its ID
+   * @param  {string} id
+   * @returns Promise
+   */
+  async deletePlaceByID(id: string): Promise<void> {
+    return new Promise((resolve) => {
+      this.firedb.collection<Place>(PLACE_KEY).doc<Place>(id).delete().then(() => {
+        resolve();
+      });
+    });
+  }
+
+  /**
+   * User Story ID: M1NG4
+   * Description: This function returns all the places from firebase
+   * @returns Promise
+   */
   getAllPlaces(): Promise<Place[]> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<any>(PLACE_KEY).snapshotChanges()
           .pipe(map(snapshot => {
@@ -78,8 +124,14 @@ export class PlacesService {
     });
   }
 
+  /**
+   * User Story ID: M1NG5
+   * Description: This function a the places from firebase that has the given ID
+   * @param  {string} id
+   * @returns Promise
+   */
   getPlaceByID(id: string): Promise<Place> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<any>(PLACE_KEY).doc<any>(id).valueChanges()
           .pipe(
@@ -98,14 +150,6 @@ export class PlacesService {
             }
             resolve(places);
           });
-    });
-  }
-
-  async deletePlaceByID(id: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.firedb.collection<Place>(PLACE_KEY).doc<Place>(id).delete().then(() => {
-        resolve();
-      });
     });
   }
 
@@ -165,28 +209,6 @@ export class PlacesService {
     });
   }
 
-  createPlace(placeObject) {
-    const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
-    return new Promise<any>((resolve, reject) => {
-      this.firedb.collection(PLACE_KEY).add({
-        address: placeObject.address.street,
-        description: placeObject.description,
-        location: geoPoint,
-        name: placeObject.name,
-        photo: placeObject.mainPicture,
-        places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
-        postal_code: placeObject.address.zip,
-        qr_code: placeObject.qrCode
-      })
-          .then(
-              (res) => {
-                resolve(res);
-              },
-              err => reject(err)
-          );
-    });
-  }
-
   /*
     Description: This function edits a place and it changes the fields only if 
     they are different than the ones in the database
@@ -213,6 +235,7 @@ export class PlacesService {
           );
     });
   }
+  
   searchMapPlaces(topLeftPos, botRightPos): Promise<Place[]> {
 
     const minLat = Math.min(topLeftPos.lat, botRightPos.lat);
@@ -246,6 +269,8 @@ export class PlacesService {
 
     });
   }
+
+
   async getAllWasteTypes(): Promise<any[]> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
