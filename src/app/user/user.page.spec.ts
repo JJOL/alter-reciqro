@@ -4,7 +4,6 @@ import { IonicModule } from '@ionic/angular';
 import {AngularFirestore} from '@angular/fire/firestore';
 import { UserPage } from './user.page';
 import { empty } from 'rxjs';
-
 const arr = function() {};
 
 const collectionStub3 = {
@@ -23,8 +22,39 @@ const angularFirestoreStub = {
   collection: jasmine.createSpy('collection').and.returnValue(collectionStub),
 };
 
+const mockFirebase = {
+  collection: () => {
+    return {
+      doc: () => { return    {valueChanges: () => {
+        return {
+          pipe: () => {
+            return {
+              subscribe: () => {}
+            }
+          }
+        }
+      }}},
+   
+      snapshotChanges : () => {
+        return {
+          pipe: () => {
+            return {
+              subscribe: () => {}
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 
 const mockAuthentication ={
+  getCurrentUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
   registerUser: () => {
     return new Promise((resolve) => {
       resolve([]);
@@ -49,6 +79,7 @@ const mockAuthentication ={
   updateUserData: () => {
     return [];
   },
+  
 };
 
 const authStub: any = {
@@ -69,7 +100,7 @@ describe('UserPage', () => {
       declarations: [ UserPage ],
       imports: [IonicModule.forRoot()],
       providers: [
-        {provide: AngularFirestore, useValue: angularFirestoreStub},
+        {provide: AngularFirestore, useValue: mockFirebase},
         { provide: AuthService, useValue: mockAuthentication }
       ]
     }).compileComponents();

@@ -72,7 +72,7 @@ export class AuthService {
    * @param  {string} password
    */
   loginEmailUser(email: string, password: string) {
-    return new Promise ((resolve, reject) => {
+    return new Promise ((resolve) => {
       this.afAuth.auth.signInWithEmailAndPassword(email, password)
           .then(userData => {
             resolve(userData);
