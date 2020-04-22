@@ -46,8 +46,13 @@ export interface DualIndicatorProvider {
      */
     calculateGraphData(lowerExclusiveDate: Date, upperExclusiveDate: Date, instance: IndicatorInstance): Promise<number[]>;
     
+    
+
+     
     /**
-     * Returns accumulated frecuency data for each instance.
+     * User Story ID: M1NG6
+     * Description: Returns key value data of a given population metric.
+     * @returns Promise<{[key: string]: number}>
      */
-    getOverallMetrics();
+    getOverallMetrics(): Promise<{[key: string]: number}>;
 }

@@ -2,6 +2,7 @@ import { DualIndicatorProvider, IndicatorInstance } from './DualIndicatorProvide
 import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import * as DateUtil from '../../../core/utils/date.util';
 
 const PLACES_VISITS_KEY = 'visited_places_users';
 
@@ -80,8 +81,36 @@ export class FBSystemDualIndicatorProvider implements DualIndicatorProvider{
       return (y - y0)*12 + (m - m0);
   }
 
-    getOverallMetrics() {
-      throw new Error("Method not implemented.");
-    }
+  /**
+   * User Story ID: M1NG6
+   * Description: Returns sorted accumulated system visited data for each month.
+   * @returns Promise<{[key: string]: number}>
+   */
+  getOverallMetrics(): Promise<{[key: string]: number}> {
+
+    let dataArr: { [key: string]: number } = {};
+
+    return new Promise((resolve, reject) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection(PLACES_VISITS_KEY)
+      .snapshotChanges()
+      .pipe(map(snapshot => {
+        return snapshot.map(fbsnap => fbsnap.payload.doc.data())
+      }))
+      .subscribe(fbvisits => {
+        fbvisits.forEach(fbvisit => {
+          let instanceDate: Date = fbvisit['date'].toDate();
+          let monthName = DateUtil.getMonthFullName(instanceDate.getMonth());
+          if (monthName)
+            dataArr[monthName] = (dataArr[monthName] + 1) || 1;
+        });
+
+        if (subscription) {
+          subscription.unsubscribe();
+        }
+        resolve(dataArr);
+      });
+    });
+  }
   
   }

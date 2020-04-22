@@ -20,6 +20,9 @@ export interface IndicatorDataBridgeConfig {
  * Description: A concrete implementation of a DualIndicatorProvider that works with FireStore
  */
 export class FBDualIndicatorProvider implements DualIndicatorProvider{
+  
+  instances: IndicatorInstance[];
+  instanceIdNameMap: { [key: string]: string };
 
   constructor(
       private className: string,
@@ -28,8 +31,6 @@ export class FBDualIndicatorProvider implements DualIndicatorProvider{
       private firedb: AngularFirestore
   ) {}
   
-    instances: IndicatorInstance[];
-
     loadMetaData(onMetadaLoadedCb: () => void) {
       let subscription: Subscription;
       subscription = this.firedb.collection(this.dataConfig.collectionKey)
@@ -38,7 +39,13 @@ export class FBDualIndicatorProvider implements DualIndicatorProvider{
               map(this.dataConfig.dbCollectionToInstancesFn)
           )
           .subscribe(placeInstances => {
+            // Set Meta Data
             this.instances = placeInstances;
+            this.instanceIdNameMap = {};
+            for (let inst of this.instances) {
+              this.instanceIdNameMap[inst.id] = inst.name;
+            }
+
             if (subscription) {
               subscription.unsubscribe();
             }
@@ -98,9 +105,37 @@ export class FBDualIndicatorProvider implements DualIndicatorProvider{
         m  = date.getMonth();
       return (y - y0)*12 + (m - m0);
     }
+    /**
+     * User Story ID: M1NG6
+     * Description: Returns sorted accumulated visited data for each instance.
+     * @returns Promise<{[key: string]: number}>
+     */
+    getOverallMetrics(): Promise<{[key: string]: number}> {
 
-    getOverallMetrics() {
-      throw new Error('Method not implemented.');
+      let dataArr: { [key: string]: number } = {};
+
+      return new Promise((resolve, reject) => {
+        let subscription: Subscription;
+        subscription = this.firedb.collection(PLACES_VISITS_KEY)
+        .snapshotChanges()
+        .pipe(map(snapshot => {
+          return snapshot.map(fbsnap => fbsnap.payload.doc.data())
+        }))
+        .subscribe(fbvisits => {
+          fbvisits.forEach(fbvisit => {
+            let instanceId = fbvisit[this.dataConfig.idAttribute];
+            let instanceName = this.instanceIdNameMap[instanceId];
+            if (instanceName)
+              dataArr[instanceName] = (dataArr[instanceName] + 1) || 1;
+          });
+
+
+          if (subscription) {
+            subscription.unsubscribe();
+          }
+          resolve(dataArr);
+        });
+      });
     }
   
 }

@@ -43,6 +43,12 @@ export class IndicatorMetricsComponent implements OnInit {
   loadedMetricsMetaData() {
     this.indicatorClassName = this.classMetricsService.getClassName();
     this.instances = this.classMetricsService.getAvailableInstances();
+
+    this.classMetricsService.getOverallMetrics()
+    .then(keyvalues => {
+      console.log(keyvalues);
+      
+    })
   }
   /**
    * Handler for handling user input parameter change event from IndicatorGraphComponent
