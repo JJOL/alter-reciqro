@@ -14,6 +14,10 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
  * Componente principal
  */
 export class AppComponent {
+  private isLogged: boolean;
+  private admin: boolean;
+  private staff: boolean;
+  private user: boolean;
 
   // eslint-disable-next-line require-jsdoc
   constructor(
@@ -29,9 +33,14 @@ export class AppComponent {
    */
   onLogout() {
     this.authService.logoutUser();
+    let roles =  this.authService.getRolesandSession();
+    this.isLogged = roles[0];
+    this.admin = roles [1];
+    this.staff = roles [2];
+    this.user = roles[3];
   }
   /**
-   * meotod para inicializar app
+   * Method to initialize
    */
   initializeApp() {
     this.platform.ready().then(() => {
@@ -39,4 +48,19 @@ export class AppComponent {
       this.splashScreen.hide();
     });
   }
+  /**
+   * Execute get roels in order to redirect dynamic menus
+   */
+    ionViewDidEnter() {
+     console.log("hey jj");
+    let roles =   this.authService.getRolesandSession();
+    this.isLogged = roles[0];
+    this.admin = roles [1];
+    this.staff = roles [2];
+    this.user = roles[3];
+    console.log(roles);
+  }
+
+
+
 }

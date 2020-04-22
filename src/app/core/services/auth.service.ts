@@ -211,6 +211,24 @@ export class AuthService {
 
   }
 
+
+  /**
+   * Method that get the roles of the current user in order to set fynamic menu
+   */
+  async getRolesandSession() {
+    let islogged: boolean;
+    let admin: boolean;
+    let staff: boolean;
+    let user: boolean;
+    let roles = [];
+    const useraux = await this.getCurrentUser();
+    if ( useraux) { islogged = true;  roles = useraux.roles;} else { islogged = false; }
+    if ( roles.indexOf('user') >= 0) { user = true; } else { user = false; }
+    if ( roles.indexOf('admin') >= 0) { admin = true; } else { admin = false; }
+    if ( roles.indexOf('staff') >= 0) { staff = true; } else { staff = false; }
+    return [islogged,admin,staff,user];
+  }
+
   /**
    * Show a toast
    * @param  {} msg

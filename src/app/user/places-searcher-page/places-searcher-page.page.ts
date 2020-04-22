@@ -25,7 +25,7 @@ import { filter } from 'rxjs/operators';
  * Place Searcher Page is in charge of handling filters,map view and map markers, so that the user
  * interact with them.
  */
-export class PlacesSearcherPagePage implements OnInit {
+export class PlacesSearcherPagePage  {
   public isLogged;
   classname = {
     'ly-grid-map': true,
@@ -52,7 +52,10 @@ export class PlacesSearcherPagePage implements OnInit {
     private afsAuth: AngularFireAuth
   ) { }
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
+    let roles = await this.authService.getRolesandSession();
+    this.isLogged = roles[0];
+    console.log("aqui",this.isLogged);
     this.filters = await  this.placesService.getAllWasteTypes();
     this.activeFilters = this.filters;
     this.places = await this.filterByType(this.activeFilters);
