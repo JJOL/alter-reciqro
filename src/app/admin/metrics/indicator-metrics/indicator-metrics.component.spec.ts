@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { PlacesMetricsComponent } from './places-metrics.component';
+import { IndicatorMetricsComponent } from './indicator-metrics.component';
 import { IndicatorGraphComponent } from '../indicator-graph/indicator-graph.component';
 
-describe('PlacesMetricsComponent', () => {
-  let component: PlacesMetricsComponent;
-  let fixture: ComponentFixture<PlacesMetricsComponent>;
+describe('IndicatorMetricsComponent', () => {
+  let component: IndicatorMetricsComponent;
+  let fixture: ComponentFixture<IndicatorMetricsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlacesMetricsComponent, IndicatorGraphComponent ],
+      declarations: [ IndicatorMetricsComponent, IndicatorGraphComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PlacesMetricsComponent);
+    fixture = TestBed.createComponent(IndicatorMetricsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

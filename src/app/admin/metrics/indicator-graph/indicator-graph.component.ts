@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
-import { IndicatorInstance } from '../DualIndicatorProvider';
+import { IndicatorInstance } from '../services/DualIndicatorProvider';
 
 
 declare const Chart: any;
@@ -46,9 +46,9 @@ export class IndicatorGraphComponent implements OnInit, OnChanges {
    * Load Test Initial Data
    */
   ngOnInit() {
-    this.selectedInstance = { name: 'Centro Tec de Monterrey' };
+    this.selectedInstance = { name: 'Centro Tec de Monterrey', id: '1' };
     this.lowerDate = new Date();
-    this.lowerDate.setMonth(1);
+    this.lowerDate.setMonth(0);
     this.upperDate = new Date();
     this.indicatorDisplayData = [23,42,2,111,21,121,67,7,23,55,65,22,12,12,45,67,89,100,130];
     //this.onShowGraphFromData();
@@ -81,7 +81,7 @@ export class IndicatorGraphComponent implements OnInit, OnChanges {
    * Function to execute to attemp to show data.
    */
   onShowGraphFromData() {
-    this.selectedInstance = { name: 'Centro Tec de Monterrey' };
+    this.selectedInstance = { name: 'Centro Tec de Monterrey', id: '1' };
     this.lowerDate = new Date();
     this.lowerDate.setMonth(1);
     this.upperDate = new Date();

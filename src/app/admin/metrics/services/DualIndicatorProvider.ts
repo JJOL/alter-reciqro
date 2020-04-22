@@ -1,5 +1,6 @@
 export interface IndicatorInstance {
     name: string;
+    id: string;
 }
 
 export interface DualIndicatorProvider {
@@ -37,7 +38,7 @@ export interface DualIndicatorProvider {
      * @param  {any} instance
      * @returns Promise<number[]>
      */
-    calculateGraphData(lowerExclusiveDate: Date, upperExclusiveDate: Date, instance: any): Promise<number[]>;
+    calculateGraphData(lowerExclusiveDate: Date, upperExclusiveDate: Date, instance: IndicatorInstance): Promise<number[]>;
     
     /**
      * Returns accumulated frecuency data for each instance.

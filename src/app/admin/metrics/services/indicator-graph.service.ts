@@ -21,8 +21,8 @@ export class IndicatorGraphService {
 
     // calculateOutputData(lowerExclusiveDate: Date, upperExclusiveDate: Date, instance: Place) {
 
-    //     let arrNumberOfPoints = this.getDateMonthDistance(lowerExclusiveDate, upperExclusiveDate);
-    //     let frequencyDataArr: number[] = new Array<number>(arrNumberOfPoints);
+        // let arrNumberOfPoints = this.getDateMonthDistance(lowerExclusiveDate, upperExclusiveDate);
+        // let frequencyDataArr: number[] = new Array<number>(arrNumberOfPoints);
 
     //     // Implementation Using Firestore Queries
     //     let startDate = new Date(lowerExclusiveDate);

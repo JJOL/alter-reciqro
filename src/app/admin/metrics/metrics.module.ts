@@ -8,7 +8,7 @@ import { MetricsPageRoutingModule } from './metrics-routing.module';
 
 import { MetricsPage } from './metrics.page';
 import { IndicatorGraphComponent } from './indicator-graph/indicator-graph.component';
-import { PlacesMetricsComponent } from './places-metrics/places-metrics.component';
+import { IndicatorMetricsComponent } from './indicator-metrics/indicator-metrics.component';
 
 @NgModule({
   imports: [
@@ -17,6 +17,6 @@ import { PlacesMetricsComponent } from './places-metrics/places-metrics.componen
     IonicModule,
     MetricsPageRoutingModule
   ],
-  declarations: [MetricsPage, PlacesMetricsComponent, IndicatorGraphComponent]
+  declarations: [MetricsPage, IndicatorMetricsComponent, IndicatorGraphComponent]
 })
 export class MetricsPageModule {}
