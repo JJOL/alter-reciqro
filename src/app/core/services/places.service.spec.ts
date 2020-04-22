@@ -137,7 +137,13 @@ describe('PlacesService', () => {
     qr_code : 'none', photo : 'none', address : 'Bernardo Quintana', postal_code : '12345',
     places_type : { id : '1', name : 'Papelera',  description : 'Separación de cartón'}
   };
-
+  
+  /**
+   * User Story ID: M1NG4
+   * Description: This function tests that all places are returned
+   * @param  {} '#getAllPlacesshouldreturnallPlaces'
+   * @param  {} function(done
+   */
   it('#getAllPlaces should return all Places', function(done) {
     // Test Data Setup
     const testData = [place1, place2];
@@ -152,6 +158,12 @@ describe('PlacesService', () => {
         });
   });
 
+  /**
+   * User Story ID: M1NG5
+   * Description: This function test that a specific place is obtained
+   * @param  {} '#getPlaceByIDshouldreturnaPlaceifitexists'
+   * @param  {} function(done
+   */
   it('#getPlaceByID should return a Place if it exists', function(done) {
     // Test Data Setup
     const testData = [place1, place2];
@@ -164,7 +176,13 @@ describe('PlacesService', () => {
           done();
         });
   });
-
+  
+  /**
+   * User Story ID: M1NG3
+   * Description: This function test that a place is deleted
+   * @param  {} '#deletePlaceByIDshoulddeleteaPlaceifitexists'
+   * @param  {} function(done
+   */
   it('#deletePlaceByID should delete a Place if it exists', function(done) {
     // Test Data Setup
     const testData = [place1, place2];
