@@ -127,6 +127,7 @@ export class IndicatorGraphComponent implements OnChanges {
    * Sends a valid ParametersChangeEvent to handler to furtherly calculate data.
    */
   sendParametersChangeEvent() {
+    /* TODO: Validar los parametros */
     this.lowerDate = new Date(this.inLowerDateStr);
     this.upperDate = new Date(this.inUpperDateStr);
     let changeEvent: IGCParametersEvent = {
