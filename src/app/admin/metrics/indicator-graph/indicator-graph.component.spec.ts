@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { IndicatorGraphComponent } from './indicator-graph.component';
+import { FormsModule } from '@angular/forms';
 
 describe('AppIndicatorGraphComponent', () => {
   let component: IndicatorGraphComponent;
@@ -10,7 +11,7 @@ describe('AppIndicatorGraphComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ IndicatorGraphComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), FormsModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(IndicatorGraphComponent);
@@ -23,7 +24,7 @@ describe('AppIndicatorGraphComponent', () => {
   });
 
   it('#inputPropHasChanged() should return true for a changed marked prop', () => {
-    let propName = "prop1";
+    let propName = 'prop1';
     let changes = {};
     changes[propName] = {
       previousValue: 0,
@@ -32,7 +33,7 @@ describe('AppIndicatorGraphComponent', () => {
     expect(component.inputPropHasChanged(changes, propName)).toBeTruthy();
   });
   it('#inputPropHasChanged() should return false for a not changed showed marked prop', () => {
-    let propName = "prop1";
+    let propName = 'prop1';
     let changes = {};
     changes[propName] = {
       previousValue: 0,
@@ -41,7 +42,7 @@ describe('AppIndicatorGraphComponent', () => {
     expect(component.inputPropHasChanged(changes, propName)).toBeFalsy();
   });
   it('#inputPropHasChanged() should return false for a not changed not showed marked prop', () => {
-    let propName = "prop1";
+    let propName = 'prop1';
     let changes = {};
     expect(component.inputPropHasChanged(changes, propName)).toBeFalsy();
   });

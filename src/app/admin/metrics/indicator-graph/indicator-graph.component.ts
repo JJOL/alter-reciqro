@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
-import { IndicatorInstance } from '../DualIndicatorProvider';
+import { IndicatorInstance } from '../services/DualIndicatorProvider';
 
 
 declare const Chart: any;
@@ -22,7 +22,7 @@ export interface IGCParametersEvent {
  * from a given instance, and time interval.
  * It also inputs the parameters from the user to configure the data calculation.
  */
-export class IndicatorGraphComponent implements OnInit, OnChanges {
+export class IndicatorGraphComponent implements OnChanges {
 
 
   // Data Information
@@ -40,29 +40,20 @@ export class IndicatorGraphComponent implements OnInit, OnChanges {
 
   // Elements
   @ViewChild('chartCanvasEl', {static: true}) chartEl;
+  inLowerDateStr: string;
+  inUpperDateStr: string;
 
   constructor() {}
-  /**
-   * Load Test Initial Data
-   */
-  ngOnInit() {
-    this.selectedInstance = { name: 'Centro Tec de Monterrey' };
-    this.lowerDate = new Date();
-    this.lowerDate.setMonth(1);
-    this.upperDate = new Date();
-    this.indicatorDisplayData = [23,42,2,111,21,121,67,7,23,55,65,22,12,12,45,67,89,100,130];
-    //this.onShowGraphFromData();
-  }
 
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes);
-    if (this.inputPropHasChanged(changes, "indicatorDisplayData")) {
+    if (this.inputPropHasChanged(changes, 'indicatorDisplayData')) {
       console.log('Data has changed');
       this.onShowGraphFromData();
     }
 
-    if (this.inputPropHasChanged(changes, "instances")) {
-      this.selectedInstance = this.instances[0];
+    if (this.inputPropHasChanged(changes, 'instances')) {
+      // this.selectedInstance = this.instances[0];
       console.log(this.instances);
       console.log('READY TO MAKE TEST');
     }
@@ -81,14 +72,8 @@ export class IndicatorGraphComponent implements OnInit, OnChanges {
    * Function to execute to attemp to show data.
    */
   onShowGraphFromData() {
-    this.selectedInstance = { name: 'Centro Tec de Monterrey' };
-    this.lowerDate = new Date();
-    this.lowerDate.setMonth(1);
-    this.upperDate = new Date();
-
     if (this.indicatorDisplayData && this.indicatorDisplayData.length > 0 && this.lowerDate && this.selectedInstance) {
       console.log('Displaying data');
-      
       this.showGraphFromData(this.indicatorDisplayData, this.lowerDate, this.selectedInstance.name)
     }
   }
@@ -104,18 +89,18 @@ export class IndicatorGraphComponent implements OnInit, OnChanges {
 
     let ctx = this.chartEl.nativeElement.getContext('2d');
     let chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labelsArr,
-            datasets: [{
-                label: `Frecuencia de Depositos en ${selectedInstanceName}`,
-                // backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: dataArr
-            }]
-        },
+      type: 'line',
+      data: {
+        labels: labelsArr,
+        datasets: [{
+          label: `Frecuencia de Depositos en ${selectedInstanceName}`,
+          // backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgb(255, 99, 132)',
+          data: dataArr
+        }]
+      },
 
-        options: {}
+      options: {}
     });
   
   }
@@ -142,6 +127,9 @@ export class IndicatorGraphComponent implements OnInit, OnChanges {
    * Sends a valid ParametersChangeEvent to handler to furtherly calculate data.
    */
   sendParametersChangeEvent() {
+    /* TODO: Validar los parametros */
+    this.lowerDate = new Date(this.inLowerDateStr);
+    this.upperDate = new Date(this.inUpperDateStr);
     let changeEvent: IGCParametersEvent = {
       selectedInstance: this.selectedInstance,
       lowerDate: this.lowerDate,

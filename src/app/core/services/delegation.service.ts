@@ -12,7 +12,7 @@ const DELEGATION_KEY = '/delegation';
  * @param  {any} fbDelegation
  * @returns DelegationModel
  */
-function parseFBPDelegationToDelegation(fbDelegation: any): DelegationModel {
+export function parseFBPDelegationToDelegation(fbDelegation: any): DelegationModel {
   const data  = fbDelegation.payload.doc.data();
   const id = fbDelegation.payload.doc.id;
   const waste = new DelegationModel(

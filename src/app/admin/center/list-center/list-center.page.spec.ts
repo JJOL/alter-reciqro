@@ -4,7 +4,6 @@ import { IonicModule } from '@ionic/angular';
 import { ListCenterPage } from './list-center.page';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { from } from 'rxjs';
 import {MockAngularFirestore} from 'src/app/core/services/mocks/firestore.mock';
 
 

@@ -37,7 +37,7 @@ export class RecoverPasswordPage implements OnInit {
     private navCtrl: NavController,
     public formBuilder: FormBuilder,
     private toastCtrl: ToastController
-    ) { }
+  ) { }
   ngOnInit() {
   }
 
@@ -45,17 +45,17 @@ export class RecoverPasswordPage implements OnInit {
     
     
 
-      this.authService.sendPasswordResetEmail(this.newCenterForm.value.email)
-    .then(id => {
-      // use id
-      this.showToast('Si tu email esta registrado te llegara un correo para restablecer tu contraseña');
-      this.newCenterForm.reset();
-      this.navCtrl.navigateBack(['/']);
-    })
-    .catch(err => {
-      this.showToast('Error al de enviar correo de restauracion, el email no existe.');
-      this.newCenterForm.reset();
-    });
+    this.authService.sendPasswordResetEmail(this.newCenterForm.value.email)
+        .then(id => {
+          // use id
+          this.showToast('Si tu email esta registrado te llegara un correo para restablecer tu contraseña');
+          this.newCenterForm.reset();
+          this.navCtrl.navigateBack(['/']);
+        })
+        .catch(err => {
+          this.showToast('Error al de enviar correo de restauracion, el email no existe.');
+          this.newCenterForm.reset();
+        });
   }
 
   showToast(msg) {

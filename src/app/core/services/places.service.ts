@@ -21,7 +21,8 @@ const GeoPoint = firebase.firestore.GeoPoint;
  * @param  {any} fbPlace
  * @returns Place
  */
-function parseFBPlaceToPlace(fbPlace: any): Place {
+export function parseFBPlaceToPlace(fbPlace: any): Place {
+  const icon ='sss';
   const data  = fbPlace.payload.doc.data();
   const id = fbPlace.payload.doc.id;
   const place = new Place(
@@ -63,11 +64,57 @@ export class PlacesService {
   placeTypes: any;
 
   /**
+   * User Story ID: M1NG4
+   * Description: This function returns all the places from firebase
+  /**
    * Constructor for the class, only external service used will be the Firestore one.
    * @param  {AngularFirestore} privatefiredb
    */
   constructor(private firedb: AngularFirestore) 
   {}
+
+  /**
+   * User Story ID: M1NG1
+   * Description: This function creates a place in firebase
+   * @param  {} placeObject
+   */
+  createPlace(placeObject) {
+    const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
+    return new Promise<any>((resolve, reject) => {
+      this.firedb.collection(PLACE_KEY).add({
+        address: placeObject.address.street,
+        description: placeObject.description,
+        location: geoPoint,
+        name: placeObject.name,
+        photo: placeObject.mainPicture,
+        places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
+        postal_code: placeObject.address.zip,
+        qr_code: placeObject.qrCode
+      })
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
+    });
+  }
+
+  /**
+   * User Story ID: M1NG3
+   * Description: This function deletes a specific place in firebase using its ID
+   * @param  {string} id
+   * @returns Promise
+   */
+  async deletePlaceByID(id: string): Promise<void> {
+    return new Promise((resolve) => {
+      this.firedb.collection<Place>(PLACE_KEY).doc<Place>(id).delete().then(() => {
+        resolve();
+      });
+    });
+  }
+
+  
   /** 
    * User Story ID: M1NC1
    * Function that returns all places on the database, unfiltered, with all its associated data.
@@ -115,19 +162,6 @@ export class PlacesService {
             }
             resolve(places);
           });
-    });
-  }
-  /**
-   * User Story ID: M1NG3
-   * Function that deletes a specific place on the database, chosen by its id, with all its associated data.
-   * @param  {string} id
-   * @returns Promise
-   */
-  async deletePlaceByID(id: string): Promise<void> {
-    return new Promise((resolve) => {
-      this.firedb.collection<Place>(PLACE_KEY).doc<Place>(id).delete().then(() => {
-        resolve();
-      });
     });
   }
 
@@ -199,59 +233,15 @@ export class PlacesService {
           });
     });
   }
-  /**
-   * User Story ID: M1NG1
-   * Function that creates a new place on the database.
-   * @param  {{latitude:number;longitude:number;address:{street:any;zip:any;};
-   * description:any;name:any;mainPicture:any;instalationType:string;qrCode:any;}} placeObject
-   */
-  createPlace(placeObject: 
-    { latitude: number; 
-      longitude: number; 
-      address: { street: any; zip: any; }; 
-      description: any; 
-      name: any; 
-      mainPicture: any; 
-      instalationType: string; 
-      qrCode: any; }) {
-    const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
-    return new Promise<any>((resolve, reject) => {
-      this.firedb.collection(PLACE_KEY).add({
-        address: placeObject.address.street,
-        description: placeObject.description,
-        location: geoPoint,
-        name: placeObject.name,
-        photo: placeObject.mainPicture,
-        places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
-        postal_code: placeObject.address.zip,
-        qr_code: placeObject.qrCode
-      })
-          .then(
-              (res) => {
-                resolve(res);
-              },
-              err => reject(err)
-          );
-    });
-  }
-
   
   /**
    * User Story ID: M1NG2
-   * Function that edits an existing place on the database, taking from 1 to n parameters.
-   * @param  {{latitude:number;longitude:number;address:{street:any;zip:any;};
-   * description:any;name:any;mainPicture:any;instalationType:string;qrCode:any;}} placeObject
+   * This function edits a place and it changes the fields only if 
+    they are different than the ones in the database
    * @param  {string} id
+   * @returns Promise
    */
-  editPlace(placeObject: 
-    { latitude: number; 
-      longitude: number; 
-      address: { street: any; zip: any; }; 
-      description: any; 
-      name: any; 
-      mainPicture: any; 
-      instalationType: string; 
-      qrCode: any; }, id: string) {
+  editPlace(placeObject, id: string) {
     const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(PLACE_KEY).doc(id).set({
