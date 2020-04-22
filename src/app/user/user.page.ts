@@ -29,7 +29,6 @@ export class UserPage implements OnInit {
    * Logout methos to close fireauth
    */
   logout() {
-    console.log("aqui esta entrando");
     this.authService.logoutUser();
   }
 

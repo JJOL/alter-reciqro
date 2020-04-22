@@ -17,4 +17,7 @@ import { UserPage } from './user.page';
   ],
   declarations: [UserPage]
 })
+/**
+ * Exporting user class so it is externally accessible.
+ */
 export class UserPageModule {}

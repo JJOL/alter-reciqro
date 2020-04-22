@@ -8,10 +8,10 @@
     <ion-title  class="ion-text-center">Buscador de Centros</ion-title>
     <!--ion-title    class="ion-text-center">Buscador de Centros flag: {{isLogged}}</ion-title-->
     <ion-buttons  slot="primary" >
-      <ion-button  *ngIf="!isLogged" slot="end" color="secondary" >
+      <ion-button  *ngIf="!isLogged" slot="end">
         Regístrate<ion-icon name="person-add-outline"></ion-icon>
       </ion-button> 
-      <ion-button  *ngIf="isLogged" slot="end" color="secondary" routerLink="/user/">
+      <ion-button  *ngIf="isLogged" slot="end" routerLink="/user/">
         Mi Perfil<ion-icon  name="person-circle"></ion-icon>
       </ion-button>
     </ion-buttons>

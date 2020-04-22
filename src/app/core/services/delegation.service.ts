@@ -6,7 +6,12 @@ import { map } from 'rxjs/operators';
 import { DelegationModel } from '../models/delegation.model';
 
 const DELEGATION_KEY = '/delegation';
-
+/**
+ * User Story ID: M4NC5
+ * Function that casts a firebase delegation to our delegation model.
+ * @param  {any} fbDelegation
+ * @returns DelegationModel
+ */
 function parseFBPDelegationToDelegation(fbDelegation: any): DelegationModel {
   const data  = fbDelegation.payload.doc.data();
   const id = fbDelegation.payload.doc.id;
@@ -21,10 +26,21 @@ function parseFBPDelegationToDelegation(fbDelegation: any): DelegationModel {
   providedIn: 'root'
 })
 
+/**
+ * Service that provides funcionality for delegations (e.g. Felipe Carrillo Puerto). 
+ * It has all functionalities for retrieving and saving data.
+ */
 export class DelegationService {
-
+  /**
+   * Constructor for the class, only external service used will be the Firestore one.
+   * @param  {AngularFirestore} publicfiredb
+   */
   constructor(public firedb: AngularFirestore) { }
-
+  /**
+   * User Story ID: M4NC5
+   * Function that returns all delegations on the database, unfiltered, with all its associated data.
+   * @returns Promise
+   */
   getDelegations(): Promise<DelegationModel[]> {
     return new Promise((resolve) => {
       let subscription: Subscription;

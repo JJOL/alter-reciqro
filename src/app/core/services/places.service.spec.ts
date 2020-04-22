@@ -3,13 +3,19 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { PlacesService } from './places.service';
 import { from } from 'rxjs';
 import { GeoPoint } from '../models/geopoint.model';
-import { resolve } from 'url';
-
+/**
+ * Internal function.
+ * @param  {} placeLoc
+ */
 function placeLocToFBLoc(placeLoc) {
   return new GeoPoint(placeLoc.lat, placeLoc.lng);
 }
-
-function makeFBCollectionFromData_SnapshotChanges(testData: any[]) {
+/**
+ * User Story ID: M1NCx
+ * Mock function for firebase service and data.
+ * @param  {any[]} testData
+ */
+function makeFBCollectionFromDataSnapshotChanges(testData: any[]) {
   const fbData = testData.map(testObj => {
     return {
       payload: {
@@ -37,12 +43,16 @@ function makeFBCollectionFromData_SnapshotChanges(testData: any[]) {
   };
   return fbMockCollection;
 }
-
-function makeFBCollectionFromData_ValueChanges(testData: any[]) {
+/**
+ * User Story ID: M1NCx
+ * Mock function for firebase service and data.
+ * @param  {any[]} testData
+ */
+function makeFBCollectionFromDataValueChanges(testData: any[]) {
   const fbMockCollection = {
     doc: (id) => {
       testData = testData.filter(obj => {
-        return obj.id == id;
+        return obj.id === id;
       } );
       return {
         valueChanges: () => {
@@ -54,8 +64,12 @@ function makeFBCollectionFromData_ValueChanges(testData: any[]) {
   };
   return fbMockCollection;
 }
-
-function makeFBCollectionFromData_Delete(testData: any[]) {
+/**
+ * User Story ID: M1NCx
+ * Mock function for firebase service and data.
+ * @param  {any[]} testData
+ */
+function makeFBCollectionFromDataDelete(testData: any[]) {
   let functionData = [...testData];
   const fbMockCollection = {
     snapshotChanges: () => {
@@ -74,9 +88,9 @@ function makeFBCollectionFromData_Delete(testData: any[]) {
       return {
         delete: () => {
           functionData = functionData.filter(obj => {
-            return obj.id != id;
+            return obj.id !== id;
           } );
-          return new Promise((resolve, reject) => {
+          return new Promise((resolve) => {
             resolve();
           });
         }
@@ -127,7 +141,7 @@ describe('PlacesService', () => {
   it('#getAllPlaces should return all Places', function(done) {
     // Test Data Setup
     const testData = [place1, place2];
-    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromData_SnapshotChanges(testData) as unknown as AngularFirestoreCollection);
+    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromDataSnapshotChanges(testData) as unknown as AngularFirestoreCollection);
     // Execute Function
     placesService.getAllPlaces()
         .then(places => {
@@ -141,7 +155,7 @@ describe('PlacesService', () => {
   it('#getPlaceByID should return a Place if it exists', function(done) {
     // Test Data Setup
     const testData = [place1, place2];
-    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromData_ValueChanges(testData) as unknown as AngularFirestoreCollection);
+    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromDataValueChanges(testData) as unknown as AngularFirestoreCollection);
     // Execute Function
     placesService.getPlaceByID('2')
         .then(place => {
@@ -154,12 +168,11 @@ describe('PlacesService', () => {
   it('#deletePlaceByID should delete a Place if it exists', function(done) {
     // Test Data Setup
     const testData = [place1, place2];
-    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromData_Delete(testData) as unknown as AngularFirestoreCollection);
+    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromDataDelete(testData) as unknown as AngularFirestoreCollection);
     // Execute Function
     placesService.deletePlaceByID('1')
-        .then(place => {
+        .then(() => {
           // Verify Results
-          console.log(place);
           placesService.getAllPlaces().then (lugares => {
             expect(lugares.length).toBe(1);
             done ();
@@ -185,7 +198,7 @@ describe('PlacesService', () => {
         location: p3
       },
     ];
-    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromData_SnapshotChanges(testData) as unknown as AngularFirestoreCollection);
+    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromDataSnapshotChanges(testData) as unknown as AngularFirestoreCollection);
 
     // Execute Function
     placesService.searchMapPlaces(ne, sw)
@@ -216,7 +229,7 @@ describe('PlacesService', () => {
         location: p3
       },
     ];
-    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromData_SnapshotChanges(testData) as unknown as AngularFirestoreCollection);
+    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromDataSnapshotChanges(testData) as unknown as AngularFirestoreCollection);
 
     // Execute Function
     placesService.searchMapPlaces(ne, sw)
@@ -233,11 +246,11 @@ describe('PlacesService', () => {
     const ne = { lat: 40, lng: 120 };
     const sw = { lat: -40, lng: 40 };
     const testData = [];
-    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromData_SnapshotChanges(testData) as unknown as AngularFirestoreCollection);
+    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromDataSnapshotChanges(testData) as unknown as AngularFirestoreCollection);
 
     // Execute Function
     placesService.searchMapPlaces(ne, sw)
-        .then(_ => {
+        .then(() => {
           // Verify Results
           expect(mockFirestoreSpy.collection.calls.count()).toBe(1);
           done();

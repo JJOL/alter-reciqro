@@ -5,10 +5,14 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './info.page.html',
   styleUrls: ['./info.page.scss'],
 })
+
+/**
+ * Information page class, provides methods for Angular loading.
+*/
 export class InfoPage implements OnInit {
-
-  constructor() { }
-
+  /**
+   * Method not used but required by Angular.
+   */
   ngOnInit() {
   }
 

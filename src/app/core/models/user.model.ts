@@ -1,3 +1,5 @@
+/* In this case we are disabling camelcase to agree with firebase recommended naming convention.*/
+/* eslint-disable camelcase */
 export interface Roles{
     admin?: boolean;
     user?: boolean;

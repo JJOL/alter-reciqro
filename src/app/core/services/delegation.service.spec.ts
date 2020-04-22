@@ -23,12 +23,12 @@ const angularFirestoreStub = {
 
 describe('DelegationService', () => {
   beforeEach(() => 
-  TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [IonicModule.forRoot()],
       providers: [
         {provide: AngularFirestore, useValue: angularFirestoreStub},
       ]
-  }));
+    }));
 
   it('should be created', () => {
     const service: DelegationService = TestBed.get(DelegationService);

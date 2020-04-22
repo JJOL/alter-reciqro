@@ -7,14 +7,20 @@ import { RouterModule } from '@angular/router';
 import { from } from 'rxjs';
 
 const waste1 = {
-  id : '1', name : 'Pilas', description : 'Recolección de pilas', icon : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/General_Motors_logo.svg/1200px-General_Motors_logo.svg.png'
+  id : '1', name : 'Pilas', description : 'Recolección de pilas', 
+  icon : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/General_Motors_logo.svg/1200px-General_Motors_logo.svg.png'
 };
 
 const waste2 = {
-  id : '2', name : 'Llantas', description : 'Recolección de llantas', icon : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/General_Motors_logo.svg/1200px-General_Motors_logo.svg.png'
+  id : '2', name : 'Llantas', description : 'Recolección de llantas', 
+  icon : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/General_Motors_logo.svg/1200px-General_Motors_logo.svg.png'
 };
-
-function makeFBCollectionFromData_SnapshotChanges(testData: any[]) {
+/**
+ * User Story ID: M1NC3
+ * Mock function for firebase service and data.
+ * @param  {any[]} testData
+ */
+function makeFBCollectionFromDataSnapshotChanges(testData: any[]) {
   const fbData = testData.map(testObj => {
     return {
       payload: {
@@ -69,7 +75,8 @@ describe('WasteService', () => {
   it('#getAllWastes should return all wastes', function(done) {
     // Test Data Setup
     const testData = [waste1, waste2];
-    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromData_SnapshotChanges(testData) as unknown as AngularFirestoreCollection);
+    mockFirestoreSpy.collection.and.returnValue
+    (makeFBCollectionFromDataSnapshotChanges(testData) as unknown as AngularFirestoreCollection);
     // Execute Function
     wasteService.getWastes()
         .then(wastes => {

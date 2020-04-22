@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import {AngularFirestore} from '@angular/fire/firestore';
 import { UserPage } from './user.page';
 import { empty } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 const arr = function() {};
 
@@ -67,20 +68,20 @@ describe('UserPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ UserPage ],
-      imports: [IonicModule.forRoot()],
+      imports: [IonicModule.forRoot(), RouterModule.forRoot([])],
       providers: [
         {provide: AngularFirestore, useValue: angularFirestoreStub},
         { provide: AuthService, useValue: mockAuthentication }
       ]
     }).compileComponents();
 
-  fixture = TestBed.createComponent(UserPage);
-  component = fixture.componentInstance;
-  fixture.detectChanges();
+    fixture = TestBed.createComponent(UserPage);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
 
-}));
+  }));
 
-it('should create', () => {
-  expect(component).toBeTruthy();
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 });
