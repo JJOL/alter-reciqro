@@ -77,7 +77,7 @@ export class PlacesService {
           });
     });
   }
-
+  //User Story ID: M1NG2
   getPlaceByID(id: string): Promise<Place> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
@@ -116,7 +116,7 @@ export class PlacesService {
       });
     });
   }
-
+//User Story ID: M1NG2
   async allPlaceTypes(): Promise<any[]> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
@@ -187,11 +187,14 @@ export class PlacesService {
     });
   }
 
-  /*
-    Description: This function edits a place and it changes the fields only if 
+
+  /**
+   * User Story ID: M1NG2
+   * This function edits a place and it changes the fields only if 
     they are different than the ones in the database
-  */
-  //User Story ID: M1NG2
+   * @param  {string} id
+   * @returns Promise
+   */
   editPlace(placeObject, id: string) {
     const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
     return new Promise<any>((resolve, reject) => {

@@ -4,7 +4,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { EditCenterPage } from './edit-center.page';
 
 import { AngularFirestore } from '@angular/fire/firestore';
-import { from } from 'rxjs';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { PlacesService } from 'src/app/core/services/places.service';
 
