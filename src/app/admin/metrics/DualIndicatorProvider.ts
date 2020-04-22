@@ -2,7 +2,15 @@ export interface IndicatorInstance {
     name: string;
 }
 
-interface DualIndicatorProvider {
+export interface DualIndicatorProvider {
+    
+    
+    /**
+     * Loads metadata from storage and call callback parameter function when it has loaded.
+     * @param  {()=>void} onMetadaLoadedCb
+     */
+    loadMetaData(onMetadaLoadedCb: () => void);
+
     /**
      * Returns the name of the class of instances in the system population.
      * @returns string
@@ -27,8 +35,9 @@ interface DualIndicatorProvider {
      * @param  {Date} lowerExclusiveDate
      * @param  {Date} upperExclusiveDate
      * @param  {any} instance
+     * @returns Promise<number[]>
      */
-    calculateGraphData(lowerExclusiveDate: Date, upperExclusiveDate: Date, instance: any);
+    calculateGraphData(lowerExclusiveDate: Date, upperExclusiveDate: Date, instance: any): Promise<number[]>;
     
     /**
      * Returns accumulated frecuency data for each instance.
