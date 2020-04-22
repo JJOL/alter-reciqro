@@ -23,7 +23,7 @@
           </div>
           <div class="card-body">
             <div class="user-meta ion-text-center">
-              <h3 class="playername">Ciudadano X</h3>
+              <h3 class="playername">Ciudadano {{user?user.alias:""}}</h3>
               <h5 class="country">Centro Histórico</h5>
               <h6 class="ranking">Nivel actual: <ion-chip>
                   <ion-label>2</ion-label>
@@ -34,7 +34,7 @@
             <ion-list>
               <ion-item *ngIf="delegations">
                 <ion-label>Delegación</ion-label>
-                <ion-select cancelText="CANCEL" okText="OK" multiple="false">
+                <ion-select cancelText="CANCEL" okText="OK" multiple="false" [selectedText]="userDelegation">
                   <ion-select-option 
                   *ngFor="let delegation of delegations" 
                   value="{{delegation.id}}"

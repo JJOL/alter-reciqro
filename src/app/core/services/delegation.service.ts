@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import 'firebase/firestore';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map,take } from 'rxjs/operators';
 import { DelegationModel } from '../models/delegation.model';
 
 const DELEGATION_KEY = '/delegation';
@@ -56,5 +56,26 @@ export class DelegationService {
           });
     });
   }
-  
+
+  /**
+   * Return a delegation based on its ID
+   * @param  {string} id
+   * @returns Promise<Place>
+   */
+  getDelegationByID(id: string): Promise<DelegationModel> {
+    return new Promise((resolve) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<any>(DELEGATION_KEY).doc<any>(id).valueChanges()
+          .pipe(
+              take(1),
+              map(delegation => {return delegation}))
+          .subscribe(delegation => {
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+            resolve(delegation);
+          });
+    });
+  }
+
 }

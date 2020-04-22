@@ -5,7 +5,7 @@
       <ion-menu-button menu="m1"></ion-menu-button>
     </ion-buttons>
     
-    <ion-title    class="ion-text-center">Iniciar Sesion</ion-title>
+    <ion-title    class="ion-text-center">Iniciar Sesión</ion-title>
     <!--Here we will replace with the government icon-->
     <ion-buttons slot="primary" class="login">
       <ion-button col-2 col-sm  slot="end" class="login">
@@ -20,23 +20,23 @@
     <ion-row>
       <ion-col size="12" size-lg="6" size-md="6" offset-lg="3" offset-md="3">
         <form #formLogin="ngForm" (submit)="onLogin()">
-          <h1 class="h3 mb-3 font-weight-normal" >Inicio de Sesion a ReciQro</h1>
+          <h1 class="h3 mb-3 font-weight-normal" >Inicio de Sesión a ReciQro</h1>
           <div class="form-group">
             <ion-list >
               <ion-item>
-                <ion-label position="floating">Email</ion-label>
+                <ion-label position="floating">Correo</ion-label>
                 <ion-input [(ngModel)]="email" name="email" type="email" required></ion-input>
               </ion-item>
               <ion-item>
-                <ion-label position="floating">Password</ion-label>
+                <ion-label position="floating">Contraseña</ion-label>
                 <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
               </ion-item>
             </ion-list>
           </div>
-          <ion-button type="submit" color="secondary" (click)="onLogin()">Login</ion-button>
+          <ion-button type="submit" color="secondary" (click)="onLogin()">Iniciar Sesión</ion-button>
           <br><br><br>
           <div class="form-group">
-            <ion-label>Registrate o inicia sesion con Google</ion-label><br><br>
+            <ion-label>Regístrate o inicia sesión con Google</ion-label><br><br>
             <ion-button class="btn btn-block btn-social" color="danger" (click)="onLoginGoogle()">
               <span class="fa fa-google"></span>
                   GOOGLE
@@ -48,10 +48,11 @@
           </div>
           <br><br>
           <div class="form-group">
-            <a routerLink="/user/register" class="form-control login-user">No tiene cuenta aún?</a>
+            <a routerLink="/user/register" class="form-control login-user">¿No tiene cuenta aún?</a>
           </div>
+          <br>
           <div class="form-group">
-            <a routerLink="/user/recover-password" class="form-control login-user">Has olvidado tu contraseña?</a>
+            <a routerLink="/user/recover-password" class="form-control login-user">¿Has olvidado tu contraseña?</a>
           </div>
         </form>
       </ion-col>
