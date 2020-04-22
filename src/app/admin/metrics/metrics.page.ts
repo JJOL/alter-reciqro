@@ -7,6 +7,11 @@ import { MetricsPageService } from './services/metrics-page.service';
   templateUrl: './metrics.page.html',
   styleUrls: ['./metrics.page.scss'],
 })
+/**
+ * MetricsPage
+ * User Story ID: M1NG6
+ * Description: Page that contains 3 Indicator Metrics and gets metrics providers
+ */
 export class MetricsPage implements OnInit {
 
 
@@ -17,7 +22,11 @@ export class MetricsPage implements OnInit {
   constructor(
       private metricsPageService: MetricsPageService
   ) { }
-
+  
+  /**
+   * User Story ID: M1NG6
+   * Description: It gets the metrics providers for the IndicatorGraphicsComponents.
+   */
   ngOnInit() {
     this.delegationMetricsService = this.metricsPageService.getDelegationsMetricsProvider();
     this.placesMetricsService = this.metricsPageService.getPlacesMetricsProvider();

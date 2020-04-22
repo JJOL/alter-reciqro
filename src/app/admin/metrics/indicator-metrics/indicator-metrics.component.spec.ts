@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { IndicatorMetricsComponent } from './indicator-metrics.component';
 import { IndicatorGraphComponent } from '../indicator-graph/indicator-graph.component';
+import { FormsModule } from '@angular/forms';
 
 describe('IndicatorMetricsComponent', () => {
   let component: IndicatorMetricsComponent;
@@ -11,7 +12,7 @@ describe('IndicatorMetricsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ IndicatorMetricsComponent, IndicatorGraphComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), FormsModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(IndicatorMetricsComponent);
@@ -22,4 +23,6 @@ describe('IndicatorMetricsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  
 });

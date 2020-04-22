@@ -9,7 +9,8 @@ import { IGCParametersEvent } from '../indicator-graph/indicator-graph.component
 })
 /**
  * PlacesMetricsComponent
- * Class responsible for communicating user actions and indicator metrics percepts with metrics service.
+ * Description: Class responsible for communicating user actions and indicator metrics percepts with metrics service.
+ * User Story ID: M1NG6
  */
 export class IndicatorMetricsComponent implements OnInit {
 
@@ -21,7 +22,10 @@ export class IndicatorMetricsComponent implements OnInit {
 
   @Input() classMetricsService: DualIndicatorProvider;
   constructor() {}
-
+  /**
+   * Description: Performs component data init
+   * User Story ID: M1NG6
+   */
   ngOnInit() {
     this.initData();
   }

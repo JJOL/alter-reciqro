@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { IndicatorGraphComponent } from './indicator-graph.component';
+import { FormsModule } from '@angular/forms';
 
 describe('AppIndicatorGraphComponent', () => {
   let component: IndicatorGraphComponent;
@@ -10,7 +11,7 @@ describe('AppIndicatorGraphComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ IndicatorGraphComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), FormsModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(IndicatorGraphComponent);

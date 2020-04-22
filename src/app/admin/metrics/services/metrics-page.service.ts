@@ -5,16 +5,24 @@ import { parseFBPlaceToPlace } from 'src/app/core/services/places.service';
 import { FBDualIndicatorProvider } from './FBDualIndicatorProvider';
 import { parseFBPDelegationToDelegation } from 'src/app/core/services/delegation.service';
 
-
 @Injectable({
     providedIn: 'root'
 })
+/**
+ * Class: MetricsPageService
+ * Description: Provides DualIndicatorProvider's
+ */
 export class MetricsPageService {
 
   constructor(
     private firedb: AngularFirestore
   ) {}
 
+    /**
+     * User Story ID: M1NG6
+     * Description: Returns a DualIndicatorProvider for Places data.
+     * @returns DualIndicatorProvider
+     */
     getPlacesMetricsProvider(): DualIndicatorProvider {
         return new FBDualIndicatorProvider(
           "Centros", 
@@ -23,12 +31,17 @@ export class MetricsPageService {
             collectionKey: "/places",
             dbCollectionToInstancesFn: (snapshot) => {
               return snapshot.map(parseFBPlaceToPlace)
-                      .map(place => new PlaceIndicatorInstance(place.name, place.id))
+                      .map(place => ({ name: place.name, id: place.id}))
             },
             idAttribute: 'place_id'
           }, this.firedb);
     }
 
+    /**
+     * User Story ID: M1NG6
+     * Description: Returns a DualIndicatorProvider for Delegations data.
+     * @returns DualIndicatorProvider
+     */
     getDelegationsMetricsProvider(): DualIndicatorProvider {
       return new FBDualIndicatorProvider(
         "Delegaciones", 
@@ -37,32 +50,14 @@ export class MetricsPageService {
           collectionKey: "/delegation",
           dbCollectionToInstancesFn: (snapshot) => {
             return snapshot.map(parseFBPDelegationToDelegation)
-                    .map(delegation => new DelegationIndicatorInstance(delegation.name, delegation.id))
+                    .map(delegation => ({ name: delegation.name, id: delegation.id }))
           },
           idAttribute: 'user_delegation_id'
         }, this.firedb);
   }
 }
 
-// Places
-class PlaceIndicatorInstance implements IndicatorInstance {
-  name: string;
-  id: string;
-  constructor(name: string, id: string) {
-    this.name = name;
-    this.id = id;
-  }
-}
-class DelegationIndicatorInstance implements IndicatorInstance {
-  name: string;
-  id: string;
-  constructor(name: string, id: string) {
-    this.name = name;
-    this.id = id;
-  }
-}
-
-
+/* POSIBLE IMPLEMENTATIONS */
 // const PLACES_VISITS_KEY = 'visits_places_user';
 // interface IndicatorDataBridgeConfig {
 //   collectionKey: string
