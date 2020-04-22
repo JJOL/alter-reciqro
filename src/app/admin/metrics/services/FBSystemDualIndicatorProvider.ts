@@ -89,6 +89,9 @@ export class FBSystemDualIndicatorProvider implements DualIndicatorProvider{
   getOverallMetrics(): Promise<{[key: string]: number}> {
 
     let dataArr: { [key: string]: number } = {};
+    DateUtil.getAllMonthNames().forEach( monthName => {
+      dataArr[monthName] = 0;
+    })
 
     return new Promise((resolve, reject) => {
       let subscription: Subscription;

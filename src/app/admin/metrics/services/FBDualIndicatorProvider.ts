@@ -113,6 +113,7 @@ export class FBDualIndicatorProvider implements DualIndicatorProvider{
     getOverallMetrics(): Promise<{[key: string]: number}> {
 
       let dataArr: { [key: string]: number } = {};
+      this.instances.forEach( inst => { dataArr[inst.name] = 0; })
 
       return new Promise((resolve, reject) => {
         let subscription: Subscription;

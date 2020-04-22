@@ -12,4 +12,11 @@ describe('DateUtil', () => {
         expect(DateUtil.getMonthFullName(12)).toBeFalsy();
         expect(DateUtil.getMonthFullName(14)).toBeFalsy();
     })
+
+    it('#getAllMonthNames() should return all month names', () => {
+        expect(DateUtil.getAllMonthNames().length).toBe(12);
+        expect(DateUtil.getAllMonthNames()[0]).toBe('Enero');
+        expect(DateUtil.getAllMonthNames()[3]).toBe('Abril');
+        expect(DateUtil.getAllMonthNames()[8]).toBe('Septiembre');
+    });
 })
