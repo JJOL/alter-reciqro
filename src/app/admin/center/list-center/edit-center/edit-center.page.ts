@@ -21,24 +21,7 @@ export class EditCenterPage implements OnInit {
   updateBookingForm: FormGroup;
 
   place: Place;
-  // place : Place={
-  //   id : "",
-  //   name : "",
-  //   description : "",
-  //   location: {
-  //     lat: 0.0,
-  //     lng: 0.0,
-  // },
-  //   qr_code : "",
-  //   photo : "",
-  //   address : "",
-  //   postal_code : 0,
-  //   places_type : {
-  //     id : "",
-  //     name : "",
-  //     icon_url : ""
-  //   }
-  // };
+  
   loadedPlacetypes: TipoInstalacion[];
 
   /**

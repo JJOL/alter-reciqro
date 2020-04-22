@@ -62,7 +62,7 @@ export class RegisterPage implements OnInit {
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmPassword: ['', Validators.required],
     delegation_id: ['', Validators.required], 
-   });
+  });
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -73,7 +73,7 @@ export class RegisterPage implements OnInit {
     public formBuilder: FormBuilder,
     private toastCtrl: ToastController,
     private delegationService: DelegationService,
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.delegationService.getDelegations().then(delegation => {
@@ -83,18 +83,18 @@ export class RegisterPage implements OnInit {
   public submit() {
     this.authService.registerUser(this.newCenterForm.value).then(res => {
     
-    this.showToast('Usuario fue registrado');
-    this.newCenterForm.reset();
+      this.showToast('Usuario fue registrado');
+      this.newCenterForm.reset();
     
-    this.navCtrl.navigateBack(['/']);
-  })
-  .catch(err => {
-    this.showToast('Error el usuario con este correo ya existe');
-    console.log(err);
-    this.newCenterForm.reset();
-  });
-  return
-}
+      this.navCtrl.navigateBack(['/']);
+    })
+        .catch(err => {
+          this.showToast('Error el usuario con este correo ya existe');
+          console.log(err);
+          this.newCenterForm.reset();
+        });
+    return
+  }
 
   showToast(msg) {
     this.toastCtrl.create({

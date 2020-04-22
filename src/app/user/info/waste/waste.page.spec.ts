@@ -26,7 +26,7 @@ const angularFirestoreStub = {
 const mockService = jasmine.createSpyObj('placeService', ['getWastes']);
 
 mockService.getWastes.and.returnValue(
-    new Promise<any>((res, rej) => {
+    new Promise<any>((res) => {
       res([]);
     }));
 

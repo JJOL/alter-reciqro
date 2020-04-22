@@ -12,25 +12,35 @@ import { DelegationService } from '../core/services/delegation.service';
 export class UserPage implements OnInit {
 
   delegations: any[];
+  user: any;
+  userDelegation: any;
 
   // eslint-disable-next-line require-jsdoc
   constructor(private delegationService: DelegationService,
               private authService: AuthService ) { }
-/**
+  /**
  * Loads the delegations catalog in order to show the list
  */
   ngOnInit() {
+    this.authService.getCurrentUser().then( user =>{
+      this.user=user;
+      this.delegationService.getDelegationByID(user.delegation_id).then(delegation => {
+        this.userDelegation = delegation.name;
+      })
+    }
+    )
     this.delegationService.getDelegations().then(delegation => {
       this.delegations = delegation;
     });
-   // this.authService.getUserByUID("yBM2MxbTmHfPt0hTh0ek19i01W73").then(user => console.log(user))
+    
+    // this.authService.getUserByUID("yBM2MxbTmHfPt0hTh0ek19i01W73").then(user => console.log(user))
   }
   /**
    * Logout methos to close fireauth
    */
   logout() {
-    console.log("aqui esta entrando");
     this.authService.logoutUser();
   }
+
 
 }

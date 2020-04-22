@@ -18,4 +18,7 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
+/**
+ * Exporting routing class so it is usable.
+*/
 export class InfoPageRoutingModule {}

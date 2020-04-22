@@ -3,14 +3,16 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { PlacesService } from './places.service';
 import { from } from 'rxjs';
 import { GeoPoint } from '../models/geopoint.model';
-
+/**
+ * Internal function.
+ * @param  {} placeLoc
+ */
 function placeLocToFBLoc(placeLoc) {
   return new GeoPoint(placeLoc.lat, placeLoc.lng);
 }
-
 /**
- * User Story ID: Many
- * Description: This function simulates FBCollectionFromDataSnapshotChanges
+ * User Story ID: M1NCx
+ * Mock function for firebase service and data.
  * @param  {any[]} testData
  */
 function makeFBCollectionFromDataSnapshotChanges(testData: any[]) {
@@ -41,10 +43,9 @@ function makeFBCollectionFromDataSnapshotChanges(testData: any[]) {
   };
   return fbMockCollection;
 }
-
 /**
- * User Story ID: M1NG5
- * Description: This function simulates makeFBCollectionFromDataValueChanges
+ * User Story ID: M1NCx
+ * Mock function for firebase service and data.
  * @param  {any[]} testData
  */
 function makeFBCollectionFromDataValueChanges(testData: any[]) {
@@ -63,10 +64,9 @@ function makeFBCollectionFromDataValueChanges(testData: any[]) {
   };
   return fbMockCollection;
 }
-
 /**
- * User Story ID: M1NG3
- * Description: This function test that a place is deleted
+ * User Story ID: M1NCx
+ * Mock function for firebase service and data.
  * @param  {any[]} testData
  */
 function makeFBCollectionFromDataDelete(testData: any[]) {

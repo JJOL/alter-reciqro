@@ -17,4 +17,7 @@ import { InfoPage } from './info.page';
   ],
   declarations: [InfoPage]
 })
+/**
+ * Exporting waste class so it is usable.
+*/
 export class InfoPageModule {}

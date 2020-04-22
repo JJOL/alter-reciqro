@@ -1,9 +1,15 @@
+/* eslint-disable max-params */
+/* In this case we are disabling camelcase to agree with firebase recommended naming convention.*/
+/* eslint-disable camelcase */
 import { TipoInstalacion } from './tipo-instalacion.model';
 /**
-   * Definición del modelo de lugar
+   * Class that defines the model for the place, indicating its fields.
    */
 export class Place {
+  
   /**
+   *  User Story ID: M4NG1
+   * Constructor takes as arguments all the information for a center (place).
    * @param  {string} id
    * @param  {string} name
    * @param  {string} description

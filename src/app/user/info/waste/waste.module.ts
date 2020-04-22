@@ -17,4 +17,7 @@ import { WastePage } from './waste.page';
   ],
   declarations: [WastePage]
 })
+/**
+ * Exporting waste class so it is usable.
+*/
 export class WastePageModule {}

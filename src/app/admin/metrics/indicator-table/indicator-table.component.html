@@ -1,0 +1,8 @@
+
+<ion-list *ngIf="dataArr">
+  <ion-item *ngFor="let keyval of dataArr">
+    {{ keyval.key }}
+    <br>
+    {{ keyval.val }}
+  </ion-item>
+</ion-list>

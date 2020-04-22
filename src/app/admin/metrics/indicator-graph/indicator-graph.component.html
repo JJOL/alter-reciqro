@@ -9,17 +9,23 @@
                   <ion-item>
                       <ion-searchbar showCancelButton="always" placeholder="Buscar" animated></ion-searchbar>
                   </ion-item>
+                  <ion-select placeholder="Elegir" multiple="false" [(ngModel)]="selectedInstance">
+                    <ion-select-option 
+                        *ngFor="let inst of instances" 
+                        [value]="inst"
+                    > {{inst.name}} </ion-select-option>
+                  </ion-select>
               </ion-col>
               <ion-col size-md = "4" size-sm = "6">
                   <ion-item>
                       <ion-label position="floating">Fecha Inicio</ion-label>
-                      <ion-datetime  display-timezone="utc"></ion-datetime>
+                      <ion-datetime display-timezone="utc" [(ngModel)]="inLowerDateStr"></ion-datetime>
                   </ion-item>
               </ion-col>
               <ion-col size-md = "4" size-sm = "6">
                   <ion-item>
                       <ion-label position="floating">Fecha Fin</ion-label>
-                      <ion-datetime display-timezone="utc"></ion-datetime>
+                      <ion-datetime display-timezone="utc" [(ngModel)]="inUpperDateStr"></ion-datetime>
                   </ion-item>
               </ion-col>
           </ion-row>

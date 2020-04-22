@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-center',
@@ -7,13 +6,13 @@ import { AngularFirestore } from '@angular/fire/firestore';
   styleUrls: ['./center.page.scss'],
 })
 
+/**
+ * Class for Angular CenterPage module.
+ */
 export class CenterPage implements OnInit {
-
-  constructor(private firedb: AngularFirestore) {
-
-  }
-
-  ngOnInit() {
-  }
-
+  /**
+   *  Function not implemented but forced by angular.
+   */
+  ngOnInit() { }
+  
 }

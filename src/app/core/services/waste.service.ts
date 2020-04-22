@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { WasteType } from '../models/waste-type';
 import { Subscription } from 'rxjs';
@@ -8,7 +7,8 @@ import { map } from 'rxjs/operators';
 
 const WASTE_TYPE_KEY = '/waste_type';
 /**
- * Castea el snapshot del objecto a uno tipo Waste
+ * User Story ID: M1NC3
+ * Function that casts a firebase waste to our delegation model.
  * @param  {any} fbWaste
  * @returns WasteType
  */
@@ -28,14 +28,17 @@ function parseFBPWasteToWaste(fbWaste: any): WasteType {
   providedIn: 'root'
 })
 /**
- * Servicio para CRUD del tipo Waste
+ * Service that provides funcionality for wastes (e.g. pilas). It has all functionalities for retrieving and saving data.
  */
 export class WasteService {
-
-  // eslint-disable-next-line require-jsdoc
+  /**
+   * Constructor for the class, only external service used will be the Firestore one.
+   * @param  {AngularFirestore} publicfiredb
+   */
   constructor(public firedb: AngularFirestore) { }
   /**
-   * Regresa una promesa que regresará una lista de WasteTypes
+   * User Story ID: M1NC3
+   * Function that returns all wastes on the database, unfiltered, with all its associated data.
    * @returns Promise
    */
   getWastes(): Promise<WasteType[]> {

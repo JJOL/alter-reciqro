@@ -2,7 +2,7 @@ import { empty } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from './../../core/services/auth.service';
 import { MarkerCardComponent } from './../marker-card/marker-card.component';
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { PlacesSearcherPagePage } from './places-searcher-page.page';
@@ -11,6 +11,7 @@ import { SharedPageModule } from '../../shared/shared.module';
 import { PlacesService } from '../../core/services/places.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {MockAngularFirestore} from 'src/app/core/services/mocks/firestore.mock';
+import { RouterTestingModule } from '@angular/router/testing';
 
 
 const mockPlacesService = {
@@ -98,9 +99,8 @@ describe('PlacesSearcherPagePage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-
       declarations: [ PlacesSearcherPagePage, MarkerCardComponent ],
-      imports: [IonicModule.forRoot(), SharedPageModule],
+      imports: [IonicModule.forRoot(), SharedPageModule, RouterTestingModule],
       providers: [
         { provide: PlacesService, useValue: mockPlacesService },
         { provide: Geolocation, useValue: mockGeolocation },

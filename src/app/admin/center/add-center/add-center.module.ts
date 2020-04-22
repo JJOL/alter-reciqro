@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -17,8 +17,8 @@ import {SharedPageModule} from '../../../shared/shared.module';
     IonicModule,
     AddCenterPageRoutingModule,
     SharedPageModule
-    // FormsModule
   ],
   declarations: [AddCenterPage]
 })
+// eslint-disable-next-line require-jsdoc
 export class AddCenterPageModule {}
