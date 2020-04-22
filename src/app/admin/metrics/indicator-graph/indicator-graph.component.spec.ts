@@ -24,7 +24,7 @@ describe('AppIndicatorGraphComponent', () => {
   });
 
   it('#inputPropHasChanged() should return true for a changed marked prop', () => {
-    let propName = "prop1";
+    let propName = 'prop1';
     let changes = {};
     changes[propName] = {
       previousValue: 0,
@@ -33,7 +33,7 @@ describe('AppIndicatorGraphComponent', () => {
     expect(component.inputPropHasChanged(changes, propName)).toBeTruthy();
   });
   it('#inputPropHasChanged() should return false for a not changed showed marked prop', () => {
-    let propName = "prop1";
+    let propName = 'prop1';
     let changes = {};
     changes[propName] = {
       previousValue: 0,
@@ -42,7 +42,7 @@ describe('AppIndicatorGraphComponent', () => {
     expect(component.inputPropHasChanged(changes, propName)).toBeFalsy();
   });
   it('#inputPropHasChanged() should return false for a not changed not showed marked prop', () => {
-    let propName = "prop1";
+    let propName = 'prop1';
     let changes = {};
     expect(component.inputPropHasChanged(changes, propName)).toBeFalsy();
   });

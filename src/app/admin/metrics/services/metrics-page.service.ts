@@ -6,7 +6,7 @@ import { FBDualIndicatorProvider } from './FBDualIndicatorProvider';
 import { parseFBPDelegationToDelegation } from 'src/app/core/services/delegation.service';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 /**
  * Class: MetricsPageService
@@ -18,39 +18,39 @@ export class MetricsPageService {
     private firedb: AngularFirestore
   ) {}
 
-    /**
+  /**
      * User Story ID: M1NG6
      * Description: Returns a DualIndicatorProvider for Places data.
      * @returns DualIndicatorProvider
      */
-    getPlacesMetricsProvider(): DualIndicatorProvider {
-        return new FBDualIndicatorProvider(
-          "Centros", 
-          "fs", 
-          {
-            collectionKey: "/places",
-            dbCollectionToInstancesFn: (snapshot) => {
-              return snapshot.map(parseFBPlaceToPlace)
-                      .map(place => ({ name: place.name, id: place.id}))
-            },
-            idAttribute: 'place_id'
-          }, this.firedb);
-    }
+  getPlacesMetricsProvider(): DualIndicatorProvider {
+    return new FBDualIndicatorProvider(
+        'Centros', 
+        'fs', 
+        {
+          collectionKey: '/places',
+          dbCollectionToInstancesFn: (snapshot) => {
+            return snapshot.map(parseFBPlaceToPlace)
+                .map(place => ({ name: place.name, id: place.id}))
+          },
+          idAttribute: 'place_id'
+        }, this.firedb);
+  }
 
-    /**
+  /**
      * User Story ID: M1NG6
      * Description: Returns a DualIndicatorProvider for Delegations data.
      * @returns DualIndicatorProvider
      */
-    getDelegationsMetricsProvider(): DualIndicatorProvider {
-      return new FBDualIndicatorProvider(
-        "Delegaciones", 
-        "fs", 
+  getDelegationsMetricsProvider(): DualIndicatorProvider {
+    return new FBDualIndicatorProvider(
+        'Delegaciones', 
+        'fs', 
         {
-          collectionKey: "/delegation",
+          collectionKey: '/delegation',
           dbCollectionToInstancesFn: (snapshot) => {
             return snapshot.map(parseFBPDelegationToDelegation)
-                    .map(delegation => ({ name: delegation.name, id: delegation.id }))
+                .map(delegation => ({ name: delegation.name, id: delegation.id }))
           },
           idAttribute: 'user_delegation_id'
         }, this.firedb);
@@ -155,44 +155,44 @@ export class MetricsPageService {
 
 
 
-  // class PlaceIndicatorInstance implements IndicatorInstance {
-  //   name: string;
-  //   id: string;
-  //   constructor(name: string, id: string) {
-  //     this.name = name;
-  //     this.id = id;
-  //   }
-  // }
-  // class PlacesDualIndicatorProvider implements DualIndicatorProvider{
+// class PlaceIndicatorInstance implements IndicatorInstance {
+//   name: string;
+//   id: string;
+//   constructor(name: string, id: string) {
+//     this.name = name;
+//     this.id = id;
+//   }
+// }
+// class PlacesDualIndicatorProvider implements DualIndicatorProvider{
 
-  //   constructor(
-  //     private className: string,
-  //     private metricName: string,
-  //     private firedb: AngularFirestore
-  //   ) {}
+//   constructor(
+//     private className: string,
+//     private metricName: string,
+//     private firedb: AngularFirestore
+//   ) {}
   
-  //   instances: IndicatorInstance[] = [
-  //     new PlaceIndicatorInstance("Tec de Monterrey", "1"),
-  //     new PlaceIndicatorInstance("Centro DIF", "2"),
-  //     new PlaceIndicatorInstance("Plaza de las Americas", "3"),
-  //   ];
-  //   loadMetaData(onMetadaLoadedCb: () => void) {
-  //     onMetadaLoadedCb();
-  //   }
-  //   getClassName(): string {
-  //     return this.className;
-  //   }
-  //   getMetricName(): string {
-  //     return this.metricName;
-  //   }
-  //   getAvailableInstances() {
-  //     return this.instances;
-  //   }
-  //   calculateGraphData(lowerExclusiveDate: Date, upperExclusiveDate: Date, instance: any): Promise<number[]> {
-  //     return Promise.resolve([1,2,3,4,5,6,7,7,8,8,9,12,14,10,9,5,4,3,2,0])
-  //   }
-  //   getOverallMetrics() {
-  //     throw new Error("Method not implemented.");
-  //   }
+//   instances: IndicatorInstance[] = [
+//     new PlaceIndicatorInstance("Tec de Monterrey", "1"),
+//     new PlaceIndicatorInstance("Centro DIF", "2"),
+//     new PlaceIndicatorInstance("Plaza de las Americas", "3"),
+//   ];
+//   loadMetaData(onMetadaLoadedCb: () => void) {
+//     onMetadaLoadedCb();
+//   }
+//   getClassName(): string {
+//     return this.className;
+//   }
+//   getMetricName(): string {
+//     return this.metricName;
+//   }
+//   getAvailableInstances() {
+//     return this.instances;
+//   }
+//   calculateGraphData(lowerExclusiveDate: Date, upperExclusiveDate: Date, instance: any): Promise<number[]> {
+//     return Promise.resolve([1,2,3,4,5,6,7,7,8,8,9,12,14,10,9,5,4,3,2,0])
+//   }
+//   getOverallMetrics() {
+//     throw new Error("Method not implemented.");
+//   }
   
-  // }
+// }

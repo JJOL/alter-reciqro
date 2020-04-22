@@ -18,7 +18,7 @@ export class UserPage implements OnInit {
   // eslint-disable-next-line require-jsdoc
   constructor(private delegationService: DelegationService,
               private authService: AuthService ) { }
-/**
+  /**
  * Loads the delegations catalog in order to show the list
  */
   ngOnInit() {
@@ -33,7 +33,7 @@ export class UserPage implements OnInit {
       this.delegations = delegation;
     });
     
-   // this.authService.getUserByUID("yBM2MxbTmHfPt0hTh0ek19i01W73").then(user => console.log(user))
+    // this.authService.getUserByUID("yBM2MxbTmHfPt0hTh0ek19i01W73").then(user => console.log(user))
   }
   /**
    * Logout methos to close fireauth

@@ -47,12 +47,12 @@ export class IndicatorGraphComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes);
-    if (this.inputPropHasChanged(changes, "indicatorDisplayData")) {
+    if (this.inputPropHasChanged(changes, 'indicatorDisplayData')) {
       console.log('Data has changed');
       this.onShowGraphFromData();
     }
 
-    if (this.inputPropHasChanged(changes, "instances")) {
+    if (this.inputPropHasChanged(changes, 'instances')) {
       // this.selectedInstance = this.instances[0];
       console.log(this.instances);
       console.log('READY TO MAKE TEST');
@@ -89,18 +89,18 @@ export class IndicatorGraphComponent implements OnChanges {
 
     let ctx = this.chartEl.nativeElement.getContext('2d');
     let chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labelsArr,
-            datasets: [{
-                label: `Frecuencia de Depositos en ${selectedInstanceName}`,
-                // backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: dataArr
-            }]
-        },
+      type: 'line',
+      data: {
+        labels: labelsArr,
+        datasets: [{
+          label: `Frecuencia de Depositos en ${selectedInstanceName}`,
+          // backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgb(255, 99, 132)',
+          data: dataArr
+        }]
+      },
 
-        options: {}
+      options: {}
     });
   
   }

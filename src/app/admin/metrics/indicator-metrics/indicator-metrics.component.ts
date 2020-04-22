@@ -51,7 +51,7 @@ export class IndicatorMetricsComponent implements OnInit {
    */
   onUserGraphInput(event: IGCParametersEvent) {
     this.classMetricsService.calculateGraphData(event.lowerDate, event.upperDate, event.selectedInstance)
-    .then(this.onCalculatedGraphData.bind(this));
+        .then(this.onCalculatedGraphData.bind(this));
   }
   /**
    * Callback executed by MetricsService when calculated data is ready for displaying.

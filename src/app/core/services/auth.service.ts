@@ -54,7 +54,7 @@ export class AuthService {
       this.afs.collection(USER_KEY).doc(userUID).set({
         alias: userObject.alias,
         points: 0,
-        roles: ["user"],
+        roles: ['user'],
         delegation_id: userObject.delegation_id,
       })
           .then(
