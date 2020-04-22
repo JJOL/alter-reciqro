@@ -17,9 +17,10 @@ export class AuthService {
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore) {
   }
+  //User Story ID: M4NC1
   /**
-   * Metodo Registra usuario, toma como entrada email y correo y crea una promesa con los servicio de autenticacionde firebase
-   * @param  {string} email
+   * Metodo Registra usuario, toma como entrada el objeto del form y crea una promesa con los servicio de autenticacion de firebase
+   * @param  {any} userObject
    */
   registerUser(userObject) {
     return new Promise((resolve , reject) => {
@@ -34,10 +35,11 @@ export class AuthService {
     });
     
   }
+  //UserStoryID: M4NC1
   /**
-   * Metodo Registra usuario, toma como entrada email y correo y crea una promesa con los servicio de autenticacionde firebase
-   * @param  {string} email
-   * @param  {string} pass
+   * Metodo crea usuario en la tabla users con su informacion adicional, toma como entrada el form y el userUID que se creo y crea una promesa con los servicio de firestore firebase
+   * @param  {any} userObject
+   * @param  {string} userUID
    */ 
   createUser(userObject,userUID){
     return new Promise<any>((resolve, reject) => {
@@ -115,10 +117,11 @@ export class AuthService {
 
   //Description: It sends an email to the user, so they can reset their password
   //User story ID: M4NG2 
+  //User story ID: M4NC3
   /**
-   * Metodo sendPasswordResetEmail:
+   * Metodo para enviar email de restauracion de la contraseña. Recibe el email al que se va enviar el correo.
    * 
-   * @param  {} user
+   * @param  {string} email
    */
   sendPasswordResetEmail(email: string){
     return new Promise<any>((resolve, reject) => {

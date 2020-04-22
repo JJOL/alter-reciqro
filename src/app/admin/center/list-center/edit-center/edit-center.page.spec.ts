@@ -12,15 +12,11 @@ import { SharedPageModule } from 'src/app/shared/shared.module';
 
 const arr = [[]];
 
-const data = from(arr);
 const collectionStub3 = {
   subscribe: jasmine.createSpy('subscribe').and.returnValue(arr)
 };
 const collectionStub2 = {
   pipe: jasmine.createSpy('pipe').and.returnValue(collectionStub3)
-};
-const collectionStub5 = {
-  valueChanges: jasmine.createSpy('valueChanges').and.returnValue(data)
 };
 const collectionStub = {
   snapshotChanges: jasmine.createSpy('snapshotChanges').and.returnValue(collectionStub2)
