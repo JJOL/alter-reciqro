@@ -9,6 +9,7 @@ import { MetricsPageRoutingModule } from './metrics-routing.module';
 import { MetricsPage } from './metrics.page';
 import { IndicatorGraphComponent } from './indicator-graph/indicator-graph.component';
 import { IndicatorMetricsComponent } from './indicator-metrics/indicator-metrics.component';
+import { IndicatorTableComponent } from './indicator-table/indicator-table.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { IndicatorMetricsComponent } from './indicator-metrics/indicator-metrics
     IonicModule,
     MetricsPageRoutingModule
   ],
-  declarations: [MetricsPage, IndicatorMetricsComponent, IndicatorGraphComponent]
+  declarations: [MetricsPage, IndicatorMetricsComponent, IndicatorGraphComponent, IndicatorTableComponent]
 })
 export class MetricsPageModule {}

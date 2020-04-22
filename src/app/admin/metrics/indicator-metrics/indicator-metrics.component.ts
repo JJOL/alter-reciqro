@@ -19,6 +19,7 @@ export class IndicatorMetricsComponent implements OnInit {
   indicatorClassName: string;
 
   graphDataArr: number[];
+  tableDataArr: { [key: string]: number };
 
   @Input() classMetricsService: DualIndicatorProvider;
   constructor() {}
@@ -44,11 +45,17 @@ export class IndicatorMetricsComponent implements OnInit {
     this.indicatorClassName = this.classMetricsService.getClassName();
     this.instances = this.classMetricsService.getAvailableInstances();
 
+    // Load Overall Metrics
     this.classMetricsService.getOverallMetrics()
-    .then(keyvalues => {
-      console.log(keyvalues);
-      
-    })
+    .then(this.onLoadOverallData.bind(this));
+  }
+  /**
+   * User Story ID: M1NG6
+   * Description: Called with overall data loaded from metrics provider.
+   * @param  {{[key:string]:number}} keyValueData
+   */
+  onLoadOverallData(keyValueData: {[key: string]: number }) {
+    this.tableDataArr = keyValueData;
   }
   /**
    * Handler for handling user input parameter change event from IndicatorGraphComponent

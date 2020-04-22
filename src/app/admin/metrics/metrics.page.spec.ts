@@ -6,6 +6,7 @@ import { IndicatorMetricsComponent } from './indicator-metrics/indicator-metrics
 import { IndicatorGraphComponent } from './indicator-graph/indicator-graph.component';
 import { MetricsPageService } from './services/metrics-page.service';
 import { FormsModule } from '@angular/forms';
+import { IndicatorTableComponent } from './indicator-table/indicator-table.component';
 
 describe('MetricsPage', () => {
   let component: MetricsPage;
@@ -14,7 +15,7 @@ describe('MetricsPage', () => {
   beforeEach(async(() => {
     let metricsServiceMock = jasmine.createSpyObj('MetricsPageService', ['getPlacesMetricsProvider', 'getDelegationsMetricsProvider', 'getSystemMetricsProvider']);
     TestBed.configureTestingModule({
-      declarations: [ MetricsPage, IndicatorMetricsComponent, IndicatorGraphComponent],
+      declarations: [ MetricsPage, IndicatorMetricsComponent, IndicatorGraphComponent, IndicatorTableComponent],
       imports: [IonicModule.forRoot(), FormsModule],
       providers: [
         {provide: MetricsPageService, useValue: metricsServiceMock}
