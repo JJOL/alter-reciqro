@@ -8,7 +8,9 @@ import { DelegationService } from '../core/services/delegation.service';
   templateUrl: './user.page.html',
   styleUrls: ['./user.page.scss'],
 })
-// eslint-disable-next-line require-jsdoc
+/**
+ * This component loads all the current user data
+ */
 export class UserPage implements OnInit {
 
   delegations: any[];
@@ -41,6 +43,12 @@ export class UserPage implements OnInit {
   logout() {
     this.authService.logoutUser();
   }
-
-
+ /**
+  * Update the delegation of the user
+  * @param  {} delegationID
+  */
+  async changeDelegation(delegationID){
+    await this.authService.updateCurrentUser(this.user);
+    this.userDelegation = (await this.delegationService.getDelegationByID(delegationID.detail.value)).name;
+}
 }
