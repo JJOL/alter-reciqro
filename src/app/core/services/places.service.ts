@@ -21,7 +21,8 @@ const GeoPoint = firebase.firestore.GeoPoint;
  * @param  {any} fbPlace
  * @returns Place
  */
-function parseFBPlaceToPlace(fbPlace: any): Place {
+export function parseFBPlaceToPlace(fbPlace: any): Place {
+  const icon ='sss';
   const data  = fbPlace.payload.doc.data();
   const id = fbPlace.payload.doc.id;
   const place = new Place(

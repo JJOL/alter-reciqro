@@ -1,17 +1,18 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DualIndicatorProvider } from '../DualIndicatorProvider';
+import { DualIndicatorProvider } from '../services/DualIndicatorProvider';
 import { IGCParametersEvent } from '../indicator-graph/indicator-graph.component';
 
 @Component({
-  selector: 'app-places-metrics',
-  templateUrl: './places-metrics.component.html',
-  styleUrls: ['./places-metrics.component.scss'],
+  selector: 'app-indicator-metrics',
+  templateUrl: './indicator-metrics.component.html',
+  styleUrls: ['./indicator-metrics.component.scss'],
 })
 /**
  * PlacesMetricsComponent
- * Class responsible for communicating user actions and indicator metrics percepts with metrics service.
+ * Description: Class responsible for communicating user actions and indicator metrics percepts with metrics service.
+ * User Story ID: M1NG6
  */
-export class PlacesMetricsComponent implements OnInit {
+export class IndicatorMetricsComponent implements OnInit {
 
 
   instances: string[];
@@ -21,7 +22,10 @@ export class PlacesMetricsComponent implements OnInit {
 
   @Input() classMetricsService: DualIndicatorProvider;
   constructor() {}
-
+  /**
+   * Description: Performs component data init
+   * User Story ID: M1NG6
+   */
   ngOnInit() {
     this.initData();
   }

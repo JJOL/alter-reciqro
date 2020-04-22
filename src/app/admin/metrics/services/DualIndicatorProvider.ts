@@ -1,10 +1,17 @@
+/**
+ * Interface: IndicatorInterface
+ * Description: General interface of a Metrics Indicator Instance used in components.
+ */
 export interface IndicatorInstance {
     name: string;
+    id: string;
 }
 
+/**
+ * Interface: DualIndicatorProvider
+ * Description: Provider service that serves metrics metadata information and perform metrics data retrival.
+ */
 export interface DualIndicatorProvider {
-    
-    
     /**
      * Loads metadata from storage and call callback parameter function when it has loaded.
      * @param  {()=>void} onMetadaLoadedCb
@@ -37,7 +44,7 @@ export interface DualIndicatorProvider {
      * @param  {any} instance
      * @returns Promise<number[]>
      */
-    calculateGraphData(lowerExclusiveDate: Date, upperExclusiveDate: Date, instance: any): Promise<number[]>;
+    calculateGraphData(lowerExclusiveDate: Date, upperExclusiveDate: Date, instance: IndicatorInstance): Promise<number[]>;
     
     /**
      * Returns accumulated frecuency data for each instance.
