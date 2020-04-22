@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { parseFBPlaceToPlace } from 'src/app/core/services/places.service';
 import { FBDualIndicatorProvider } from './FBDualIndicatorProvider';
 import { parseFBPDelegationToDelegation } from 'src/app/core/services/delegation.service';
+import { FBSystemDualIndicatorProvider } from './FBSystemDualIndicatorProvider';
 
 @Injectable({
     providedIn: 'root'
@@ -18,46 +19,59 @@ export class MetricsPageService {
     private firedb: AngularFirestore
   ) {}
 
-    /**
-     * User Story ID: M1NG6
-     * Description: Returns a DualIndicatorProvider for Places data.
-     * @returns DualIndicatorProvider
-     */
-    getPlacesMetricsProvider(): DualIndicatorProvider {
-        return new FBDualIndicatorProvider(
-          "Centros", 
-          "fs", 
-          {
-            collectionKey: "/places",
-            dbCollectionToInstancesFn: (snapshot) => {
-              return snapshot.map(parseFBPlaceToPlace)
-                      .map(place => ({ name: place.name, id: place.id}))
-            },
-            idAttribute: 'place_id'
-          }, this.firedb);
-    }
-
-    /**
-     * User Story ID: M1NG6
-     * Description: Returns a DualIndicatorProvider for Delegations data.
-     * @returns DualIndicatorProvider
-     */
-    getDelegationsMetricsProvider(): DualIndicatorProvider {
+  /**
+   * User Story ID: M1NG6
+   * Description: Returns a DualIndicatorProvider for Places data.
+   * @returns DualIndicatorProvider
+   */
+  getPlacesMetricsProvider(): DualIndicatorProvider {
       return new FBDualIndicatorProvider(
-        "Delegaciones", 
+        "Centros", 
         "fs", 
         {
-          collectionKey: "/delegation",
+          collectionKey: "/places",
           dbCollectionToInstancesFn: (snapshot) => {
-            return snapshot.map(parseFBPDelegationToDelegation)
-                    .map(delegation => ({ name: delegation.name, id: delegation.id }))
+            return snapshot.map(parseFBPlaceToPlace)
+                    .map(place => ({ name: place.name, id: place.id}))
           },
-          idAttribute: 'user_delegation_id'
+          idAttribute: 'place_id'
         }, this.firedb);
   }
+
+  /**
+   * User Story ID: M1NG6
+   * Description: Returns a DualIndicatorProvider for Delegations data.
+   * @returns DualIndicatorProvider
+   */
+  getDelegationsMetricsProvider(): DualIndicatorProvider {
+    return new FBDualIndicatorProvider(
+      "Delegaciones", 
+      "fs", 
+      {
+        collectionKey: "/delegation",
+        dbCollectionToInstancesFn: (snapshot) => {
+          return snapshot.map(parseFBPDelegationToDelegation)
+                  .map(delegation => ({ name: delegation.name, id: delegation.id }))
+        },
+        idAttribute: 'user_delegation_id'
+      }, this.firedb);
+  }
+
+  /**
+   * User Story ID: M1NG6
+   * Description: Returns a DualIndicatorProvider for System data.
+   * @returns DualIndicatorProvider
+   */
+  getSystemMetricsProvider(): DualIndicatorProvider {
+    return new FBSystemDualIndicatorProvider(
+      "Sistema", 
+      "fs", 
+      this.firedb);
+  }
+
 }
 
-/* POSIBLE IMPLEMENTATIONS */
+
 // const PLACES_VISITS_KEY = 'visits_places_user';
 // interface IndicatorDataBridgeConfig {
 //   collectionKey: string

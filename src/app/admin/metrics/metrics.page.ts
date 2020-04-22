@@ -30,6 +30,7 @@ export class MetricsPage implements OnInit {
   ngOnInit() {
     this.delegationMetricsService = this.metricsPageService.getDelegationsMetricsProvider();
     this.placesMetricsService = this.metricsPageService.getPlacesMetricsProvider();
+    this.systemMetricsService = this.metricsPageService.getSystemMetricsProvider();
   }
 
 }
