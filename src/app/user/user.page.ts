@@ -48,6 +48,7 @@ export class UserPage implements OnInit {
   * @param  {} delegationID
   */
   async changeDelegation(delegationID){
+    this.user.delegation_id = delegationID.detail.value;
     await this.authService.updateCurrentUser(this.user);
     this.userDelegation = (await this.delegationService.getDelegationByID(delegationID.detail.value)).name;
 }

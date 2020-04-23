@@ -180,6 +180,7 @@ export class AuthService {
    */
   updateUserByUID(uid:string, user:any):Promise<any>{
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uid}`);
+    console.log(user)
     return userRef.set(user, {merge: true});
   }
 
@@ -233,7 +234,6 @@ export class AuthService {
         if (subscription) {
           subscription.unsubscribe();
         }
-        
         resolve(this.updateUserByUID(user?user.uid:null,data));
       }
       );
