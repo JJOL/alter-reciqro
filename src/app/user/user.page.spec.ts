@@ -1,10 +1,13 @@
 import { AuthService } from 'src/app/core/services/auth.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ToastController } from '@ionic/angular';
 import {AngularFirestore} from '@angular/fire/firestore';
 import { UserPage } from './user.page';
 import { empty } from 'rxjs';
 import { RouterModule } from '@angular/router';
+import { MockAngularFirestore } from '../core/services/mocks/firestore.mock';
+import { DelegationService } from '../core/services/delegation.service';
+import { create } from 'domain';
 
 const mockFirebase = {
   collection: () => {
@@ -75,6 +78,20 @@ const authStub: any = {
   }
 };
 
+const mockService = jasmine.createSpyObj('delegationService', ['getDelegationByID', 'getDelegations']);
+
+mockService.getDelegationByID.and.returnValue(
+    new Promise<any>((res) => {
+      res([]);
+    }));
+
+mockService.getDelegations.and.returnValue(
+    new Promise<any>((res) => {
+      res([]);
+    }));
+
+//const mockComponent = jasmine.createSpy('UserPage', ['showToast']);
+
 describe('UserPage', () => {
   let component: UserPage;
   let fixture: ComponentFixture<UserPage>;
@@ -85,7 +102,9 @@ describe('UserPage', () => {
       imports: [IonicModule.forRoot(), RouterModule.forRoot([])],
       providers: [
         {provide: AngularFirestore, useValue: mockFirebase},
-        { provide: AuthService, useValue: mockAuthentication }
+        { provide: AuthService, useValue: mockAuthentication },
+        { provide: AngularFirestore, useValue: MockAngularFirestore },
+        { provide: DelegationService, useValue: mockService },
       ]
     }).compileComponents();
 
@@ -98,4 +117,23 @@ describe('UserPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should retrieve delegation by ID on change', () => {
+    const delegationServiceTest = TestBed.get(DelegationService);
+    component.changeDelegation('3eexhXv3f8gQ80rPjPCI');
+    expect(delegationServiceTest.getDelegationByID.calls.count()).toBeGreaterThanOrEqual(1);
+  });
+
+  it('should retrieve delegation by id on init', () => {
+    const delegationServiceTest = TestBed.get(DelegationService);
+    component.ngOnInit();
+    expect(delegationServiceTest.getDelegationByID.calls.count()).toBeGreaterThanOrEqual(1);
+  });
+
+  it('should retrieve all delegations', () => {
+    const delegationServiceTest = TestBed.get(DelegationService);
+    component.ngOnInit();
+    expect(delegationServiceTest.getDelegations.calls.count()).toBeGreaterThanOrEqual(1);
+  });
+
 });
