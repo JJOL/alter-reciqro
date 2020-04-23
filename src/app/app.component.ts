@@ -51,9 +51,9 @@ export class AppComponent {
   /**
    * Execute get roels in order to redirect dynamic menus
    */
-    ionViewDidEnter() {
+    async ngOnInit(){
      console.log("hey jj");
-    let roles =   this.authService.getRolesandSession();
+    let roles =   await this.authService.getRolesandSession();
     this.isLogged = roles[0];
     this.admin = roles [1];
     this.staff = roles [2];
