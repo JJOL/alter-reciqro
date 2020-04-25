@@ -11,3 +11,23 @@ ion-title {
 	height: 100%;
 	text-align: center;
 }
+
+:root {
+	--ion-safe-area-top: 20px;
+	--ion-safe-area-bottom: 22px;
+}
+
+ion-list-header{
+	font-size: large;
+	font-weight: bold;
+}
+
+ul{
+	color: var(--ion-color-step-600, #666666);
+	font-size: small;
+	margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 20px;
+}

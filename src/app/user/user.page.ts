@@ -18,9 +18,12 @@ export class UserPage implements OnInit {
   user: any;
   userDelegation: any;
   /**
-  * Constructor for the class, the external services required are the Form Builder for forms, 
-  * Delegation Service for adding to the databse and the Toast Controller for showing a toast.
-  */
+   * Constructor for the class, the external services required are the Form Builder for forms, 
+   * Delegation Service for adding to the databse and the Toast Controller for showing a toast.
+   * @param  {DelegationService} privatedelegationService
+   * @param  {AuthService} privateauthService
+   * @param  {ToastController} privatetoastCtrl
+   */
   constructor(private delegationService: DelegationService,
               private authService: AuthService,
               private toastCtrl: ToastController) { }
