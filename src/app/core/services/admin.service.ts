@@ -24,6 +24,20 @@ export function parseFBPUserToUser(fbUser: any): AdminModel {
   return admin;
 }
 
+const arr = function(){};
+
+const collectionStub3 = {
+  subscribe: jasmine.createSpy('subscribe').and.returnValue(arr)
+}
+
+const collectionStub2 = {
+  pipe: jasmine.createSpy('pipe').and.returnValue(collectionStub3)
+}
+
+const collectionStub = {
+  snapshotChanges: jasmine.createSpy('snapshotChanges').and.returnValue(collectionStub2)
+}
+
 @Injectable({
   providedIn: 'root'
 })

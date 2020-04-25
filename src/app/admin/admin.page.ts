@@ -25,5 +25,4 @@ export class AdminPage implements OnInit {
       this.admins = admin;
     });
   }
-
 }

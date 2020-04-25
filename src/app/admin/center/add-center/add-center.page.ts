@@ -26,7 +26,7 @@ export class AddCenterPage implements OnInit {
   }
 
   /**
-   * User Story ID: M1NG1
+   * User Story ID: M1NG1c
    * Function that returns the description field on the add center form.
    */
   get description() {
