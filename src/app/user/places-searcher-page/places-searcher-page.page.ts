@@ -13,7 +13,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {MarkerCardComponent} from '../marker-card/marker-card.component';
 import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
 import { filter } from 'rxjs/operators';
-
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-places-searcher-page',
@@ -47,7 +47,7 @@ export class PlacesSearcherPagePage  {
   constructor(
     private placesService: PlacesService,
     private geolocationCont: Geolocation,
-    public modalController: ModalController,
+    public popoverController: PopoverController,
     private authService: AuthService,
     private afsAuth: AngularFireAuth
   ) { }
@@ -81,7 +81,7 @@ export class PlacesSearcherPagePage  {
   }
 
   async presentFilterModal() {
-    this.modal = await this.modalController.create({
+    this.modal = await this.popoverController.create({
       // cahnge component
       component: FilterMenuComponent,
       componentProps: {

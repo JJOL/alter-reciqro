@@ -1,5 +1,7 @@
-<ion-thumbnail [ngClass]="{'selected': active}" (click)="select()">
+<ion-avatar  slot="start">
         <img [src]="icon">
-</ion-thumbnail>
-<ion-text>{{name}}</ion-text>
-
+      </ion-avatar>
+      <ion-label>
+        {{name}}
+      </ion-label>
+      <ion-checkbox slot="end"></ion-checkbox>
