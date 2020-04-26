@@ -23,6 +23,19 @@
             <ion-input placeholder = "Ejemplo: http://ejemplo.com/ejemplo.jpg" type = "url" required = "true" [(ngModel)] = "url_waste_type"></ion-input>
           </ion-card-content>
           <ion-grid>
+            <ion-row class="ion-justify-content-left">
+              <ion-col class="ion-align-self-center" size-md = "4">
+                <ion-list>
+                  <ion-label position="floating">Tipos de residos que recibe</ion-label>
+                  <ion-item *ngFor="let waste of wasteTypes">
+                    <ion-checkbox slot = "start" (click) = "changeChecked(waste.id)"></ion-checkbox>
+                    <ion-label>{{ waste.name }}</ion-label>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-grid>
             <ion-row class="ion-justify-content-center">
               <ion-col class="ion-align-self-center" size-md = "4">
                 <ion-button expand = "block" (click) = "addPlaceType()">Registrar

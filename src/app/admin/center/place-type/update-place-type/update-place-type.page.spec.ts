@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
+import {RouterModule} from '@angular/router';
 import { UpdatePlaceTypePage } from './update-place-type.page';
+import { FormsModule} from '@angular/forms';
 
 describe('UpdatePlaceTypePage', () => {
   let component: UpdatePlaceTypePage;
@@ -10,7 +11,7 @@ describe('UpdatePlaceTypePage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ UpdatePlaceTypePage ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), RouterModule.forRoot([]), FormsModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(UpdatePlaceTypePage);

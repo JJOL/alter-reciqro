@@ -1,4 +1,4 @@
-import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
@@ -57,6 +57,7 @@ function isWithin(val, min, max) {
    */
 export class PlacesService {
   placeTypes: any;
+  itemDoc: AngularFirestoreDocument;
 
   constructor(
     private firedb: AngularFirestore) {
@@ -109,16 +110,32 @@ export class PlacesService {
     });
   }
 
+  /**
+   * User Story Id: M1NG10
+   * Fuction that deletes a especific Place Type
+   * @param  {string} id
+   * @param  {string} namewastetype
+   * @param  {string} urlwastetype
+   * @returns Promise<any>
+   */
   async deletePlaceTypeByID(id: string): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.firedb.collection<TipoInstalacion>(PLACE_TYPE_KEY).doc<TipoInstalacion>(id).delete().then(() => {
         resolve();
       });
     });
   }
 
+  /**
+   * User Story Id: M1NG8
+   * Fuction that gets all the Place Types
+   * @param  {string} id
+   * @param  {string} namewastetype
+   * @param  {string} urlwastetype
+   * @returns Promise<any>
+   */
   async allPlaceTypes(): Promise<any[]> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<Place>('place_type').snapshotChanges()
           .pipe(map(snapshot => {
@@ -139,7 +156,7 @@ export class PlacesService {
   
   /**
    * Obtenemos el tipo de lugar por 
-   * @param  {string} id
+   * @param  {string} PLACE_TYPE_KEY
    * @returns Promise
    */
   getPlaceTypeByID(id: string): Promise<TipoInstalacion> {
@@ -306,11 +323,19 @@ export class PlacesService {
     });
   }
 
-  updatePlaceType(id: string, name_waste_type: string, url_waste_type: string){
+  /**
+   * User Story Id: M1NG11
+   * Fuction that updates the values of a Place Type
+   * @param  {string} id
+   * @param  {string} namewastetype
+   * @param  {string} urlwastetype
+   * @returns Promise<any>
+   */
+  updatePlaceType(id: string, namewastetype: string, urlwastetype: string){
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(PLACE_TYPE_KEY).doc(id).set({
-        name: name_waste_type,
-        icon_url: url_waste_type
+        name: namewastetype,
+        icon_url: urlwastetype
       }, {merge: true} )
           .then(
               (res) => {
@@ -321,11 +346,18 @@ export class PlacesService {
     });
   }
 
-  addPlaceTypeFB(name_waste_type:string, url_waste_type: string){
+  /**
+   * User Story Id: M1NG9
+   * Fuction that adds a nuew Place Type
+   * @param  {string} namewastetype
+   * @param  {string} urlwastetype
+   * @returns Promise<any>
+   */
+  addPlaceTypeFB(namewastetype:string, urlwastetype: string){
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(PLACE_TYPE_KEY).add({
-        name: name_waste_type,
-        icon_url: url_waste_type
+        name: namewastetype,
+        icon_url: urlwastetype
       })
           .then(
               (res) => {
@@ -335,6 +367,59 @@ export class PlacesService {
           );
     });
   }
+
+  /**
+   * User Story Id: M1NG7, M1NG11
+   * Fuction that gets all the Place Wastes Types based on the place_type
+   * @param  {string} placeType
+   * @returns Promise<PlacesWasteTypes[]>
+   */
+  getAllWasteTypeByPlaceType(placeTypeId: string): Promise<PlacesWasteTypes[]> {
+    return new Promise((resolve) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<PlacesWasteTypes>(PLACE_TYPE_WASTE_TYPE, ref => ref.where('place_type', '==', placeTypeId)  ).snapshotChanges()
+          .pipe(map(snapshot => {
+            return snapshot.map(wastetype  => {
+              const data = wastetype.payload.doc.data();
+              const id = wastetype.payload.doc.id;
+              return {id, ...data};
+            });
+          }))
+          .subscribe(places => {
+            resolve(places);
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+          });
+    });
+  }
+
+  /**
+   * User Story Id: M1NG10, M1NG11
+   * Fuction that deletes all registers in the PlaceWasteType entity for a specific Place Type
+   * @param  {PlacesWasteTypes} filters
+   * @param  {WasteType} allwastes
+   * @returns void
+   */
+  deletePlaceWasteType(id: string):void{
+    this.firedb.collection<PlacesWasteTypes>(PLACE_TYPE_WASTE_TYPE).doc<PlacesWasteTypes>(id).delete()
+
+  }
+
+  /**
+   * User Story Id: M1NG11
+   * Fuction that inserts a new register in the PlaceWasteType entity
+   * @param  {PlacesWasteTypes} filters
+   * @param  {WasteType} allwastes
+   * @returns void
+   */
+  insertPlaceWasteType(placeId: string, wasteId: string):void{
+    this.firedb.collection(PLACE_TYPE_WASTE_TYPE).add({
+      place_type: placeId,
+      waste_type: wasteId
+    })
+  }
+  
 
 
 }

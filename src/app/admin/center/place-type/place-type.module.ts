@@ -17,4 +17,11 @@ import { PlaceTypePage } from './place-type.page';
   ],
   declarations: [PlaceTypePage]
 })
+
+/**
+   * User Story Id: M1NG8, M1NG10
+   * Allows the Place Type Module to be available for imports
+   * @param  
+   * @returns 
+   */
 export class PlaceTypePageModule {}

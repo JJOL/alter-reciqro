@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen *ngIf="loadedPlaceType" >
+<ion-content fullscreen *ngIf="uncheckedwasteTypes" >
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col size-md = "6" size-sm = "12" >
@@ -15,14 +15,32 @@
           <img [src]="loadedPlaceType.icon_url" />
           <ion-card-header>
             <ion-card-title>
-              <ion-label position="floating">Tipo de Centro de Residuo</ion-label>
+              <ion-card-subtitle position="floating">Tipo de Centro de Residuo</ion-card-subtitle>
               <ion-input placeholder = "Ejemplo: Libros" type = "text" required = "true" maxlength = "30" [(ngModel)] = "name_waste_type"></ion-input>
             </ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <ion-label position="floating">Url del Tipo de Centro de Residuo</ion-label>
+            <ion-card-subtitle position="floating">Url del Tipo de Centro de Residuo</ion-card-subtitle>
             <ion-input placeholder = "Ejemplo: http://ejemplo.com/ejemplo.jpg" type = "url" required = "true" [(ngModel)] = "url_waste_type"></ion-input>
+            <ion-grid>
+              <ion-row class="ion-justify-content-left">
+                <ion-col class="ion-align-self-center" size-md = "4">
+                  <ion-list>
+                    <ion-card-subtitle position="floating">Tipos de Residos que Recibe</ion-card-subtitle>
+                    <ion-item *ngFor="let waste of checkedwasteTypes">
+                      <ion-checkbox slot = "start" checked="true" (click) = "changeChecked(waste.id)"></ion-checkbox>
+                      <ion-label>{{ waste.name }}</ion-label>
+                    </ion-item>
+                    <ion-item *ngFor="let waste of uncheckedwasteTypes" >
+                      <ion-checkbox slot = "start" (click) = "changeChecked(waste.id)"></ion-checkbox>
+                      <ion-label>{{ waste.name }}</ion-label>
+                    </ion-item>
+                  </ion-list>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
           </ion-card-content>
+          
           <ion-grid>
             <ion-row class="ion-justify-content-center">
               <ion-col class="ion-align-self-center" size-md = "4">

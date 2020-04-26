@@ -33,4 +33,11 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
+
+/**
+   * User Story Id: M1NG8, M1NG10
+   * Allows the Place Type Routing Module to be available for imports
+   * @param  
+   * @returns 
+   */
 export class PlaceTypePageRoutingModule {}

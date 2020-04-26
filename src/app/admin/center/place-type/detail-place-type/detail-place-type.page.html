@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen *ngIf="loadedPlaceType" >
+<ion-content fullscreen *ngIf="wasteTypes" >
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col size-md = "6" size-sm = "12" >
@@ -20,6 +20,19 @@
           <ion-card-content>
             <ion-card-subtitle>Url del Tipo de Centro de Residuo</ion-card-subtitle>
             {{ loadedPlaceType.icon_url }}
+            <br>
+            <ion-grid>
+              <ion-row>
+                <ion-col size-md = "4">
+                  <ion-list *ngIf="wasteTypes">
+                    <ion-card-subtitle>Tipos de Residos que Recibe</ion-card-subtitle>
+                    <ion-item *ngFor="let waste of wasteTypes">
+                      <ion-label>{{ waste.name }}</ion-label>
+                    </ion-item>
+                  </ion-list>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
           </ion-card-content>
         </ion-card>
       </ion-col>

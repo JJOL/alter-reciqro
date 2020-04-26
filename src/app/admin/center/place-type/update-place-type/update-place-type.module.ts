@@ -13,8 +13,15 @@ import { UpdatePlaceTypePage } from './update-place-type.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    UpdatePlaceTypePageRoutingModule
+    UpdatePlaceTypePageRoutingModule,
   ],
   declarations: [UpdatePlaceTypePage]
 })
+
+/**
+   * User Story Id: M1NG11
+   * Allows the Update Place Type Module to be available for imports
+   * @param  
+   * @returns 
+   */
 export class UpdatePlaceTypePageModule {}

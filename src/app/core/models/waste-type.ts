@@ -7,6 +7,7 @@ export class WasteType {
   ) {}
 }
 export class PlacesWasteTypes {
+    id: string;
     place: string;
     waste_type: string;
 }
