@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 import { Component, OnInit } from '@angular/core';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { PlacesService } from 'src/app/core/services/places.service';
@@ -21,6 +22,8 @@ export class DetailPlaceTypePage implements OnInit {
 
   placeTypeId: string;
   loadedPlaceType: TipoInstalacion;
+  wastes: any[];
+  flag: number;
 
   wasteTypes: WasteType[];
   placeWasteType: PlacesWasteTypes[];
@@ -65,6 +68,7 @@ export class DetailPlaceTypePage implements OnInit {
         });
       }
     });
+    
   }
 
 }
