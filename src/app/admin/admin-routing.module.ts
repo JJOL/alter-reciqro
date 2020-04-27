@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'metrics',
     loadChildren: () => import('./metrics/metrics.module').then( m => m.MetricsPageModule)
+  },
+  {
+    path: 'add-admin',
+    loadChildren: () => import('./add-admin/add-admin.module').then( m => m.AddAdminPageModule)
   }
 ];
 
