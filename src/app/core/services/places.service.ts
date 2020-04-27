@@ -426,8 +426,7 @@ export class PlacesService {
   /**
    * User Story Id: M1NG10, M1NG11
    * Fuction that deletes all registers in the PlaceWasteType entity for a specific Place Type
-   * @param  {PlacesWasteTypes} filters
-   * @param  {WasteType} allwastes
+   * @param  {string} id
    * @returns void
    */
   deletePlaceWasteType(id: string):void{
@@ -438,8 +437,8 @@ export class PlacesService {
   /**
    * User Story Id: M1NG11
    * Fuction that inserts a new register in the PlaceWasteType entity
-   * @param  {PlacesWasteTypes} filters
-   * @param  {WasteType} allwastes
+   * @param  {string} placeId
+   * @param  {string} wasteId
    * @returns void
    */
   insertPlaceWasteType(placeId: string, wasteId: string):void{
