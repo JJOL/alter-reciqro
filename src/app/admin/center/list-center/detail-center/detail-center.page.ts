@@ -6,7 +6,7 @@ import { AlertController, NavController } from '@ionic/angular';
 import { PlacesService } from 'src/app/core/services/places.service';
 import { Place } from 'src/app/core/models/place.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
-import { GeoPoint } from 'src/app/core/models/geopoint.model';
+//import { GeoPoint } from 'src/app/core/models/geopoint.model';
 
 @Component({
   selector: 'app-detail-center',
@@ -21,11 +21,12 @@ import { GeoPoint } from 'src/app/core/models/geopoint.model';
 export class CenterDetailPage implements OnInit {
 
   loadedPlace: Place;
+  position: { lat: number, lng: number};
 
   loadedPlaceType: TipoInstalacion;
   mapPlaces: Place[] = [];
 
-  @ViewChild ('mapElement', {static: false}) mapEl;
+  @ViewChild ('mapElement', {static: false}) map;
   
   /**
    * User Story ID: M1NG5
@@ -58,6 +59,12 @@ export class CenterDetailPage implements OnInit {
           this.loadedPlace = place;
           this.mapPlaces = [ this.loadedPlace ];
 
+          this.position = {
+            lat: place.location.lat,
+            lng: place.location.lng
+          };
+          this.map.setCenter(this.position);
+
           // get placeType
           if (this.loadedPlace.places_type.id) {
             this.placeService.getPlaceTypeByID('' + this.loadedPlace.places_type.id).then(placeType => {
@@ -79,9 +86,9 @@ export class CenterDetailPage implements OnInit {
    * User Story ID: M1NG5
    */
   ionViewWillEnter() {
-
+    
   }
-
+  
   /**
    * User Story ID: M1NG3
    * Description: This function warns the user before deleting a place with an alert
