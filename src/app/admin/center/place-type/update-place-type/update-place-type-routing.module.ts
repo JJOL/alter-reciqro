@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DetailPlaceTypePage } from './detail-place-type.page';
+import { UpdatePlaceTypePage } from './update-place-type.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: DetailPlaceTypePage
+    component: UpdatePlaceTypePage
   }
 ];
 
@@ -16,9 +16,9 @@ const routes: Routes = [
 })
 
 /**
-   * User Story Id: M1NG7
-   * Allows the Detail Place Type Routing Module to be available for imports
+   * User Story Id: M1NG11
+   * Allows the Update Place Type Routing Module to be available for imports
    * @param  
    * @returns 
    */
-export class DetailPlaceTypePageRoutingModule {}
+export class UpdatePlaceTypePageRoutingModule {}

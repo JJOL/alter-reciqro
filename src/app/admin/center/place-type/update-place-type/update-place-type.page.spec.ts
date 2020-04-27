@@ -1,28 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { DetailPlaceTypePage } from './detail-place-type.page';
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
+import { UpdatePlaceTypePage } from './update-place-type.page';
+import { FormsModule} from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MockAngularFirestore } from 'src/app/core/services/mocks/firestore.mock';
 
-const arr = [[]];
-
-
-
-describe('DetailPlaceTypePage', () => {
-  let component: DetailPlaceTypePage;
-  let fixture: ComponentFixture<DetailPlaceTypePage>;
+describe('UpdatePlaceTypePage', () => {
+  let component: UpdatePlaceTypePage;
+  let fixture: ComponentFixture<UpdatePlaceTypePage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DetailPlaceTypePage ],
-      imports: [IonicModule.forRoot(), RouterTestingModule],
+      declarations: [ UpdatePlaceTypePage ],
+      imports: [IonicModule.forRoot(), RouterModule.forRoot([]), FormsModule],
       providers: [
         { provide: AngularFirestore, useValue: MockAngularFirestore }
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DetailPlaceTypePage);
+    fixture = TestBed.createComponent(UpdatePlaceTypePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
