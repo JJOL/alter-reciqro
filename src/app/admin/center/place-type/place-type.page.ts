@@ -62,51 +62,49 @@ export class PlaceTypePage implements OnInit {
   onDeletePlaceType(placeTypeId: string, name: string) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let placeType: any[];
-    this.placesService.getPlaceTypeByID(placeTypeId).then(item => {
-      placeType = [{
-        place_type: item.id
-      }];
-      this.placesService.getIDPlacesByPlacesType(placeType).then(data => {
-        let places: Place[] = data;
-        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-        if(places.length > 0){
-          this.alertCtrl.create ({
-            header: 'Atención',
-            message: 'No es posible eliminar la categoría de desecho "' + name + '" ya que está asociada a diversos centros.',
-            buttons: [{
-              text: 'Aceptar',
-              role: 'cancel'
-            }]
-          }).then(alertEl => {
-            alertEl.present();
-          });
-        }else{
-          this.alertCtrl.create ({
-            header: 'Mensaje de Confirmación',
-            message: '¿De verdad quieres eliminar el tipo de residuo "'+ name + '"?',
-            buttons: [{
-              text: 'Cancelar',
-              role: 'cancel'
-            }, {
-              text: 'Borrar',
-              handler: () => {
-                this.placesService.deletePlaceTypeByID(placeTypeId).then(() => {
-                  this.placesService.getAllWasteTypeByPlaceType(placeTypeId).then(data => {
-                    this.placeWasteTypeToDelete = data;
-                    for (const item of this.placeWasteTypeToDelete){
-                      this.placesService.deletePlaceWasteType(item.id);
-                    }
-                  });
-                  this.placesService.allPlaceTypes().then( data => { this.placeTypes = data; });
-                })
-                    .catch(() => {});
-              }
-            }]
-          }).then(alertEl => {
-            alertEl.present();
-          });
-        }
-      });
-    });   
+    placeType = [{
+      place_type: placeTypeId
+    }];
+    this.placesService.getIDPlacesByPlacesType(placeType).then(data => {
+      let places: Place[] = data;
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+      if(places.length > 0){
+        this.alertCtrl.create ({
+          header: 'Atención',
+          message: 'No es posible eliminar la categoría de desecho "' + name + '" ya que está asociada a diversos centros.',
+          buttons: [{
+            text: 'Aceptar',
+            role: 'cancel'
+          }]
+        }).then(alertEl => {
+          alertEl.present();
+        });
+      }else{
+        this.alertCtrl.create ({
+          header: 'Mensaje de Confirmación',
+          message: '¿De verdad quieres eliminar el tipo de residuo "'+ name + '"?',
+          buttons: [{
+            text: 'Cancelar',
+            role: 'cancel'
+          }, {
+            text: 'Borrar',
+            handler: () => {
+              this.placesService.deletePlaceTypeByID(placeTypeId).then(() => {
+                this.placesService.getAllWasteTypeByPlaceType(placeTypeId).then(data => {
+                  this.placeWasteTypeToDelete = data;
+                  for (const item of this.placeWasteTypeToDelete){
+                    this.placesService.deletePlaceWasteType(item.id);
+                  }
+                });
+                this.placesService.allPlaceTypes().then( data => { this.placeTypes = data; });
+              })
+                  .catch(() => {});
+            }
+          }]
+        }).then(alertEl => {
+          alertEl.present();
+        });
+      }
+    }); 
   }
 }
