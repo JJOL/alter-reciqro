@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import 'firebase/firestore';
 import { WasteType, PlacesWasteTypes } from '../models/waste-type';
 import { Subscription } from 'rxjs';
-import { map, filter, retry } from 'rxjs/operators';
+import { map,} from 'rxjs/operators';
 
 const WASTE_TYPE_KEY = '/waste_type';
 

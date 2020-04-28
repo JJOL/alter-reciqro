@@ -23,7 +23,6 @@ const GeoPoint = firebase.firestore.GeoPoint;
  * @returns Place
  */
 export function parseFBPlaceToPlace(fbPlace: any): Place {
-  const icon ='sss';
   const data  = fbPlace.payload.doc.data();
   const id = fbPlace.payload.doc.id;
   const place = new Place(
@@ -66,7 +65,7 @@ export class PlacesService {
 
   /**
    * User Story ID: M1NG4
-   * Description: This function returns all the places from firebase
+   * Description: This function returns all the places from firebase.
   /**
    * Constructor for the class, only external service used will be the Firestore one.
    * @param  {AngularFirestore} privatefiredb
