@@ -1,3 +1,7 @@
+import { FormsModule } from '@angular/forms';
+import { SharedPageModule } from './shared/shared.module';
+import { SharedPage } from './shared/shared.page';
+import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 import { AuthService } from './core/services/auth.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { NgModule } from '@angular/core';
@@ -22,12 +26,12 @@ import { environment } from '../environments/environment';
   entryComponents: [],
   imports: [
     BrowserModule,
+    FormsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.database.firebaseConfig),
     AngularFirestoreModule,
-    AngularFireAuthModule,
-
+    AngularFireAuthModule
   ],
   providers: [
     StatusBar,
