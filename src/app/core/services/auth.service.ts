@@ -1,10 +1,11 @@
+import { empty } from 'rxjs';
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 /* eslint-disable eqeqeq */
 /* eslint-disable camelcase */
 import { ToastController } from '@ionic/angular';
 import { resolve } from 'url';
 import { Router } from '@angular/router';
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable, of, Subscription, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore , AngularFirestoreDocument} from '@angular/fire/firestore';
@@ -18,6 +19,8 @@ const USER_KEY = '/users';
 export class AuthService {
   auxiliar: string;
   user: Observable<User>;
+  isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean> (false);
+  userRoles: BehaviorSubject<any> = new BehaviorSubject<any> (empty);
   // eslint-disable-next-line require-jsdoc
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
@@ -46,10 +49,11 @@ export class AuthService {
   /**
    * * USID: M4NC2
    * UserStoryID: M4NC1
-   * Metodo crea usuario en la tabla users con su informacion adicional, toma como entrada el form y el userUID que se creo y crea una promesa con los servicio de firestore firebase
+   * Metodo crea usuario en la tabla users con su informacion adicional,
+   * toma como entrada el form y el userUID que se creo y crea una promesa con los servicio de firestore firebase
    * @param  {any} userObject
    * @param  {string} userUID
-   */ 
+   */
   createUser(userObject, userUID){
     return new Promise<any>((resolve, reject) => {
       this.afs.collection(USER_KEY).doc(userUID).set({
@@ -77,6 +81,9 @@ export class AuthService {
       this.afAuth.auth.signInWithEmailAndPassword(email, password)
           .then(userData => {
             resolve(userData);
+            this.isUserLoggedIn.next(true);
+            let user: any = this.getUserByUID(userData.user.uid);
+            this.userRoles.next(user.roles);
             this.showToast('Bienvenido a ReciQro');
           });
     });
@@ -89,6 +96,10 @@ export class AuthService {
     return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
         .then((credential) => {
           this.updateUserData(credential.user);
+          this.isUserLoggedIn.next(true);
+          console.log("aquie esta el obser2",this.isUserLoggedIn.value);
+          let user: any = this.getUserByUID(credential.user.uid);
+          this.userRoles.next(user.roles);
           this.showToast('Bienvenido a ReciQro');
         });
   }
@@ -98,6 +109,9 @@ export class AuthService {
    */
   logoutUser() {
     return this.afAuth.auth.signOut().then(() => {
+      this.userRoles.unsubscribe();
+      this.isUserLoggedIn.next(false);
+      this.isUserLoggedIn.unsubscribe();
       this.router.navigate(['user/places-searcher-page']);
       this.showToast('Hasta luego, has cerrado sesión');
     });

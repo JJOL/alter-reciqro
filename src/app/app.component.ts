@@ -48,17 +48,22 @@ export class AppComponent {
       this.splashScreen.hide();
     });
   }
+
   /**
-   * Execute get roels in order to redirect dynamic menus
+   *  Loads somtehing
    */
-    async ngOnInit(){
-     console.log("hey jj");
-    let roles =   await this.authService.getRolesandSession();
-    this.isLogged = roles[0];
-    this.admin = roles [1];
-    this.staff = roles [2];
-    this.user = roles[3];
-    console.log(roles);
+  ngOnInit() {
+    this.authService.isUserLoggedIn.asObservable().subscribe(value => {
+      this.isLogged = value;
+      console.log("aqui esta cambiando",this.authService.isUserLoggedIn.value);
+
+      /*this.authService.userRoles.asObservable().subscribe(roles => {
+        console.log("entro a los roles");
+        this.admin = roles [1];
+        this.staff = roles [2];
+        this.user = roles[3];
+      });*/
+    });
   }
 
 
