@@ -1,4 +1,4 @@
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentSnapshot } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
@@ -17,31 +17,41 @@ const GeoPoint = firebase.firestore.GeoPoint;
 
 /**
  * User Story ID: M1NCx
- * Function that casts a firebase place to our place model.
+ * Function that casts a firebase payload snapshot to our place model.
  * @param  {any} fbPlace
  * @returns Place
  */
 export function parseFBPlaceToPlace(fbPlace: any): Place {
   const icon ='sss';
-  const data  = fbPlace.payload.doc.data();
-  const id = fbPlace.payload.doc.id;
-  const place = new Place(
-      id,
-      data.name,
-      data.description,
-      {
-        lat: data.location.latitude,
-        lng: data.location.longitude,
-      },
-      data.address,
-      data.postal_code,
-      data.places_type,
-      data.photo,
-      data.qr_code,
-  );
-
-  return place;
+  return parseFBPlaceDocToPlace(fbPlace.payload.doc);
 }
+/**
+ * User Story ID: M1NCX
+ * Description: Parses a Firebase.DocumentSnapshot<Place> to Place object
+ * @param  {DocumentSnapshot<any>} fbPlaceDoc
+ * @returns Place
+ */
+export function parseFBPlaceDocToPlace(fbPlaceDoc: DocumentSnapshot<any>): Place {
+  const data  = fbPlaceDoc.data();
+  const id = fbPlaceDoc.id;
+  const place = new Place(
+    id,
+    data.name,
+    data.description,
+    {
+      lat: data.location.latitude,
+      lng: data.location.longitude,
+    },
+    data.address,
+    data.postal_code,
+    data.places_type,
+    data.photo,
+    data.qr_code,
+);
+
+return place;
+}
+
 /**
  * User Story ID: NA
  * Function that determines if a value is within a range (min - max).
@@ -385,6 +395,33 @@ export class PlacesService {
               subscription.unsubscribe();
             }
           });
+    });
+  }
+
+  /**
+   * User Story ID: M1NG6
+   * Description: Returns a place by its QR Code
+   * @param  {string} qrUrl
+   * @returns Promise<Place>
+   */
+  getPlaceByQRCode(qrUrl: string): Promise<Place> {
+    return new Promise((success, reject) => {
+      this.firedb.collection(PLACE_KEY)
+        .ref.where('qr_code', '==', qrUrl)
+        .get()
+        .then(fbplaces => {
+          
+          let places = fbplaces.docs.map(parseFBPlaceDocToPlace);
+          
+          if (places[0]) {
+            success(places[0]);
+          } else {
+            reject('Can Not Parse Place Error!');
+          }
+        })
+        .catch(err => {
+          reject(err);
+        })
     });
   }
 }
