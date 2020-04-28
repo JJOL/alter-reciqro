@@ -2,9 +2,12 @@ import { AuthService } from './../../core/services/auth.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import {ReactiveFormsModule, FormBuilder, FormsModule } from '@angular/forms';
 import { LoginPage } from './login.page';
 import { RouterModule } from '@angular/router';
+import { SharedPageModule } from 'src/app/shared/shared.module'
+import { RouterTestingModule } from '@angular/router/testing';
+
 import { empty } from 'rxjs';
 
 const authStub: any = {
@@ -52,8 +55,10 @@ describe('LoginPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LoginPage ],
-      imports: [IonicModule.forRoot(), FormsModule, RouterModule.forRoot([])],
-      providers: [{ provide: AngularFireAuth, useValue: authStub },
+      imports: [IonicModule.forRoot(), SharedPageModule, RouterTestingModule,ReactiveFormsModule, RouterModule.forRoot([])],
+      providers: [
+        FormBuilder,
+        { provide: AngularFireAuth, useValue: authStub },
         { provide: AuthService, useValue: mockAuthentication }]
     }).compileComponents();
 
