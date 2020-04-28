@@ -16,4 +16,7 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
+/**
+ * Exporting CenterDetailPageRoutingModule class so it is externally accessible.
+ */
 export class CenterDetailPageRoutingModule {}

@@ -24,6 +24,7 @@ export class WasteType {
  * Class that defines the model for the place<->waste table, indicating its fields.
  */
 export class PlacesWasteTypes {
+    id: string;
     place: string;
     waste_type: string;
 }

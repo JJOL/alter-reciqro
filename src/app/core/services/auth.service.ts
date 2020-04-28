@@ -142,7 +142,7 @@ export class AuthService {
    * Updates user data in case there is no information it is used in logingoogle method
    * @param  {} user
    */
-  private async updateUserData(user){
+  async updateUserData(user){
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     let galias: string;
     let gdelegation_id: string ;
@@ -153,12 +153,10 @@ export class AuthService {
     gdelegation_id = useraux.delegation_id;
     gpoints = useraux.points;
     groles = useraux.roles;
-    // tslint:disable-next-line: triple-equals
-    if ('' == galias) {
+    if ('' === galias) {
       galias = 'no name';
     }
-    // tslint:disable-next-line: triple-equals
-    if ('' == gdelegation_id) {
+    if ('' === gdelegation_id) {
       gdelegation_id = 'sLiPWGpvVzATetdO7CD9';
     }
     if (0 >= gpoints) {
@@ -176,6 +174,17 @@ export class AuthService {
     return userRef.set(data, {merge: true});
   }
 
+  /**
+   * Updates the user's info based on UID 
+   * @param  {string} uid
+   * @param  {any} user
+   * @returns Promise
+   */
+  updateUserByUID(uid:string, user:any):Promise<any>{
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uid}`);
+    console.log(user)
+    return userRef.set(user, {merge: true});
+  }
 
   /**
    *  Gets the current logged user
@@ -214,6 +223,42 @@ export class AuthService {
       );
     });
 
+  }
+  /**
+   * Updates the current info user information
+   * @param  {} user
+   */
+  async updateCurrentUser(data){
+    return new Promise((resolve) => {
+      let subscription: Subscription;
+      subscription = this.afAuth.authState.pipe(map(auth => auth)).subscribe( user =>
+      {
+        if (subscription) {
+          subscription.unsubscribe();
+        }
+        resolve(this.updateUserByUID(user?user.uid:null,data));
+      }
+      );
+    });
+  }
+  
+
+
+  /**
+   * Method that get the roles of the current user in order to set fynamic menu
+   */
+  async getRolesandSession() {
+    let islogged: boolean;
+    let admin: boolean;
+    let staff: boolean;
+    let user: boolean;
+    let roles = [];
+    const useraux = await this.getCurrentUser();
+    if ( useraux) { islogged = true;  roles = useraux.roles;} else { islogged = false; }
+    if ( roles.indexOf('user') >= 0) { user = true; } else { user = false; }
+    if ( roles.indexOf('admin') >= 0) { admin = true; } else { admin = false; }
+    if ( roles.indexOf('staff') >= 0) { staff = true; } else { staff = false; }
+    return [islogged,admin,staff,user];
   }
 
   /**

@@ -99,7 +99,6 @@ export class GoogleMapComponent implements OnInit, OnChanges {
             lat: event.latLng.lat(),
             lng: event.latLng.lng()}
         };
-
         if (this.addPlace(place)) {
           this.placeChange.emit(place);
           this.addMarker(place);

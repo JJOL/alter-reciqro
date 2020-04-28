@@ -41,6 +41,10 @@
 
  }
 
+ ion-popover {
+	--width: 320px;
+}
+
  ion-modal {
     ion-content {
         &.content {

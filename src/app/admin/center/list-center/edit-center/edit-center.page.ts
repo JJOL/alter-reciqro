@@ -22,7 +22,6 @@ export class EditCenterPage implements OnInit {
   updateBookingForm: FormGroup;
 
   place: Place;
-
   loadedPlacetypes: TipoInstalacion[];
 
   /**
