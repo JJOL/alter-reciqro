@@ -19,21 +19,42 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" size-lg="6" size-md="6" offset-lg="3" offset-md="3">
-        <form #formLogin="ngForm" (submit)="onLogin()">
-          <h1 class="h3 mb-3 font-weight-normal" >Inicio de Sesión a ReciQro</h1>
-          <div class="form-group">
-            <ion-list >
-              <ion-item>
-                <ion-label position="floating">Correo</ion-label>
-                <ion-input [(ngModel)]="email" name="email" type="email" required></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label position="floating">Contraseña</ion-label>
-                <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
-              </ion-item>
+        <br><br><br>
+        <h1 class="h3 mb-3 font-weight-normal" >Inicio de Sesión a ReciQro</h1>
+        <br>
+        <p>Ingresa tus credenciales para iniciar sesión.</p>
+        
+        <form [formGroup]= "newCenterForm" (ngSubmit)="submit()">
+          <hr>
+          <hr>
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">Correo</ion-label>
+              <ion-input formControlName="email" inputmode="email" ></ion-input>
+            </ion-item>
+            <div class='errorLogin' *ngFor="let error of errorMessages.email">
+              <ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
+        
+            <ion-item>
+              <ion-label position="floating">Contraseña</ion-label>
+              <ion-input formControlName="password" inputmode="password" type="password"></ion-input>
+            </ion-item>
+            <div class='errorLogin' *ngFor="let error of errorMessages.password">
+              <ng-container *ngIf="password.hasError(error.type) && (password.dirty || password.touched)">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
+            <br>
+            <ion-button [disabled]="!newCenterForm.valid" type="submit" expand="block">
+              Login
+              <ion-icon slot="end" name="send"></ion-icon>
+            </ion-button>
             </ion-list>
-          </div>
-          <ion-button type="submit" color="secondary" (click)="onLogin()">Iniciar Sesión</ion-button>
+        
+          
           <br><br><br>
           <div class="form-group">
             <ion-label>Regístrate o inicia sesión con Google</ion-label><br><br>
@@ -52,9 +73,10 @@
           </div>
           <br>
           <div class="form-group">
-            <a routerLink="/user/recover-password" class="form-control login-user">¿Has olvidado tu contraseña?</a>
+            <a routerLink="/user/recover-password" class="form-control login-user">¿Olvidaste tu contraseña?</a>
           </div>
         </form>
+        
       </ion-col>
     </ion-row>
   </ion-grid>

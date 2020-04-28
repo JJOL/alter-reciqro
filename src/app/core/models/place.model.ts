@@ -21,7 +21,6 @@ export class Place {
    * @param  {string} publicreadonlyphoto
    * @param  {string} publicreadonlyqr_code
    */
-  
   constructor(
         public readonly id: string,
         public readonly name: string,
