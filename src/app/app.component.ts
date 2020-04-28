@@ -56,7 +56,6 @@ export class AppComponent {
     this.authService.isUserLoggedIn.asObservable().subscribe(value => {
       this.isLogged = value;
       console.log("aqui esta cambiando",this.authService.isUserLoggedIn.value);
-
       /*this.authService.userRoles.asObservable().subscribe(roles => {
         console.log("entro a los roles");
         this.admin = roles [1];

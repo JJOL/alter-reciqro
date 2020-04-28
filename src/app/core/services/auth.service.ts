@@ -26,6 +26,11 @@ export class AuthService {
               private afs: AngularFirestore,
               private router: Router,
               private toastCtrl: ToastController) {
+    this.getCurrentUser().then(user => {
+      if (user){
+        this.isUserLoggedIn.next(true);
+      }
+    })
   }
   //User Story ID: M4NC1
   /**
@@ -126,7 +131,7 @@ export class AuthService {
   /**
    * USID: M4NC2
    * Returns the user info by uid
-   * @param  {string} iud
+   * @param  {string} uid
    */
   getUserByUID(uid:string):Promise<any>{
     return new Promise((resolve) => {
@@ -155,35 +160,47 @@ export class AuthService {
    * @param  {} user
    */
   async updateUserData(user){
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-    let galias: string;
-    let gdelegation_id: string ;
-    let gpoints: number ;
-    let groles: [string];
-    const useraux = await this.getUserByUID(user.uid);
-    galias = useraux.alias;
-    gdelegation_id = useraux.delegation_id;
-    gpoints = useraux.points;
-    groles = useraux.roles;
-    if ('' === galias) {
-      galias = 'no name';
+    let userconfirmation= await this.getUserByUID(user.uid);
+    if (!userconfirmation) {
+      const userGoogle: User = {
+        alias: 'no name',
+        delegation_id: 'sLiPWGpvVzATetdO7CD9',
+        points: 0,
+        roles: ['user']
+      };
+      this.createUser(userGoogle,user.uid);
+    } else {
+      const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+      let galias: string;
+      let gdelegation_id: string ;
+      let gpoints: number ;
+      let groles: [string];
+      const useraux = await this.getUserByUID(user.uid);
+      galias = useraux.alias;
+      gdelegation_id = useraux.delegation_id;
+      gpoints = useraux.points;
+      groles = useraux.roles;
+      if ('' === galias) {
+        galias = 'no name';
+      }
+      if ('' === gdelegation_id) {
+        gdelegation_id = 'sLiPWGpvVzATetdO7CD9';
+      }
+      if (0 >= gpoints) {
+        gpoints = 0;
+      }
+      if (groles.length < 0) {
+        groles = ['user'];
+      }
+      const data: User = {
+        alias: galias,
+        delegation_id: gdelegation_id,
+        points: gpoints,
+        roles: groles
+      };
+      return userRef.set(data, {merge: true});
+
     }
-    if ('' === gdelegation_id) {
-      gdelegation_id = 'sLiPWGpvVzATetdO7CD9';
-    }
-    if (0 >= gpoints) {
-      gpoints = 0;
-    }
-    if (groles.length < 0) {
-      groles = ['user'];
-    }
-    const data: User = {
-      alias: galias,
-      delegation_id: gdelegation_id,
-      points: gpoints,
-      roles: groles
-    };
-    return userRef.set(data, {merge: true});
   }
 
   /**
