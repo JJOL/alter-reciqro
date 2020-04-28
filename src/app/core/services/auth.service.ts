@@ -73,12 +73,14 @@ export class AuthService {
    * @param  {string} password
    */
   loginEmailUser(email: string, password: string) {
-    return new Promise ((resolve) => {
+    return new Promise((resolve, reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(email, password)
           .then(userData => {
             resolve(userData);
             this.showToast('Bienvenido a ReciQro');
-          });
+          },
+          err => reject(err)
+          );
     });
   }
   /**

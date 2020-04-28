@@ -6,7 +6,7 @@ import { PlacesService } from 'src/app/core/services/places.service';
 import { Place } from 'src/app/core/models/place.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 
-
+const MAXLENGTH =100
 @Component({
   selector: 'app-edit-center',
   templateUrl: './edit-center.page.html',
@@ -140,14 +140,14 @@ export class EditCenterPage implements OnInit {
   };
 
   newCenterForm = this.formBuilder.group({
-    name: ['', [Validators.required, Validators.maxLength(100)]],
-    description: ['', [Validators.required, Validators.maxLength(100)]],
+    name: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
+    description: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
     latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
     longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
     qrCode: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
     mainPicture: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
     address: this.formBuilder.group({
-      street: ['', [Validators.required, Validators.maxLength(100)]],
+      street: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
       zip: ['', [Validators.required, Validators.pattern('^\\d{5}$')]]
     }),
     instalationType: ['', [Validators.required]]

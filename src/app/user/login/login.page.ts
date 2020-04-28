@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import { auth } from 'firebase/app'; 
-import { AlertController } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import { AlertController, ToastController } from '@ionic/angular';
+import { FormsModule,FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-login',
@@ -14,13 +15,47 @@ import { FormsModule } from '@angular/forms';
 
 /** Login Class  */
 export class LoginPage implements OnInit {
-  public email: string;
-  public password: string;
+  /**
+   */
+  get f() { return this.newCenterForm.controls; }
+  /**
+   */
+  get email() {
+    return this.newCenterForm.get('email');
+  }
+  /**
+   */
+  get password() {
+    return this.newCenterForm.get('password');
+  }
+
+  public errorMessages = {
+    
+    
+    email: [
+      { type: 'required', message: 'Email es requerido' },
+      { type: 'pattern', message: 'El formato de email no es correcto'}
+    ],
+    password: [
+      { type: 'required', message: 'Contraseña es requerida' },
+      
+    ]
+    
+  };
+  
+  newCenterForm = this.formBuilder.group({
+   
+    email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
+    password: ['', [Validators.required]],
+    
+  });
+
   // eslint-disable-next-line require-jsdoc
   constructor(public afAuth: AngularFireAuth,
               private router: Router, 
-              private authService: AuthService, 
-              public alertController: AlertController) { }
+              private authService: AuthService,
+              public formBuilder: FormBuilder, 
+              private toastCtrl: ToastController) { }
 
   // eslint-disable-next-line require-jsdoc
   ngOnInit() {
@@ -29,11 +64,16 @@ export class LoginPage implements OnInit {
    * Method that calls auth service so that the user can login to the app with email and password
    * @returns void
    */
-  onLogin(): void {
-    this.authService.loginEmailUser(this.email, this.password)
+  public submit() {
+    this.authService.loginEmailUser(this.newCenterForm.value.email, this.newCenterForm.value.password)
         .then( () => {
           this.router.navigate(['user/places-searcher-page']);
-        } ).catch (err => {this.isAnError(err);});
+        } ).catch (err => {
+          this.showToast('Contraseña o Usuario Incorrecto','danger')
+          this.newCenterForm.reset;
+          console.log(err)  
+          
+        });
   }
   /**
    * Method that calls auth service so that the user can login to the app with google
@@ -44,7 +84,10 @@ export class LoginPage implements OnInit {
         .then(() => {
           this.router.navigate(['user/places-searcher-page']);
         // eslint-disable-next-line no-console
-        }).catch (err => console.log(err));
+        }).catch (err => {
+          console.log(err)
+          this.isAnError(err)
+        });
   }
   /**
    * Method that calls auth service so that the user can logout and end the session
@@ -56,28 +99,23 @@ export class LoginPage implements OnInit {
    * Method used for handling errors
    * @param  {} error
    */
-  async isAnError(error) {
-    if('auth/invalid-email' == error.code) {
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: 'Escribe un email correcto.',
-        buttons: ['OK']
-      });
-      await alert.present();
-    } else if ('auth/argument-error' == error.code) {
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: 'Escribir email y contraseña porfavor.',
-        buttons: ['OK']
-      });
-      await alert.present();
-    } else if ('auth/user-not-found' == error.code || 'auth/wrong-password' == error.code) {
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: 'Contraseña o Usuario erroneos.',
-        buttons: ['OK']
-      });
-      await alert.present();
+  isAnError(error) {
+    if ('auth/user-not-found' === error.code || 'auth/wrong-password' === error.code) {
+      this.showToast('Error, contraseña o usario incorrecto','danger');
+      
     }
+  }
+  /**
+   * Crear mensaje en forma de Toast
+   * @param  {string} msg
+   * 
+   */
+  showToast(msg: string, color: string) {
+    this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'middle',
+      color: color
+    }).then(toast => toast.present());
   }
 }

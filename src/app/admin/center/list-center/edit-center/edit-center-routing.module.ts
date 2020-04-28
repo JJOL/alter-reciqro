@@ -14,4 +14,7 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
+/*
+*Exportar la clase edit
+*/
 export class EditCenterPageRoutingModule {}
