@@ -111,12 +111,9 @@ export class UpdatePlaceTypePage implements OnInit {
    * @returns 
    */
   updatePlaceType(){
-    //console.log(this.placeWasteTypeToDelete);
     for (const item of this.placeWasteTypeToDelete){
-      //console.log('Id: ',item.id);
       this.placeService.deletePlaceWasteType(item.id);
     }
-    //this.placeService.deletePlaceWasteType(this.placeId);
 
     for (const wasteid of this.placeWasteTypeToUpdate){
       this.placeService.insertPlaceWasteType(this.placeId, wasteid);
@@ -136,7 +133,6 @@ export class UpdatePlaceTypePage implements OnInit {
       this.navCtrl.navigateBack(['/admin/center/place-type']);
     })
         .catch(() => {});
-
   }
 
 }

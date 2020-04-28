@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import 'firebase/firestore';
 import { WasteType, PlacesWasteTypes } from '../models/waste-type';
 import { Subscription } from 'rxjs';
-import { map,} from 'rxjs/operators';
+import { map,take} from 'rxjs/operators';
 
 const WASTE_TYPE_KEY = '/waste_type';
 
@@ -78,7 +78,7 @@ export class WasteService {
 
   /**
    * User Story Id: M1NG11
-   * Fuction that returns the WasteTypes not associated to a particular place type
+   * Fuction that returns the placesServiceWasteTypes not associated to a particular place type
    * @param  {PlacesWasteTypes} filters
    * @param  {WasteType} allwastes
    * @returns WasteType[]
@@ -90,6 +90,72 @@ export class WasteService {
       return !keys.includes(item.id);
     });
     return result;
+  }
+
+  /**
+   *
+   */
+  getWasteById(id: string): Promise<WasteType>{
+    return new Promise((resolve) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<any>(WASTE_TYPE_KEY).doc<any>(id).valueChanges()
+          .pipe(
+              // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+              take(1),
+              map(
+                  wasteType => {
+                    wasteType.id = id;
+                    return wasteType;
+                  }
+              ))
+          .subscribe(wastes => {
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+            resolve(wastes);
+
+          });
+    });
+  }
+
+  updateWasteType(id: string, namewastetype: string, urlwastetype: string, descriptionwastetype: string): Promise<any>{
+    return new Promise<any>((resolve, reject) => {
+      this.firedb.collection(WASTE_TYPE_KEY).doc(id).set({
+        name: namewastetype,
+        icon: urlwastetype,
+        description: descriptionwastetype
+      }, {merge: true} )
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
+    });
+  }
+
+  addWasteType(namewastetype: string, urlwastetype: string, descriptionwastetype: string): Promise<any>{
+    return new Promise<any>((resolve, reject) => {
+      this.firedb.collection(WASTE_TYPE_KEY).add({
+        name: namewastetype,
+        icon: urlwastetype,
+        description: descriptionwastetype
+      })
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
+    });
+  }
+
+  deleteWasteTypeByID(wasteTypeId: string): Promise<any>{
+    return new Promise((resolve) => {
+      this.firedb.collection<WasteType>(WASTE_TYPE_KEY).doc<WasteType>(wasteTypeId).delete().then(() => {
+        resolve();
+      });
+    });
   }
 
   

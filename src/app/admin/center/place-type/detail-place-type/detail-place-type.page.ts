@@ -22,8 +22,6 @@ export class DetailPlaceTypePage implements OnInit {
 
   placeTypeId: string;
   loadedPlaceType: TipoInstalacion;
-  wastes: any[];
-  flag: number;
 
   wasteTypes: WasteType[];
   placeWasteType: PlacesWasteTypes[];

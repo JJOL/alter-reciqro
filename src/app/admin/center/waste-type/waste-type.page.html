@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin/center" [text]="''"></ion-back-button>
+    </ion-buttons>
+    <ion-title size = "small">Tipos de Desechos</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button routerLink='/admin/center/waste-type/addWasteType'>
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-md = "8" size-sm = "12" >
+        <ion-list >
+          <ion-item *ngFor="let wasteType of wasteTypes" class="user-list">
+            <ion-thumbnail slot="start">
+              <ion-img [src]="wasteType.icon"></ion-img>
+            </ion-thumbnail>
+            <ion-grid>
+              <ion-row class="ion-justify-content-start">
+                <ion-col>
+                  <ion-label>
+                    <h2> {{ wasteType.name }} </h2>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+              <ion-row class="ion-align-items-end" >
+                <ion-col>
+                  <ion-button fill="clear" class="bold"  (click) =  "onDeleteWateType(wasteType.id, wasteType.name)">
+                    <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                  </ion-button>
+      
+                  <ion-button fill="clear" class="bold"  [routerLink]="['/admin/center/waste-type/detail', wasteType.id]">
+                    <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
+                  </ion-button >
+      
+                  <ion-button fill="clear" class="bold"  [routerLink]="['/admin/center/waste-type/update', wasteType.id]">
+                    <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+             
+            </ion-grid>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

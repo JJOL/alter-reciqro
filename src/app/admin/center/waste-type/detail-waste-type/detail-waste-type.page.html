@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin/center/place-type"  [text]="''"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="loadedWasteType" size = "small"> {{ loadedWasteType.name }} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen *ngIf="loadedWasteType" >
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-md = "6" size-sm = "12" >
+        <ion-card class="ion-justify-content-center">
+          <img [src]="loadedWasteType.icon" />
+          <ion-card-header>
+            <ion-card-subtitle>Tipo de Residuo</ion-card-subtitle>
+            <ion-card-title>{{ loadedWasteType.name }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-card-subtitle>Descripción del Tipo Residuo</ion-card-subtitle>
+            {{ loadedWasteType.description }}
+            <br><br>
+            <ion-card-subtitle>Url del Tipo Residuo</ion-card-subtitle>
+            {{ loadedWasteType.icon }}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
