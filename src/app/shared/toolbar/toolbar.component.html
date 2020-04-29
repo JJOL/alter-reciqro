@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons *ngIf="!backButton" slot="start" >
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons *ngIf="backButton" slot="start">
+      <ion-back-button defaultHref="{{routePath}}"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{title}}
+    </ion-title>
+    <ion-buttons  slot="primary" >
+      <ion-button  *ngIf="!isLogged" slot="end" routerLink="/user/login">
+        Regístrate<ion-icon name="person-add-outline"></ion-icon>
+      </ion-button> 
+      <ion-button  *ngIf="isLogged" slot="end" routerLink="/user/">
+        Mi Perfil<img class="smallImg" src="../../../../assets/img/blueQ.png">
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+

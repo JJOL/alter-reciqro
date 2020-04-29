@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>add-admin</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-list-header text-center>
+            Administradores
+          </ion-list-header>
+          <ng-container *ngFor="let admin of admins"> <!--For loop that will show all the users-->
+            <ion-item>
+              <ion-avatar slot="start">
+                <img src="../../assets/img/avatarAdmin.png">
+              </ion-avatar>
+              <ion-label>
+                <h2>{{admin.alias}}</h2>
+                <h3>Puntos: {{admin.points}}</h3>
+                <ul>
+                  <ng-container *ngFor="let role of admin.roles"> <!-- Show all kinds of users -->
+                    <li *ngIf="role == 'admin'">Administrador</li>
+                    <li *ngIf="role == 'user'">Usuario</li>
+                    <li *ngIf="role == 'staff'">Staff</li>
+                  </ng-container>
+                </ul>
+                <ion-item *ngIf="admin.roles.indexOf('admin') == -1">  <!-- If the user is not an admin, the option to add admin privileges appears  -->
+                  <ion-icon name="add-outline"></ion-icon>
+                  <label>Agregar como Administrador</label>
+                </ion-item>
+                <ion-item *ngIf="admin.roles.indexOf('admin') !== -1"> <!-- If the user is an admin, the option to remove admin privileges appears  -->
+                  <ion-icon name="trash-outline"></ion-icon>
+                  <label>Quitar como Administrador</label>
+                </ion-item>
+              </ion-label>
+            </ion-item>
+          </ng-container>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

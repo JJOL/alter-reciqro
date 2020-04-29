@@ -5,8 +5,6 @@ declare const google: any;
 
 
 const DEFAULT_CENTER_COORD = new google.maps.LatLng(20.588772, -100.390292);
-
-
 @Component({
   selector: 'app-shared-google-map',
   templateUrl: './google-map.component.html',
