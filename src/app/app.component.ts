@@ -26,18 +26,18 @@ export class AppComponent {
     private statusBar: StatusBar,
     private authService: AuthService
   ) {
+    /*this.authService.isUserLoggedIn.asObservable().subscribe(value => {
+      this.isLogged = value;
+    });
+    if (this.isLogged) {
+      this.authService.userRoles.asObservable().subscribe(roles => {
+        console.log("aqui tan los roles",roles);
+        this.admin = roles [1];
+        this.staff = roles [2];
+        this.user = roles[3];
+      });
+    }*/
     this.initializeApp();
-  }
-  /**
-   * Salir de la sesion
-   */
-  onLogout() {
-    this.authService.logoutUser();
-    let roles =  this.authService.getRolesandSession();
-    this.isLogged = roles[0];
-    this.admin = roles [1];
-    this.staff = roles [2];
-    this.user = roles[3];
   }
   /**
    * Method to initialize
@@ -47,18 +47,6 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-  }
-  /**
-   * Execute get roels in order to redirect dynamic menus
-   */
-    async ngOnInit(){
-     console.log("hey jj");
-    let roles =   await this.authService.getRolesandSession();
-    this.isLogged = roles[0];
-    this.admin = roles [1];
-    this.staff = roles [2];
-    this.user = roles[3];
-    console.log(roles);
   }
 
 

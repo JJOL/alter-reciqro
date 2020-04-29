@@ -1,3 +1,4 @@
+import { ToolbarComponent } from './../../shared/toolbar/toolbar.component';
 import { AuthService } from './../../core/services/auth.service';
 import { MarkerCardComponent } from './../marker-card/marker-card.component';
 
