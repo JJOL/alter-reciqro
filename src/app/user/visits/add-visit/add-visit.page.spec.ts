@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { AddVisitPage } from './add-visit.page';
 import { QrscannerComponent } from 'src/app/shared/qrscanner/qrscanner.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AddVisitPage', () => {
   let component: AddVisitPage;
@@ -10,8 +11,8 @@ describe('AddVisitPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddVisitPage, QrscannerComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ AddVisitPage ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AddVisitPage);

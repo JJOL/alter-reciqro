@@ -8,8 +8,13 @@ import { NavController } from '@ionic/angular';
   templateUrl: './add-visit.page.html',
   styleUrls: ['./add-visit.page.scss'],
 })
-export class AddVisitPage implements OnInit {
+/**
+ * AddVisitPage
+ * Description: Page for adding a new visit by using the QRScannerComponent
+ */
+export class AddVisitPage {
 
+  // Control Flag to avoid scanning while processing a current scan
   canReadVisit: boolean;
 
   constructor(
@@ -18,10 +23,11 @@ export class AddVisitPage implements OnInit {
     ) {
       this.canReadVisit = true;
     }
-
-  ngOnInit() {
-  }
-
+  /**
+   * User Story ID: M1NG6
+   * Description: Handler Function when a qr code is detected to attemp to register.
+   * @param  {QRCodeEvent} event
+   */
   onReadCode(event: QRCodeEvent) {
 
     if (this.canReadVisit) {
@@ -29,7 +35,6 @@ export class AddVisitPage implements OnInit {
 
       this.visitsService.registerQRVisit(event.url)
       .then(() => {
-        // Navigate Back;
         this.navCtrl.navigateBack('/user/visits');
       })
       .catch(() => {
@@ -37,9 +42,6 @@ export class AddVisitPage implements OnInit {
       })
     }
     
-    
-    
-
   }
 
 }

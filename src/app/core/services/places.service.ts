@@ -1,6 +1,6 @@
 import { AngularFirestore, DocumentSnapshot } from '@angular/fire/firestore';
-import { Subscription } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { Subscription, of } from 'rxjs';
+import { map, take, catchError } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 
 import { Injectable } from '@angular/core';
@@ -22,7 +22,6 @@ const GeoPoint = firebase.firestore.GeoPoint;
  * @returns Place
  */
 export function parseFBPlaceToPlace(fbPlace: any): Place {
-  const icon ='sss';
   return parseFBPlaceDocToPlace(fbPlace.payload.doc);
 }
 /**
@@ -106,27 +105,51 @@ export class PlacesService {
    * @returns Promise
    */
   getPlaceByID(id: string): Promise<Place> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       let subscription: Subscription;
-      subscription = this.firedb.collection<any>(PLACE_KEY).doc<any>(id).valueChanges()
-          .pipe(
-              // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-              take(1),
-              
-              map(
-                  place => {
-                    place.id = id;
-                    place.location = {lat: place.location.latitude, lng : place.location.longitude};
+      console.log('Calling getPlaceByID()');
 
-                    return place;
-                  }
-              ))
-          .subscribe(places => {
-            if (subscription) {
-              subscription.unsubscribe();
-            }
-            resolve(places);
-          });
+      let placeRef = this.firedb.collection(PLACE_KEY).doc(id).ref;
+      placeRef.get()
+      .then(docSnap => {
+        if (docSnap.exists) {
+          console.log('PLACE ITEM DOES EXISTS');
+          let place = parseFBPlaceDocToPlace(docSnap as DocumentSnapshot<any>);       
+          resolve(place);     
+        }
+        else {
+          reject('ERROR: PlacesService.getPlaceByID(): Place does not exist.');
+        }
+      })
+      .catch(err => {
+        reject(err);
+      });
+      
+      // subscription = this.firedb.collection(PLACE_KEY).doc(id).valueChanges()
+      //     .pipe(
+      //         // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+      //         catchError(error => {
+      //           console.error('At getPlaceByID(): ', error);
+      //           return of({});
+      //         }),
+      //         take(1),
+      //         map(
+      //             place => {
+      //               console.log('Mapping!');
+                    
+      //               place.id = id;
+      //               place.location = {lat: place.location.latitude, lng : place.location.longitude};
+
+      //               return place;
+      //             }
+      //         ))
+      //     .subscribe(places => {
+      //       console.log('At getPlacesByID(): places = ', places);
+      //       if (subscription) {
+      //         subscription.unsubscribe();
+      //       }
+      //       resolve(places);
+      //     });
     });
   }
   /**
