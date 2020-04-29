@@ -2,7 +2,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { empty, BehaviorSubject } from 'rxjs';
-import { ToolbarComponent } from './toolbar.component';
+import { MenuComponent } from './menu.component';
 import { RouterTestingModule } from '@angular/router/testing';
 
 
@@ -59,22 +59,22 @@ const mockAuthentication ={
       resolve([]);
     });
   },
-  isUserLoggedIn: new BehaviorSubject(false), 
+  isUserLoggedIn: new BehaviorSubject(false),
   userRoles: new BehaviorSubject([]),
 };
 
-describe('ToolbarComponent', () => {
-  let component: ToolbarComponent;
-  let fixture: ComponentFixture<ToolbarComponent>;
+describe('MenuComponent', () => {
+  let component: MenuComponent;
+  let fixture: ComponentFixture<MenuComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ToolbarComponent ],
+      declarations: [ MenuComponent ],
       imports: [IonicModule.forRoot(),RouterTestingModule],
-      providers:[{ provide: AuthService, useValue: mockAuthentication }]
+      providers: [ { provide: AuthService, useValue: mockAuthentication }]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ToolbarComponent);
+    fixture = TestBed.createComponent(MenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

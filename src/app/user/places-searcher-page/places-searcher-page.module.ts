@@ -21,7 +21,7 @@ import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.com
     PlacesSearcherPagePageRoutingModule,
     SharedPageModule
   ],
-  declarations: [PlacesSearcherPagePage, MarkerCardComponent, ToolbarComponent],
+  declarations: [PlacesSearcherPagePage, MarkerCardComponent],
   providers: [
     Geolocation,
     AuthService

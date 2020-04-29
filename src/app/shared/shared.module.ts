@@ -1,3 +1,5 @@
+import { MenuComponent } from './menu/menu.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -19,7 +21,7 @@ import { FilterMenuComponent } from './ui/filter-menu/filter-menu.component';
     IonicModule,
     SharedPageRoutingModule
   ],
-  exports: [GoogleMapComponent, FilterMenuComponent],
-  declarations: [SharedPage, GoogleMapComponent, FilterButtonComponent, FilterMenuComponent]
+  exports: [GoogleMapComponent, FilterMenuComponent,ToolbarComponent],
+  declarations: [SharedPage, GoogleMapComponent, FilterButtonComponent, FilterMenuComponent,  ToolbarComponent]
 })
 export class SharedPageModule {}

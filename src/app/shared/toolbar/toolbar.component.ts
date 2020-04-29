@@ -19,22 +19,25 @@ export class ToolbarComponent implements OnInit {
   private admin: boolean;
   private staff: boolean;
   private user: boolean;
+  private rolesaux: [];
   // eslint-disable-next-line require-jsdoc
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {
+    
+  }
   /**
-   * Ng onInit
+   * NgOnInit
    */
   ngOnInit() {
     this.authService.isUserLoggedIn.asObservable().subscribe(value => {
       this.isLogged = value;
-      console.log("toolbar",this.authService.isUserLoggedIn.value);
-      /*this.authService.userRoles.asObservable().subscribe(roles => {
-        console.log("entro a los roles");
-        this.admin = roles [1];
-        this.staff = roles [2];
-        this.user = roles[3];
-      });*/
+      console.log("checar en el tool",this.authService.isUserLoggedIn.value);
+    });
+    this.authService.userRoles.asObservable().subscribe(roles => {
+      console.log("aqui tan los roles",roles);
+      this.rolesaux = roles;
+      this.admin = roles [1];
+      this.staff = roles [2];
+      this.user = roles[3];
     });
   }
-
 }

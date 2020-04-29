@@ -39,7 +39,6 @@ export class AuthService {
    */
   registerUser(userObject) {
     return new Promise((resolve , reject) => {
-      console.log(userObject.email)
       this.afAuth.auth.createUserWithEmailAndPassword(userObject.email, userObject.password)
           .then(userData => {
             resolve(userData),
@@ -87,9 +86,10 @@ export class AuthService {
           .then(userData => {
             resolve(userData);
             this.isUserLoggedIn.next(true);
-            let user: any = this.getUserByUID(userData.user.uid);
-            this.userRoles.next(user.roles);
-            this.showToast('Bienvenido a ReciQro');
+            this.getUserByUID(userData.user.uid).then(user => {
+              this.userRoles.next(user.roles);
+              this.showToast('Bienvenido a ReciQro');
+            });
           },
           err => reject(err)
           );
@@ -104,10 +104,10 @@ export class AuthService {
         .then((credential) => {
           this.updateUserData(credential.user);
           this.isUserLoggedIn.next(true);
-          console.log("aquie esta el obser2",this.isUserLoggedIn.value);
-          let user: any = this.getUserByUID(credential.user.uid);
-          this.userRoles.next(user.roles);
-          this.showToast('Bienvenido a ReciQro');
+          this.getUserByUID(credential.user.uid).then(user => {
+            this.userRoles.next(user.roles);
+            this.showToast('Bienvenido a ReciQro');
+          });
         });
   }
   /**
@@ -115,11 +115,11 @@ export class AuthService {
    *  Firebase function that ends user session and redirect to princiapl view
    */
   logoutUser() {
+    this.userRoles.unsubscribe();
+    this.isUserLoggedIn.next(false);
+    this.isUserLoggedIn.unsubscribe();
     return this.afAuth.auth.signOut().then(() => {
-      this.userRoles.unsubscribe();
-      this.isUserLoggedIn.next(false);
-      this.isUserLoggedIn.unsubscribe();
-      this.router.navigate(['user/places-searcher-page']);
+      this.router.navigate(['user/login']);
       this.showToast('Hasta luego, has cerrado sesión');
     });
   }
@@ -277,7 +277,7 @@ export class AuthService {
 
   /**
    * Method that get the roles of the current user in order to set fynamic menu
-   */
+   
   async getRolesandSession() {
     let islogged: boolean;
     let admin: boolean;
@@ -290,7 +290,7 @@ export class AuthService {
     if ( roles.indexOf('admin') >= 0) { admin = true; } else { admin = false; }
     if ( roles.indexOf('staff') >= 0) { staff = true; } else { staff = false; }
     return [islogged,admin,staff,user];
-  }
+  }*/
 
   /**
    * Show a toast

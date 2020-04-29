@@ -1,3 +1,4 @@
+import { MenuComponent } from './shared/menu/menu.component';
 import { FormsModule } from '@angular/forms';
 import { SharedPageModule } from './shared/shared.module';
 import { SharedPage } from './shared/shared.page';
@@ -22,7 +23,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,MenuComponent],
   entryComponents: [],
   imports: [
     BrowserModule,

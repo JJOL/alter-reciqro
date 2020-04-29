@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { SharedPageModule } from 'src/app/shared/shared.module'
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { empty } from 'rxjs';
+import { empty, BehaviorSubject } from 'rxjs';
 
 const authStub: any = {
   authState: {},
@@ -45,6 +45,36 @@ const mockAuthentication ={
   updateUserData: () => {
     return [];
   },
+  getCurrentUser : () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  updateCurrentUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  sendPasswordResetEmail: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  updateUserByUID: () => {
+    return [];
+  },
+  getUserByUID: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  createUser: ()=> {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  isUserLoggedIn: new BehaviorSubject(false),
+  userRoles: new BehaviorSubject([]),
 };
 
 

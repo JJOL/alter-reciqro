@@ -53,7 +53,8 @@ export class PlacesSearcherPagePage  {
   ) { }
 
   async ionViewWillEnter() {
-    console.log("aquie esta el obser",this.authService.isUserLoggedIn.value);
+    /*console.log("aquie esta el obser",this.authService.isUserLoggedIn.value);
+    console.log("logout2",this.authService.isUserLoggedIn.value);*/
     this.filters = await  this.placesService.getAllWasteTypes();
     this.activeFilters = this.filters;
     this.places = await this.filterByType(this.activeFilters);
