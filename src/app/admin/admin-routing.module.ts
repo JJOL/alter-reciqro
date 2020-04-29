@@ -31,6 +31,10 @@ const routes: Routes = [
     loadChildren: () => import('./events/events.module').then( m => m.EventsPageModule),
     canActivate: [AuthGuard],
     data: { roles: ['admin','staff']}
+  },
+  {
+    path: 'info-banners',
+    loadChildren: () => import('./info-banners/info-banners.module').then( m => m.InfoBannersPageModule)
   }
 ];
 
