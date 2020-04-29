@@ -17,47 +17,60 @@ export class VisitsService {
   ) { }
 
   getAllVisitsForUser(): Promise<any> {
-    return new Promise(async (resolve, reject) => {
 
-      let visitsAsyncs: Promise<any>[] = [];
+    return new Promise(async (res,rej) => {
+      let user = await this.auth.getCurrentUser();
+      let fbvisits = await this.firedb.collection(VISITS_KEY)
+      .ref.where('user_id', '==', user.id)
+      .get();
 
-      try {
-        let user = await this.auth.getCurrentUser();
-        let fbvisits = await this.firedb.collection(VISITS_KEY)
-        .ref.where('user_id', '==', user.id)
-        .get();
-
-        fbvisits.docs.forEach(fbvisit => {
-          let data = fbvisit.data();
-          data.date = data.date.toDate();
-
-          visitsAsyncs.push(
-            this.placesService.getPlaceByID(data.place_id)
-            .then(place => {
-              data.place = place;
-              return data;
-            })
-          );
+      let visits = fbvisits.docs.map(fbvisit => {
+        let data = fbvisit.data();
+        data.date = data.date.toDate();
+        data.name = data.place_id;
+        console.log(data);
         
-          console.log(data.place_id);
-          
-          data.place = await this.placesService.getPlaceByID(data.place_id);
-          console.log(data.place.name);
+        return data;
+      });
 
-
-
-          return await Promise.all(visitsAsyncs);
-          
-          
-          return data;
-        });
-
-        resolve(visits);
-      } catch (err) {
-        reject(err);
-      }
-      
+      res(visits);
     });
+      
+
+        
+
+
+        // fbvisits.docs.forEach(fbvisit => {
+        //   let data = fbvisit.data();
+        //   data.date = data.date.toDate();
+
+        //   visitsAsyncs.push(
+        //     this.placesService.getPlaceByID(data.place_id)
+        //     .then(place => {
+        //       data.place = place;
+        //       return data;
+        //     })
+        //   );
+        
+        //   console.log(data.place_id);
+          
+        //   data.place = await this.placesService.getPlaceByID(data.place_id);
+        //   console.log(data.place.name);
+
+
+
+        //   return await Promise.all(visitsAsyncs);
+          
+          
+          // return data;
+        // });
+
+      //   resolve(visits);
+      // } catch (err) {
+      //   reject(err);
+      // }
+      
+    // });
     
   }
 
@@ -69,7 +82,7 @@ export class VisitsService {
         let user = await this.auth.getCurrentUser();
         console.log(user);
         
-        let place = await this.placesService.getPlaceByQRCode(qrUrl);
+        let place = await this.placesService.getPlaceByID(qrUrl);
 
         let visitStatus = await this.firedb.collection(VISITS_KEY).add({
           user_id: user.id,
