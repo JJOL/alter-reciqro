@@ -31,6 +31,12 @@ const routes: Routes = [
     loadChildren: () => import('./events/events.module').then( m => m.EventsPageModule),
     canActivate: [AuthGuard],
     data: { roles: ['admin','staff']}
+  },
+  {
+    path: 'create-staff',
+    loadChildren: () => import('./create-staff/create-staff.module').then( m => m.CreateStaffPageModule),
+    canActivate: [AuthGuard],
+    data: { roles: ['admin']}
   }
 ];
 

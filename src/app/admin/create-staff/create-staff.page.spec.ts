@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
+import { CreateStaffPage } from './create-staff.page';
 import { RouterTestingModule } from '@angular/router/testing';
-import { RegisterPage } from './register.page';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -10,7 +10,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { SharedPageModule } from 'src/app/shared/shared.module'
 import { empty } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+
 
 
 const arr = [[]];
@@ -65,13 +65,13 @@ const authStub: any = {
   }
 };
 
-describe('RegisterPage', () => {
-  let component: RegisterPage;
-  let fixture: ComponentFixture<RegisterPage>;
+describe('CreateStaffPage', () => {
+  let component: CreateStaffPage;
+  let fixture: ComponentFixture<CreateStaffPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegisterPage ],
+      declarations: [ CreateStaffPage ],
       imports: [IonicModule.forRoot(), SharedPageModule, RouterTestingModule,ReactiveFormsModule],
       providers: [
         FormBuilder,
@@ -79,11 +79,10 @@ describe('RegisterPage', () => {
         { provide: AngularFireAuth, useValue: authStub },
         { provide: AuthService, useValue: mockAuthentication },
         { provide: AngularFirestore, useValue: angularFirestoreStub4 }
-      ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(RegisterPage);
+    fixture = TestBed.createComponent(CreateStaffPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

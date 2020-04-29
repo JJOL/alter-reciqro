@@ -2,9 +2,9 @@
   <ion-toolbar >
     <ion-buttons slot="start">
       <!--This opens the default menu we have-->
-      <ion-back-button defaultHref="/user/login"></ion-back-button>
+      <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">Registrarse</ion-title>
+    <ion-title class="ion-text-center">Crear Usuario Staff</ion-title>
     <!--Here we will replace with the government icon-->
     <ion-buttons slot="end" class="ion-padding">
     </ion-buttons>
@@ -20,12 +20,13 @@
       <ion-col size="2" size-s></ion-col>
     <ion-col size="12" size-sm size-md>
 <form [formGroup]= "newCenterForm" (ngSubmit)="submit()">
-  <h1 class="h3 mb-3 font-weight-normal" >Crear tu Cuenta de ReciQro</h1>
+  <h1 class="h3 mb-3 font-weight-normal" >Crear Staff de ReciQro</h1>
+  
+  <p>Ingresa la información para crear la cuenta de staff.</p>
   <hr>
   <hr>
   
 
-  <p>Ingresa tu información para crear tu cuenta y recibir funcionalidades exclusivas.</p>
   
   <ion-list>
 
@@ -70,9 +71,12 @@
     </div>
  
 
+   
+
+
     <ion-item *ngIf="delegations" >
       <ion-label position="floating">Delegación</ion-label>
-      <ion-select class="myCustomSelect" formControlName="delegation_id" placeholder="Elegir" multiple="false">
+      <ion-select class="myCustomSelect" formControlName="delegationId" placeholder="Elegir" multiple="false">
         
         <ion-select-option 
         *ngFor="let delegation of delegations" 
@@ -82,17 +86,22 @@
       </ion-select>
     </ion-item>
 
-    <div *ngFor="let error of errorMessages.delegation_id">
-      <ng-container *ngIf="delegation_id.hasError(error.type) && (delegation_id.dirty || delegation_id.touched)">
+    <div *ngFor="let error of errorMessages.delegationId">
+      <ng-container *ngIf="delegationId.hasError(error.type) && (delegationId.dirty || delegationId.touched)">
         <small class="error-message">{{error.message}}</small>
       </ng-container>
     </div>
     <br>
+      <p class='warning'> Aviso, al crear la cuenta se cerrará la sesion y se iniciará sesión con el nuevo usuario. </p>
+    <br>
+    
     <ion-button [disabled]="!newCenterForm.valid" type="submit" expand="block">
-      Registrarme
+      Crear Usuario
       <ion-icon slot="end" name="send"></ion-icon>
     </ion-button>
     </ion-list>
+    <br>
+
 </form>
 </ion-col>
 <ion-col size="2" size-s></ion-col>
