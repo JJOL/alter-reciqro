@@ -55,7 +55,7 @@ export class EventsService {
   getAllEvents(): Promise<EventModel[]> {
     return new Promise((resolve) => {
       let subscription: Subscription;
-      subscription = this.firedb.collection<any>(EVENTS_KEY).snapshotChanges()
+      subscription = this.firedb.collection<any>(EVENTS_KEY, ref => ref.orderBy('start_date')).snapshotChanges()
           .pipe(map(snapshot => {
             return snapshot.map(parseFBEventToEvent);
           }))
