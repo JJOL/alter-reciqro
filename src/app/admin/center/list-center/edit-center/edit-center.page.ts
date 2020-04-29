@@ -6,7 +6,7 @@ import { PlacesService } from 'src/app/core/services/places.service';
 import { Place } from 'src/app/core/models/place.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 
-
+const MAXLENGTH =100
 @Component({
   selector: 'app-edit-center',
   templateUrl: './edit-center.page.html',
@@ -14,34 +14,18 @@ import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 })
 
 /**
+  * User Story ID: M1NG2
    * Componente de página para edición de centros
    * 
-   */
+*/
 export class EditCenterPage implements OnInit {
   updateBookingForm: FormGroup;
 
   place: Place;
-  // place : Place={
-  //   id : "",
-  //   name : "",
-  //   description : "",
-  //   location: {
-  //     lat: 0.0,
-  //     lng: 0.0,
-  // },
-  //   qr_code : "",
-  //   photo : "",
-  //   address : "",
-  //   postal_code : 0,
-  //   places_type : {
-  //     id : "",
-  //     name : "",
-  //     icon_url : ""
-  //   }
-  // };
   loadedPlacetypes: TipoInstalacion[];
 
   /**
+   * User Story ID: M1NG2
    * Regresa el nombre
    * @returns {string}
    */
@@ -51,6 +35,7 @@ export class EditCenterPage implements OnInit {
 
   
   /**
+   * User Story ID: M1NG2
    * Regresa la descripción del lugar
    * @param  {string} {description}
    */
@@ -59,6 +44,7 @@ export class EditCenterPage implements OnInit {
   }
 
   /**
+   * User Story ID: M1NG2
    * Regresa la longitud de la coordenada
    * @param  {number} {longitude}
    */
@@ -66,6 +52,7 @@ export class EditCenterPage implements OnInit {
     return this.newCenterForm.get('longitude');
   }
   /**
+   * User Story ID: M1NG2
    * Regresa la latitud de la coordenada
    * @param  {number}
    */
@@ -73,6 +60,7 @@ export class EditCenterPage implements OnInit {
     return this.newCenterForm.get('latitude');
   }
   /**
+   * User Story ID: M1NG2
    * Regresa la url del código qr
    * @param  {string} {qrCode}
    */
@@ -80,6 +68,7 @@ export class EditCenterPage implements OnInit {
     return this.newCenterForm.get('qrCode');
   }
   /**
+   * User Story ID: M1NG2
    * Regresa la url de la imagen
    * @param  {string} {picture}
    */
@@ -89,6 +78,7 @@ export class EditCenterPage implements OnInit {
 
   
   /**
+   * User Story ID: M1NG2
    * Regresa la calle 
    * @param  {string} {street}
    */
@@ -96,6 +86,7 @@ export class EditCenterPage implements OnInit {
     return this.newCenterForm.get('address.street');
   }
   /**
+   * User Story ID: M1NG2
    * Regresa el código postal 
    * @param  {number} {zip}
    */
@@ -104,6 +95,7 @@ export class EditCenterPage implements OnInit {
   }
 
   /**
+   * User Story ID: M1NG2
    * Regresa el tipo de instalación que es lo mismo que el tipo del lugar 
    * @param  {string} {instalationType}
    */
@@ -147,14 +139,14 @@ export class EditCenterPage implements OnInit {
   };
 
   newCenterForm = this.formBuilder.group({
-    name: ['', [Validators.required, Validators.maxLength(100)]],
-    description: ['', [Validators.required, Validators.maxLength(100)]],
+    name: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
+    description: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
     latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
     longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
     qrCode: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
     mainPicture: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
     address: this.formBuilder.group({
-      street: ['', [Validators.required, Validators.maxLength(100)]],
+      street: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
       zip: ['', [Validators.required, Validators.pattern('^\\d{5}$')]]
     }),
     instalationType: ['', [Validators.required]]
@@ -162,12 +154,16 @@ export class EditCenterPage implements OnInit {
 
   
   /**
+   * User Story ID: M1NG2
    * @param  {ActivatedRoute} privateactivatedRoute
    * @param  {PlacesService} privateplaceService
    * @param  {NavController} privatenavCtrl
    * @param  {FormBuilder} publicformBuilder
    * @param  {ToastController} privatetoastCtrl
    */ 
+  
+  // eslint-disable-next-line max-params
+  // eslint-disable-next-line require-jsdoc
   constructor(
     private activatedRoute: ActivatedRoute,
     private placeService: PlacesService,
@@ -176,6 +172,7 @@ export class EditCenterPage implements OnInit {
     private toastCtrl: ToastController
   ) { }
   /**
+   * User Story ID: M1NG2
    * Obtenemos los catalogos necesarios para la edición del centro
    */
   ngOnInit() {
@@ -213,6 +210,7 @@ export class EditCenterPage implements OnInit {
 
 
   /**
+   * User Story ID: M1NG2
    * Esta función se llama cuando se inserta o se arrastra un marcador
    * @param  {Location} lugar 
    */
@@ -221,8 +219,10 @@ export class EditCenterPage implements OnInit {
     this.newCenterForm.controls.longitude.setValue(lugar.location.lng);
   }
 
+  
   /**
-   * Esta función se dispara cuando el usuario decide hacer submit del formulario
+   * User Story ID: M1NG2
+   * Esta funcion se corre cuando el usuario envia el formulario
    */
   public submit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
@@ -246,6 +246,7 @@ export class EditCenterPage implements OnInit {
           });
     }); }
   /**
+   * User Story ID: M1NG2
    * Esta función hace que muestre un string en un toast
    * @param  {string} msg
    */

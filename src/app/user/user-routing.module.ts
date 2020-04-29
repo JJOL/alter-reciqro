@@ -6,7 +6,7 @@ import { UserPage } from './user.page';
 const routes: Routes = [
   {
     path: '',
-    component: UserPage
+    component: UserPage,
   },
   {
     path: 'places-searcher-page',
@@ -24,7 +24,6 @@ const routes: Routes = [
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
   },
-  
   {
     path: 'recover-password',
     loadChildren: () => import('./recover-password/recover-password.module').then( m => m.RecoverPasswordPageModule)
@@ -39,4 +38,7 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
+/**
+ * Exporting routing class so it is externally accessible.
+ */
 export class UserPageRoutingModule {}

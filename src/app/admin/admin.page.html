@@ -1,13 +1,72 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <!--This opens the default menu we have-->
       <ion-menu-button menu="m1"></ion-menu-button>
     </ion-buttons>
     <ion-title>Administrador</ion-title>
     <!--Here we will replace with the government icon-->
     <ion-buttons slot="end" class="ion-padding">
+      <ion-icon name="add-outline" routerDirection=" "
+      [routerLink]="['/','admin', 'add-admin']"></ion-icon>
       <ion-icon name="earth-outline"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-list *ngIf="admins">
+          <ion-list-header text-center>
+            Administradores
+          </ion-list-header>
+          <ng-container *ngFor="let admin of admins">
+            <ion-item *ngIf="admin.roles.indexOf('admin') !== -1">
+              <ion-avatar slot="start">
+                <img src="../../assets/img/avatarAdmin.png">
+              </ion-avatar>
+              <ion-label>
+                <h2>{{admin.alias}}</h2>
+                <h3>Puntos: {{admin.points}}</h3>
+                <ul>
+                  <ng-container *ngFor="let role of admin.roles">
+                    <li *ngIf="role == 'admin'">Administrador</li>
+                    <li *ngIf="role == 'user'">Usuario</li>
+                    <li *ngIf="role == 'staff'">Staff</li>
+                  </ng-container>
+                </ul>
+              </ion-label>
+            </ion-item>
+          </ng-container>
+        </ion-list>
+      </ion-col>
+      <ion-col>    
+        <ion-list *ngIf="admins">
+          <ion-list-header text-center>
+            Staff
+          </ion-list-header>
+          <ng-container *ngFor="let admin of admins">
+            <ion-item *ngIf="admin.roles.indexOf('staff') !== -1 && admin.roles.indexOf('admin') == -1">
+              <ion-avatar slot="start">
+                <img src="../../assets/img/avatarStaff.png">
+              </ion-avatar>
+              <ion-label>
+                <h2>{{admin.alias}}</h2>
+                <h3>Puntos: {{admin.points}}</h3>
+                <ul>
+                  <ng-container *ngFor="let role of admin.roles">
+                    <li *ngIf="role == 'admin'">Administrador</li>
+                    <li *ngIf="role == 'user'">Usuario</li>
+                    <li *ngIf="role == 'staff'">Staff</li>
+                  </ng-container>
+                </ul>
+              </ion-label>
+            </ion-item>
+          </ng-container>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

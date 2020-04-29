@@ -6,12 +6,13 @@ import * as firebase from 'firebase/app';
 import { Injectable } from '@angular/core';
 import { Place } from '../models/place.model';
 import { TipoInstalacion } from '../models/tipo-instalacion.model';
-import { WasteType } from '../models/waste-type';
+import { WasteType, PlacesWasteTypes } from '../models/waste-type';
 
 const PLACE_KEY = '/places';
 const PLACE_TYPE_KEY = '/place_type';
 const WASTE_TYPE_KEY = '/waste_type';
 const PLACE_TYPE_WASTE_TYPE = '/place_type_waste_type';
+
 
 const GeoPoint = firebase.firestore.GeoPoint;
 
@@ -73,11 +74,57 @@ export class PlacesService {
   placeTypes: any;
 
   /**
+   * User Story ID: M1NG4
+   * Description: This function returns all the places from firebase.
+  /**
    * Constructor for the class, only external service used will be the Firestore one.
    * @param  {AngularFirestore} privatefiredb
    */
   constructor(private firedb: AngularFirestore) 
   {}
+
+  /**
+   * User Story ID: M1NG1
+   * Description: This function creates a place in firebase
+   * @param  {} placeObject
+   */
+  createPlace(placeObject) {
+    const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
+    return new Promise<any>((resolve, reject) => {
+      this.firedb.collection(PLACE_KEY).add({
+        address: placeObject.address.street,
+        description: placeObject.description,
+        location: geoPoint,
+        name: placeObject.name,
+        photo: placeObject.mainPicture,
+        places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
+        postal_code: placeObject.address.zip,
+        qr_code: placeObject.qrCode
+      })
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
+    });
+  }
+
+  /**
+   * User Story ID: M1NG3
+   * Description: This function deletes a specific place in firebase using its ID
+   * @param  {string} id
+   * @returns Promise
+   */
+  async deletePlaceByID(id: string): Promise<void> {
+    return new Promise((resolve) => {
+      this.firedb.collection<Place>(PLACE_KEY).doc<Place>(id).delete().then(() => {
+        resolve();
+      });
+    });
+  }
+
+  
   /** 
    * User Story ID: M1NC1
    * Function that returns all places on the database, unfiltered, with all its associated data.
@@ -152,19 +199,6 @@ export class PlacesService {
       //     });
     });
   }
-  /**
-   * User Story ID: M1NG3
-   * Function that deletes a specific place on the database, chosen by its id, with all its associated data.
-   * @param  {string} id
-   * @returns Promise
-   */
-  async deletePlaceByID(id: string): Promise<void> {
-    return new Promise((resolve) => {
-      this.firedb.collection<Place>(PLACE_KEY).doc<Place>(id).delete().then(() => {
-        resolve();
-      });
-    });
-  }
 
   
   /**
@@ -234,59 +268,15 @@ export class PlacesService {
           });
     });
   }
-  /**
-   * User Story ID: M1NG1
-   * Function that creates a new place on the database.
-   * @param  {{latitude:number;longitude:number;address:{street:any;zip:any;};
-   * description:any;name:any;mainPicture:any;instalationType:string;qrCode:any;}} placeObject
-   */
-  createPlace(placeObject: 
-    { latitude: number; 
-      longitude: number; 
-      address: { street: any; zip: any; }; 
-      description: any; 
-      name: any; 
-      mainPicture: any; 
-      instalationType: string; 
-      qrCode: any; }) {
-    const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
-    return new Promise<any>((resolve, reject) => {
-      this.firedb.collection(PLACE_KEY).add({
-        address: placeObject.address.street,
-        description: placeObject.description,
-        location: geoPoint,
-        name: placeObject.name,
-        photo: placeObject.mainPicture,
-        places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
-        postal_code: placeObject.address.zip,
-        qr_code: placeObject.qrCode
-      })
-          .then(
-              (res) => {
-                resolve(res);
-              },
-              err => reject(err)
-          );
-    });
-  }
-
   
   /**
    * User Story ID: M1NG2
-   * Function that edits an existing place on the database, taking from 1 to n parameters.
-   * @param  {{latitude:number;longitude:number;address:{street:any;zip:any;};
-   * description:any;name:any;mainPicture:any;instalationType:string;qrCode:any;}} placeObject
+   * This function edits a place and it changes the fields only if 
+    they are different than the ones in the database
    * @param  {string} id
+   * @returns Promise
    */
-  editPlace(placeObject: 
-    { latitude: number; 
-      longitude: number; 
-      address: { street: any; zip: any; }; 
-      description: any; 
-      name: any; 
-      mainPicture: any; 
-      instalationType: string; 
-      qrCode: any; }, id: string) {
+  editPlace(placeObject, id: string) {
     const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(PLACE_KEY).doc(id).set({
@@ -370,6 +360,33 @@ export class PlacesService {
           });
     });
   }
+
+  /**
+   * Esta función la tabla que relaciona place type con waste type
+   * @param  {TipoInstalacion[]} filters
+   * @returns Promise<WasteType[]>
+   */
+  async getIDWasteTypeByPlace(filters: TipoInstalacion): Promise<WasteType[]> {
+    return new Promise((resolve) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<WasteType>(PLACE_TYPE_WASTE_TYPE, ref => ref.where('place_type', 'in', filters.id)).snapshotChanges()
+          .pipe(map(snapshot => {
+            return snapshot.map(wastetype  => {
+              const data = wastetype.payload.doc.data();
+              const id = wastetype.payload.doc.id;
+              return {id, ...data};
+            });
+          }))
+          .subscribe(places => {
+            resolve(places);
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+          });
+    });
+  }
+
+
  
   /**
    * User Story ID: M1NC2
@@ -423,29 +440,101 @@ export class PlacesService {
   }
 
   /**
-   * User Story ID: M1NG6
-   * Description: Returns a place by its QR Code
-   * @param  {string} qrUrl
-   * @returns Promise<Place>
+   * User Story Id: M1NG11
+   * Fuction that updates the values of a Place Type
+   * @param  {string} id
+   * @param  {string} namewastetype
+   * @param  {string} urlwastetype
+   * @returns Promise<any>
    */
-  getPlaceByQRCode(qrUrl: string): Promise<Place> {
-    return new Promise((success, reject) => {
-      this.firedb.collection(PLACE_KEY)
-        .ref.where('qr_code', '==', qrUrl)
-        .get()
-        .then(fbplaces => {
-          
-          let places = fbplaces.docs.map(parseFBPlaceDocToPlace);
-          
-          if (places[0]) {
-            success(places[0]);
-          } else {
-            reject('Can Not Parse Place Error!');
-          }
-        })
-        .catch(err => {
-          reject(err);
-        })
+  updatePlaceType(id: string, namewastetype: string, urlwastetype: string){
+    return new Promise<any>((resolve, reject) => {
+      this.firedb.collection(PLACE_TYPE_KEY).doc(id).set({
+        name: namewastetype,
+        icon_url: urlwastetype
+      }, {merge: true} )
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
     });
   }
+
+  /**
+   * User Story Id: M1NG9
+   * Fuction that adds a nuew Place Type
+   * @param  {string} namewastetype
+   * @param  {string} urlwastetype
+   * @returns Promise<any>
+   */
+  addPlaceTypeFB(namewastetype:string, urlwastetype: string){
+    return new Promise<any>((resolve, reject) => {
+      this.firedb.collection(PLACE_TYPE_KEY).add({
+        name: namewastetype,
+        icon_url: urlwastetype
+      })
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
+    });
+  }
+
+  /**
+   * User Story Id: M1NG7, M1NG11
+   * Fuction that gets all the Place Wastes Types based on the place_type
+   * @param  {string} placeType
+   * @returns Promise<PlacesWasteTypes[]>
+   */
+  getAllWasteTypeByPlaceType(placeTypeId: string): Promise<PlacesWasteTypes[]> {
+    return new Promise((resolve) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<PlacesWasteTypes>(PLACE_TYPE_WASTE_TYPE, ref => ref.where('place_type', '==', placeTypeId)  ).snapshotChanges()
+          .pipe(map(snapshot => {
+            return snapshot.map(wastetype  => {
+              const data = wastetype.payload.doc.data();
+              const id = wastetype.payload.doc.id;
+              return {id, ...data};
+            });
+          }))
+          .subscribe(places => {
+            resolve(places);
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+          });
+    });
+  }
+
+  /**
+   * User Story Id: M1NG10, M1NG11
+   * Fuction that deletes all registers in the PlaceWasteType entity for a specific Place Type
+   * @param  {string} id
+   * @returns void
+   */
+  deletePlaceWasteType(id: string):void{
+    this.firedb.collection<PlacesWasteTypes>(PLACE_TYPE_WASTE_TYPE).doc<PlacesWasteTypes>(id).delete()
+
+  }
+
+  /**
+   * User Story Id: M1NG11
+   * Fuction that inserts a new register in the PlaceWasteType entity
+   * @param  {string} placeId
+   * @param  {string} wasteId
+   * @returns void
+   */
+  insertPlaceWasteType(placeId: string, wasteId: string):void{
+    this.firedb.collection(PLACE_TYPE_WASTE_TYPE).add({
+      place_type: placeId,
+      waste_type: wasteId
+    })
+  }
+  
+
+
 }

@@ -13,7 +13,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {MarkerCardComponent} from '../marker-card/marker-card.component';
 import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
 import { filter } from 'rxjs/operators';
-
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-places-searcher-page',
@@ -25,7 +25,7 @@ import { filter } from 'rxjs/operators';
  * Place Searcher Page is in charge of handling filters,map view and map markers, so that the user
  * interact with them.
  */
-export class PlacesSearcherPagePage implements OnInit {
+export class PlacesSearcherPagePage  {
   public isLogged;
   classname = {
     'ly-grid-map': true,
@@ -47,12 +47,14 @@ export class PlacesSearcherPagePage implements OnInit {
   constructor(
     private placesService: PlacesService,
     private geolocationCont: Geolocation,
-    public modalController: ModalController,
+    public popoverController: PopoverController,
     private authService: AuthService,
     private afsAuth: AngularFireAuth
   ) { }
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
+    /*console.log("aquie esta el obser",this.authService.isUserLoggedIn.value);
+    console.log("logout2",this.authService.isUserLoggedIn.value);*/
     this.filters = await  this.placesService.getAllWasteTypes();
     this.activeFilters = this.filters;
     this.places = await this.filterByType(this.activeFilters);
@@ -78,7 +80,7 @@ export class PlacesSearcherPagePage implements OnInit {
   }
 
   async presentFilterModal() {
-    this.modal = await this.modalController.create({
+    this.modal = await this.popoverController.create({
       // cahnge component
       component: FilterMenuComponent,
       componentProps: {
@@ -143,6 +145,7 @@ export class PlacesSearcherPagePage implements OnInit {
     }
     return false;
   }
+
 
   onMapInteract() {
     // eslint-disable-next-line no-console

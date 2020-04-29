@@ -17,4 +17,7 @@ import { ListCenterPage } from './list-center.page';
   ],
   declarations: [ListCenterPage]
 })
+/**
+ * Exporting ListCenterPageModule class so it is externally accessible.
+ */
 export class ListCenterPageModule {}

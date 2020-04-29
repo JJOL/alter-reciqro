@@ -37,9 +37,6 @@
               },
               {
                 "input": "src/global.scss"
-              },
-              {
-                "input": "./node_modules/font-awesome/css/font-awesome.css"
               }
             ],
             "scripts": []

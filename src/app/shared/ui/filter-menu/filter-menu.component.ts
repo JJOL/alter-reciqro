@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {WasteType} from '../../../core/models/waste-type';
-import {ModalController } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-filter-menu',
@@ -11,7 +11,7 @@ import {ModalController } from '@ionic/angular';
 
 export class FilterMenuComponent implements OnInit {
 
-  constructor(public modalCtrl: ModalController) {}
+  constructor(public popoverController: PopoverController) {}
   @Input() filters: WasteType [] = [];
   @Input() activeFilters: WasteType [] = [];
 
@@ -21,13 +21,22 @@ export class FilterMenuComponent implements OnInit {
 
   add(filter) {
     this.activeFilters.push(filter);
+    console.log(filter)
   }
   remove(filter) {
     this.activeFilters = this.activeFilters.filter(item => item !== filter);
   }
   dismiss() {
-    this.modalCtrl.dismiss(this.activeFilters);
+    this.popoverController.dismiss(this.activeFilters);
   }
+  check(ev){
+    if(ev.detail.checked){
+      this.add(ev.detail.value);
+    }
+    else {
+      this.remove(ev.detail.value);
+    }
+    }
 
 
 }

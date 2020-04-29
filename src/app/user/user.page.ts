@@ -1,6 +1,7 @@
 import { AuthService } from './../core/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { DelegationService } from '../core/services/delegation.service';
+import { ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -8,16 +9,24 @@ import { DelegationService } from '../core/services/delegation.service';
   templateUrl: './user.page.html',
   styleUrls: ['./user.page.scss'],
 })
-// eslint-disable-next-line require-jsdoc
+/**
+ * This component loads all the current user data
+ */
 export class UserPage implements OnInit {
 
   delegations: any[];
   user: any;
   userDelegation: any;
-
-  // eslint-disable-next-line require-jsdoc
+  /**
+   * Constructor for the class, the external services required are the Form Builder for forms, 
+   * Delegation Service for adding to the databse and the Toast Controller for showing a toast.
+   * @param  {DelegationService} privatedelegationService
+   * @param  {AuthService} privateauthService
+   * @param  {ToastController} privatetoastCtrl
+   */
   constructor(private delegationService: DelegationService,
-              private authService: AuthService ) { }
+              private authService: AuthService,
+              private toastCtrl: ToastController) { }
   /**
  * Loads the delegations catalog in order to show the list
  */
@@ -33,7 +42,6 @@ export class UserPage implements OnInit {
       this.delegations = delegation;
     });
     
-    // this.authService.getUserByUID("yBM2MxbTmHfPt0hTh0ek19i01W73").then(user => console.log(user))
   }
   /**
    * Logout methos to close fireauth
@@ -41,6 +49,29 @@ export class UserPage implements OnInit {
   logout() {
     this.authService.logoutUser();
   }
+  /**
+   * User Story ID: M4NC5
+  * Update the delegation of the user
+  * @param  {} delegationID
+  */
+  async changeDelegation(delegationID){
+    this.user.delegation_id = delegationID.detail.value;
+    await this.authService.updateCurrentUser(this.user);
+    this.userDelegation = (await this.delegationService.getDelegationByID(delegationID.detail.value)).name;
+    this.showToast(this.userDelegation + ' es tu nueva delegación');
+  }
 
-
+  /**
+   * User Story ID: M4NC5
+   * Function for showing the toast to the user.
+   * @param  {} msg
+   */
+  public showToast(msg) {
+    this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      position: 'middle',
+      color: 'success'
+    }).then(toast => toast.present());
+  }
 }

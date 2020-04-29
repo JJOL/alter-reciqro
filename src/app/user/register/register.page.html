@@ -2,22 +2,31 @@
   <ion-toolbar >
     <ion-buttons slot="start">
       <!--This opens the default menu we have-->
-      <ion-menu-button menu="m1"></ion-menu-button>
+      <ion-back-button defaultHref="/user/login"></ion-back-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">Registrarse como Usuario</ion-title>
+    <ion-title class="ion-text-center">Registrarse</ion-title>
     <!--Here we will replace with the government icon-->
     <ion-buttons slot="end" class="ion-padding">
-      <ion-icon name="earth-outline"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <hr>
+  <hr>
+  <hr>
   <ion-grid>
     <ion-row class="ion-padding-horizontal">
       <ion-col size="2" size-s></ion-col>
     <ion-col size="12" size-sm size-md>
 <form [formGroup]= "newCenterForm" (ngSubmit)="submit()">
+  <h1 class="h3 mb-3 font-weight-normal" >Crear tu Cuenta de ReciQro</h1>
+  <hr>
+  <hr>
+  
+
+  <p>Ingresa tu información para crear tu cuenta y recibir funcionalidades exclusivas.</p>
+  
   <ion-list>
 
     <ion-item>

@@ -1,3 +1,8 @@
+import { MenuComponent } from './shared/menu/menu.component';
+import { FormsModule } from '@angular/forms';
+import { SharedPageModule } from './shared/shared.module';
+import { SharedPage } from './shared/shared.page';
+import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 import { AuthService } from './core/services/auth.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { NgModule } from '@angular/core';
@@ -18,16 +23,16 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,MenuComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
+    FormsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.database.firebaseConfig),
     AngularFirestoreModule,
-    AngularFireAuthModule,
-
+    AngularFireAuthModule
   ],
   providers: [
     StatusBar,

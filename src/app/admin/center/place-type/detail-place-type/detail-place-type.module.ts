@@ -17,4 +17,11 @@ import { DetailPlaceTypePage } from './detail-place-type.page';
   ],
   declarations: [DetailPlaceTypePage]
 })
+
+/**
+   * User Story Id: M1NG7
+   * Allows the Detail Place Type Module to be available for imports
+   * @param  
+   * @returns 
+   */
 export class DetailPlaceTypePageModule {}

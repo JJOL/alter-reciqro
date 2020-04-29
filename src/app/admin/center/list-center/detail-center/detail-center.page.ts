@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
@@ -5,7 +6,7 @@ import { AlertController, NavController } from '@ionic/angular';
 import { PlacesService } from 'src/app/core/services/places.service';
 import { Place } from 'src/app/core/models/place.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
-import { GeoPoint } from 'src/app/core/models/geopoint.model';
+//import { GeoPoint } from 'src/app/core/models/geopoint.model';
 
 @Component({
   selector: 'app-detail-center',
@@ -13,33 +14,25 @@ import { GeoPoint } from 'src/app/core/models/geopoint.model';
   styleUrls: ['./detail-center.page.scss'],
 })
 
+/**
+ * User Story ID: M1NG5
+ * CenterDetailPage class.
+ */
 export class CenterDetailPage implements OnInit {
 
-  // loadedPlace: Place={
-  //   id : "",
-  //   name : "",
-  //   description : "",
-  //   location: {
-  //     lat: 0,
-  //     lng: 0
-  // },
-  //   qr_code : "",
-  //   photo : "",
-  //   address : "",
-  //   postal_code : 0,
-  //   places_type : {
-  //     id : "",
-  //     name : "",
-  //     icon_url : ""
-  //   }
-  // };
-
   loadedPlace: Place;
+  position: { lat: number, lng: number};
 
   loadedPlaceType: TipoInstalacion;
   mapPlaces: Place[] = [];
 
-  @ViewChild ('mapElement', {static: false}) mapEl;
+  @ViewChild ('mapElement', {static: false}) map;
+  
+  /**
+   * User Story ID: M1NG5
+   * 
+   */
+  // eslint-disable-next-line max-params
   constructor(
     private activatedRoute: ActivatedRoute,
     private placeService: PlacesService,
@@ -47,23 +40,30 @@ export class CenterDetailPage implements OnInit {
     private navCtrl: NavController
   ) { }
 
+  /**
+   * User Story ID: M1NG5
+   */
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
+
       if (!paraMap.has('centerId')) {
         // redirect
         return;
       }
+
       const centerId = paraMap.get('centerId');
+      
       if (centerId) {
         this.placeService.getPlaceByID(centerId).then(place => {
+
           this.loadedPlace = place;
-
-          console.log('Place has loaded!');
-          console.log(this.mapEl);
-
           this.mapPlaces = [ this.loadedPlace ];
-          // this.mapEl.setCenter(this.loadedPlace.location);
 
+          this.position = {
+            lat: place.location.lat,
+            lng: place.location.lng
+          };
+          this.map.setCenter(this.position);
 
           // get placeType
           if (this.loadedPlace.places_type.id) {
@@ -82,10 +82,17 @@ export class CenterDetailPage implements OnInit {
     });
   }
 
+  /**
+   * User Story ID: M1NG5
+   */
   ionViewWillEnter() {
-
+    
   }
-
+  
+  /**
+   * User Story ID: M1NG3
+   * Description: This function warns the user before deleting a place with an alert
+   */
   onDeletePlace() {
     this.alertCtrl.create ({
       header: '¿Estas segur@?',
@@ -105,10 +112,6 @@ export class CenterDetailPage implements OnInit {
     }).then(alertEl => {
       alertEl.present();
     });
-  }
-
-  onChangeMarker(coords) {
-    console.log(coords);
   }
 
 }

@@ -2,10 +2,13 @@ import { AuthService } from './../../core/services/auth.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import {ReactiveFormsModule, FormBuilder, FormsModule } from '@angular/forms';
 import { LoginPage } from './login.page';
 import { RouterModule } from '@angular/router';
-import { empty } from 'rxjs';
+import { SharedPageModule } from 'src/app/shared/shared.module'
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { empty, BehaviorSubject } from 'rxjs';
 
 const authStub: any = {
   authState: {},
@@ -42,6 +45,36 @@ const mockAuthentication ={
   updateUserData: () => {
     return [];
   },
+  getCurrentUser : () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  updateCurrentUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  sendPasswordResetEmail: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  updateUserByUID: () => {
+    return [];
+  },
+  getUserByUID: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  createUser: ()=> {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  isUserLoggedIn: new BehaviorSubject(false),
+  userRoles: new BehaviorSubject([]),
 };
 
 
@@ -52,8 +85,10 @@ describe('LoginPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LoginPage ],
-      imports: [IonicModule.forRoot(), FormsModule, RouterModule.forRoot([])],
-      providers: [{ provide: AngularFireAuth, useValue: authStub },
+      imports: [IonicModule.forRoot(), SharedPageModule, RouterTestingModule,ReactiveFormsModule, RouterModule.forRoot([])],
+      providers: [
+        FormBuilder,
+        { provide: AngularFireAuth, useValue: authStub },
         { provide: AuthService, useValue: mockAuthentication }]
     }).compileComponents();
 

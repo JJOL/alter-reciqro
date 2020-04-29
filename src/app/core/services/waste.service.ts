@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import 'firebase/firestore';
-import { WasteType } from '../models/waste-type';
+import { WasteType, PlacesWasteTypes } from '../models/waste-type';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map,} from 'rxjs/operators';
 
 const WASTE_TYPE_KEY = '/waste_type';
+
 /**
  * User Story ID: M1NC3
  * Function that casts a firebase waste to our delegation model.
@@ -56,4 +57,40 @@ export class WasteService {
           });
     });
   }
+
+
+  /**
+   * User Story Id: M1NG7, M1NG11
+   * Fuction that returns the WasteTypes based on the wastesid of a particular place type
+   * @param  {PlacesWasteTypes} filters
+   * @param  {WasteType} allwastes
+   * @returns WasteType[]
+   */
+  getWastesByWasteId(filters: PlacesWasteTypes[], allwastes: WasteType[]): WasteType[] {
+    let result: WasteType[];
+    let keys: string[] = filters.map(item => item.waste_type);
+    result = allwastes.filter(function(item){
+      return keys.includes(item.id);
+    });
+    return result;
+  }
+
+  /**
+   * User Story Id: M1NG11
+   * Fuction that returns the WasteTypes not associated to a particular place type
+   * @param  {PlacesWasteTypes} filters
+   * @param  {WasteType} allwastes
+   * @returns WasteType[]
+   */
+  getNoWastesByWasteId(filters: PlacesWasteTypes[], allwastes: WasteType[]): WasteType[]{
+    let result: WasteType[];
+    let keys: string[] = filters.map(item => item.waste_type);
+    result = allwastes.filter(function(item){
+      return !keys.includes(item.id);
+    });
+    return result;
+  }
+
+  
+
 }

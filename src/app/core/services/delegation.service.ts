@@ -67,6 +67,7 @@ export class DelegationService {
       let subscription: Subscription;
       subscription = this.firedb.collection<any>(DELEGATION_KEY).doc<any>(id).valueChanges()
           .pipe(
+              // eslint-disable-next-line @typescript-eslint/no-magic-numbers
               take(1),
               map(delegation => {return delegation}))
           .subscribe(delegation => {

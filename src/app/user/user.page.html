@@ -34,11 +34,12 @@
             <ion-list>
               <ion-item *ngIf="delegations">
                 <ion-label>Delegación</ion-label>
-                <ion-select cancelText="CANCEL" okText="OK" multiple="false" [selectedText]="userDelegation">
+                <ion-select (ionChange)="changeDelegation($event)" cancelText="CANCEL" okText="OK" multiple="false" [selectedText]="userDelegation">
                   <ion-select-option 
                   *ngFor="let delegation of delegations" 
                   value="{{delegation.id}}"
                   >{{delegation.name}}
+                  {{delegation.name}}
                   </ion-select-option>
                 </ion-select>
               </ion-item>

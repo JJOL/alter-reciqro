@@ -1,11 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
 import { PlaceTypePage } from './place-type.page';
-
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { from } from 'rxjs';
 import {MockAngularFirestore} from 'src/app/core/services/mocks/firestore.mock';
 
 

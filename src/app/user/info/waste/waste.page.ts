@@ -5,7 +5,7 @@ import { WasteService } from 'src/app/core/services/waste.service';
  * Function that shuffles an generic array. It is used so cards are never presented the same.
  * @param  {} arra1
  */
-function shuffle(arra1) {
+export function shuffle(arra1) {
   let ctr = arra1.length, temp, index;
 
   // While there are elements in the array
