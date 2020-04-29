@@ -53,9 +53,8 @@ export class PlacesSearcherPagePage  {
   ) { }
 
   async ionViewWillEnter() {
-    let roles = await this.authService.getRolesandSession();
-    this.isLogged = roles[0];
-    console.log("aqui",this.isLogged);
+    /*console.log("aquie esta el obser",this.authService.isUserLoggedIn.value);
+    console.log("logout2",this.authService.isUserLoggedIn.value);*/
     this.filters = await  this.placesService.getAllWasteTypes();
     this.activeFilters = this.filters;
     this.places = await this.filterByType(this.activeFilters);
@@ -146,6 +145,7 @@ export class PlacesSearcherPagePage  {
     }
     return false;
   }
+
 
   onMapInteract() {
     // eslint-disable-next-line no-console

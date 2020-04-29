@@ -1,3 +1,5 @@
+import { SharedPageModule } from 'src/app/shared/shared.module';
+import { ToolbarComponent } from './../../shared/toolbar/toolbar.component';
 import { AuthService } from './../../core/services/auth.service';
 
 import { NgModule } from '@angular/core';
@@ -18,6 +20,7 @@ import { LoginPage } from './login.page';
     ReactiveFormsModule,
     IonicModule,
     LoginPageRoutingModule,
+    SharedPageModule
   ],
   declarations: [LoginPage],
   providers: [AuthService]

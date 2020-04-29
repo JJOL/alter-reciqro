@@ -35,6 +35,10 @@ const routes: Routes = [
   {
     path: 'add-admin',
     loadChildren: () => import('./add-admin/add-admin.module').then( m => m.AddAdminPageModule)
+  },
+  {
+    path: 'info-banners',
+    loadChildren: () => import('./info-banners/info-banners.module').then( m => m.InfoBannersPageModule)
   }
 ];
 

@@ -1,4 +1,4 @@
-import { empty } from 'rxjs';
+import { empty, BehaviorSubject } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from './../../core/services/auth.service';
 import { MarkerCardComponent } from './../marker-card/marker-card.component';
@@ -81,6 +81,31 @@ const mockAuthentication ={
       resolve([]);
     });
   },
+  updateCurrentUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  sendPasswordResetEmail: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  updateUserByUID: () => {
+    return [];
+  },
+  getUserByUID: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  createUser: ()=> {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  isUserLoggedIn: new BehaviorSubject(false),
+  userRoles: new BehaviorSubject([]),
 };
 
 const authStub: any = {
