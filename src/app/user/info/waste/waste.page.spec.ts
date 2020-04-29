@@ -24,7 +24,7 @@ const angularFirestoreStub = {
   collection: jasmine.createSpy('collection').and.returnValue(collectionStub),
 };
 
-const mockService = jasmine.createSpyObj('placeService', ['getWastes']);
+const mockService = jasmine.createSpyObj('wasteService', ['getWastes']);
 
 mockService.getWastes.and.returnValue(
     new Promise<any>((res) => {
@@ -55,9 +55,9 @@ describe('WastePage', () => {
   });
 
   it('should shuffle array', () => {
-    let testArr = [1,2];
-    let expectedArr = [2,1];
-    expect(shuffle(testArr)).not.toEqual(expectedArr);
+    let testArr = [1,2,3,4,5,6,7,8,9,10];
+    let copytestArr = [1,2,3,4,5,6,7,8,9,10];
+    expect(shuffle(testArr)).not.toEqual(copytestArr);
   });
 
   it('should call get wastes from service', () => {

@@ -21,7 +21,6 @@ const angularFirestoreStub = {
   collection: jasmine.createSpy('collection').and.returnValue(collectionStub),
 };
 
-
 describe('AddAdminPage', () => {
   let component: AddAdminPage;
   let fixture: ComponentFixture<AddAdminPage>;
