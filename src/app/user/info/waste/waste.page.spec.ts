@@ -4,6 +4,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {WastePage} from './waste.page';
 import {RouterModule} from '@angular/router';
 import {WasteService} from 'src/app/core/services/waste.service';
+import {shuffle} from './waste.page';
 
 const arr = function() {};
 
@@ -51,6 +52,12 @@ describe('WastePage', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should shuffle array', () => {
+    let testArr = [1,2];
+    let expectedArr = [2,1];
+    expect(shuffle(testArr)).not.toEqual(expectedArr);
   });
 
   it('should call get wastes from service', () => {
