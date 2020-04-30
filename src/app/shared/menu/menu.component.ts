@@ -35,12 +35,12 @@ export class MenuComponent implements OnInit {
       this.isLogged = value;
       console.log("checar en el tool2",this.authService.isUserLoggedIn.value);
     });
-    /*this.authService.userRoles.asObservable().subscribe(roles => {
+    this.authService.userRoles.asObservable().subscribe(roles => {
       console.log("aqui tan los roles2",roles);
       this.admin = roles [1];
       this.staff = roles [2];
       this.user = roles[3];
-    });*/
+    });
   } 
 
   /**

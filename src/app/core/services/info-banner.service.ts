@@ -19,7 +19,8 @@ function fbInfoBannerSnapToInfoBanner(fbInfoBannerSnap: any): InfoBanner {
       id,
       data.title,
       data.description,
-      data.image_url
+      data.image_url,
+      data.date
   );
 
   return infoBanner;
@@ -34,6 +35,7 @@ function fbInfoBannerSnapToInfoBanner(fbInfoBannerSnap: any): InfoBanner {
  */
 export class InfoBannerService {
 
+  // eslint-disable-next-line require-jsdoc
   constructor(
     private firedb: AngularFirestore
   ) { }
@@ -46,18 +48,51 @@ export class InfoBannerService {
     return new Promise((res, rej) => {
       let subscription: Subscription;
       subscription = this.firedb.collection(INFO_BANNERS_KEY)
-      .snapshotChanges()
-      .pipe(
-        map(snapshot => {
-          return snapshot.map(fbInfoBannerSnapToInfoBanner)
-        })
-      )
-      .subscribe(infoBanners => {
-        if (subscription) {
-          subscription.unsubscribe();
-        }
-        res(infoBanners);
+          .snapshotChanges()
+          .pipe(
+              map(snapshot => {
+                return snapshot.map(fbInfoBannerSnapToInfoBanner)
+              })
+          )
+          .subscribe(infoBanners => {
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+            res(infoBanners);
+          });
+    });
+  }
+  /**
+   * Delete info banners
+   * @param  {string} id
+   */
+  async deleteInfoBannersByID(id: string): Promise<void> {
+    return new Promise((resolve) => {
+      this.firedb.collection<InfoBanner>(INFO_BANNERS_KEY).doc<InfoBanner>(id).delete().then(() => {
+        resolve();
       });
+    });
+  }
+
+  /**
+   * User Story ID: M2NG8
+   * Description: This function creates a place in firebase
+   * @param  {} infoBanner
+   */
+  createInfoBanner(infoBanner) {
+    return new Promise<any>((resolve, reject) => {
+      this.firedb.collection(INFO_BANNERS_KEY).add({
+        title: infoBanner.title,
+        description: infoBanner.description,
+        image_url: infoBanner.mainPicture,
+        date: infoBanner.date
+      })
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
     });
   }
 }

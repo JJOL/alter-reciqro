@@ -1,3 +1,4 @@
+import { SharedPageModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +14,8 @@ import { InfoBannersPage } from './info-banners.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    InfoBannersPageRoutingModule
+    InfoBannersPageRoutingModule,
+    SharedPageModule
   ],
   declarations: [InfoBannersPage]
 })

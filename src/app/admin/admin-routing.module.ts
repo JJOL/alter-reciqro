@@ -38,8 +38,11 @@ const routes: Routes = [
   },
   {
     path: 'info-banners',
-    loadChildren: () => import('./info-banners/info-banners.module').then( m => m.InfoBannersPageModule)
+    loadChildren: () => import('./info-banners/info-banners.module').then( m => m.InfoBannersPageModule),
+    canActivate: [AuthGuard],
+    data: { roles: ['admin','staff']}
   }
+
 ];
 
 @NgModule({

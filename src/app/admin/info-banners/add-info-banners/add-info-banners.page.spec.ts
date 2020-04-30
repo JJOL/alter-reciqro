@@ -1,15 +1,13 @@
-import { AuthService } from './../../core/services/auth.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from './../../../core/services/auth.service';
+import { MockAngularFirestore } from 'src/app/core/services/mocks/firestore.mock';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedPageModule } from './../../shared/shared.module';
+import { SharedPageModule } from './../../../shared/shared.module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { empty, BehaviorSubject } from 'rxjs';
-import { InfoBannersPage } from './info-banners.page';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AngularFirestore } from '@angular/fire/firestore';
-
-import { MockAngularFirestore } from '../../core/services/mocks/firestore.mock';
-
+import { AddInfoBannersPage } from './add-info-banners.page';
 
 let mockFirestore = new MockAngularFirestore();
 const mockAuthentication ={
@@ -68,30 +66,24 @@ const mockAuthentication ={
   isUserLoggedIn: new BehaviorSubject(false),
   userRoles: new BehaviorSubject([]),
 };
-
-describe('InfoBannersPage', () => {
-  let component: InfoBannersPage;
-  let fixture: ComponentFixture<InfoBannersPage>;
+describe('AddInfoBannersPage', () => {
+  let component: AddInfoBannersPage;
+  let fixture: ComponentFixture<AddInfoBannersPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InfoBannersPage ],
-      imports: [IonicModule.forRoot(), RouterTestingModule, SharedPageModule, ReactiveFormsModule],
-      providers: [
-        { provide: AngularFirestore, useValue: mockFirestore},
-        { provide: AuthService, useValue: mockAuthentication}
-      ]
+      declarations: [ AddInfoBannersPage ],
+      imports: [IonicModule.forRoot(), SharedPageModule, ReactiveFormsModule, RouterTestingModule],
+      providers: [{provide: AngularFirestore, useValue: mockFirestore},
+        { provide: AuthService, useValue: mockAuthentication}]
     }).compileComponents();
-    
-    mockFirestore.setTestData([]);
 
-    fixture = TestBed.createComponent(InfoBannersPage);
+    fixture = TestBed.createComponent(AddInfoBannersPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
 
   it('should create', () => {
-    
     expect(component).toBeTruthy();
   });
 });
