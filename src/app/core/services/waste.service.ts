@@ -75,7 +75,6 @@ export class WasteService {
     return result;
   }
 
-
   /**
    * User Story Id: M1NG11
    * Fuction that returns the WasteTypes not associated to a particular place type

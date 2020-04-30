@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { EventsService } from 'src/app/core/services/events.service';
+import { EventModel } from 'src/app/core/models/event.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-events',
   templateUrl: './events.page.html',
   styleUrls: ['./events.page.scss'],
+  providers: [DatePipe]
 })
 /**
  * Event page class, provides methods for Angular loading.
 */
 export class EventsPage implements OnInit {
-  events: any[];
+  events: EventModel[];
+  todayDate = new Date();
   /**
    * User Story ID: M2NC2
    * Constructor only uses as an external service the Event Service, so that reading operations can be performed.
@@ -24,6 +28,8 @@ export class EventsPage implements OnInit {
   ngOnInit() {
     this.eventService.getAllEvents().then(event => {
       this.events = event;
+      this.events = this.events.filter(event => event.start_date >= this.todayDate);
     });
   }
+
 }

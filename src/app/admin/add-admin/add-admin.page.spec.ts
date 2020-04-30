@@ -1,10 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
-import { EventsPage } from './events.page';
-import { RouterModule } from '@angular/router';
+import { AddAdminPage } from './add-admin.page';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { EventsService } from 'src/app/core/services/events.service';
 
 const arr = function() {};
 
@@ -24,39 +21,25 @@ const angularFirestoreStub = {
   collection: jasmine.createSpy('collection').and.returnValue(collectionStub),
 };
 
-const mockService = jasmine.createSpyObj('eventService', ['getAllEvents']);
-
-mockService.getAllEvents.and.returnValue(
-    new Promise<any>((res) => {
-      res([]);
-    }));
-
-describe('EventsPage', () => {
-  let component: EventsPage;
-  let fixture: ComponentFixture<EventsPage>;
+describe('AddAdminPage', () => {
+  let component: AddAdminPage;
+  let fixture: ComponentFixture<AddAdminPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [EventsPage],
-      imports: [IonicModule.forRoot(), RouterModule.forRoot([])],
+      declarations: [ AddAdminPage ],
+      imports: [IonicModule.forRoot()],
       providers: [
         {provide: AngularFirestore, useValue: angularFirestoreStub},
-        {provide: EventsService, useValue: mockService},
-      ],
+      ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(EventsPage);
+    fixture = TestBed.createComponent(AddAdminPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should call get events from service', () => {
-    const eventService = TestBed.get(EventsService);
-    component.ngOnInit();
-    expect(eventService.getAllEvents.calls.count()).toBeGreaterThanOrEqual(1);
   });
 });
