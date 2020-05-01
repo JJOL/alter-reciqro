@@ -17,8 +17,12 @@ export class VisitsService {
     private firedb: AngularFirestore
   ) { }
 
-
-  getAllVisitsForUser(): Promise<any> {
+  /**
+   * User Story ID: M1NG6
+   * Description: Returns an array of {date: Date, place: Place } visits made by the logged user.
+   * @returns Promise<any[]>
+   */
+  getAllVisitsForUser(): Promise<any[]> {
 
     return new Promise(async (resolve,reject) => {
       try {
@@ -53,7 +57,12 @@ export class VisitsService {
     });
     
   }
-
+  /**
+   * User Story ID: M1NG6
+   * Description: Tries to find a place for the matching QR Code and returns it.
+   * @param  {string} qrUrl
+   * @returns Promise
+   */
   registerQRVisit(qrUrl: string): Promise<void> {
 
     return new Promise(async (success, reject) => {
