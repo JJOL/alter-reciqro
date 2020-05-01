@@ -41,6 +41,20 @@ export class MockAngularFirestore {
           set: () => {},
           valueChanges: () => {
             return from( [...this.testData] );
+          },
+          ref: {
+            get: () => new Promise((res,rej) => {
+              
+              let fobj = this.testData.filter(obj => {return obj.id == id});
+              let exists = (fobj.length > 0);
+
+              res({
+                exists: exists,
+                data: () => fobj[0],
+                id: id
+              });
+              
+            })
           }
         };
       },

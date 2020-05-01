@@ -35,6 +35,7 @@
     "font-awesome": "^4.7.0",
     "googleapis": "^39.2.0",
     "googlemaps": "^1.12.0",
+    "jsqr": "^1.2.0",
     "line-reader-sync": "^0.1.0",
     "net": "^1.0.2",
     "rxjs": "~6.5.1",

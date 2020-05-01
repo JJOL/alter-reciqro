@@ -143,6 +143,7 @@ export class AuthService {
               take(1),
               map(
                   user => {
+                    user.id = uid;
                     return user;
                   }
               ))
