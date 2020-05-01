@@ -9,10 +9,6 @@ const routes: Routes = [
     component: WasteTypePage
   },
   {
-    path: 'detail/:wasteId',
-    loadChildren: () => import('./detail-waste-type/detail-waste-type.module').then( m => m.DetailWasteTypePageModule)
-  },
-  {
     path: 'update/:wasteId',
     loadChildren: () => import('./update-waste-type/update-waste-type.module').then( m => m.UpdateWasteTypePageModule)
   },

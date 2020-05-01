@@ -1,6 +1,6 @@
+/* eslint-disable max-params */
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import 'firebase/firestore';
 import { WasteType, PlacesWasteTypes } from '../models/waste-type';
 import { Subscription } from 'rxjs';
 import { map,take} from 'rxjs/operators';
@@ -34,9 +34,10 @@ function parseFBPWasteToWaste(fbWaste: any): WasteType {
 export class WasteService {
   /**
    * Constructor for the class, only external service used will be the Firestore one.
-   * @param  {AngularFirestore} publicfiredb
+   * @param  {AngularFirestore} firedb
    */
   constructor(public firedb: AngularFirestore) { }
+  
   /**
    * User Story ID: M1NC3
    * Function that returns all wastes on the database, unfiltered, with all its associated data.
@@ -117,6 +118,7 @@ export class WasteService {
           });
     });
   }
+
 
   updateWasteType(id: string, namewastetype: string, urlwastetype: string, descriptionwastetype: string): Promise<any>{
     return new Promise<any>((resolve, reject) => {

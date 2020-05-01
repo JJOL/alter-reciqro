@@ -60,4 +60,22 @@ export class UpdateWasteTypePage implements OnInit {
         .catch(() => {});
   }
 
+  cancelUpdate(){
+    this.alertCtrl.create ({
+      header: 'Mensaje de Confirmación',
+      message: 'Los cambios generados no se guardarán.',
+      buttons: [{
+        text: 'Aceptar',
+        handler: () => {
+          this.navCtrl.navigateBack(['/admin/center/waste-type']);
+        }
+      },{
+        text: 'Cancelar',
+        role: 'cancel'
+      }]
+    }).then(alertEl => {
+      alertEl.present();
+    });
+  }
+
 }

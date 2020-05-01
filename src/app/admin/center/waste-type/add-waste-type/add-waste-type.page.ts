@@ -38,4 +38,22 @@ export class AddWasteTypePage implements OnInit {
     })
         .catch(() => {});
   }
+
+  cancelUpdate(){
+    this.alertCtrl.create ({
+      header: 'Mensaje de Confirmación',
+      message: 'El nuevo residuo no se guradará.',
+      buttons: [{
+        text: 'Aceptar',
+        handler: () => {
+          this.navCtrl.navigateBack(['/admin/center/waste-type']);
+        }
+      },{
+        text: 'Cancelar',
+        role: 'cancel'
+      }]
+    }).then(alertEl => {
+      alertEl.present();
+    });
+  }
 }
