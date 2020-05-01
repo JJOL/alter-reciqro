@@ -20,9 +20,7 @@ export class VisitsPage implements OnInit {
 
   ionViewWillEnter() {
     this.visitsService.getAllVisitsForUser()
-    .then(visits => {
-      console.log(visits);
-      
+    .then(visits => {    
       this.visits = visits;
     });
   }

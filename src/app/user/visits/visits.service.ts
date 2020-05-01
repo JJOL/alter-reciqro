@@ -34,7 +34,8 @@ export class VisitsService {
           let visitData = fbvisit.data();
           visitData.date = visitData.date.toDate();
           promises.push(this.placesService.getPlaceByID(visitData.place_id)
-          .then(place => {
+          .then(place => 
+            {
             visitData.place = place;
             return visits.push(visitData);
           }));
