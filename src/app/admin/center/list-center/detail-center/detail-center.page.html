@@ -38,6 +38,7 @@
             <br>
             <h4> <strong> Código QR: </strong> </h4>
             <p> {{ loadedPlace.qr_code }} </p>
+            <div #qrCodeElement (ready)="renderQRImage()"></div>
             <br>
             <h4> <strong> Código Postal: </strong> </h4>
             <p> {{ loadedPlace.postal_code }} </p>

@@ -39,7 +39,9 @@
                 "input": "src/global.scss"
               }
             ],
-            "scripts": []
+            "scripts": [
+              "libs/qrcode.min.js"
+            ]
           },
           "configurations": {
             "production": {
