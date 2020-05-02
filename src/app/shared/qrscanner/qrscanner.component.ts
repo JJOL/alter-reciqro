@@ -4,6 +4,11 @@ import { requestAnimationFrame } from '../../core/platform/requestAnimationFrame
 
 declare const jsQR: any;
 
+const CAMERA_OPTIONS = {
+  FACING_CAMERA: 'user',
+  BACK_CAMERA: 'environment'
+};
+
 /**
  * QRCodeEvent
  * Description: Emitted Event when a QR Code has successfully been scanned with its information.
@@ -30,6 +35,8 @@ export class QrscannerComponent implements OnInit, OnDestroy {
   stream: MediaStream;
   platformOnTickFn: (cbFn: () => void) => void;
 
+  selectedCamera: string;
+
   // Video Element and Canvas Element
   @ViewChild('previewEl', { static: true }) videoEl;
   @ViewChild('canvasEl', { static: true }) canvasEl;
@@ -38,22 +45,45 @@ export class QrscannerComponent implements OnInit, OnDestroy {
   constructor() {
     this.readCode = new EventEmitter<QRCodeEvent>();
   }
+  
+  /**
+   * User Story ID: M1NG6
+   * Description: Selects default camera and loads stream
+   */
+  ngOnInit() {
+
+    // Activate Input Stream from default camera
+    this.selectedCamera = CAMERA_OPTIONS.BACK_CAMERA;
+    this.loadCameraStream();
+  }
+
   /**
    * Description: Starts the camera stream is allowed and 
    * renders it to the video element
    */
-  ngOnInit() {
+  loadCameraStream() {
+    this.shutdownCamera();
+
     let video = this.videoEl.nativeElement;
     this.ctx = this.canvasEl.nativeElement.getContext('2d');
 
+    if (!('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices)){
+      alert('No se encontró acceso a las camaras del dispositivo!')
+      return;
+    }
     navigator.mediaDevices.getUserMedia({
       audio: false,
-      video: true
+      video: {
+        facingMode: this.selectedCamera
+      }
     })
     .then(stream => {
       this.stream = stream;
+
       video.srcObject = this.stream;
       video.setAttribute("playsinline", true);
+
+      video.load();
       video.play();
 
       requestAnimationFrame(() => this.tick());
@@ -62,8 +92,9 @@ export class QrscannerComponent implements OnInit, OnDestroy {
       //TODO: Handle User Doesnt Give Permission or no camera available.
       console.error(err);
     });
-
   }
+
+
   /**
    * Description: Stops the stream when the component is destroyed, no longer used.
    */
@@ -74,6 +105,7 @@ export class QrscannerComponent implements OnInit, OnDestroy {
    * Description: Stops the stream of the camera
    */
   shutdownCamera() {
+    this.videoEl.nativeElement.pause();
     if (this.stream) {
       this.stream.getTracks()
       .forEach(track => {
@@ -112,6 +144,19 @@ export class QrscannerComponent implements OnInit, OnDestroy {
         this.readCode.next({ url: url });
       }
     } 
+  }
+
+  /**
+   * User Story ID: M1NG6
+   * Description: Toggles the current camera to use another one
+   */
+  onSwitchCamera() {
+    this.selectedCamera = (CAMERA_OPTIONS.BACK_CAMERA == this.selectedCamera) 
+                            ? CAMERA_OPTIONS.FACING_CAMERA
+                            : CAMERA_OPTIONS.BACK_CAMERA;
+
+
+    this.loadCameraStream();
   }
 
 }
