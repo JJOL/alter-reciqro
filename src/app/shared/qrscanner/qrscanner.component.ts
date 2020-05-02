@@ -37,6 +37,8 @@ export class QrscannerComponent implements OnInit, OnDestroy {
 
   selectedCamera: string;
 
+  deviceMediaInfo: any;
+
   // Video Element and Canvas Element
   @ViewChild('previewEl', { static: true }) videoEl;
   @ViewChild('canvasEl', { static: true }) canvasEl;
@@ -50,18 +52,62 @@ export class QrscannerComponent implements OnInit, OnDestroy {
    * User Story ID: M1NG6
    * Description: Selects default camera and loads stream
    */
-  ngOnInit() {
-
+  async ngOnInit() {
     // Activate Input Stream from default camera
     this.selectedCamera = CAMERA_OPTIONS.BACK_CAMERA;
-    this.loadCameraStream();
+    await this.gatherDeviceMediaInfo();
+
+    this.loadCameraStream(this.makeVideoConstraints(this.selectedCamera));
+  }
+  /**
+   * Description: Load once device media stream information
+   */
+  async gatherDeviceMediaInfo() {
+    let devices = await (await navigator.mediaDevices.enumerateDevices()).filter(device => device.kind == 'videoinput');
+    let availableConstrains = navigator.mediaDevices.getSupportedConstraints();
+
+    if (!this.deviceMediaInfo) {
+      this.deviceMediaInfo = {};
+    }
+    this.deviceMediaInfo.devices = devices;
+    this.deviceMediaInfo.availableConstrains = availableConstrains;
+  }
+  /**
+   * Description: Calculate necessary constraints for getting a video stream for selected camera
+   * @param  {} selectedCamera
+   * @returns any
+   */
+  makeVideoConstraints(selectedCamera): any {
+    let devices = this.deviceMediaInfo.devices;
+    let availableConstrains = this.deviceMediaInfo.availableConstrains;
+
+    let isFrontCameraSelected = selectedCamera == CAMERA_OPTIONS.FACING_CAMERA;
+
+    let constrains: any = {
+      audio: false,
+      video: true
+    };
+
+    if (devices.length > 1) {
+      let selectedDeviceId =  isFrontCameraSelected ? devices[0].deviceId : devices[devices.length-1].deviceId;
+      constrains.video = {
+        mandatory: {
+          sourceId: selectedDeviceId
+        }
+      }
+    }
+    if ('facingModel' in availableConstrains) {
+      constrains.facingMode = 'environment';
+    }
+    
+    return constrains;
   }
 
   /**
    * Description: Starts the camera stream is allowed and 
    * renders it to the video element
    */
-  loadCameraStream() {
+  loadCameraStream(constraints) {
     this.shutdownCamera();
 
     let video = this.videoEl.nativeElement;
@@ -71,12 +117,7 @@ export class QrscannerComponent implements OnInit, OnDestroy {
       alert('No se encontró acceso a las camaras del dispositivo!')
       return;
     }
-    navigator.mediaDevices.getUserMedia({
-      audio: false,
-      video: {
-        facingMode: this.selectedCamera
-      }
-    })
+    navigator.mediaDevices.getUserMedia(constraints as any)
     .then(stream => {
       this.stream = stream;
 
@@ -150,13 +191,12 @@ export class QrscannerComponent implements OnInit, OnDestroy {
    * User Story ID: M1NG6
    * Description: Toggles the current camera to use another one
    */
-  onSwitchCamera() {
+  async onSwitchCamera() {
     this.selectedCamera = (CAMERA_OPTIONS.BACK_CAMERA == this.selectedCamera) 
                             ? CAMERA_OPTIONS.FACING_CAMERA
                             : CAMERA_OPTIONS.BACK_CAMERA;
 
-
-    this.loadCameraStream();
+    this.loadCameraStream(this.makeVideoConstraints(this.selectedCamera));
   }
 
 }
