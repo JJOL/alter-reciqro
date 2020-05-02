@@ -197,4 +197,28 @@ export class AddPlaceTypePage implements OnInit {
         .catch(() => {});
   }
 
+  /**
+   * User Story Id: M1NG11
+   * Method that is called when the update is cancel to get the user's confirmation
+   * @param 
+   * @returns 
+   */
+  cancelAdd(){
+    this.alertCtrl.create ({
+      header: 'Mensaje de Confirmación',
+      message: 'La nueva categoría de residuo no se guardará.',
+      buttons: [{
+        text: 'Aceptar',
+        handler: () => {
+          this.navCtrl.navigateBack(['/admin/center/place-type']);
+        }
+      },{
+        text: 'Cancelar',
+        role: 'cancel'
+      }]
+    }).then(alertEl => {
+      alertEl.present();
+    });
+  }
+
 }
