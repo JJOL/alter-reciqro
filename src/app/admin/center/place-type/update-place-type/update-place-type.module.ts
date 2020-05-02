@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
 import { UpdatePlaceTypePageRoutingModule } from './update-place-type-routing.module';
-
 import { UpdatePlaceTypePage } from './update-place-type.page';
+import { SharedPageModule } from '../../../../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -14,6 +13,8 @@ import { UpdatePlaceTypePage } from './update-place-type.page';
     FormsModule,
     IonicModule,
     UpdatePlaceTypePageRoutingModule,
+    SharedPageModule,
+    ReactiveFormsModule
   ],
   declarations: [UpdatePlaceTypePage]
 })

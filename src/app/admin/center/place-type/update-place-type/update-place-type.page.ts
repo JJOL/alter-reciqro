@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NavController, AlertController } from '@ionic/angular';
 import { WasteService } from 'src/app/core/services/waste.service';
 import { WasteType, PlacesWasteTypes } from 'src/app/core/models/waste-type';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-update-place-type',
@@ -32,6 +33,57 @@ export class UpdatePlaceTypePage implements OnInit {
   placeWasteTypeToDelete: PlacesWasteTypes[];
   placeWasteTypeToUpdate: string[];
 
+  /**
+   * User Story Id: M1NG11
+   * Allows to get the name of the waste center of the form
+   * @param  
+   * @returns 
+   */
+  get name() {
+    return this.newPlaceForm.get('name');
+  }
+
+
+  /**
+   * User Story Id: M1NG11
+   * Allows to get the url of the waste center of the form
+   * @param  
+   * @returns 
+   */
+  get mainPicture() {
+    return this.newPlaceForm.get('mainPicture');
+  }
+
+  /**
+   * User Story Id: M1NG11
+   * Allows to get the selected wastes of the waste center of the form
+   * @param  
+   * @returns 
+   */
+  get placeWasteTypeToUpdateTrueFalse() {
+    return this.newPlaceForm.get('placeWasteTypeToUpdateTrueFalse');
+  }
+
+  public errorMessages = {
+    name: [
+      { type: 'required', message: 'Tipo de centro es requerido.' },
+      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 30 caracteres.'}
+    ],
+    mainPicture: [
+      { type: 'required', message: 'La Url de la imagen es requerida.' },
+      { type: 'pattern', message: 'La URL no es correcta.' }
+    ],
+    placeWasteTypeToUpdateTrueFalse: [
+      { type: 'required', message: 'Es necesario seleccionar al menos un tipo de desecho.' }
+    ]
+  };
+
+  newPlaceForm = this.formBuilder.group({
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    name: ['', [Validators.required, Validators.maxLength(30)]],
+    mainPicture: ['',[Validators.required, Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')]],
+    placeWasteTypeToUpdateTrueFalse: ['',[Validators.required]]
+  });
 
   
   /**
@@ -42,6 +94,7 @@ export class UpdatePlaceTypePage implements OnInit {
    * @param  {NavController} navCtrl
    * @param  {AlertController} alertCtrl
    * @param  {WasteService} wasteService
+   * @param  {FormBuilder} formBuilder
    * @returns 
    */
   constructor(
@@ -49,7 +102,8 @@ export class UpdatePlaceTypePage implements OnInit {
     private placeService: PlacesService,
     private navCtrl: NavController,
     private alertCtrl: AlertController,
-    private wasteService: WasteService
+    private wasteService: WasteService,
+    private formBuilder: FormBuilder
   ) { }
 
   /**
@@ -77,8 +131,13 @@ export class UpdatePlaceTypePage implements OnInit {
             this.uncheckedwasteTypes = this.wasteService.getNoWastesByWasteId(data,wastes);
             this.placeWasteTypeToDelete = data;
             this.placeWasteTypeToUpdate = this.placeWasteTypeToDelete.map(item => item.waste_type);
+            this.newPlaceForm.setValue({
+              name: this.name_waste_type,
+              mainPicture: this.url_waste_type,
+              placeWasteTypeToUpdateTrueFalse: 'true'
+            });
           });
-        });
+        }); 
       }
     });
 
@@ -96,28 +155,40 @@ export class UpdatePlaceTypePage implements OnInit {
     }else{
       this.placeWasteTypeToUpdate = this.placeWasteTypeToUpdate.filter(e => e !== wasteId);
     }
-    
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    if(this.placeWasteTypeToUpdate.length < 1){
+      this.newPlaceForm.setValue({
+        name: this.newPlaceForm.get('name').value,
+        mainPicture: this.newPlaceForm.get('mainPicture').value,
+        placeWasteTypeToUpdateTrueFalse: ''
+      });
+    }else{
+      this.newPlaceForm.setValue({
+        name: this.newPlaceForm.get('name').value,
+        mainPicture: this.newPlaceForm.get('mainPicture').value,
+        placeWasteTypeToUpdateTrueFalse: 'true'
+      });
+    }  
   }
 
   /**
    * User Story Id: M1NG11
-   * Method that calles the updatePlaceType method form the service PlacesService to update an existing Place Type in the database and its related wastes types
+   * Method that calles the updatePlaceType method form the service PlacesService to update an existing Place Type 
+   * in the database and its related wastes types
    * @param 
    * @returns 
    */
   updatePlaceType(){
-    //console.log(this.placeWasteTypeToDelete);
     for (const item of this.placeWasteTypeToDelete){
-      //console.log('Id: ',item.id);
       this.placeService.deletePlaceWasteType(item.id);
     }
-    //this.placeService.deletePlaceWasteType(this.placeId);
 
     for (const wasteid of this.placeWasteTypeToUpdate){
       this.placeService.insertPlaceWasteType(this.placeId, wasteid);
     }
 
-    this.placeService.updatePlaceType(this.loadedPlaceType.id, this.name_waste_type, this.url_waste_type).then(() => {
+    this.placeService.updatePlaceType(this.loadedPlaceType.id, this.newPlaceForm.get('name').value, 
+        this.newPlaceForm.get('mainPicture').value).then(() => {
       this.alertCtrl.create ({
         header: 'Mensaje de Confirmación',
         message: 'El tipo de lugar de residuo "' + this.name_waste_type + '" se ha modificado',
@@ -132,6 +203,30 @@ export class UpdatePlaceTypePage implements OnInit {
     })
         .catch(() => {});
 
+  }
+
+  /**
+   * User Story Id: M1NG11
+   * Method that is called when the update is cancel to get the user's confirmation
+   * @param 
+   * @returns 
+   */
+  cancelUpdate(){
+    this.alertCtrl.create ({
+      header: 'Mensaje de Confirmación',
+      message: 'La modificaciones realizadas a la categoría de residuo no se guardarán.',
+      buttons: [{
+        text: 'Aceptar',
+        handler: () => {
+          this.navCtrl.navigateBack(['/admin/center/place-type']);
+        }
+      },{
+        text: 'Cancelar',
+        role: 'cancel'
+      }]
+    }).then(alertEl => {
+      alertEl.present();
+    });
   }
 
 }

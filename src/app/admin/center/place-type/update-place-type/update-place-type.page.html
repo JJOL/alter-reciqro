@@ -1,11 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/admin/center/place-type"  [text]="''"></ion-back-button>
-    </ion-buttons>
-    <ion-title *ngIf="loadedPlaceType" size = "small"> {{ loadedPlaceType.name }} </ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar  *ngIf="loadedPlaceType" title="{{ loadedPlaceType.name }}" [backButton]="true" routePath="/admin/center/place-type"></app-toolbar>
 
 <ion-content fullscreen *ngIf="uncheckedwasteTypes" >
   <ion-grid>
@@ -13,48 +6,65 @@
       <ion-col size-md = "6" size-sm = "12" >
         <ion-card class="ion-justify-content-center">
           <img [src]="loadedPlaceType.icon_url" />
-          <ion-card-header>
-            <ion-card-title>
-              <ion-card-subtitle position="floating">Tipo de Centro de Residuo</ion-card-subtitle>
-              <ion-input placeholder = "Ejemplo: Libros" type = "text" required = "true" maxlength = "30" [(ngModel)] = "name_waste_type"></ion-input>
-            </ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-card-subtitle position="floating">Url del Tipo de Centro de Residuo</ion-card-subtitle>
-            <ion-input placeholder = "Ejemplo: http://ejemplo.com/ejemplo.jpg" type = "url" required = "true" [(ngModel)] = "url_waste_type"></ion-input>
+          <form [formGroup]="newPlaceForm" (ngSubmit)="updatePlaceType()"> 
+            <ion-card-header>
+              <ion-card-title>
+                <ion-card-subtitle position="floating">Tipo de Centro de Residuo</ion-card-subtitle>
+                <ion-input placeholder = "Ejemplo: Libros" type = "text" required = "true" maxlength = "30" formControlName="name" inputmode="text"></ion-input>
+              </ion-card-title>
+              <div *ngFor="let error of errorMessages.name">
+                <ng-container *ngIf="name.hasError(error.type) && (name.dirty || name.touched)">
+                  <small class="error-message">{{error.message}}</small>
+                </ng-container>
+              </div>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-card-subtitle position="floating">Url de Foto</ion-card-subtitle>
+              <ion-input placeholder = "Ejemplo: http://ejemplo.com/ejemplo.jpg" type = "url" required = "true" formControlName="mainPicture"></ion-input>
+              <div *ngFor="let error of errorMessages.mainPicture">
+                <ng-container *ngIf="mainPicture.hasError(error.type) && (mainPicture.dirty || mainPicture.touched)">
+                  <small class="error-message">{{error.message}}</small>
+                </ng-container>
+              </div>
+              <ion-grid>
+                <ion-row class="ion-justify-content-left">
+                  <ion-col class="ion-align-self-center" size-md = "4">
+                    <ion-list >
+                      <ion-card-subtitle position="floating">Tipos de Desechos que Recibe</ion-card-subtitle>
+                      <ion-item *ngFor="let waste of checkedwasteTypes">
+                        <ion-checkbox slot = "start" checked="true" (click) = "changeChecked(waste.id)"></ion-checkbox>
+                        <ion-label>{{ waste.name }}</ion-label>
+                      </ion-item>
+                      <ion-item *ngFor="let waste of uncheckedwasteTypes" >
+                        <ion-checkbox slot = "start" (click) = "changeChecked(waste.id)"></ion-checkbox>
+                        <ion-label>{{ waste.name }}</ion-label>
+                      </ion-item>
+                    </ion-list>
+                    <ion-input hidden formControlName="placeWasteTypeToUpdateTrueFalse" required = "true" ></ion-input>
+                    <div *ngFor="let error of errorMessages.placeWasteTypeToUpdateTrueFalse">
+                      <ng-container *ngIf="placeWasteTypeToUpdateTrueFalse.hasError(error.type)">
+                        <small class="error-message">{{error.message}}</small>
+                      </ng-container>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
             <ion-grid>
-              <ion-row class="ion-justify-content-left">
+              <ion-row class="ion-justify-content-center">
                 <ion-col class="ion-align-self-center" size-md = "4">
-                  <ion-list>
-                    <ion-card-subtitle position="floating">Tipos de Residos que Recibe</ion-card-subtitle>
-                    <ion-item *ngFor="let waste of checkedwasteTypes">
-                      <ion-checkbox slot = "start" checked="true" (click) = "changeChecked(waste.id)"></ion-checkbox>
-                      <ion-label>{{ waste.name }}</ion-label>
-                    </ion-item>
-                    <ion-item *ngFor="let waste of uncheckedwasteTypes" >
-                      <ion-checkbox slot = "start" (click) = "changeChecked(waste.id)"></ion-checkbox>
-                      <ion-label>{{ waste.name }}</ion-label>
-                    </ion-item>
-                  </ion-list>
+                  <ion-button [disabled]="!newPlaceForm.valid" type="submit" expand = "block">Actualizar
+                    <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+                  </ion-button>
+                </ion-col>
+                <ion-col class="ion-align-self-center" size-md = "4">
+                  <ion-button expand = "block" color="danger" (click)="cancelUpdate()">Cancelar
+                    <ion-icon name="trash-bin-outline" slot="start"></ion-icon>
+                  </ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>
-          </ion-card-content>
-          
-          <ion-grid>
-            <ion-row class="ion-justify-content-center">
-              <ion-col class="ion-align-self-center" size-md = "4">
-                <ion-button expand = "block" (click) = "updatePlaceType()">Actualizar
-                  <ion-icon name="checkmark-outline" slot="start"></ion-icon>
-                </ion-button>
-              </ion-col>
-              <ion-col class="ion-align-self-center" size-md = "4">
-                <ion-button expand = "block" color="danger" [routerLink]="['/admin/center/place-type']">Cancelar
-                  <ion-icon name="trash-bin-outline" slot="start"></ion-icon>
-                </ion-button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+          </form>
         </ion-card>
       </ion-col>
     </ion-row>

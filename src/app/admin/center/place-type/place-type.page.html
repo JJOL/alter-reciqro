@@ -1,16 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/admin/center" [text]="''"></ion-back-button>
-    </ion-buttons>
-    <ion-title size = "small">Categorías de Centros de Desecho</ion-title>
-    <ion-buttons slot="primary">
-      <ion-button routerLink='/admin/center/place-type/add'>
-        <ion-icon name="add" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar title="Categorías de Centros" [backButton]="true" routePath="/admin/center"></app-toolbar>
 
 <ion-content>
   
@@ -18,40 +6,30 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size-md = "8" size-sm = "12" >
         <ion-list >
-          <ion-item *ngFor="let placeType of placeTypes" class="user-list">
+          <ion-item *ngFor="let placeType of placeTypes" >
             <ion-thumbnail slot="start">
               <ion-img [src]="placeType.icon_url"></ion-img>
             </ion-thumbnail>
-            <ion-grid>
-              <ion-row class="ion-justify-content-start">
-                <ion-col>
-                  <ion-label>
-                    <h2> {{ placeType.name }} </h2>
-                  </ion-label>
-                </ion-col>
-              </ion-row>
-              <ion-row class="ion-align-items-end" >
-                <ion-col>
-                  <ion-button fill="clear" class="bold"  (click) =  "onDeletePlaceType(placeType.id, placeType.name)">
-                    <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-                  </ion-button>
-      
-                  <ion-button fill="clear" class="bold" [routerLink]="['/admin/center/place-type/detail', placeType.id]" >
-                    <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
-                  </ion-button >
-      
-                  <ion-button fill="clear" class="bold" [routerLink]="['/admin/center/place-type/update', placeType.id]" >
-                    <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-                  </ion-button>
-                </ion-col>
-              </ion-row>
-             
-            </ion-grid>
+            <ion-label>
+              <h2> {{ placeType.name }} </h2>
+            </ion-label>
+
+            <ion-button fill="clear" class="bold"  [routerLink]="['/admin/center/place-type/update', placeType.id]">
+              <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" class="bold"  (click) =  "onDeletePlaceType(placeType.id, placeType.name)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
           </ion-item>
         </ion-list>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-
+  <ion-fab vertical="bottom" horizontal="end">
+    <ion-fab-button routerLink='/admin/center/place-type/add'>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
+

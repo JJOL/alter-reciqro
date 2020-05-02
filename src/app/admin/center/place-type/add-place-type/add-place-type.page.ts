@@ -5,6 +5,7 @@ import { PlacesService } from 'src/app/core/services/places.service';
 import { WasteService } from 'src/app/core/services/waste.service';
 import { WasteType } from 'src/app/core/models/waste-type';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-place-type',
@@ -38,20 +39,74 @@ export class AddPlaceTypePage implements OnInit {
   afterPlaceTypes: TipoInstalacion[];
   afterPlaceTypesId: string[];
 
-  /**Detail
+  /**
+   * User Story Id: M1NG9
+   * Allows to get the name of the waste center of the form
+   * @param  
+   * @returns 
+   */
+  get name() {
+    return this.newWasteForm.get('name');
+  }
+
+
+  /**
+   * User Story Id: M1NG9
+   * Allows to get the url of the waste center of the form
+   * @param  
+   * @returns 
+   */
+  get mainPicture() {
+    return this.newWasteForm.get('mainPicture');
+  }
+
+  /**
+   * User Story Id: M1NG9
+   * Allows to get the selected wastes of the waste center of the form
+   * @param  
+   * @returns 
+   */
+  get placeWasteType() {
+    return this.newWasteForm.get('placeWasteType');
+  }
+
+  public errorMessages = {
+    name: [
+      { type: 'required', message: 'Tipo de centro es requerido.' },
+      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 100 caracteres.'}
+    ],
+    mainPicture: [
+      { type: 'required', message: 'La Url de la imagen es requerida.' },
+      { type: 'pattern', message: 'La URL no es correcta.' }
+    ],
+    placeWasteType: [
+      { type: 'required', message: 'Es necesario seleccionar al menos un tipo de desecho.' }
+    ]
+  };
+
+  newWasteForm = this.formBuilder.group({
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    name: ['', [Validators.required, Validators.maxLength(100)]],
+    mainPicture: ['',[Validators.required, Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')]],
+    placeWasteType: ['',[Validators.required]]
+  });
+
+  /**
    * User Story Id: M1NG9
    * Allows to inject services to the model for navigation and PlacesService
    * @param  {PlacesService} placeService 
    * @param  {NavController} navCtrl
    * @param  {AlertController} alertCtrl
    * @param  {WasteService} wasteService
+   * @param  {FormBuilder} formBuilder
    * @returns 
    */
   constructor(
     private placeService: PlacesService,
     private navCtrl: NavController,
     private alertCtrl: AlertController,
-    private wasteService: WasteService
+    private wasteService: WasteService,
+    private formBuilder: FormBuilder
   ) { }
 
   /**
@@ -89,6 +144,20 @@ export class AddPlaceTypePage implements OnInit {
     }else{
       this.checkedWasteTypes = this.checkedWasteTypes.filter(e => e !== wasteId);
     }
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    if(this.checkedWasteTypes.length < 1){
+      this.newWasteForm.setValue({
+        name: this.newWasteForm.get('name').value,
+        mainPicture: this.newWasteForm.get('mainPicture').value,
+        placeWasteType: ''
+      });
+    }else{
+      this.newWasteForm.setValue({
+        name: this.newWasteForm.get('name').value,
+        mainPicture: this.newWasteForm.get('mainPicture').value,
+        placeWasteType: 'true'
+      });
+    }  
     
   }
 
@@ -100,7 +169,7 @@ export class AddPlaceTypePage implements OnInit {
    */
   addPlaceType(){
     let keys: string[] = this.initialPlaceTypesId;
-    this.placeService.addPlaceTypeFB(this.name_waste_type, this.url_waste_type).then(() => {
+    this.placeService.addPlaceTypeFB(this.newWasteForm.get('name').value, this.newWasteForm.get('mainPicture').value).then(() => {
       this.placeService.allPlaceTypes().then(data => {
         this.afterPlaceTypes = data;
         this.afterPlaceTypesId = this.afterPlaceTypes.map(item => item.id);
@@ -126,6 +195,30 @@ export class AddPlaceTypePage implements OnInit {
       this.navCtrl.navigateBack(['/admin/center/place-type']);
     })
         .catch(() => {});
+  }
+
+  /**
+   * User Story Id: M1NG11
+   * Method that is called when the update is cancel to get the user's confirmation
+   * @param 
+   * @returns 
+   */
+  cancelAdd(){
+    this.alertCtrl.create ({
+      header: 'Mensaje de Confirmación',
+      message: 'La nueva categoría de residuo no se guardará.',
+      buttons: [{
+        text: 'Aceptar',
+        handler: () => {
+          this.navCtrl.navigateBack(['/admin/center/place-type']);
+        }
+      },{
+        text: 'Cancelar',
+        role: 'cancel'
+      }]
+    }).then(alertEl => {
+      alertEl.present();
+    });
   }
 
 }
