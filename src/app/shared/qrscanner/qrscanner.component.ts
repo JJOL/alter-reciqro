@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, OnDestroy } from '@angular/core';
-import jsQR from 'jsqr';
 
 import { requestAnimationFrame } from '../../core/platform/requestAnimationFrame.platform';
 
-
+declare const jsQR: any;
 
 /**
  * QRCodeEvent
@@ -57,7 +56,7 @@ export class QrscannerComponent implements OnInit, OnDestroy {
       video.setAttribute("playsinline", true);
       video.play();
 
-      requestAnimationFrame(() => this.processVideoImage());
+      requestAnimationFrame(() => this.tick());
     })
     .catch(err => {
       //TODO: Handle User Doesnt Give Permission or no camera available.

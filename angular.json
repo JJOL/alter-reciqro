@@ -40,7 +40,8 @@
               }
             ],
             "scripts": [
-              "libs/qrcode.min.js"
+              "libs/qrcode.min.js",
+              "libs/jsQR.js"
             ]
           },
           "configurations": {
