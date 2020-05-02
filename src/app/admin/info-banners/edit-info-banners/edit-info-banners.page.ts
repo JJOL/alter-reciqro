@@ -1,27 +1,33 @@
-import { InfoBannerService } from 'src/app/core/services/info-banner.service';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { InfoBannerService } from 'src/app/core/services/info-banner.service';
 import { ToastController, NavController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 @Component({
-  selector: 'app-add-info-banners',
-  templateUrl: './add-info-banners.page.html',
-  styleUrls: ['./add-info-banners.page.scss'],
+  selector: 'app-edit-info-banners',
+  templateUrl: './edit-info-banners.page.html',
+  styleUrls: ['./edit-info-banners.page.scss'],
 })
 /**
- * Page that is in charge to add new info banners
+ * Edit Information banners
  */
-export class AddInfoBannersPage implements OnInit {
+export class EditInfoBannersPage implements OnInit {
   private dateFlag;
   private infoBannersForm;
-  // eslint-disable-next-line require-jsdoc
-  constructor(
-    private formBuilder: FormBuilder,
-    private infoBannersService: InfoBannerService,
-    private toastCtrl: ToastController,
-    private cdRef:ChangeDetectorRef,
-    private navCtrl: NavController) { }
 
+  private infoBannerId;
+  private infoBannertitle: string;
+  private infoBannerImageUrl: string;
+  private infoBannerDescription: string;
+  private infoBannerDate;
+  // eslint-disable-next-line require-jsdoc
+  constructor(private activatedRoute: ActivatedRoute,
+              private toastCtrl: ToastController,
+              private infoBannersService: InfoBannerService,
+              private formBuilder: FormBuilder,
+              private cdRef:ChangeDetectorRef,
+              private navCtrl: NavController) { }
   /**
    * User Story ID: M2NG8
    * Function that returns the title field on the add infobanners form.
@@ -76,14 +82,14 @@ export class AddInfoBannersPage implements OnInit {
    * Function for submiting the form of the new place.
    */
   public submit() {
-    this.infoBannersService.createInfoBanner(this.infoBannersForm.value)
+    this.infoBannersService.editInfoBanner(this.infoBannersForm.value, this.infoBannerId)
         .then(() => {
           // use id
-          this.showToast('Ficha informativa creado de manera exitosa');
+          this.showToast('Ficha informativa se ha actualizado de manera exitosa');
           this.infoBannersForm.reset();
           this.navCtrl.navigateBack(['/admin/info-banners']);
         }).catch(() => {
-          this.showToastWrong('Error al crear la ficha informativa');
+          this.showToastWrong('Error al actualizar la ficha informativa');
           this.infoBannersForm.reset();
         });
   }
@@ -141,10 +147,27 @@ export class AddInfoBannersPage implements OnInit {
       date: [''],
       mainPicture: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')] /*This should be a picture*/
     });
+
+    this.activatedRoute.paramMap.subscribe(paraMap => {
+      if (!paraMap.has('updateInfoBannerId')) {
+        return;
+      }
+      const updateInfoBannerId = paraMap.get('updateInfoBannerId');
+      if (updateInfoBannerId) {
+        this.infoBannerId = updateInfoBannerId;
+        this.infoBannersService.getInfoBannerByID(this.infoBannerId).then(info => {
+          this.infoBannertitle = info.title;
+          this.infoBannerDate = info.date;
+          this.infoBannerDescription = info.description;
+          this.infoBannerImageUrl = info.image_url;
+        });
+      }
+    });
   }
   /**
    */
   ngAfterViewChecked(): void {
     this.cdRef.detectChanges();
   }
+
 }

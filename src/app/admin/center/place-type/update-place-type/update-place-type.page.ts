@@ -79,11 +79,6 @@ export class UpdatePlaceTypePage implements OnInit {
             this.placeWasteTypeToUpdate = this.placeWasteTypeToDelete.map(item => item.waste_type);
           });
         });
-
-        
-
-
-        
       }
     });
 

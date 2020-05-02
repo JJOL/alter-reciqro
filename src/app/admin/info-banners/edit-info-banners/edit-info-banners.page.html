@@ -1,0 +1,60 @@
+<app-toolbar title="Agregar ficha informativa" [backButton]="true" routePath="/admin/info-banners" ></app-toolbar>
+  <ion-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col size = "12" size-sm = "8" offset-sm="2" text-center>
+          <form [formGroup]="infoBannersForm" (ngSubmit)="submit()">
+            <ion-list>
+              <ion-item>
+                <ion-label position="floating">Foto</ion-label>
+                <ion-input placeholder = "Ejemplo: http://ejemplo.com/ejemplo.jpg" formControlName="mainPicture" inputmode="url" [(ngModel)] = "infoBannerImageUrl"></ion-input>
+              </ion-item>
+              <div *ngFor="let error of errorMessages.mainPicture">
+                <ng-container *ngIf="mainPicture.hasError(error.type) && (mainPicture.dirty || mainPicture.touched)">
+                  <small class="error-message">{{error.message}}</small>
+                </ng-container>
+              </div>
+    
+              <ion-item>
+                <ion-label position="floating">Título</ion-label>
+                <ion-input placeholder = "Ejemplo: Un mundo responsable" formControlName="title" [(ngModel)] = "infoBannertitle"></ion-input>
+              </ion-item>
+              <div *ngFor="let error of errorMessages.title">
+                <ng-container *ngIf="title.hasError(error.type) && (title.dirty || title.touched)">
+                  <small class="error-message">{{error.message}}</small>
+                </ng-container>
+              </div>
+              
+              <ion-item>
+                <ion-label position="floating">Descripción</ion-label>
+                <ion-input placeholder = "Ejemplo: Adopta una actitud diferente" formControlName="description" [(ngModel)] = "infoBannerDescription"></ion-input>
+              </ion-item>
+              <div *ngFor="let error of errorMessages.description">
+                <ng-container *ngIf="description.hasError(error.type) && (description.dirty || description.touched)">
+                  <small class="error-message">{{error.message}}</small>
+                </ng-container>
+              </div>
+              <ion-item>
+                <ion-checkbox  slot = "start" (ionChange) = "addValue($event)" color="primary"></ion-checkbox>
+                <ion-label>Habilitar fecha</ion-label> 
+              </ion-item>
+              <ion-item *ngIf="dateFlag" >
+                <ion-label>DD MM YYYY</ion-label>
+                <ion-datetime  [(ngModel)] = "infoBannerDate" formControlName="date" displayFormat="DD MM YYYY" placeholder="Select Date" ></ion-datetime>
+              </ion-item>
+              <div *ngFor="let error of errorMessages.date">
+                <ng-container *ngIf="date.hasError(error.type) && (date.dirty || date.touched)">
+                  <small class="error-message">{{error.message}}</small>
+                </ng-container>
+              </div>
+
+              <ion-button [disabled]="!infoBannersForm.valid" type="submit" expand="block">
+                Registrar
+                <ion-icon slot="end" name="create"></ion-icon>
+              </ion-button>
+            </ion-list>
+          </form>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>

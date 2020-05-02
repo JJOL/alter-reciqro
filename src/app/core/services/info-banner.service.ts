@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentSnapshot } from '@angular/fire/firestore';
 import { InfoBanner } from '../models/info-banner.model';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
 const INFO_BANNERS_KEY = 'info_banners';
@@ -95,4 +95,52 @@ export class InfoBannerService {
           );
     });
   }
+
+  /**
+   * User Story ID: M4NG10
+   * Function that returns a specific info banner on the database, filtered by its id, with all its associated data.
+   * @param  {string} id
+   * @returns Promise
+   */
+  getInfoBannerByID(id: string): Promise<InfoBanner> {
+    return new Promise((resolve) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<any>(INFO_BANNERS_KEY).doc<any>(id).valueChanges()
+          .pipe(
+              // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+              take(1),
+              map(info => {return info}))
+          .subscribe(info => {
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+            resolve(info);
+          });
+    });
+  }
+
+  /**
+   * User Story ID: M2NG10
+   * This function edits a info banner
+   * @param  {string} id
+   * @returns Promise
+   */
+  editInfoBanner(infoBanner, id: string) {
+    return new Promise<any>((resolve, reject) => {
+      this.firedb.collection(INFO_BANNERS_KEY).doc(id).set({
+        title: infoBanner.title,
+        description: infoBanner.description,
+        date: infoBanner.date,
+        image_url: infoBanner.mainPicture
+      }, {merge: true} )
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
+    });
+  }
+
+
 }

@@ -12,7 +12,12 @@ const routes: Routes = [
   {
     path: 'add',
     loadChildren: () => import('./add-info-banners/add-info-banners.module').then( m => m.AddInfoBannersPageModule)
+  },
+  {
+    path: 'edit/:updateInfoBannerId',
+    loadChildren: () => import('./edit-info-banners/edit-info-banners.module').then( m => m.EditInfoBannersPageModule)
   }
+
 ];
 
 @NgModule({

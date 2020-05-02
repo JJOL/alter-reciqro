@@ -24,10 +24,6 @@ export class InfoBannersPage implements OnInit {
   /**
    */
   ngOnInit() {
-    this.infoBannerService.getAllInfoBanners()
-        .then(infoBanners => {
-          this.infoBanners = infoBanners;
-        });
   }
   /**
    */
@@ -41,25 +37,23 @@ export class InfoBannersPage implements OnInit {
       {
         text: 'Borrar',
         handler: () => {
-          if (this.infoBannerService.deleteInfoBannersByID(infoBannerId)) {
-            this.showToast('Se eliminó de manera correcta');
-            this.infoBannerService.getAllInfoBanners()
-                .then(infoBanners => {
-                  this.infoBanners = infoBanners;
-                });
-          } else {
+          this.infoBannerService.deleteInfoBannersByID(infoBannerId).then(
+              () => {
+                this.showToast('Se eliminó de manera correcta');
+                this.infoBannerService.getAllInfoBanners()
+                    .then(infoBanners => {
+                      this.infoBanners = infoBanners;
+                    });
+              }
+          ).catch( () => {
             this.showToastWrong('Error al crear la ficha informativa');
-          }
+          });
         }
       }]
     }).then(alertEl => {
       alertEl.present();
     });
   }
-  
-
-
-  
   /**
    * User Story ID: M4NG8
    * Function for showing the toast to the user.
@@ -86,5 +80,13 @@ export class InfoBannersPage implements OnInit {
       color: 'danger'
     }).then(toast => toast.present());
   }
-
+  /**
+   * Listen to check if there is a change
+   */
+  ionViewWillEnter() {
+    this.infoBannerService.getAllInfoBanners()
+        .then(infoBanners => {
+          this.infoBanners = infoBanners;
+        });
+  }
 }

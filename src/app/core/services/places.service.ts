@@ -35,21 +35,21 @@ export function parseFBPlaceDocToPlace(fbPlaceDoc: DocumentSnapshot<any>): Place
   const data  = fbPlaceDoc.data();
   const id = fbPlaceDoc.id;
   const place = new Place(
-    id,
-    data.name,
-    data.description,
-    {
-      lat: data.location.latitude,
-      lng: data.location.longitude,
-    },
-    data.address,
-    data.postal_code,
-    data.places_type,
-    data.photo,
-    data.qr_code,
-);
+      id,
+      data.name,
+      data.description,
+      {
+        lat: data.location.latitude,
+        lng: data.location.longitude,
+      },
+      data.address,
+      data.postal_code,
+      data.places_type,
+      data.photo,
+      data.qr_code,
+  );
 
-return place;
+  return place;
 }
 
 /**
@@ -158,45 +158,19 @@ export class PlacesService {
 
       let placeRef = this.firedb.collection(PLACE_KEY).doc(id).ref;
       placeRef.get()
-      .then(docSnap => {
-        if (docSnap.exists) {
-          console.log('PLACE ITEM DOES EXISTS');
-          let place = parseFBPlaceDocToPlace(docSnap as DocumentSnapshot<any>);       
-          resolve(place);     
-        }
-        else {
-          reject('ERROR: PlacesService.getPlaceByID(): Place does not exist.');
-        }
-      })
-      .catch(err => {
-        reject(err);
-      });
-      
-      // subscription = this.firedb.collection(PLACE_KEY).doc(id).valueChanges()
-      //     .pipe(
-      //         // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-      //         catchError(error => {
-      //           console.error('At getPlaceByID(): ', error);
-      //           return of({});
-      //         }),
-      //         take(1),
-      //         map(
-      //             place => {
-      //               console.log('Mapping!');
-                    
-      //               place.id = id;
-      //               place.location = {lat: place.location.latitude, lng : place.location.longitude};
-
-      //               return place;
-      //             }
-      //         ))
-      //     .subscribe(places => {
-      //       console.log('At getPlacesByID(): places = ', places);
-      //       if (subscription) {
-      //         subscription.unsubscribe();
-      //       }
-      //       resolve(places);
-      //     });
+          .then(docSnap => {
+            if (docSnap.exists) {
+              console.log('PLACE ITEM DOES EXISTS');
+              let place = parseFBPlaceDocToPlace(docSnap as DocumentSnapshot<any>);       
+              resolve(place);     
+            }
+            else {
+              reject('ERROR: PlacesService.getPlaceByID(): Place does not exist.');
+            }
+          })
+          .catch(err => {
+            reject(err);
+          });
     });
   }
 

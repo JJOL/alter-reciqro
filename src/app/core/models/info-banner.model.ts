@@ -7,7 +7,7 @@ export class InfoBanner {
         readonly id: string,
         readonly title: string,
         readonly description: string,
-        readonly imageUrl: string,
+        readonly image_url: string,
         readonly date: string
     ) {}
     
