@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import {AngularFirestore} from '@angular/fire/firestore';
 import { IonicModule } from '@ionic/angular';
 import { DelegationService } from './delegation.service';
+import { SystemService } from './system.service';
 
 const arr = function() {};
 
@@ -26,7 +27,7 @@ describe('DelegationService', () => {
     TestBed.configureTestingModule({
       imports: [IonicModule.forRoot()],
       providers: [
-        {provide: AngularFirestore, useValue: angularFirestoreStub},
+        {provide: SystemService, useValue: angularFirestoreStub},
       ]
     }));
 

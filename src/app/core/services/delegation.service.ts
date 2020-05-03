@@ -4,6 +4,7 @@ import 'firebase/firestore';
 import { Subscription } from 'rxjs';
 import { map,take } from 'rxjs/operators';
 import { DelegationModel } from '../models/delegation.model';
+import { SystemService } from './system.service';
 
 const DELEGATION_KEY = '/delegation';
 /**
@@ -35,7 +36,7 @@ export class DelegationService {
    * Constructor for the class, only external service used will be the Firestore one.
    * @param  {AngularFirestore} publicfiredb
    */
-  constructor(public firedb: AngularFirestore) { }
+  constructor(public firedb: SystemService) { }
   /**
    * User Story ID: M4NC5
    * Function that returns all delegations on the database, unfiltered, with all its associated data.

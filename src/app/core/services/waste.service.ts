@@ -4,6 +4,7 @@ import 'firebase/firestore';
 import { WasteType, PlacesWasteTypes } from '../models/waste-type';
 import { Subscription } from 'rxjs';
 import { map,} from 'rxjs/operators';
+import { SystemService } from './system.service';
 
 const WASTE_TYPE_KEY = '/waste_type';
 
@@ -36,7 +37,7 @@ export class WasteService {
    * Constructor for the class, only external service used will be the Firestore one.
    * @param  {AngularFirestore} publicfiredb
    */
-  constructor(public firedb: AngularFirestore) { }
+  constructor(public firedb: SystemService) { }
   /**
    * User Story ID: M1NC3
    * Function that returns all wastes on the database, unfiltered, with all its associated data.

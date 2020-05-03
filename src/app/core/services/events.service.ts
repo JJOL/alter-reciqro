@@ -3,6 +3,7 @@ import { EventModel } from '../models/event.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { SystemService } from './system.service';
 
 const EVENTS_KEY = '/events';
 
@@ -45,7 +46,7 @@ export class EventsService {
    * Constructor for the class, only external service used will be the Firestore one.
    * @param  {AngularFirestore} privatefiredb
    */
-  constructor(private firedb: AngularFirestore) 
+  constructor(private firedb: SystemService) 
   {}
   /** 
    * User Story ID: M1NC1
