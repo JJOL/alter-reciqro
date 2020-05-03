@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { AdminModel } from '../models/admin.model';
 import { map } from 'rxjs/operators';
 
+
 const USER_KEY = '/users';
 /**
  * User Story ID: M4NG6
@@ -60,6 +61,46 @@ export class AdminService {
             }
             resolve(user);
           });
+    });
+  }
+
+  /**
+   * User Story Id: M4NG5
+   * Function that removes privileges from a user and leaves them only with user privileges
+   * @param  {string} id
+   * @returns void
+   */
+  removeAdministratorUser(id: string){
+    return new Promise<any>((resolve, reject) => {
+      this.firedb.collection(USER_KEY).doc(id).set({
+        roles: ['user'],
+      }, {merge: true} )
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
+    });
+  }
+
+  /**
+   * User Story Id: M4NG4
+   * Function that adds Staff privileges and leaves the user with staff and user privileges
+   * @param  {string} id
+   * @returns void
+   */
+  addAdministratorUser(id: string){
+    return new Promise<any>((resolve, reject) => {
+      this.firedb.collection(USER_KEY).doc(id).set({
+        roles: ['staff','user'],
+      }, {merge: true} )
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
     });
   }
 }
