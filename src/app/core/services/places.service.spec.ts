@@ -6,6 +6,7 @@ import { GeoPoint } from '../models/geopoint.model';
 
 
 import { MockAngularFirestore } from './mocks/firestore.mock';
+import { SystemService } from './system.service';
 
 /**
  * Internal function.
@@ -107,7 +108,7 @@ function makeFBCollectionFromDataDelete(testData: any[]) {
 describe('PlacesService', () => {
 
   let placesService: PlacesService;
-  let mockFirestoreSpy: jasmine.SpyObj<AngularFirestore>;
+  let mockFirestoreSpy: jasmine.SpyObj<SystemService>;
 
   beforeEach(() => {
     const firestoreMockSpy = jasmine.createSpyObj('AngularFirestore', ['collection']);
@@ -115,12 +116,12 @@ describe('PlacesService', () => {
     TestBed.configureTestingModule({
       providers: [
         PlacesService,
-        { provide: AngularFirestore, useValue: firestoreMockSpy }
+        { provide: SystemService, useValue: firestoreMockSpy }
       ],
     });
 
     placesService = TestBed.get(PlacesService);
-    mockFirestoreSpy = TestBed.get(AngularFirestore);
+    mockFirestoreSpy = TestBed.get(SystemService);
   });
 
 

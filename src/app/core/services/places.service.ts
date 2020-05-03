@@ -8,6 +8,8 @@ import { Place } from '../models/place.model';
 import { TipoInstalacion } from '../models/tipo-instalacion.model';
 import { WasteType, PlacesWasteTypes } from '../models/waste-type';
 
+import { SystemService } from './system.service';
+
 const PLACE_KEY = '/places';
 const PLACE_TYPE_KEY = '/place_type';
 const WASTE_TYPE_KEY = '/waste_type';
@@ -80,7 +82,7 @@ export class PlacesService {
    * Constructor for the class, only external service used will be the Firestore one.
    * @param  {AngularFirestore} privatefiredb
    */
-  constructor(private firedb: AngularFirestore) 
+  constructor(private firedb: SystemService) 
   {}
 
   /**
