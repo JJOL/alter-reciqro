@@ -41,6 +41,10 @@ const routes: Routes = [
     loadChildren: () => import('./info-banners/info-banners.module').then( m => m.InfoBannersPageModule),
     canActivate: [AuthGuard],
     data: { roles: ['admin','staff']}
+  },
+  {
+    path: 'sys-analytics',
+    loadChildren: () => import('./sys-analytics/sys-analytics.module').then( m => m.SysAnalyticsPageModule)
   }
 
 ];

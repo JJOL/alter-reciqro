@@ -12,6 +12,7 @@ import {AngularFirestore , AngularFirestoreDocument} from '@angular/fire/firesto
 import { User } from '../models/user.model';
 import { switchMap, map, take } from 'rxjs/operators';
 import { auth } from 'firebase';
+import { SystemService } from './system.service';
 
 const USER_KEY = '/users';
 @Injectable()
@@ -23,7 +24,7 @@ export class AuthService {
   userRoles: BehaviorSubject<any> = new BehaviorSubject<any> (empty);
   // eslint-disable-next-line require-jsdoc
   constructor(private afAuth: AngularFireAuth,
-              private afs: AngularFirestore,
+              private afs: SystemService,
               private router: Router,
               private toastCtrl: ToastController) {
     this.getCurrentUser().then(user => {

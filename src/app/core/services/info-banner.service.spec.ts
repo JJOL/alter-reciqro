@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { InfoBannerService } from './info-banner.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MockAngularFirestore } from './mocks/firestore.mock';
+import { SystemService } from './system.service';
 
 describe('InfoBannerService', () => {
   beforeEach(() => {
@@ -10,7 +11,7 @@ describe('InfoBannerService', () => {
     
     TestBed.configureTestingModule({
       providers: [
-        { provide: AngularFirestore, useValue: mockFirestore}
+        { provide: SystemService, useValue: mockFirestore}
       ]
     })
   });
@@ -22,7 +23,7 @@ describe('InfoBannerService', () => {
 
   it('#getAllInfoBanners() should return a list of all banners', (done: DoneFn) => {
     const service: InfoBannerService = TestBed.get(InfoBannerService);
-    let mockFirestoreService: MockAngularFirestore = TestBed.get(AngularFirestore);
+    let mockFirestoreService: MockAngularFirestore = TestBed.get(SystemService);
     mockFirestoreService.setTestData([
       {
         title: 'Nice 1'

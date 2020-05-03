@@ -5,6 +5,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { from } from 'rxjs';
+import { SystemService } from './system.service';
 
 const waste1 = {
   id : '1', name : 'Pilas', description : 'Recolección de pilas', 
@@ -51,7 +52,7 @@ function makeFBCollectionFromDataSnapshotChanges(testData: any[]) {
 
 
 describe('WasteService', () => {
-  let mockFirestoreSpy: jasmine.SpyObj<AngularFirestore>; /*Tipo del servicio que quiero espiar o simular*/
+  let mockFirestoreSpy: jasmine.SpyObj<SystemService>; /*Tipo del servicio que quiero espiar o simular*/
   let wasteService: WasteService;
 
   beforeEach(async(() => {
@@ -60,11 +61,11 @@ describe('WasteService', () => {
       imports: [IonicModule.forRoot(), SharedPageModule, RouterModule.forRoot([])],
       providers: [
         WasteService,
-        { provide: AngularFirestore, useValue: firestoreMockSpy },
+        { provide: SystemService, useValue: firestoreMockSpy },
       ]
     });
     wasteService = TestBed.get(WasteService);
-    mockFirestoreSpy = TestBed.get(AngularFirestore); /*Assign mock to Service*/
+    mockFirestoreSpy = TestBed.get(SystemService); /*Assign mock to Service*/
   }));
 
   it('should be created', () => {

@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>sys-analytics</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row *ngFor="let c of calls">
+      <ion-col>{{ c.key }}</ion-col>
+      <ion-col>{{ c.date }}</ion-col>
+      <ion-col>{{ c.url }}</ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list>
+    <!-- <ion-item *ngFor="let key of Object.keys(callMap)">
+      <label>{{ key }}</label> | <label>{{ callMap[key] }}</label>
+    </ion-item> -->
+  </ion-list>
+
+</ion-content>

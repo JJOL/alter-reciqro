@@ -3,6 +3,7 @@ import { AngularFirestore, DocumentSnapshot } from '@angular/fire/firestore';
 import { InfoBanner } from '../models/info-banner.model';
 import { map, take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { SystemService } from './system.service';
 
 const INFO_BANNERS_KEY = 'info_banners';
 
@@ -37,7 +38,7 @@ export class InfoBannerService {
 
   // eslint-disable-next-line require-jsdoc
   constructor(
-    private firedb: AngularFirestore
+    private firedb: SystemService
   ) { }
   /**
    * User Story ID: M1NG6
