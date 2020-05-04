@@ -25,14 +25,14 @@ export class MetricsPageService {
    * @returns DualIndicatorProvider
    */
   getPlacesMetricsProvider(): DualIndicatorProvider {
-      return new FBDualIndicatorProvider(
-        "Centros", 
-        "fs", 
+    return new FBDualIndicatorProvider(
+        'Centros', 
+        'fs', 
         {
-          collectionKey: "/places",
+          collectionKey: '/places',
           dbCollectionToInstancesFn: (snapshot) => {
             return snapshot.map(parseFBPlaceToPlace)
-                    .map(place => ({ name: place.name, id: place.id}))
+                .map(place => ({ name: place.name, id: place.id}))
           },
           idAttribute: 'place_id'
         }, this.firedb);
@@ -45,16 +45,16 @@ export class MetricsPageService {
    */
   getDelegationsMetricsProvider(): DualIndicatorProvider {
     return new FBDualIndicatorProvider(
-      "Delegaciones", 
-      "fs", 
-      {
-        collectionKey: "/delegation",
-        dbCollectionToInstancesFn: (snapshot) => {
-          return snapshot.map(parseFBPDelegationToDelegation)
-                  .map(delegation => ({ name: delegation.name, id: delegation.id }))
-        },
-        idAttribute: 'user_delegation_id'
-      }, this.firedb);
+        'Delegaciones', 
+        'fs', 
+        {
+          collectionKey: '/delegation',
+          dbCollectionToInstancesFn: (snapshot) => {
+            return snapshot.map(parseFBPDelegationToDelegation)
+                .map(delegation => ({ name: delegation.name, id: delegation.id }))
+          },
+          idAttribute: 'user_delegation_id'
+        }, this.firedb);
   }
 
   /**
@@ -64,9 +64,9 @@ export class MetricsPageService {
    */
   getSystemMetricsProvider(): DualIndicatorProvider {
     return new FBSystemDualIndicatorProvider(
-      "Sistema", 
-      "fs", 
-      this.firedb);
+        'Sistema', 
+        'fs', 
+        this.firedb);
   }
 
 }

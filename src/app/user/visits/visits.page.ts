@@ -25,9 +25,9 @@ export class VisitsPage {
    */
   ionViewWillEnter() {
     this.visitsService.getAllVisitsForUser()
-    .then(visits => {    
-      this.visits = visits;
-    });
+        .then(visits => {    
+          this.visits = visits;
+        });
   }
 
 }

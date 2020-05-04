@@ -4,7 +4,7 @@ import { PlacesService } from 'src/app/core/services/places.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { database } from 'firebase';
 
-const VISITS_KEY: string = "visited_places_users";
+const VISITS_KEY = 'visited_places_users';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +28,8 @@ export class VisitsService {
       try {
         let user = await this.auth.getCurrentUser();
         let fbvisits = await this.firedb.collection(VISITS_KEY)
-        .ref.where('user_id', '==', user.id)
-        .get();
+            .ref.where('user_id', '==', user.id)
+            .get();
 
         let promises: Promise<any>[] = [];
         let visits: any[] = [];
@@ -38,11 +38,11 @@ export class VisitsService {
           let visitData = fbvisit.data();
           visitData.date = visitData.date.toDate();
           promises.push(this.placesService.getPlaceByID(visitData.place_id)
-          .then(place => 
-            {
-            visitData.place = place;
-            return visits.push(visitData);
-          }));
+              .then(place => 
+              {
+                visitData.place = place;
+                return visits.push(visitData);
+              }));
         });
         
         await Promise.all(promises);

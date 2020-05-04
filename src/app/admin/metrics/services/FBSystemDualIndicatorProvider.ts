@@ -22,18 +22,18 @@ export interface IndicatorDataBridgeConfig {
  */
 export class FBSystemDualIndicatorProvider implements DualIndicatorProvider{
 
-    constructor(
+  constructor(
       private className: string,
       private metricName: string,
       private firedb: AngularFirestore
-    ) {}
+  ) {}
   
     instances: IndicatorInstance[];
 
     loadMetaData(onMetadaLoadedCb: () => void) {
       this.instances = [{
-        name: "Total",
-        id: "1"
+        name: 'Total',
+        id: '1'
       }];
       onMetadaLoadedCb();
     }
@@ -57,15 +57,15 @@ export class FBSystemDualIndicatorProvider implements DualIndicatorProvider{
  
       return new Promise<number[]>((resolve, reject) => {
         this.firedb.collection<any>(PLACES_VISITS_KEY)
-        .ref.where('date', '>', lowerExclusiveDate).where('date', '<', upperExclusiveDate)
-        .get()
-        .then(snapshot => {
-          snapshot.forEach(doc => {
-            let visit = doc.data();
-            frequencyDataArr[this.getDateMonthDistance(lowerExclusiveDate, visit.date.toDate())] += 1;
-          });
-          resolve(frequencyDataArr);
-        });
+            .ref.where('date', '>', lowerExclusiveDate).where('date', '<', upperExclusiveDate)
+            .get()
+            .then(snapshot => {
+              snapshot.forEach(doc => {
+                let visit = doc.data();
+                frequencyDataArr[this.getDateMonthDistance(lowerExclusiveDate, visit.date.toDate())] += 1;
+              });
+              resolve(frequencyDataArr);
+            });
       });
     }
     /**
@@ -75,45 +75,45 @@ export class FBSystemDualIndicatorProvider implements DualIndicatorProvider{
      */
     getDateMonthDistance(startDate: Date, date: Date): number {
       let y0 = startDate.getFullYear(),
-          m0 = startDate.getMonth(),
-          y  = date.getFullYear(),        
-          m  = date.getMonth();
+        m0 = startDate.getMonth(),
+        y  = date.getFullYear(),        
+        m  = date.getMonth();
       return (y - y0)*12 + (m - m0);
-  }
+    }
 
-  /**
+    /**
    * User Story ID: M1NG6
    * Description: Returns sorted accumulated system visited data for each month.
    * @returns Promise<{[key: string]: number}>
    */
-  getOverallMetrics(): Promise<{[key: string]: number}> {
+    getOverallMetrics(): Promise<{[key: string]: number}> {
 
-    let dataArr: { [key: string]: number } = {};
-    DateUtil.getAllMonthNames().forEach( monthName => {
-      dataArr[monthName] = 0;
-    })
+      let dataArr: { [key: string]: number } = {};
+      DateUtil.getAllMonthNames().forEach( monthName => {
+        dataArr[monthName] = 0;
+      })
 
-    return new Promise((resolve, reject) => {
-      let subscription: Subscription;
-      subscription = this.firedb.collection(PLACES_VISITS_KEY)
-      .snapshotChanges()
-      .pipe(map(snapshot => {
-        return snapshot.map(fbsnap => fbsnap.payload.doc.data())
-      }))
-      .subscribe(fbvisits => {
-        fbvisits.forEach(fbvisit => {
-          let instanceDate: Date = fbvisit['date'].toDate();
-          let monthName = DateUtil.getMonthFullName(instanceDate.getMonth());
-          if (monthName)
-            dataArr[monthName] = (dataArr[monthName] + 1) || 1;
-        });
+      return new Promise((resolve, reject) => {
+        let subscription: Subscription;
+        subscription = this.firedb.collection(PLACES_VISITS_KEY)
+            .snapshotChanges()
+            .pipe(map(snapshot => {
+              return snapshot.map(fbsnap => fbsnap.payload.doc.data())
+            }))
+            .subscribe(fbvisits => {
+              fbvisits.forEach(fbvisit => {
+                let instanceDate: Date = fbvisit['date'].toDate();
+                let monthName = DateUtil.getMonthFullName(instanceDate.getMonth());
+                if (monthName)
+                {dataArr[monthName] = (dataArr[monthName] + 1) || 1;}
+              });
 
-        if (subscription) {
-          subscription.unsubscribe();
-        }
-        resolve(dataArr);
+              if (subscription) {
+                subscription.unsubscribe();
+              }
+              resolve(dataArr);
+            });
       });
-    });
-  }
+    }
   
-  }
+}

@@ -30,10 +30,10 @@ export class ToolbarComponent implements OnInit {
   ngOnInit() {
     this.authService.isUserLoggedIn.asObservable().subscribe(value => {
       this.isLogged = value;
-      console.log("checar en el tool",this.authService.isUserLoggedIn.value);
+      console.log('checar en el tool',this.authService.isUserLoggedIn.value);
     });
     this.authService.userRoles.asObservable().subscribe(roles => {
-      console.log("aqui tan los roles",roles);
+      console.log('aqui tan los roles',roles);
       this.rolesaux = roles;
       this.admin = roles [1];
       this.staff = roles [2];
