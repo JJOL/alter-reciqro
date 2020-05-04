@@ -36,7 +36,6 @@ export class BannerPage implements OnInit {
     this.bannerService.getAllInfoBanners().then( data => {
       this.banners = data;
     });
-    this.presentModal();
   }
 
   /**
@@ -54,6 +53,7 @@ export class BannerPage implements OnInit {
    * @param  
    * @returns 
    */
+  /*
   async presentModal() {
     await this.bannerService.getAllInfoBanners().then( async data => {
       this.banners = data;
@@ -73,6 +73,27 @@ export class BannerPage implements OnInit {
       });
       return modal.present();
     });
+  } */
+
+  /**
+   * User Story Id: M2NC4
+   * Fuction that is executed for presenting the modal, searching for the modal usign the BannerService
+   * @param  
+   * @returns 
+   */
+  async seeDetail(detailTitle: string, detailDescription: string, detailImage: string, detailDate: string){
+    const modal = await this.modalController.create({
+      component: ModalBannerPage,
+      swipeToClose: true,
+      //presentingElement: this.routerOutlet.nativeEl,
+      componentProps: {
+        title: detailTitle,
+        description: detailDescription,
+        url: detailImage,
+        date: detailDate
+      }
+    });
+    return modal.present();
   }
 
 }

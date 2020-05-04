@@ -1,6 +1,41 @@
 <app-toolbar title="Datos Curiosos" [backButton]="true" routePath="/user/info"></app-toolbar>
 
 <ion-content>
-
+    <ion-slides pager="true">
+        <ion-slide *ngFor="let banner of banners">
+            <ion-grid>
+                <ion-row class="ion-justify-content-center">
+                    <ion-col size-md="6">
+                        <ion-img [src]="banner.image_url"></ion-img>
+                        <h2>{{ banner.title }}</h2>
+                        <p><b>Sabias que ... </b>{{ banner.description }}</p>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+    </ion-slides>
+    <ion-grid>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md = "6" size-sm = "12" >
+            <ion-list >
+              <ion-item *ngFor="let banner of banners" >
+                <ion-thumbnail slot="start">
+                  <ion-img [src]="banner.image_url"></ion-img>
+                </ion-thumbnail>
+                <ion-label>
+                  <h2> {{ banner.title }} </h2>
+                </ion-label>
+    
+                <ion-button fill="clear" class="bold"  (click)="seeDetail(banner.title, banner.description, banner.image_url, banner.date)">
+                  <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
+                </ion-button>
+                <ion-button fill="clear" class="bold">
+                    <ion-icon slot="icon-only" name="share-outline"></ion-icon>
+                </ion-button>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 </ion-content>
 

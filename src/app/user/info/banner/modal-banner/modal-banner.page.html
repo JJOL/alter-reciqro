@@ -9,14 +9,17 @@
 
 
 <ion-content fullscreen *ngIf="url">
-  <ion-card>
-    <img src="{{ url }}" />
-    <ion-card-header>
-      <ion-card-subtitle>Acerda de ...</ion-card-subtitle>
-      <ion-card-title>{{ title }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      {{ description }}
-    </ion-card-content>
-  </ion-card>
+  <ion-slides pager="true">
+    <ion-slide>
+        <ion-grid>
+            <ion-row class="ion-justify-content-center">
+                <ion-col size-md="6">
+                    <ion-img src="{{ url }}"></ion-img>
+                    <h2>{{ title }}</h2>
+                    <p><b>Sabias que ... </b>{{ description }}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-slide>
+</ion-slides>
 </ion-content>
