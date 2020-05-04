@@ -3,6 +3,10 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { PlacesService } from './places.service';
 import { from } from 'rxjs';
 import { GeoPoint } from '../models/geopoint.model';
+
+
+import { MockAngularFirestore } from './mocks/firestore.mock';
+
 /**
  * Internal function.
  * @param  {} placeLoc
@@ -167,7 +171,10 @@ describe('PlacesService', () => {
   it('#getPlaceByID should return a Place if it exists', function(done) {
     // Test Data Setup
     const testData = [place1, place2];
-    mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromDataValueChanges(testData) as unknown as AngularFirestoreCollection);
+    let fsMock = new MockAngularFirestore();
+    fsMock.setTestData(testData);
+    //mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromDataValueChanges(testData) as unknown as AngularFirestoreCollection);
+    mockFirestoreSpy.collection.and.returnValue(fsMock.collection('test') as unknown as AngularFirestoreCollection);
     // Execute Function
     placesService.getPlaceByID('2')
         .then(place => {

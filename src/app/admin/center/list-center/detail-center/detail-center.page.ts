@@ -6,7 +6,11 @@ import { AlertController, NavController } from '@ionic/angular';
 import { PlacesService } from 'src/app/core/services/places.service';
 import { Place } from 'src/app/core/models/place.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
+
 //import { GeoPoint } from 'src/app/core/models/geopoint.model';
+
+declare const QRCode: any;
+const QR_RENDER_DELAY = 1000;
 
 @Component({
   selector: 'app-detail-center',
@@ -27,7 +31,9 @@ export class CenterDetailPage implements OnInit {
   mapPlaces: Place[] = [];
 
   @ViewChild ('mapElement', {static: false}) map;
-  
+  @ViewChild ('qrCodeElement', { static: false }) qrCodeEl;
+
+
   /**
    * User Story ID: M1NG5
    * 
@@ -65,6 +71,9 @@ export class CenterDetailPage implements OnInit {
           };
           this.map.setCenter(this.position);
 
+          this.renderQRImage();
+          
+
           // get placeType
           if (this.loadedPlace.places_type.id) {
             this.placeService.getPlaceTypeByID('' + this.loadedPlace.places_type.id).then(placeType => {
@@ -80,6 +89,32 @@ export class CenterDetailPage implements OnInit {
         });
       }
     });
+  }
+  /**
+   * User Story ID: M1NG6
+   * Description: Renders the QR Image associated to the Place
+   */
+  renderQRImage() {
+    let data = this.loadedPlace.id;
+
+    if (!this.qrCodeEl) {
+      setTimeout(() => this.renderQRImage(), QR_RENDER_DELAY);
+      return;
+    }
+
+    new QRCode(this.qrCodeEl.nativeElement, {
+      text: data,
+      width: 128,
+      height: 128
+    });
+    // With promises
+    // QRCode.toDataURL('I am a pony!')
+    // .then(url => {
+    //   console.log(url)
+    // })
+    // .catch(err => {
+    //   console.error(err)
+    // });
   }
 
   /**
