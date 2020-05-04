@@ -215,7 +215,6 @@ export class AuthService {
    */
   updateUserByUID(uid:string, user:any):Promise<any>{
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uid}`);
-    console.log(user)
     return userRef.set(user, {merge: true});
   }
 
@@ -274,8 +273,46 @@ export class AuthService {
       );
     });
   }
-  
 
+  /**
+   * User Story ID: M4NG4
+   * Metodo Registra staff, toma como entrada el objeto del form y crea una promesa con los servicio de autenticacion de firebase
+   * @param  {any} userObject
+   */
+  registerStaff(userObject) {
+    return new Promise((resolve , reject) => {
+      this.afAuth.auth.createUserWithEmailAndPassword(userObject.email, userObject.password)
+          .then(userData => {
+            resolve(userData),
+            this.createStaff(userObject, userData.user.uid);
+          // eslint-disable-next-line no-console
+          }).catch(err => console.log(reject(err)));
+    });
+    
+  }
+  /**
+   * UserStoryID: M4NG4
+   * Metodo crea staff en la tabla users con su informacion adicional, 
+   * toma como entrada el form y el userUID que se creo y crea una promesa con los servicio de firestore firebase
+   * @param  {any} userObject
+   * @param  {string} userUID
+   */ 
+  createStaff(userObject, userUID){
+    return new Promise<any>((resolve, reject) => {
+      this.afs.collection(USER_KEY).doc(userUID).set({
+        alias: userObject.alias,
+        points: 0,
+        roles: ['staff','user'],
+        delegation_id: userObject.delegationId,
+      })
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
+    });
+  }
 
   /**
    * Method that get the roles of the current user in order to set fynamic menu
