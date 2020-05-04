@@ -17,4 +17,5 @@ import { AddAdminPage } from './add-admin.page';
   ],
   declarations: [AddAdminPage]
 })
+// eslint-disable-next-line require-jsdoc
 export class AddAdminPageModule {}

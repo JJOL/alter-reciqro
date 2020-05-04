@@ -1,3 +1,4 @@
+
 <ion-header>
   <ion-toolbar>
     <ion-title>add-admin</ion-title>
@@ -28,13 +29,17 @@
                     <li *ngIf="role == 'staff'">Staff</li>
                   </ng-container>
                 </ul>
-                <ion-item *ngIf="admin.roles.indexOf('admin') == -1">  <!-- If the user is not an admin, the option to add admin privileges appears  -->
-                  <ion-icon name="add-outline"></ion-icon>
-                  <label>Agregar como Administrador</label>
+                <ion-item *ngIf="admin.roles.indexOf('staff') == -1">  <!-- If the user is not an admin, the option to add admin privileges appears  -->
+                  <ion-button fill="clear" class="bold" (click) =  "onAddAdmin(admin.id)">
+                    <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+                  </ion-button>
+                  <label>Agregar como Staff</label>
                 </ion-item>
-                <ion-item *ngIf="admin.roles.indexOf('admin') !== -1"> <!-- If the user is an admin, the option to remove admin privileges appears  -->
-                  <ion-icon name="trash-outline"></ion-icon>
-                  <label>Quitar como Administrador</label>
+                <ion-item *ngIf="admin.roles.indexOf('staff') !== -1"> <!-- If the user is an admin, the option to remove admin privileges appears  -->
+                  <ion-button fill="clear" class="bold" (click) =  "onDeleteAdmin(admin.id)">
+                    <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                  </ion-button>
+                  <label>Quitar como Staff</label>
                 </ion-item>
               </ion-label>
             </ion-item>

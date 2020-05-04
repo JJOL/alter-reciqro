@@ -25,5 +25,27 @@ export class AddAdminPage implements OnInit {
       this.admins = admin;
     });
   }
+  
+  /**
+   * User Story Id: M4NG4
+   * Method that calles the addAdmin method form the service adminService to delete an existing Admin entry
+   */
+  onAddAdmin(id: string) {
+    this.adminService.addAdministratorUser(id).then( () => {
+      this.adminService.getAllAdministrators().then( admin => { this.admins = admin } );
+    });
+  }
+
+  /**
+   * User Story Id: M4NG5
+   * Method that calles the deleteAdmin method form the service adminService to delete an existing Admin entry
+   */
+  onDeleteAdmin(id: string) {
+    this.adminService.removeAdministratorUser(id).then( () => {
+      this.adminService.getAllAdministrators().then( admin => { this.admins = admin } );
+    });
+  }
+
+  
 }
 
