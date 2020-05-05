@@ -32,14 +32,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['admin','staff']}
   },
-  {path: 'create-staff',
+  {
+    path: 'create-staff',
     loadChildren: () => import('./create-staff/create-staff.module').then( m => m.CreateStaffPageModule),
     canActivate: [AuthGuard],
-    data: { roles: ['admin']}},
-
-  {
-    path: 'add-admin',
-    loadChildren: () => import('./add-admin/add-admin.module').then( m => m.AddAdminPageModule)
+    data: { roles: ['admin']}
   },
   {
     path: 'info-banners',
