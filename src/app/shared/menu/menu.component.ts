@@ -31,7 +31,7 @@ export class MenuComponent implements OnInit {
   /**
    */
   ngOnInit() {
-    this.authService.isUserLoggedIn.asObservable().subscribe(value => {
+    /*this.authService.isUserLoggedIn.asObservable().subscribe(value => {
       this.isLogged = value;
       console.log("checar en el tool2",this.authService.isUserLoggedIn.value);
     });
@@ -40,7 +40,7 @@ export class MenuComponent implements OnInit {
       this.admin = roles [1];
       this.staff = roles [2];
       this.user = roles[3];
-    });
+    });*/
   } 
 
   /**
