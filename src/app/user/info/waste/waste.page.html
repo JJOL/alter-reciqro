@@ -17,15 +17,8 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-slides pager="true">
-            <ion-slide>
-              <div class="slide">
-                <ion-img [src]="wastes[0].icon"></ion-img>
-                <h2>{{ wastes[0].name }}</h2>
-                <p>{{ wastes[0].description }}</p>
-              </div>
-            </ion-slide>
-            <ion-slide *ngFor="let waste of wastes.slice(1)">
+          <ion-slides pager="true" #BannerSlider (ionSlidesDidLoad)="slidesDidLoad(BannerSlider)">
+            <ion-slide *ngFor="let waste of wastes">
               <ion-img [src]="waste.icon"></ion-img>
               <h2>{{waste.name}}</h2>
               <p>{{waste.description}}</p>
@@ -39,7 +32,6 @@
   <div *ngIf="!wastes" class="center">
     <ion-spinner name="lines"></ion-spinner>
   </div>
-  
 
 </ion-content>
 
