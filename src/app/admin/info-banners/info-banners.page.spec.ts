@@ -10,13 +10,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 import { MockAngularFirestore } from '../../core/services/mocks/firestore.mock';
 
-let Mock2 = {
-  collection : function(test){
-    return {
-      snapshotChanges: []
-    }
-  },
-}
+
 let mockFirestore = new MockAngularFirestore();
 const mockAuthentication ={
   registerUser: () => {
@@ -78,13 +72,13 @@ const mockAuthentication ={
 describe('InfoBannersPage', () => {
   let component: InfoBannersPage;
   let fixture: ComponentFixture<InfoBannersPage>;
-
+  mockFirestore.setTestData(["dsad","dasd"])
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ InfoBannersPage ],
       imports: [IonicModule.forRoot(), RouterTestingModule, SharedPageModule, ReactiveFormsModule],
       providers: [
-        { provide: AngularFirestore, useValue: Mock2},
+        { provide: AngularFirestore, useValue: mockFirestore},
         { provide: AuthService, useValue: mockAuthentication}
       ]
     }).compileComponents();
