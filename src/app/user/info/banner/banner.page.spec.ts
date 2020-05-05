@@ -65,7 +65,23 @@ const mockAuthentication ={
   isUserLoggedIn: new BehaviorSubject(false),
   userRoles: new BehaviorSubject([]),
 };
-
+let Mock2 = {
+  collection : function(test){
+    return {
+      snapshotChanges: function(){
+        return {
+          pipe: function (){
+            return {
+              subscribe: function(){
+                return {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+}
 describe('BannerPage', () => {
   let component: BannerPage;
   let fixture: ComponentFixture<BannerPage>;
@@ -75,7 +91,7 @@ describe('BannerPage', () => {
       declarations: [ BannerPage ],
       imports: [IonicModule.forRoot(), RouterTestingModule, SharedPageModule],
       providers: [
-        { provide: AngularFirestore, useValue: MockAngularFirestore },
+        { provide: AngularFirestore, useValue: Mock2 },
         { provide: AuthService, useValue: mockAuthentication}
       ]
     }).compileComponents();

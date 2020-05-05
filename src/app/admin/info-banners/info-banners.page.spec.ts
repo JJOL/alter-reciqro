@@ -10,7 +10,13 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 import { MockAngularFirestore } from '../../core/services/mocks/firestore.mock';
 
-
+let Mock2 = {
+  collection : function(test){
+    return {
+      snapshotChanges: []
+    }
+  },
+}
 let mockFirestore = new MockAngularFirestore();
 const mockAuthentication ={
   registerUser: () => {
@@ -78,7 +84,7 @@ describe('InfoBannersPage', () => {
       declarations: [ InfoBannersPage ],
       imports: [IonicModule.forRoot(), RouterTestingModule, SharedPageModule, ReactiveFormsModule],
       providers: [
-        { provide: AngularFirestore, useValue: mockFirestore},
+        { provide: AngularFirestore, useValue: Mock2},
         { provide: AuthService, useValue: mockAuthentication}
       ]
     }).compileComponents();
