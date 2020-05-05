@@ -25,8 +25,7 @@ import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.com
   ],
   declarations: [PlacesSearcherPagePage, MarkerCardComponent],
   providers: [
-    Geolocation,
-    AuthService
+    Geolocation
   ],
   entryComponents: [FilterMenuComponent]
 })

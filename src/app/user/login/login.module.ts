@@ -19,7 +19,7 @@ import { LoginPage } from './login.page';
     SharedPageModule
   ],
   declarations: [LoginPage],
-  providers: [AuthService]
+  providers: []
 })
 // eslint-disable-next-line require-jsdoc
 export class LoginPageModule {}

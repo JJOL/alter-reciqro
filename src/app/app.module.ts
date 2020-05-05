@@ -1,6 +1,5 @@
 
 import { FormsModule } from '@angular/forms';
-import { AuthService } from './core/services/auth.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -34,7 +33,6 @@ import { environment } from '../environments/environment';
     StatusBar,
     SplashScreen,
     AngularFireAuth,
-    AuthService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {} }
   ],

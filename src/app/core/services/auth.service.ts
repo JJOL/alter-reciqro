@@ -15,7 +15,9 @@ import { auth } from 'firebase';
 import { SystemService } from './system.service';
 
 const USER_KEY = '/users';
-@Injectable()
+@Injectable({
+  providedIn:'root'
+})
 /** Servicio para autenticaciom de usuario */
 export class AuthService {
   auxiliar: string;
@@ -27,10 +29,21 @@ export class AuthService {
               private afs: SystemService,
               private router: Router,
               private toastCtrl: ToastController) {
-    this.getCurrentUser().then(user => {
-      this.isUserLoggedIn.next(true);
-      this.userRoles.next(user.roles);
-    }).catch(() => this.isUserLoggedIn.next(false));
+
+    console.log('New Auth Service!');
+    
+    this.getCurrentUser()
+    .then(user => {
+      console.log('Gotten User');
+      if (user) {
+        this.isUserLoggedIn.next(true);
+        this.userRoles.next(user.roles);
+      }
+    }).catch((err) => {
+      this.isUserLoggedIn.next(false)
+      console.log('auth.getCurrent.catch', err);
+      
+    });
   }
   //User Story ID: M4NC1
   /**
@@ -226,16 +239,25 @@ export class AuthService {
    * @returns Promise
    */
   getCurrentUser():Promise<any>{
-    return new Promise((resolve) => {
-      let subscription: Subscription;
-      subscription = this.afAuth.authState.pipe(map(auth => auth)).subscribe( user =>
-      {
-        if (subscription) {
-          subscription.unsubscribe();
-        }
-        resolve(this.getUserByUID(user?user.uid:null));
+    return new Promise((resolve, reject) => {
+      
+      try {
+        let subscription: Subscription;
+        subscription = this.afAuth.authState.pipe(map(auth => auth)).subscribe( user => {
+          if (subscription) {
+            subscription.unsubscribe();
+          }
+          
+          
+          resolve(this.getUserByUID(user?user.uid:null));
+        });
+      } catch(err) {
+        console.log('auth.blabla')
+        console.log(err);
+        
       }
-      );
+
+
     });
   }
 

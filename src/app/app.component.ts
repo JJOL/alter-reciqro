@@ -1,5 +1,5 @@
 import { AuthService } from './core/services/auth.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -13,7 +13,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 /**
  * Componente principal
  */
-export class AppComponent {
+export class AppComponent implements OnInit{
   private isLogged: boolean;
   private admin: boolean;
   private staff: boolean;
@@ -49,6 +49,11 @@ export class AppComponent {
     });
   }
 
-
+  ngOnInit() {
+    this.authService.isUserLoggedIn.asObservable()
+    .subscribe(status => {
+      console.log('app.oninit.logged: ', status);
+    })
+  }
 
 }
