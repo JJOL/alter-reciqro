@@ -1,11 +1,20 @@
 import { Injectable } from '@angular/core';
 import { EventModel } from '../models/event.model';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentSnapshot } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { SystemService } from './system.service';
 
 const EVENTS_KEY = '/events';
+/**
+ * User Story ID: M1NCx
+ * Function that casts a firebase payload snapshot to our place model.
+ * @param  {any} fbPlace
+ * @returns Place
+ */
+export function parseFBEventSnapToPlace(fbWaste: any): EventModel {
+  return parseFBEventToEvent(fbWaste.payload.doc);
+}
 
 /**
  * User Story ID: M2NC2
@@ -16,6 +25,31 @@ const EVENTS_KEY = '/events';
 export function parseFBEventToEvent(fbWaste: any): EventModel {
   const data  = fbWaste.payload.doc.data();
   const id = fbWaste.payload.doc.id;
+  const event = new EventModel(
+      id,
+      data.age,
+      data.name,
+      data.description,
+      data.start_date.toDate(),
+      data.end_date.toDate(),
+      data.icon,
+      {
+        lat: data.location.latitude,
+        lng: data.location.longitude,
+      }
+  );
+  return event;
+}
+
+/**
+ * User Story ID: M2NC2
+ * Function that casts a firebase event to our event model.
+ * @param  {any} fbWaste
+ * @returns WasteType
+ */
+export function parseFBEventDocToEvent(fbWaste: any): EventModel {
+  const data  = fbWaste.payload.data();
+  const id = fbWaste.payload.id;
   const event = new EventModel(
       id,
       data.age,
@@ -69,4 +103,48 @@ export class EventsService {
     });
   }
   
+  // eslint-disable-next-line require-jsdoc
+  getEventByID(id:string): Promise<EventModel> {
+    return new Promise((resolve) => {
+      let subscription: Subscription;
+      let eventFB=this.firedb.collection(EVENTS_KEY).doc(id).snapshotChanges();
+      
+      eventFB.pipe(map(snapshot => {
+        console.log(snapshot.payload.data())
+        return parseFBEventDocToEvent(snapshot);
+      }))
+          .subscribe(event => {
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+            resolve(event);
+          });
+    });
+  }
+
+  // eslint-disable-next-line require-jsdoc
+  // getEventByID(id: string): Promise<EventModel> {
+  //   return new Promise((resolve, reject) => {
+      
+
+  //     let eventRef = this.firedb.collection(EVENTS_KEY).doc(id).ref;
+  //     eventRef.get().then(docSnap => {
+  //       if (docSnap.exists) {
+  //         console.log('PLACE ITEM DOES EXIST');
+          
+  //         let place = parseFBEventToEvent(docSnap as DocumentSnapshot<any>);     
+  //         console.log(place)  
+  //         resolve(place);     
+  //       }
+  //       else {
+  //         reject('ERROR: PlacesService.getPlaceByID(): Place does not exist.');
+  //       }
+  //     })
+  //         .catch(err => {
+            
+  //           reject(err);
+  //         });
+  //   });
+  // }
+
 }

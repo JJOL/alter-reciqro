@@ -155,7 +155,7 @@ export class PlacesService {
    */
   getPlaceByID(id: string): Promise<Place> {
     return new Promise((resolve, reject) => {
-      let subscription: Subscription;
+      
       console.log('Calling getPlaceByID()');
 
       let placeRef = this.firedb.collection(PLACE_KEY).doc(id).ref;
