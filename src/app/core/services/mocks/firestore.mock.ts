@@ -1,5 +1,12 @@
 import { from } from 'rxjs';
 
+let Mock2 = {
+  collection : function(test){
+    return {
+      snapshotChanges: []
+    }
+  },
+}
 
 export class MockAngularFirestore {
   

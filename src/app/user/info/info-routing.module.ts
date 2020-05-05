@@ -21,6 +21,12 @@ const routes: Routes = [
     loadChildren: () => import('./events/events.module').then( m => m.EventsPageModule),
     canActivate: [AuthGuard],
     data: { roles: ['user']}
+  },
+  {
+    path: 'funfacts',
+    loadChildren: () => import('./banner/banner.module').then( m => m.BannerPageModule),
+    canActivate: [AuthGuard],
+    data: { roles: ['user']}
   }
 ];
 

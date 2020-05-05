@@ -46,7 +46,7 @@ export class InfoBannerService {
    * @returns Promise<InfoBanner[]>
    */
   getAllInfoBanners(): Promise<InfoBanner[]> {
-    return new Promise((res, rej) => {
+    return new Promise((res) => {
       let subscription: Subscription;
       subscription = this.firedb.collection(INFO_BANNERS_KEY)
           .snapshotChanges()
