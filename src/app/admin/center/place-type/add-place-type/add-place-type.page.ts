@@ -184,7 +184,7 @@ export class AddPlaceTypePage implements OnInit {
       });
       this.alertCtrl.create ({
         header: 'Mensaje de Confirmación',
-        message: 'El tipo de lugar de residuo "' + this.name_waste_type + '" se ha registrado correctamente',
+        message: 'El tipo de lugar se ha registrado correctamente',
         buttons: [{
           text: 'Aceptar',
           role: 'accept'
