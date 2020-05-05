@@ -1,3 +1,4 @@
+import { SharedPageModule } from 'src/app/shared/shared.module';
 
 import { FormsModule } from '@angular/forms';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -28,6 +29,7 @@ import { environment } from '../environments/environment';
     AngularFireModule.initializeApp(environment.database.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    SharedPageModule
   ],
   providers: [
     StatusBar,

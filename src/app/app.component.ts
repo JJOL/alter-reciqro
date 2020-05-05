@@ -26,17 +26,16 @@ export class AppComponent implements OnInit{
     private statusBar: StatusBar,
     private authService: AuthService
   ) {
-    /*this.authService.isUserLoggedIn.asObservable().subscribe(value => {
+    this.authService.isUserLoggedIn.asObservable().subscribe(value => {
       this.isLogged = value;
     });
     if (this.isLogged) {
       this.authService.userRoles.asObservable().subscribe(roles => {
-        console.log("aqui tan los roles",roles);
         this.admin = roles [1];
         this.staff = roles [2];
         this.user = roles[3];
       });
-    }*/
+    }
     this.initializeApp();
   }
   /**
@@ -48,12 +47,15 @@ export class AppComponent implements OnInit{
       this.splashScreen.hide();
     });
   }
-
+  /**
+   */
   ngOnInit() {
-    this.authService.isUserLoggedIn.asObservable()
-    .subscribe(status => {
-      console.log('app.oninit.logged: ', status);
-    })
+  }
+
+  /**
+   */
+  onLogout() {
+    this.authService.logoutUser();
   }
 
 }

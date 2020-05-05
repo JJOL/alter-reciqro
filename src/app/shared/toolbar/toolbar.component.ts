@@ -43,11 +43,7 @@ export class ToolbarComponent implements OnInit {
       this.user = roles[3];
     });
   }
-  /**
-   */
-  onLogout() {
-    this.authService.logoutUser();
-  }
+  
   /**
    */
   ionViewWillEnter() {

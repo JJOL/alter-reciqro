@@ -29,21 +29,15 @@ export class AuthService {
               private afs: SystemService,
               private router: Router,
               private toastCtrl: ToastController) {
-
-    console.log('New Auth Service!');
-    
     this.getCurrentUser()
-    .then(user => {
-      console.log('Gotten User');
-      if (user) {
-        this.isUserLoggedIn.next(true);
-        this.userRoles.next(user.roles);
-      }
-    }).catch((err) => {
-      this.isUserLoggedIn.next(false)
-      console.log('auth.getCurrent.catch', err);
-      
-    });
+        .then(user => {
+          if (user) {
+            this.isUserLoggedIn.next(true);
+            this.userRoles.next(user.roles);
+          }
+        }).catch((err) => {
+          this.isUserLoggedIn.next(false);
+        });
   }
   //User Story ID: M4NC1
   /**
@@ -60,9 +54,7 @@ export class AuthService {
           // eslint-disable-next-line no-console
           }).catch(err => console.log(reject(err)));
     });
-    
   }
-  
   /**
    * * USID: M4NC2
    * UserStoryID: M4NC1
@@ -240,28 +232,15 @@ export class AuthService {
    */
   getCurrentUser():Promise<any>{
     return new Promise((resolve, reject) => {
-      
-      try {
-        let subscription: Subscription;
-        subscription = this.afAuth.authState.pipe(map(auth => auth)).subscribe( user => {
-          if (subscription) {
-            subscription.unsubscribe();
-          }
-          
-          
-          resolve(this.getUserByUID(user?user.uid:null));
-        });
-      } catch(err) {
-        console.log('auth.blabla')
-        console.log(err);
-        
-      }
-
-
+      let subscription: Subscription;
+      subscription = this.afAuth.authState.pipe(map(auth => auth)).subscribe( user => {
+        if (subscription) {
+          subscription.unsubscribe();
+        }
+        resolve(this.getUserByUID(user?user.uid:null));
+      });
     });
   }
-
-  
   /**
    * Description: It sends an email to the user, so they can reset their password
    * User story ID: M4NG2 
@@ -312,7 +291,6 @@ export class AuthService {
           // eslint-disable-next-line no-console
           }).catch(err => console.log(reject(err)));
     });
-    
   }
   /**
    * UserStoryID: M4NG4
@@ -337,24 +315,6 @@ export class AuthService {
           );
     });
   }
-
-  /**
-   * Method that get the roles of the current user in order to set fynamic menu
-   
-  async getRolesandSession() {
-    let islogged: boolean;
-    let admin: boolean;
-    let staff: boolean;
-    let user: boolean;
-    let roles = [];
-    const useraux = await this.getCurrentUser();
-    if ( useraux) { islogged = true;  roles = useraux.roles;} else { islogged = false; }
-    if ( roles.indexOf('user') >= 0) { user = true; } else { user = false; }
-    if ( roles.indexOf('admin') >= 0) { admin = true; } else { admin = false; }
-    if ( roles.indexOf('staff') >= 0) { staff = true; } else { staff = false; }
-    return [islogged,admin,staff,user];
-  }*/
-
   /**
    * Show a toast
    * @param  {} msg
