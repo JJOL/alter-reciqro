@@ -20,9 +20,9 @@ export class AddVisitPage {
   constructor(
     private visitsService: VisitsService,
     private navCtrl: NavController
-    ) {
-      this.canReadVisit = true;
-    }
+  ) {
+    this.canReadVisit = true;
+  }
   /**
    * User Story ID: M1NG6
    * Description: Handler Function when a qr code is detected to attemp to register.
@@ -34,12 +34,12 @@ export class AddVisitPage {
       this.canReadVisit = false;
 
       this.visitsService.registerQRVisit(event.url)
-      .then(() => {
-        this.navCtrl.navigateBack('/user/visits');
-      })
-      .catch(() => {
-        this.canReadVisit = true;
-      })
+          .then(() => {
+            this.navCtrl.navigateBack('/user/visits');
+          })
+          .catch(() => {
+            this.canReadVisit = true;
+          })
     }
     
   }

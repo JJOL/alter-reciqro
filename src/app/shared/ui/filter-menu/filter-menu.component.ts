@@ -36,7 +36,7 @@ export class FilterMenuComponent implements OnInit {
     else {
       this.remove(ev.detail.value);
     }
-    }
+  }
 
 
 }

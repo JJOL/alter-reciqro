@@ -22,10 +22,10 @@ export class IndicatorTableComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (this.keyValueData) {
       this.dataArr = Object.keys(this.keyValueData)
-        .map(key => ({ 
-          key: key,
-          val: this.keyValueData[key]
-        }));
+          .map(key => ({ 
+            key: key,
+            val: this.keyValueData[key]
+          }));
     }
   }
 

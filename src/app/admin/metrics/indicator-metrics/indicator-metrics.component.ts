@@ -47,7 +47,7 @@ export class IndicatorMetricsComponent implements OnInit {
 
     // Load Overall Metrics
     this.classMetricsService.getOverallMetrics()
-    .then(this.onLoadOverallData.bind(this));
+        .then(this.onLoadOverallData.bind(this));
   }
   /**
    * User Story ID: M1NG6
