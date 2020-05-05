@@ -72,7 +72,7 @@ const mockAuthentication ={
 describe('InfoBannersPage', () => {
   let component: InfoBannersPage;
   let fixture: ComponentFixture<InfoBannersPage>;
-
+  mockFirestore.setTestData(["dsad","dasd"])
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ InfoBannersPage ],

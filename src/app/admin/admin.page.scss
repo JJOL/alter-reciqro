@@ -31,3 +31,19 @@ ul{
     margin-inline-end: 0px;
     padding-inline-start: 20px;
 }
+
+ion-fab{
+    right: 5%;
+    bottom: 5%;
+    text-size-adjust: 150%;
+}
+
+ion-fab-button{
+	font-size: xx-large;
+	--background: #0f2252;
+}
+
+.smallImg{
+	display: block;
+	height: 25px;
+}

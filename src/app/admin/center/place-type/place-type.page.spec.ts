@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 import { PlaceTypePage } from './place-type.page';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
-import {MockAngularFirestore} from 'src/app/core/services/mocks/firestore.mock';
+import { MockAngularFirestore } from 'src/app/core/services/mocks/firestore.mock';
 import { SharedPageModule } from '../../../shared/shared.module';
 import { AuthService } from '../../../core/services/auth.service';
 import { empty, BehaviorSubject } from 'rxjs'

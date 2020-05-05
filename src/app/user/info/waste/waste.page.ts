@@ -51,4 +51,12 @@ export class WastePage implements OnInit {
       this.wastes = shuffle(this.wastes);
     });
   }
+  /**
+   * User Story ID: M1NC3
+   * Function that is executed for autoplaying the slider.
+   * @param  {} BannerSlider
+   */
+  slidesDidLoad(BannerSlider){
+    BannerSlider.startAutoplay();
+  }
 }

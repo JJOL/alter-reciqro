@@ -8,7 +8,6 @@
     color: #fff;
     border-color: rgba(0,0,0,0.2);
   }
-  
   .btn-facebook{
     background: #9c9c9c;
   }
@@ -36,6 +35,16 @@
     ion-button{
         font-size: 80% !important;
     }
+    .mediumImg{
+      display: block;
+      height: 100%;
+      width: 25%;
+    }
+    .smallImg{
+      display: block;
+      height: 35px;
+      padding: 2px;
+    }
 }
 
 @media (max-width: 400px) {
@@ -44,6 +53,16 @@
     }
     ion-button{
         font-size: 70% !important;
+    }
+    .mediumImg{
+      display: block;
+      height: 100%;
+      width: 25%;
+    }
+    .smallImg{
+      display: block;
+      height: 10px;
+      padding: 2px;
     }
 }
 h1{
@@ -65,6 +84,52 @@ ion-title {
     text-align: center;
     color: white;
 }
+ion-content{
+  //  03A9F4
+  --background: linear-gradient(180deg, #0f2252 30%, rgba(0, 0, 0, 0) 30%), linear-gradient(180deg, #1976D2   80%, #0f2252 80%);
+}
+ion-card{
+  padding: 15px;
+}
 .errorLogin{
   text-align: left;
+}
+
+.welcome{
+  font-weight: bold;
+  color:#03A9F4;
+}
+
+.login{
+  font-weight: bold;
+  color: white;
+}
+
+.submit{
+  --background:#03A9F4;
+}
+
+.mediumImg{
+	display: block;
+  height: 100%;
+  width: 25%;
+}
+.smallImg{
+	display: block;
+  height: 50px;
+  padding: 2px;
+}
+.center{
+    margin: auto;
+}
+ 
+.column {
+  float: left;
+  width: 25%;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
 }

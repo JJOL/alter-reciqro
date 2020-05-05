@@ -1,16 +1,50 @@
-<app-toolbar title="Iniciar Sesión" [backButton]="false" > </app-toolbar>
-<ion-content>
-  <ion-grid>
+
+<ion-header>
+  <ion-toolbar>	
+    <ion-buttons col-4 col-sm slot="start">	
+      <!--This opens the default menu we have-->	
+      <ion-menu-button menu="m1"></ion-menu-button>	
+    </ion-buttons>	
+      <div class="row" style="padding-left: 10px">
+        <div class="column">
+          <img class="smallImg" src="../../../assets/img/hacemos_la_diferencia.png"> 
+        </div>
+        <div class="column">
+          <img class="smallImg" src="../../../assets/img/en_tu_calle_white.png">
+        </div>
+        <div class="column">
+          <img class="smallImg" src="../../../assets/img/Qro_white.png">
+        </div>
+        <div class="column">
+          <img class="smallImg" src="../../../assets/img/Logo_RespiraQRO.png">
+        </div>
+      </div>
+    
+    
+   
+    
+    <!--ion-title    class="ion-text-center">Buscador de Centros flag: {{isLogged}}</ion-title
+    <ion-buttons  slot="primary" >	
+      <ion-button  *ngIf="!isLogged" slot="end" routerLink="/user/login">	
+        Regístrate<ion-icon name="person-add-outline"></ion-icon>	
+      </ion-button> 	
+      <ion-button  *ngIf="isLogged" slot="end" routerLink="/user/">	
+        Mi Perfil<ion-icon  name="person-circle"></ion-icon>	
+      </ion-button>	
+    </ion-buttons
+  <img class="smallImg" src="../../../../assets/img/blueQ.png">
+  -->		
+  </ion-toolbar>	
+</ion-header>
+<ion-content >
+  <ion-grid >
     <ion-row>
       <ion-col size="12" size-lg="6" size-md="6" offset-lg="3" offset-md="3">
-        <br><br><br>
-        <h1 class="h3 mb-3 font-weight-normal" >Inicio de Sesión a ReciQro</h1>
+        <h1 class='welcome'>Bienvenido/a</h1>
+        <h1 class='login'>Inicio de sesión</h1>
         <br>
-        <p>Ingresa tus credenciales para iniciar sesión.</p>
-        
+        <ion-card>
         <form [formGroup]= "newCenterForm" (ngSubmit)="submit()">
-          <hr>
-          <hr>
           <ion-list>
             <ion-item>
               <ion-label position="floating">Correo</ion-label>
@@ -21,7 +55,6 @@
                 <small class="error-message">{{error.message}}</small>
               </ng-container>
             </div>
-        
             <ion-item>
               <ion-label position="floating">Contraseña</ion-label>
               <ion-input formControlName="password" inputmode="password" type="password"></ion-input>
@@ -32,13 +65,11 @@
               </ng-container>
             </div>
             <br>
-            <ion-button [disabled]="!newCenterForm.valid" type="submit" expand="block">
-              Login
+            <ion-button class='submit' [disabled]="!newCenterForm.valid" type="submit" expand="block">
+              Iniciar Sesión
               <ion-icon slot="end" name="send"></ion-icon>
             </ion-button>
             </ion-list>
-        
-          
           <br><br><br>
           <div class="form-group">
             <ion-label>Regístrate o inicia sesión con Google</ion-label><br><br>
@@ -46,10 +77,6 @@
               <span class="fa fa-google"></span>
                   GOOGLE
             </ion-button>
-            <!--button class="btn btn-block btn-social btn-google" (click)="onLogout()">
-              <span class="fa fa-google"></span>
-              salir
-            </!--button -->
           </div>
           <br><br>
           <div class="form-group">
@@ -60,7 +87,10 @@
             <a routerLink="/user/recover-password" class="form-control login-user">¿Olvidaste tu contraseña?</a>
           </div>
         </form>
-        
+        </ion-card>
+        <div class="center">
+          <img class="mediumImg center" src="../../../assets/img/reciQroSinFondo.png">
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>

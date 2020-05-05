@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sabías que ...</ion-title>
+    <ion-button (click)="dismiss()" slot="start" size="large" fill="clear" color="light">
+      <ion-icon name="close-circle-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content fullscreen *ngIf="url">
+  <ion-slides pager="true">
+    <ion-slide>
+        <ion-grid>
+            <ion-row class="ion-justify-content-center">
+                <ion-col size-md="6">
+                    <ion-img src="{{ url }}"></ion-img>
+                    <h2>{{ title }}</h2>
+                    <p><b>Sabias que ... </b>{{ description }}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-slide>
+</ion-slides>
+</ion-content>

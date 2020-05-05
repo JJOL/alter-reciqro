@@ -131,5 +131,5 @@ export class RegisterPage implements OnInit {
         matchingControl.setErrors(null);
       }
     }
-}
+  }
 }

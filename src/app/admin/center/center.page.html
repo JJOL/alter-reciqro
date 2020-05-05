@@ -5,9 +5,10 @@
       <ion-menu-button menu="m1"></ion-menu-button>
     </ion-buttons>
     <ion-title>Centros de Recolección</ion-title>
-    <!--Here we will replace with the government icon-->
     <ion-buttons slot="end" class="ion-padding">
-      <ion-icon name="earth-outline"></ion-icon>
+      <ion-button routerLink="/user/places-searcher-page">
+        <img class="smallImg" src="../../../assets/img/blueQ.png">
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -35,7 +36,7 @@
         color="primary" 
         routerDirection=" "
         [routerLink]="['/','admin','center', 'place-type']"> 
-        Visualizar Tipos de Desechos
+        Visualizar Tipos de Lugares
         </ion-button>
       </ion-col>
     </ion-row>

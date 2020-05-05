@@ -55,7 +55,8 @@ export class PlaceTypePage implements OnInit {
 
   /**
    * User Story Id: M1NG10
-   * Method that calles the deletePlaceTypeByID method form the service PlacesService to delete an existing Place Type and its relations to the waste types
+   * Method that calles the deletePlaceTypeByID method form the service PlacesService to delete
+   * gitan existing Place Type and its relations to the waste types
    * @param 
    * @returns 
    */

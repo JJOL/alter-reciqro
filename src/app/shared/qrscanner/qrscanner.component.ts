@@ -63,7 +63,7 @@ export class QrscannerComponent implements OnInit, OnDestroy {
    * Description: Load once device media stream information
    */
   async gatherDeviceMediaInfo() {
-    let devices = await (await navigator.mediaDevices.enumerateDevices()).filter(device => device.kind == 'videoinput');
+    let devices = await (await navigator.mediaDevices.enumerateDevices()).filter(device => 'videoinput' == device.kind);
     let availableConstrains = navigator.mediaDevices.getSupportedConstraints();
 
     if (!this.deviceMediaInfo) {
@@ -118,21 +118,21 @@ export class QrscannerComponent implements OnInit, OnDestroy {
       return;
     }
     navigator.mediaDevices.getUserMedia(constraints as any)
-    .then(stream => {
-      this.stream = stream;
+        .then(stream => {
+          this.stream = stream;
 
-      video.srcObject = this.stream;
-      video.setAttribute("playsinline", true);
+          video.srcObject = this.stream;
+          video.setAttribute('playsinline', true);
 
-      video.load();
-      video.play();
+          video.load();
+          video.play();
 
-      requestAnimationFrame(() => this.tick());
-    })
-    .catch(err => {
-      //TODO: Handle User Doesnt Give Permission or no camera available.
-      console.error(err);
-    });
+          requestAnimationFrame(() => this.tick());
+        })
+        .catch(err => {
+          //TODO: Handle User Doesnt Give Permission or no camera available.
+          console.error(err);
+        });
   }
 
 
@@ -149,9 +149,9 @@ export class QrscannerComponent implements OnInit, OnDestroy {
     this.videoEl.nativeElement.pause();
     if (this.stream) {
       this.stream.getTracks()
-      .forEach(track => {
-        track.stop();
-      });
+          .forEach(track => {
+            track.stop();
+          });
     }
   }
   /**
@@ -176,7 +176,7 @@ export class QrscannerComponent implements OnInit, OnDestroy {
       let imageData = this.ctx.getImageData(0, 0, canvas.width, canvas.height);
 
       let code = jsQR(imageData.data, imageData.width, imageData.height, {
-        inversionAttempts: "dontInvert",
+        inversionAttempts: 'dontInvert',
       });
       if (code) {
         // Codigo QR Valid

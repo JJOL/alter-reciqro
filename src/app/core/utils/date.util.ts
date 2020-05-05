@@ -6,7 +6,7 @@ const MONTH_FULLNAMES_MAP = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Juni
  * @returns string
  */
 export function getMonthFullName(monthIndex: number): string {
-    return MONTH_FULLNAMES_MAP[monthIndex];
+  return MONTH_FULLNAMES_MAP[monthIndex];
 }
 /**
  * User Story ID: M1NG6
@@ -14,5 +14,5 @@ export function getMonthFullName(monthIndex: number): string {
  * @returns string[]
  */
 export function getAllMonthNames(): string[] {
-    return MONTH_FULLNAMES_MAP;
+  return MONTH_FULLNAMES_MAP;
 }
