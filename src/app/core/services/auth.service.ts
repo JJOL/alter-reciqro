@@ -28,10 +28,8 @@ export class AuthService {
               private router: Router,
               private toastCtrl: ToastController) {
     this.getCurrentUser().then(user => {
-      if (user){
-        this.isUserLoggedIn.next(true);
-      }
-    })
+      this.isUserLoggedIn.next(true);
+    }).catch(() => this.isUserLoggedIn.next(false));
   }
   //User Story ID: M4NC1
   /**
@@ -137,24 +135,27 @@ export class AuthService {
    * @param  {string} uid
    */
   getUserByUID(uid:string):Promise<any>{
-    return new Promise((resolve) => {
-      let subscription: Subscription;
-      subscription = this.afs.doc<any>(`users/${uid}`).valueChanges()
-          .pipe(
-              take(1),
-              map(
-                  user => {
-                    user.id = uid;
-                    return user;
-                  }
-              ))
-          .subscribe(user => {
-            if (subscription) {
-              subscription.unsubscribe();
-            }
-            resolve(user);
-          });
-    });
+    if (uid) {
+      return new Promise((resolve) => {
+        let subscription: Subscription;
+        subscription = this.afs.doc<any>(`users/${uid}`).valueChanges()
+            .pipe(
+                take(1),
+                map(
+                    user => {
+                      user.id = uid;
+                      return user;
+                    }
+                ))
+            .subscribe(user => {
+              if (subscription) {
+                subscription.unsubscribe();
+              }
+              resolve(user);
+            });
+      });
+    } else { return;
+    }
   }
 
   /**

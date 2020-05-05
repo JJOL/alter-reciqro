@@ -1,11 +1,10 @@
-import { resolve } from 'url';
+
 import { AuthService } from './../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
-import { auth } from 'firebase/app'; 
-import { AlertController, ToastController } from '@ionic/angular';
-import { FormsModule,FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ToastController } from '@ionic/angular';
+import { FormBuilder, Validators } from '@angular/forms';
 
 
 @Component({
@@ -31,31 +30,31 @@ export class LoginPage implements OnInit {
   }
 
   public errorMessages = {
-    
-    
+
+
     email: [
       { type: 'required', message: 'Email es requerido' },
       { type: 'pattern', message: 'El formato de email no es correcto'}
     ],
     password: [
       { type: 'required', message: 'Contraseña es requerida' },
-      
+
     ]
-    
+
   };
-  
+
   newCenterForm = this.formBuilder.group({
-   
+
     email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
     password: ['', [Validators.required]],
-    
+
   });
 
   // eslint-disable-next-line require-jsdoc
   constructor(public afAuth: AngularFireAuth,
-              private router: Router, 
+              private router: Router,
               private authService: AuthService,
-              public formBuilder: FormBuilder, 
+              public formBuilder: FormBuilder,
               private toastCtrl: ToastController) { }
 
   // eslint-disable-next-line require-jsdoc
@@ -72,8 +71,7 @@ export class LoginPage implements OnInit {
         } ).catch (err => {
           this.showToast('Contraseña o Usuario Incorrecto','danger')
           this.newCenterForm.reset;
-          console.log(err)  
-          
+          console.log(err);
         });
   }
   /**
@@ -102,14 +100,14 @@ export class LoginPage implements OnInit {
    */
   isAnError(error) {
     if ('auth/user-not-found' === error.code || 'auth/wrong-password' === error.code) {
-      this.showToast('Error, contraseña o usario incorrecto','danger');
-      
+      this.showToast('Error, contraseña o usuario incorrecto','danger');
+
     }
   }
   /**
    * Crear mensaje en forma de Toast
    * @param  {string} msg
-   * 
+   *
    */
   showToast(msg: string, color: string) {
     this.toastCtrl.create({
