@@ -6,13 +6,22 @@ ion-toolbar{
     --color:white;
     text-align: center;
 }
-
 @media (max-width: 576px) {
     ion-title {
         font-size: 80% !important;
     }
     ion-button{
         font-size: 80% !important;
+    }
+    .mediumImg{
+      display: block;
+      height: 100%;
+      width: 25%;
+    }
+    .smallImg{
+      display: block;
+      height: 35px;
+      padding: 2px;
     }
 }
 
@@ -23,12 +32,43 @@ ion-toolbar{
     ion-button{
         font-size: 70% !important;
     }
+    .mediumImg{
+      display: block;
+      height: 100%;
+      width: 25%;
+    }
+    .smallImg{
+      display: block;
+      height: 10px;
+      padding: 2px;
+    }
 }
 ion-icon{
     padding: 2px;
 }
 
+
+.mediumImg{
+	display: block;
+  height: 100%;
+  width: 25%;
+}
 .smallImg{
 	display: block;
-	height: 25px;
+  height: 50px;
+  padding: 2px;
+}
+.center{
+    margin: auto;
+}
+ 
+.column {
+  float: left;
+  width: 25%;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
 }

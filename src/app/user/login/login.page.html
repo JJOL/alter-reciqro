@@ -1,41 +1,5 @@
 
-<ion-header>
-  <ion-toolbar>	
-    <ion-buttons col-4 col-sm slot="start">	
-      <!--This opens the default menu we have-->	
-      <ion-menu-button menu="m1"></ion-menu-button>	
-    </ion-buttons>	
-      <div class="row" style="padding-left: 10px">
-        <div class="column">
-          <img class="smallImg" src="../../../assets/img/hacemos_la_diferencia.png"> 
-        </div>
-        <div class="column">
-          <img class="smallImg" src="../../../assets/img/en_tu_calle_white.png">
-        </div>
-        <div class="column">
-          <img class="smallImg" src="../../../assets/img/Qro_white.png">
-        </div>
-        <div class="column">
-          <img class="smallImg" src="../../../assets/img/Logo_RespiraQRO.png">
-        </div>
-      </div>
-    
-    
-   
-    
-    <!--ion-title    class="ion-text-center">Buscador de Centros flag: {{isLogged}}</ion-title
-    <ion-buttons  slot="primary" >	
-      <ion-button  *ngIf="!isLogged" slot="end" routerLink="/user/login">	
-        Regístrate<ion-icon name="person-add-outline"></ion-icon>	
-      </ion-button> 	
-      <ion-button  *ngIf="isLogged" slot="end" routerLink="/user/">	
-        Mi Perfil<ion-icon  name="person-circle"></ion-icon>	
-      </ion-button>	
-    </ion-buttons
-  <img class="smallImg" src="../../../../assets/img/blueQ.png">
-  -->		
-  </ion-toolbar>	
-</ion-header>
+  <app-toolbar [backButton]="false" [login]="true"></app-toolbar>
 <ion-content >
   <ion-grid >
     <ion-row>

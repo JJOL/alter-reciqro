@@ -29,6 +29,7 @@ export class AuthService {
               private toastCtrl: ToastController) {
     this.getCurrentUser().then(user => {
       this.isUserLoggedIn.next(true);
+      this.userRoles.next(user.roles);
     }).catch(() => this.isUserLoggedIn.next(false));
   }
   //User Story ID: M4NC1
