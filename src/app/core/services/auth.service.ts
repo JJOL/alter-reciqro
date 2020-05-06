@@ -120,10 +120,9 @@ export class AuthService {
    *  Firebase function that ends user session and redirect to princiapl view
    */
   logoutUser() {
-    this.userRoles.unsubscribe();
-    this.isUserLoggedIn.next(false);
-    this.isUserLoggedIn.unsubscribe();
     return this.afAuth.auth.signOut().then(() => {
+      this.userRoles.next([]);
+      this.isUserLoggedIn.next(false);
       this.router.navigate(['user/login']);
       this.showToast('Hasta luego, has cerrado sesión');
     });
