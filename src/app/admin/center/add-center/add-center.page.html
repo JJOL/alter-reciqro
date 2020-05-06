@@ -60,16 +60,6 @@
           </div>
 
           <ion-item>
-            <ion-label position="floating">Código QR</ion-label>
-            <ion-input formControlName="qrCode" inputmode="url"></ion-input>
-          </ion-item>
-          <div *ngFor="let error of errorMessages.qrCode">
-            <ng-container *ngIf="qrCode.hasError(error.type) && (qrCode.dirty || qrCode.touched)">
-              <small class="error-message">{{error.message}}</small>
-            </ng-container>
-          </div>
-
-          <ion-item>
             <ion-label position="floating">Foto</ion-label>
             <ion-input formControlName="mainPicture" inputmode="url"></ion-input>
           </ion-item>

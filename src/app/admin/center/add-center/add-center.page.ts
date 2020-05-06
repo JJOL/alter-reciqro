@@ -96,7 +96,7 @@ export class AddCenterPage implements OnInit {
     ],
     description: [
       { type: 'required', message: 'Descripción es requerida' },
-      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 100 caracteres'}
+      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 300 caracteres'}
     ],
     latitude: [
       { type: 'required', message: 'Latitud es requerida' },
@@ -128,11 +128,11 @@ export class AddCenterPage implements OnInit {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     name: ['', [Validators.required, Validators.maxLength(100)]],
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    description: ['', [Validators.required, Validators.maxLength(100)]],
+    description: ['', [Validators.required, Validators.maxLength(300)]],
     latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
     longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
-    qrCode: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
-    mainPicture: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
+    qrCode: ['NA'],
+    mainPicture: ['NA'],
     address: this.formBuilder.group({
       // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       street: ['', [Validators.required, Validators.maxLength(100)]],
@@ -168,7 +168,6 @@ export class AddCenterPage implements OnInit {
     this.newCenterForm.controls.latitude.setValue(lugar.location.lat);
     this.newCenterForm.controls.longitude.setValue(lugar.location.lng);
   }
-
   
   /**
    * User Story ID: M1NG1
