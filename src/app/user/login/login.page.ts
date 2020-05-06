@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 
 import { AuthService } from './../../core/services/auth.service';
 import { Router } from '@angular/router';
@@ -116,5 +117,17 @@ export class LoginPage implements OnInit {
       position: 'middle',
       color: color
     }).then(toast => toast.present());
+  }
+  /**
+   */
+  ionViewDidEnter(){
+    this.authService.getCurrentUser()
+        .then(user => {
+          if (user) {
+            this.router.navigate(['user/places-searcher-page']);
+          }
+        }).catch((err) => {
+          return err;
+        });
   }
 }
