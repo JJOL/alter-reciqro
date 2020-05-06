@@ -94,7 +94,10 @@ export class WasteService {
   }
 
   /**
-   *
+   * User Story Id: M2NG12
+   * Method that get an especific waste based on its id
+   * @param  {string} id
+   * @returns Promise<WasteTypes>
    */
   getWasteById(id: string): Promise<WasteType>{
     return new Promise((resolve) => {
@@ -120,6 +123,15 @@ export class WasteService {
   }
 
 
+  /**
+   * User Story Id: M2NG12
+   * Method that updates an especific waste based on its id
+   * @param  {string} id
+   * @param {string} namewastetype
+   * @param {string} urlwastetype
+   * @param {string} descriptionwastetype
+   * @returns Promise<any>
+   */
   updateWasteType(id: string, namewastetype: string, urlwastetype: string, descriptionwastetype: string): Promise<any>{
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(WASTE_TYPE_KEY).doc(id).set({
@@ -136,6 +148,14 @@ export class WasteService {
     });
   }
 
+  /**
+   * User Story Id: M2NG14
+   * Method called to add a new waste type
+   * @param  {string} namewastetype
+   * @param {string} urlwastetype
+   * @param {string} descriptionwastetype
+   * @returns Promise <any>
+   */
   addWasteType(namewastetype: string, urlwastetype: string, descriptionwastetype: string): Promise<any>{
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(WASTE_TYPE_KEY).add({
@@ -152,6 +172,13 @@ export class WasteService {
     });
   }
 
+
+  /**
+   * User Story Id: M2NG13
+   * Method that deletes a selected waste
+   * @param  
+   * @returns 
+   */
   deleteWasteTypeByID(wasteTypeId: string): Promise<any>{
     return new Promise((resolve) => {
       this.firedb.collection<WasteType>(WASTE_TYPE_KEY).doc<WasteType>(wasteTypeId).delete().then(() => {

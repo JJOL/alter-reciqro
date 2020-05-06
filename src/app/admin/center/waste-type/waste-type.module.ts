@@ -17,4 +17,11 @@ import { WasteTypePage } from './waste-type.page';
   ],
   declarations: [WasteTypePage]
 })
+
+/**
+   * User Story Id: M2NG11, M2NG13
+   * Allows the WasteTypePageModule available for imports
+   * @param  
+   * @returns 
+   */
 export class WasteTypePageModule {}

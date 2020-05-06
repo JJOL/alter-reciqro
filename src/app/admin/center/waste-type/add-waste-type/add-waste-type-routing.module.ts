@@ -14,4 +14,11 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
+
+/**
+   * User Story Id: M2NG14
+   * Allows the AddWasteTypePageRoutingModule available for imports
+   * @param  
+   * @returns 
+   */
 export class AddWasteTypePageRoutingModule {}

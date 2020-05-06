@@ -10,10 +10,25 @@ import { AlertController } from '@ionic/angular';
   templateUrl: './waste-type.page.html',
   styleUrls: ['./waste-type.page.scss'],
 })
+
+/**
+   * User Story Id: M2NG11, M2NG13
+   * Allows the WasteTypePage available for imports
+   * @param  
+   * @returns 
+   */
 export class WasteTypePage implements OnInit {
 
   wasteTypes: WasteType[];
 
+   /**
+   * User Story Id: M2NG11, M2NG13
+   * Construtor of the class that uses the Placeservice, WasteService and AlertController
+   * @param  {PlacesService} placesService
+   * @param  {WasteService} wasteService
+   * @param  {AlertController} alertCtrl
+   * @returns 
+   */
   constructor(
     private wasteService: WasteService,
     private placesService: PlacesService,
@@ -24,9 +39,21 @@ export class WasteTypePage implements OnInit {
     });
    }
 
+  /**
+   * User Story Id: M2NG11, M2NG13
+   * Method called when the page is instatiated
+   * @param  
+   * @returns 
+   */
   ngOnInit() {
   }
 
+   /**
+   * User Story Id: M2NG11, M2NG13
+   * Method that gets all the wastes
+   * @param  
+   * @returns 
+   */
   ionViewWillEnter() {
     this.wasteService.getWastes().then(data => {
       this.wasteTypes = data;
@@ -34,6 +61,12 @@ export class WasteTypePage implements OnInit {
   }
 
 
+  /**
+   * User Story Id: M2NG13
+   * Method that deletes a selected waste, verifying that it is nos associated with any place type, if true, it can be deleted, else it can't be deleted
+   * @param  
+   * @returns 
+   */
   onDeleteWateType(wasteTypeId: string, name: string){
     let wastes: any[] = [{
       id: wasteTypeId

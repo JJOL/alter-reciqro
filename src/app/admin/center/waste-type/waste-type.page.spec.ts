@@ -1,10 +1,31 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
 import { WasteTypePage } from './waste-type.page';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MockAngularFirestore } from 'src/app/core/services/mocks/firestore.mock';
+import { WasteService } from 'src/app/core/services/waste.service';
+import { PlacesService } from 'src/app/core/services/places.service';
+
+
+const mockPlaceService = jasmine.createSpyObj('placesService', ['getIDPlacesTypesByWaste']);
+const mockWasteService = jasmine.createSpyObj('wasteService', ['getWastes', 'deleteWasteTypeByID']);
+
+mockPlaceService.getIDPlacesTypesByWaste.and.returnValue(
+    new Promise<any>((res) => {
+      res([]);
+}));
+
+mockWasteService.getWastes.and.returnValue(
+  new Promise<any>((res) => {
+    res([]);
+}));
+
+mockWasteService.deleteWasteTypeByID.and.returnValue(
+  new Promise<any>((res) => {
+    res([]);
+}));
+
 
 describe('WasteTypePage', () => {
   let component: WasteTypePage;
@@ -15,6 +36,8 @@ describe('WasteTypePage', () => {
       declarations: [ WasteTypePage ],
       imports: [IonicModule.forRoot(), RouterTestingModule],
       providers: [
+        { provide: WasteService, useValue: mockWasteService },
+        { provide: PlacesService, useValue: mockPlaceService },
         { provide: AngularFirestore, useValue: MockAngularFirestore }
       ]
     }).compileComponents();
