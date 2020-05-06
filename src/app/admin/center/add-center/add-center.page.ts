@@ -131,7 +131,7 @@ export class AddCenterPage implements OnInit {
     description: ['', [Validators.required, Validators.maxLength(300)]],
     latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
     longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
-    qrCode: ['NA'],
+    qrCode: [' '],
     mainPicture: ['NA'],
     address: this.formBuilder.group({
       // eslint-disable-next-line @typescript-eslint/no-magic-numbers
