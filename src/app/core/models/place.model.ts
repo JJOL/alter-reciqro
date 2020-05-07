@@ -34,5 +34,6 @@ export class Place {
         public readonly places_type: TipoInstalacion,
         public readonly photo: string,
         public readonly qr_code: string,
+        public readonly schedule: string,
   ) {}
 }

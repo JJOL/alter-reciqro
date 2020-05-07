@@ -13,7 +13,7 @@ import { UserPage } from './user.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    UserPageRoutingModule
+    UserPageRoutingModule,
   ],
   declarations: [UserPage]
 })

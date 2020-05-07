@@ -49,6 +49,7 @@ export function parseFBPlaceDocToPlace(fbPlaceDoc: DocumentSnapshot<any>): Place
       data.places_type,
       data.photo,
       data.qr_code,
+      data.schedule,
   );
 
   return place;
@@ -101,7 +102,8 @@ export class PlacesService {
         photo: placeObject.mainPicture,
         places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
         postal_code: placeObject.address.zip,
-        qr_code: placeObject.qrCode
+        qr_code: placeObject.qrCode,
+        schedule: placeObject.schedule
       })
           .then(
               (res) => {
@@ -258,6 +260,7 @@ export class PlacesService {
       this.firedb.collection(PLACE_KEY).doc(id).set({
         address: placeObject.address.street,
         description: placeObject.description,
+        schedule: placeObject.schedule,
         location: geoPoint,
         name: placeObject.name,
         photo: placeObject.mainPicture,
@@ -365,7 +368,7 @@ export class PlacesService {
 
  
   /**
-   * User Story ID: M1NC2
+   * User Story ID: M1NC2, M2NG13
    * Function that returns all places based on wastes that are passed as parameters.
    * @param  {WasteType[]} filters
    * @returns Promise<TipoInstalacion[]>
@@ -510,6 +513,11 @@ export class PlacesService {
       waste_type: wasteId
     })
   }
+
+
+  
+
+  
   
 
 

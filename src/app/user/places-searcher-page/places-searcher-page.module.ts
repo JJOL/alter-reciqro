@@ -1,4 +1,5 @@
-import { ToolbarComponent } from './../../shared/toolbar/toolbar.component';
+
+
 import { AuthService } from './../../core/services/auth.service';
 import { MarkerCardComponent } from './../marker-card/marker-card.component';
 
@@ -19,12 +20,12 @@ import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.com
     FormsModule,
     IonicModule,
     PlacesSearcherPagePageRoutingModule,
-    SharedPageModule
+    SharedPageModule,
+
   ],
   declarations: [PlacesSearcherPagePage, MarkerCardComponent],
   providers: [
-    Geolocation,
-    AuthService
+    Geolocation
   ],
   entryComponents: [FilterMenuComponent]
 })

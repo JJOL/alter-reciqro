@@ -1,18 +1,54 @@
-<!--Global menu-->
+
 <ion-app>
-  <!--main wrapper for the side menu-->
-  <ion-menu side="start" menuId="m1">
+  <ion-menu contentId="menucontent" menuId="menucontent" side="start" >
     <ion-header>
       <ion-toolbar>
-        <ion-title>
-          ReciQro
-        </ion-title>
+        <ion-title>ReciQro</ion-title>
       </ion-toolbar>
     </ion-header>
-    <!--This is the content of the menu-->
     <ion-content>
-      <app-menu></app-menu>
+      <ion-list>
+        <ion-menu-toggle auto-hide="false" menu="menucontent">
+          <ion-item *ngIf="!isLogged" lines="none" routerLink="/user/login">
+            <ion-icon  color="primary" name="enter-outline" slot="start"></ion-icon>
+            <ion-label>Iniciar Sesión</ion-label>
+          </ion-item>
+          <ion-item *ngIf="admin || staff" lines="none" routerLink="/admin/center">
+            <ion-icon name="business" slot="start"></ion-icon>
+            <ion-label>Centros de Recolección</ion-label>
+          </ion-item>
+          <ion-item lines="none" routerLink="/user/info">
+            <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+            <ion-label>Información</ion-label>
+          </ion-item>
+          <ion-item lines="none" routerLink="/admin/goals">
+            <ion-icon name="star-outline" slot="start"></ion-icon>
+            <ion-label>Incentivos</ion-label>
+          </ion-item>
+          <ion-item *ngIf="admin || staff" lines = "none" routerLink="/admin">
+            <ion-icon name="people-outline" slot="start"></ion-icon>
+            <ion-label>Administrar Usuarios</ion-label>
+          </ion-item>
+          <ion-item lines="none" routerLink="/user/places-searcher-page">
+            <ion-icon name="search-circle-outline" slot="start"></ion-icon>
+            <ion-label>Buscador de Centros</ion-label>
+          </ion-item>
+          <!--<ion-item *ngFor="let p of pages"  (click)="openPage(p.page)">
+            <ion-icon [name]="p.icon" slot="start"></ion-icon>
+            <ion-label>{{p.title}}</ion-label>
+          </ion-item>-->
+        
+          <ion-item *ngIf="isLogged" lines="none" (click)="onLogout()" button>
+            <ion-icon name="exit-outline" slot="start"></ion-icon>
+            <ion-label>Cerrar Sesión</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
     </ion-content>
   </ion-menu>
+  <!--ion-nav id="menucontent"></!--ion-nav-->
+  <ion-router-outlet id="menucontent"></ion-router-outlet>
+  
+  
   <ion-router-outlet main></ion-router-outlet>
 </ion-app>

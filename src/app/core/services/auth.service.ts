@@ -15,7 +15,9 @@ import { auth } from 'firebase';
 import { SystemService } from './system.service';
 
 const USER_KEY = '/users';
-@Injectable()
+@Injectable({
+  providedIn:'root'
+})
 /** Servicio para autenticaciom de usuario */
 export class AuthService {
   auxiliar: string;
@@ -34,9 +36,15 @@ export class AuthService {
               private afs: SystemService,
               private router: Router,
               private toastCtrl: ToastController) {
-    this.getCurrentUser().then(user => {
-      this.isUserLoggedIn.next(true);
-    }).catch(() => this.isUserLoggedIn.next(false));
+    this.getCurrentUser()
+        .then(user => {
+          if (user) {
+            this.isUserLoggedIn.next(true);
+            this.userRoles.next(user.roles);
+          }
+        }).catch((err) => {
+          this.isUserLoggedIn.next(false);
+        });
   }
   //User Story ID: M4NC1
   /**
@@ -53,9 +61,7 @@ export class AuthService {
           // eslint-disable-next-line no-console
           }).catch(err => console.log(reject(err)));
     });
-    
   }
-  
   /**
    * UserStoryID: M4NC1
    * Creates the user with its additional information,
@@ -104,10 +110,10 @@ export class AuthService {
    * USID: M4NC2 y M4NG1
    * Pop up a google form of a google provider in order to sign up or login
    */
-  loginGoogleUser() {
+  async loginGoogleUser() {
     return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
-        .then((credential) => {
-          this.updateUserData(credential.user);
+        .then(async (credential) => {
+          await this.updateUserData(credential.user);
           this.isUserLoggedIn.next(true);
           this.getUserByUID(credential.user.uid).then(user => {
             this.userRoles.next(user.roles);
@@ -120,10 +126,9 @@ export class AuthService {
    *  Firebase function that ends user session and redirect to princiapl view
    */
   logoutUser() {
-    this.userRoles.unsubscribe();
-    this.isUserLoggedIn.next(false);
-    this.isUserLoggedIn.unsubscribe();
     return this.afAuth.auth.signOut().then(() => {
+      this.userRoles.next([]);
+      this.isUserLoggedIn.next(false);
       this.router.navigate(['user/login']);
       this.showToast('Hasta luego, has cerrado sesión');
     });
@@ -149,7 +154,9 @@ export class AuthService {
                 take(1),
                 map(
                     user => {
-                      user.id = uid;
+                      if (user) {
+                        user.id = uid;
+                      }
                       return user;
                     }
                 ))
@@ -231,20 +238,16 @@ export class AuthService {
    * @returns Promise
    */
   getCurrentUser():Promise<any>{
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       let subscription: Subscription;
-      subscription = this.afAuth.authState.pipe(map(auth => auth)).subscribe( user =>
-      {
+      subscription = this.afAuth.authState.pipe(map(auth => auth)).subscribe( user => {
         if (subscription) {
           subscription.unsubscribe();
         }
         resolve(this.getUserByUID(user?user.uid:null));
-      }
-      );
+      });
     });
   }
-
-  
   /**
    * Description: It sends an email to the user, so they can reset their password
    * User story ID: M4NG2 
@@ -295,7 +298,6 @@ export class AuthService {
           // eslint-disable-next-line no-console
           }).catch(err => console.log(reject(err)));
     });
-    
   }
   /**
    * UserStoryID: M4NG4
@@ -320,24 +322,6 @@ export class AuthService {
           );
     });
   }
-
-  /**
-   * Method that get the roles of the current user in order to set fynamic menu
-   
-  async getRolesandSession() {
-    let islogged: boolean;
-    let admin: boolean;
-    let staff: boolean;
-    let user: boolean;
-    let roles = [];
-    const useraux = await this.getCurrentUser();
-    if ( useraux) { islogged = true;  roles = useraux.roles;} else { islogged = false; }
-    if ( roles.indexOf('user') >= 0) { user = true; } else { user = false; }
-    if ( roles.indexOf('admin') >= 0) { admin = true; } else { admin = false; }
-    if ( roles.indexOf('staff') >= 0) { staff = true; } else { staff = false; }
-    return [islogged,admin,staff,user];
-  }*/
-
   /**
    * Show a toast
    * USID: M4NC2

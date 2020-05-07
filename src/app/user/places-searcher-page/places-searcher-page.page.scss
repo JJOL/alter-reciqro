@@ -72,25 +72,61 @@ app-marker-card.active {
 }
 @media (max-width: 576px) {
     ion-title {
-        font-size: 80% !important;
+        font-size: 65% !important;
     }
     ion-button{
-        font-size: 80% !important;
+        font-size: 70% !important;
+    }
+    div{
+        bottom: 50% !important;
+        left: 37% !important;
+        
+    }
+    ion-icon{
+        font-size: 26px !important;
     }
 }
 
 @media (max-width: 400px) {
     ion-title {
-        font-size: 70% !important;
+        font-size: 65% !important;
     }
     ion-button{
         font-size: 70% !important;
     }
+    div{
+        bottom: 48% !important;
+        left: 35% !important;
+        
+    }
+    ion-icon{
+        font-size: 25px !important;
+    }
 }
 ion-icon{
+    font-size: 30px;
     padding: 2px;
+    color: #d62684;
 }
 
 ion-popover {
 	--width: 320px;
+}
+
+div{
+    position: absolute;
+    bottom: 50%;
+    left: 41%;
+    padding: 1px;
+    display: none;
+    
+}
+
+div.active {
+    display: block;
+    background: none;
+}
+
+button{
+    background:none;
 }

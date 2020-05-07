@@ -1,8 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <!--This opens the default menu we have-->
-      <ion-menu-button menu="m1"></ion-menu-button>
+      <ion-back-button defaultHref="/admin/center"></ion-back-button>
     </ion-buttons>
     <ion-title>Agregar Centro</ion-title>
     <ion-buttons slot="end" class="ion-padding">
@@ -40,6 +39,16 @@
           </div>
 
           <ion-item>
+            <ion-label position="floating">Horario</ion-label>
+            <ion-input formControlName="schedule" inputmode="text"></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.schedule">
+            <ng-container *ngIf="schedule.hasError(error.type) && (schedule.dirty || schedule.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item>
             <ion-label position="floating">Latitud</ion-label>
             <ion-input formControlName="latitude" inputmode="decimal"></ion-input>
           </ion-item>
@@ -55,16 +64,6 @@
           </ion-item>
           <div *ngFor="let error of errorMessages.longitude">
             <ng-container *ngIf="longitude.hasError(error.type) && (longitude.dirty || longitude.touched)">
-              <small class="error-message">{{error.message}}</small>
-            </ng-container>
-          </div>
-
-          <ion-item>
-            <ion-label position="floating">Código QR</ion-label>
-            <ion-input formControlName="qrCode" inputmode="url"></ion-input>
-          </ion-item>
-          <div *ngFor="let error of errorMessages.qrCode">
-            <ng-container *ngIf="qrCode.hasError(error.type) && (qrCode.dirty || qrCode.touched)">
               <small class="error-message">{{error.message}}</small>
             </ng-container>
           </div>
@@ -120,7 +119,6 @@
               <small class="error-message">{{error.message}}</small>
             </ng-container>
           </div>
-        
 
           <ion-button [disabled]="!newCenterForm.valid" type="submit" expand="block">
             Registrar

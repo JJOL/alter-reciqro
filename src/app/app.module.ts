@@ -1,9 +1,6 @@
-import { MenuComponent } from './shared/menu/menu.component';
+import { SharedPageModule } from 'src/app/shared/shared.module';
+
 import { FormsModule } from '@angular/forms';
-import { SharedPageModule } from './shared/shared.module';
-import { SharedPage } from './shared/shared.page';
-import { ToolbarComponent } from './shared/toolbar/toolbar.component';
-import { AuthService } from './core/services/auth.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -23,8 +20,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [AppComponent,MenuComponent],
-  entryComponents: [],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -32,13 +28,13 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.database.firebaseConfig),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    SharedPageModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
     AngularFireAuth,
-    AuthService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {} }
   ],

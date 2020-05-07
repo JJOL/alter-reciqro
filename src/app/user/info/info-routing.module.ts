@@ -27,7 +27,11 @@ const routes: Routes = [
     loadChildren: () => import('./banner/banner.module').then( m => m.BannerPageModule),
     canActivate: [AuthGuard],
     data: { roles: ['user']}
+  },  {
+    path: 'banner-pop-up',
+    loadChildren: () => import('./banner-pop-up/banner-pop-up.module').then( m => m.BannerPopUpPageModule)
   }
+
 ];
 
 @NgModule({

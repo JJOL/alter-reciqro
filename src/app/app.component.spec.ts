@@ -1,7 +1,8 @@
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from './core/services/auth.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
-import { empty } from 'rxjs';
+import { empty, BehaviorSubject } from 'rxjs';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -34,6 +35,45 @@ const mockAuthentication ={
   updateUserData: () => {
     return [];
   },
+  getCurrentUser : () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  updateCurrentUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  sendPasswordResetEmail: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  updateUserByUID: () => {
+    return [];
+  },
+  getUserByUID: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  createUser: ()=> {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  isUserLoggedIn: new BehaviorSubject(false),
+  userRoles: new BehaviorSubject([]),
+};
+
+const authStub: any = {
+  authState: {},
+  auth: {
+    signInWithEmailAndPassword() {
+      return Promise.resolve();
+    }
+  }
 };
 
 describe('AppComponent', () => {
@@ -54,6 +94,7 @@ describe('AppComponent', () => {
         { provide: SplashScreen, useValue: splashScreenSpy },
         { provide: Platform, useValue: platformSpy },
         { provide: AuthService, useValue: mockAuthentication },
+        { provide: AngularFireAuth, useValue: authStub }
       ],
     }).compileComponents();
   }));

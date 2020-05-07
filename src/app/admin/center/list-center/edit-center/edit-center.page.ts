@@ -103,6 +103,14 @@ export class EditCenterPage implements OnInit {
     return this.newCenterForm.get('instalationType');
   }
 
+  /**
+   * User Story ID: M1NG2
+   * Regresa el horario del centro de recolección
+   */
+  get schedule(){
+    return this.newCenterForm.get('schedule');
+  }
+
   public errorMessages = {
     name: [
       { type: 'required', message: 'Nombre es requerido' },
@@ -135,7 +143,11 @@ export class EditCenterPage implements OnInit {
     ],
     instalationType: [
       { type: 'required', message: 'Tipo de Instalación es requerido' },
-    ]
+    ],
+    schedule: [
+      { type: 'required', message: 'Horario es requerido' },
+      { type: 'maxlength', message: 'El horario debe estar en formato "HH:MM:SS a HH:MM:SS" o "24 horas"' },
+    ],
   };
 
   newCenterForm = this.formBuilder.group({
@@ -149,7 +161,9 @@ export class EditCenterPage implements OnInit {
       street: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
       zip: ['', [Validators.required, Validators.pattern('^\\d{5}$')]]
     }),
-    instalationType: ['', [Validators.required]]
+    instalationType: ['', [Validators.required]],
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    schedule: ['', [Validators.required, Validators.maxLength(20)]]
   });
 
   
@@ -180,7 +194,6 @@ export class EditCenterPage implements OnInit {
     });
     this.activatedRoute.paramMap.subscribe(paraMap => {
       if (!paraMap.has('centerId')) {
-        // redirect
         return;
 
       }
@@ -192,6 +205,7 @@ export class EditCenterPage implements OnInit {
           this.newCenterForm.controls.longitude.setValue(place.location.lng);
           this.newCenterForm.controls.name.setValue(place.name);
           this.newCenterForm.controls.description.setValue(place.description);
+          this.newCenterForm.controls.schedule.setValue(place.schedule);
           this.newCenterForm.controls.qrCode.setValue(place.qr_code);
           this.newCenterForm.controls.mainPicture.setValue(place.photo);
           this.newCenterForm.patchValue({

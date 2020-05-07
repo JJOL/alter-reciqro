@@ -1,5 +1,5 @@
+
 import { SharedPageModule } from 'src/app/shared/shared.module';
-import { ToolbarComponent } from './../../shared/toolbar/toolbar.component';
 import { AuthService } from './../../core/services/auth.service';
 
 import { NgModule } from '@angular/core';
@@ -15,10 +15,11 @@ import { LoginPage } from './login.page';
     // FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    LoginPageRoutingModule
+    LoginPageRoutingModule,
+    SharedPageModule
   ],
   declarations: [LoginPage],
-  providers: [AuthService]
+  providers: []
 })
 // eslint-disable-next-line require-jsdoc
 export class LoginPageModule {}

@@ -1,10 +1,15 @@
-import { AuthService } from 'src/app/core/services/auth.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { empty, BehaviorSubject } from 'rxjs';
-import { MenuComponent } from './menu.component';
-import { RouterTestingModule } from '@angular/router/testing';
-
+import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { AddWasteTypePage } from './add-waste-type.page';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { MockAngularFirestore } from 'src/app/core/services/mocks/firestore.mock';
+import { WasteService } from 'src/app/core/services/waste.service';
+import { SharedPageModule } from '../../../../shared/shared.module';
+import { AuthService } from '../../../../core/services/auth.service';
+import { empty, BehaviorSubject } from 'rxjs'
 
 const mockAuthentication ={
   registerUser: () => {
@@ -63,18 +68,31 @@ const mockAuthentication ={
   userRoles: new BehaviorSubject([]),
 };
 
-describe('MenuComponent', () => {
-  let component: MenuComponent;
-  let fixture: ComponentFixture<MenuComponent>;
+const mockWasteService = jasmine.createSpyObj('wasteService', ['addWasteType']);
+
+mockWasteService.addWasteType.and.returnValue(
+  new Promise<any>((res) => {
+    res([]);
+}));
+
+
+describe('AddWasteTypePage', () => {
+  let component: AddWasteTypePage;
+  let fixture: ComponentFixture<AddWasteTypePage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuComponent ],
-      imports: [IonicModule.forRoot(),RouterTestingModule],
-      providers: [ { provide: AuthService, useValue: mockAuthentication }]
+      declarations: [ AddWasteTypePage],
+      imports: [IonicModule.forRoot(), FormsModule, RouterModule.forRoot([]), ReactiveFormsModule, SharedPageModule],
+      providers: [
+        FormBuilder,
+        { provide: WasteService, useValue: mockWasteService },
+        { provide: AngularFirestore, useValue: MockAngularFirestore },
+        { provide: AuthService, useValue: mockAuthentication}
+      ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MenuComponent);
+    fixture = TestBed.createComponent(AddWasteTypePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -1,17 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <!--This opens the default menu we have-->
-      <ion-menu-button menu="m1"></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Información</ion-title>
-    <ion-buttons slot="end" class="ion-padding">
-      <ion-button routerLink="/user/places-searcher-page">
-        <img class="smallImg" src="../../../../assets/img/blueQ.png">
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar [backButton]="false" title="Información"></app-toolbar>
 
 <ion-content>
   <ion-grid>

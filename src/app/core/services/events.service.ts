@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { EventModel } from '../models/event.model';
-import { AngularFirestore, DocumentSnapshot } from '@angular/fire/firestore';
+import { AngularFirestore,DocumentSnapshot } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { SystemService } from './system.service';
+import { parseFBPlaceToPlace } from './places.service';
 
 const EVENTS_KEY = '/events';
 /**
@@ -18,13 +19,14 @@ export function parseFBEventSnapToPlace(fbWaste: any): EventModel {
 
 /**
  * User Story ID: M2NC2
+ * User Story ID M2NC3
  * Function that casts a firebase event to our event model.
- * @param  {any} fbWaste
+ * @param  {any} fbEvent
  * @returns WasteType
  */
-export function parseFBEventToEvent(fbWaste: any): EventModel {
-  const data  = fbWaste.payload.doc.data();
-  const id = fbWaste.payload.doc.id;
+export function parseFBEventToEvent(fbEvent: any): EventModel {
+  const data  = fbEvent.data();
+  const id = fbEvent.id;
   const event = new EventModel(
       id,
       data.age,
@@ -64,6 +66,14 @@ export function parseFBEventDocToEvent(fbWaste: any): EventModel {
       }
   );
   return event;
+  }
+    
+/**
+ * @param  {any} fbEvent
+ */
+export function parseFBEventToEvent2(fbEvent: any): EventModel {
+  console.log(fbEvent);
+  return parseFBEventToEvent(fbEvent.payload.doc)
 }
 
 @Injectable({
@@ -92,7 +102,7 @@ export class EventsService {
       let subscription: Subscription;
       subscription = this.firedb.collection<any>(EVENTS_KEY, ref => ref.orderBy('start_date')).snapshotChanges()
           .pipe(map(snapshot => {
-            return snapshot.map(parseFBEventToEvent);
+            return snapshot.map(parseFBEventToEvent2);
           }))
           .subscribe(event => {
             if (subscription) {
@@ -100,6 +110,44 @@ export class EventsService {
             }
             resolve(event);
           });
+    });
+  }
+
+  /**
+   * User Story ID: M2NG4,M2NC3 
+   * Function that returns a specific place on the database, filtered by its id, with all its associated data.
+   * @param  {string} id
+   * @returns Promise
+   */
+  // getEventByID(id: string): Promise<EventModel> {
+  //   return new Promise((resolve, reject) => {
+  //     let placeRef = this.firedb.collection(EVENTS_KEY).doc(id).ref;
+  //     placeRef.get()
+  //         .then(docSnap => {
+  //           if (docSnap.exists) {
+  //             let place = parseFBEventToEvent(docSnap as DocumentSnapshot<any>);       
+  //             resolve(place);     
+  //           }
+  //           else {
+  //             reject(Error('ERROR: PlacesService.getPlaceByID(): Place does not exist.'));
+  //           }
+  //         })
+  //         .catch(err => {
+  //           reject(err);
+  //         });
+  //   });
+  // }
+  /**
+   * User Story ID: M2NG4 
+   * Function that delete a specific event
+   * @param  {string} id
+   * @returns Promise
+   */
+  async deleteEventByID(id: string): Promise<void> {
+    return new Promise((resolve) => {
+      this.firedb.collection<EventModel>(EVENTS_KEY).doc<EventModel>(id).delete().then(() => {
+        resolve();
+      });
     });
   }
   

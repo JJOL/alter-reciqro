@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 
 import { AuthService } from './../../core/services/auth.service';
 import { Router } from '@angular/router';
@@ -68,10 +69,9 @@ export class LoginPage implements OnInit {
     this.authService.loginEmailUser(this.newCenterForm.value.email, this.newCenterForm.value.password)
         .then( () => {
           this.router.navigate(['user/places-searcher-page']);
-        } ).catch (err => {
+        } ).catch (() => {
           this.showToast('Contraseña o Usuario Incorrecto','danger')
           this.newCenterForm.reset;
-          console.log(err);
         });
   }
   /**
@@ -116,5 +116,17 @@ export class LoginPage implements OnInit {
       position: 'middle',
       color: color
     }).then(toast => toast.present());
+  }
+  /**
+   */
+  ionViewDidEnter(){
+    this.authService.getCurrentUser()
+        .then(user => {
+          if (user) {
+            this.router.navigate(['user/places-searcher-page']);
+          }
+        }).catch((err) => {
+          return err;
+        });
   }
 }

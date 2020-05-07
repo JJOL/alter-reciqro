@@ -32,4 +32,9 @@ export class EventsPage implements OnInit {
     });
   }
 
+  delete(id){
+    this.eventService.deleteEventByID(id);
+    this.ngOnInit();
+  }
+
 }
