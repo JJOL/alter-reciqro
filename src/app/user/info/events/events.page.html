@@ -47,7 +47,7 @@
           <ion-list>
             <ion-item button
             [routerLink]="['/user/info/events/detail-event', event.id]"
-              *ngFor="let event of events.slice(1)"
+              *ngFor="let event of events"
               detail
             ><!--the detail part adds an arrow... [routerLink]="['/', 'places', 'tabs', 'discover', place.id]"-->
               <ion-thumbnail slot="start">

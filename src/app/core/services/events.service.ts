@@ -7,15 +7,7 @@ import { SystemService } from './system.service';
 import { parseFBPlaceToPlace } from './places.service';
 
 const EVENTS_KEY = '/events';
-/**
- * User Story ID: M1NCx
- * Function that casts a firebase payload snapshot to our place model.
- * @param  {any} fbPlace
- * @returns Place
- */
-export function parseFBEventSnapToPlace(fbWaste: any): EventModel {
-  return parseFBEventToEvent(fbWaste.payload.doc);
-}
+
 
 /**
  * User Story ID: M2NC2
@@ -46,12 +38,12 @@ export function parseFBEventToEvent(fbEvent: any): EventModel {
 /**
  * User Story ID: M2NC2
  * Function that casts a firebase event to our event model.
- * @param  {any} fbWaste
+ * @param  {any} fbEvent
  * @returns WasteType
  */
-export function parseFBEventDocToEvent(fbWaste: any): EventModel {
-  const data  = fbWaste.payload.data();
-  const id = fbWaste.payload.id;
+export function parseFBEventDocToEvent(fbEvent: any): EventModel {
+  const data  = fbEvent.payload.data();
+  const id = fbEvent.payload.id;
   const event = new EventModel(
       id,
       data.age,
@@ -66,7 +58,7 @@ export function parseFBEventDocToEvent(fbWaste: any): EventModel {
       }
   );
   return event;
-  }
+}
     
 /**
  * @param  {any} fbEvent
@@ -113,30 +105,8 @@ export class EventsService {
     });
   }
 
-  /**
-   * User Story ID: M2NG4,M2NC3 
-   * Function that returns a specific place on the database, filtered by its id, with all its associated data.
-   * @param  {string} id
-   * @returns Promise
-   */
-  // getEventByID(id: string): Promise<EventModel> {
-  //   return new Promise((resolve, reject) => {
-  //     let placeRef = this.firedb.collection(EVENTS_KEY).doc(id).ref;
-  //     placeRef.get()
-  //         .then(docSnap => {
-  //           if (docSnap.exists) {
-  //             let place = parseFBEventToEvent(docSnap as DocumentSnapshot<any>);       
-  //             resolve(place);     
-  //           }
-  //           else {
-  //             reject(Error('ERROR: PlacesService.getPlaceByID(): Place does not exist.'));
-  //           }
-  //         })
-  //         .catch(err => {
-  //           reject(err);
-  //         });
-  //   });
-  // }
+
+  
   /**
    * User Story ID: M2NG4 
    * Function that delete a specific event
@@ -151,7 +121,12 @@ export class EventsService {
     });
   }
   
-  // eslint-disable-next-line require-jsdoc
+  /**
+   * User Story ID: M2NG4,M2NC3 
+   * Function that returns a specific place on the database, filtered by its id, with all its associated data.
+   * @param  {string} id
+   * @returns Promise
+   */
   getEventByID(id:string): Promise<EventModel> {
     return new Promise((resolve) => {
       let subscription: Subscription;
@@ -168,29 +143,5 @@ export class EventsService {
     });
   }
 
-  // eslint-disable-next-line require-jsdoc
-  // getEventByID(id: string): Promise<EventModel> {
-  //   return new Promise((resolve, reject) => {
-      
-
-  //     let eventRef = this.firedb.collection(EVENTS_KEY).doc(id).ref;
-  //     eventRef.get().then(docSnap => {
-  //       if (docSnap.exists) {
-  //         console.log('PLACE ITEM DOES EXIST');
-          
-  //         let place = parseFBEventToEvent(docSnap as DocumentSnapshot<any>);     
-  //         console.log(place)  
-  //         resolve(place);     
-  //       }
-  //       else {
-  //         reject('ERROR: PlacesService.getPlaceByID(): Place does not exist.');
-  //       }
-  //     })
-  //         .catch(err => {
-            
-  //           reject(err);
-  //         });
-  //   });
-  // }
 
 }
