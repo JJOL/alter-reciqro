@@ -1,0 +1,36 @@
+<app-toolbar title="Tipos de Desechos" [backButton]="true" routePath="/admin/center"></app-toolbar>
+
+<ion-content>
+  <!--<ion-backdrop stopPropagation="false">-->
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size-md = "8" size-sm = "12" >
+          <ion-list >
+            <ion-item *ngFor="let wasteType of wasteTypes">
+              <ion-thumbnail slot="start">
+                <ion-img [src]="wasteType.icon"></ion-img>
+              </ion-thumbnail>
+              <ion-label>
+                <h2> {{ wasteType.name }} </h2>
+              </ion-label>
+
+              <ion-button fill="clear" class="bold"  [routerLink]="['/admin/center/waste-type/update', wasteType.id]">
+                <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear" class="bold"  (click) =  "onDeleteWateType(wasteType.id, wasteType.name)">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-button>
+
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button routerLink='/admin/center/waste-type/addWasteType'>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  <!--</ion-backdrop>-->
+</ion-content>

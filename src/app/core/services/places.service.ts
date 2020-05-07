@@ -365,7 +365,7 @@ export class PlacesService {
 
  
   /**
-   * User Story ID: M1NC2
+   * User Story ID: M1NC2, M2NG13
    * Function that returns all places based on wastes that are passed as parameters.
    * @param  {WasteType[]} filters
    * @returns Promise<TipoInstalacion[]>
@@ -510,6 +510,11 @@ export class PlacesService {
       waste_type: wasteId
     })
   }
+
+
+  
+
+  
   
 
 
