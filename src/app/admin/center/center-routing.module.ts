@@ -19,6 +19,10 @@ const routes: Routes = [
   {
     path: 'place-type',
     loadChildren: () => import('./place-type/place-type.module').then( m => m.PlaceTypePageModule)
+  },
+  {
+    path: 'waste-type',
+    loadChildren: () => import('./waste-type/waste-type.module').then( m => m.WasteTypePageModule)
   }
 ];
 

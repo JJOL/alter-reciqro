@@ -1,0 +1,57 @@
+<app-toolbar title= 'Agregar Tipo de Residuo' [backButton]="true" routePath="/admin/center/place-type"></app-toolbar>
+
+<ion-content fullscreen >
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-md = "6" size-sm = "12" >
+        <form [formGroup]="newWasteForm" (ngSubmit)="addWasteType()">
+          <ion-card class="ion-justify-content-center">
+            <ion-card-header>
+              <ion-card-title>
+                <ion-card-subtitle position="floating">Tipo de Residuo</ion-card-subtitle>
+                <ion-input placeholder = "Ejemplo: Vidrio" type = "text" required = "true" maxlength = "30" required = "true" formControlName="title" ></ion-input><!--[(ngModel)] = "nameWasteType"-->
+              </ion-card-title>
+              <div *ngFor="let error of errorMessages.title">
+                <ng-container *ngIf="title.hasError(error.type) && (title.dirty || title.touched)">
+                  <small class="error-message">{{error.message}}</small>
+                </ng-container>
+              </div>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-card-subtitle position="floating">Descripción del Tipo de Residuo</ion-card-subtitle>
+              <ion-textarea placeholder = "Ejemplo: El residuo consiste de ..." type = "text" required = "true" formControlName="description" ></ion-textarea>
+              <div *ngFor="let error of errorMessages.description">
+                <ng-container *ngIf="description.hasError(error.type) && (description.dirty || description.touched)">
+                  <small class="error-message">{{error.message}}</small>
+                </ng-container>
+              </div>
+              <br>
+              <ion-card-subtitle position="floating">Url del Tipo de Residuo</ion-card-subtitle>
+              <ion-textarea placeholder = "Ejemplo: http://ejemplo.com/ejemplo.jpg" type = "url" required = "true"  formControlName="url" ></ion-textarea>
+              <div *ngFor="let error of errorMessages.url">
+                <ng-container *ngIf="url.hasError(error.type) && (url.dirty || url.touched)">
+                  <small class="error-message">{{error.message}}</small>
+                </ng-container>
+              </div>         
+            </ion-card-content>
+            
+            <ion-grid>
+              <ion-row class="ion-justify-content-center">
+                <ion-col class="ion-align-self-center" size-md = "4">
+                  <ion-button [disabled]="!newWasteForm.valid" type="submit" expand="block">Registrar
+                    <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+                  </ion-button>
+                </ion-col>
+                <ion-col class="ion-align-self-center" size-md = "4">
+                  <ion-button expand = "block" color="danger" (click) = "cancelAdd()">Cancelar
+                    <ion-icon name="trash-bin-outline" slot="start"></ion-icon>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
