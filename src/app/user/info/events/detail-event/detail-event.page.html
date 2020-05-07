@@ -30,7 +30,7 @@
             <h4> <strong> Finalizacion del evento: </strong> </h4>
             <p> {{ eventLoad.end_date }} </p>
             <br>
-            <ion-button  color="primary"  *ngIf="eventLoad" ><a  class="directionEvent" target="_blank" href="https://www.google.com/maps/dir//{{eventLoad.location.lat}},{{eventLoad.location.lng}}/@{{eventLoad.location.lat}},{{eventLoad.location.lng}},17z">Direcciones al Evento</a></ion-button>
+            <ion-button  color="primary"  *ngIf="eventLoad" href="https://www.google.com/maps/dir//{{eventLoad.location.lat}},{{eventLoad.location.lng}}/@{{eventLoad.location.lat}},{{eventLoad.location.lng}},17z" >Direcciones al Evento</ion-button>
 
           </ion-card-content>
         </ion-card>
