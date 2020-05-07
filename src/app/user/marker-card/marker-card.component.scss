@@ -31,3 +31,35 @@ ion-button{
     height: 100%;
     overflow-y: scroll;
 }
+
+@media (max-width: 576px) {
+    ion-card-title {
+        font-size: 80% !important;
+    }
+    ion-card-content{
+        font-size: 60% !important;
+    }
+    ion-card-subtitle{
+        font-size: 60% !important;
+    }
+    ion-button{
+        height: auto;
+        font-size: 100% !important;
+    }
+}
+
+@media (max-width: 400px) {
+    ion-card-title {
+        font-size: 80% !important;
+    }
+    ion-card-content{
+        font-size: 60% !important;
+    }
+    ion-card-subtitle{
+        font-size: 60% !important;
+    }
+    ion-button{
+        height: auto;
+        font-size: 100% !important;
+    }
+}

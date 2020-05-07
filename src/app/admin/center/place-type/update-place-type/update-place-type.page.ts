@@ -202,7 +202,6 @@ export class UpdatePlaceTypePage implements OnInit {
       this.navCtrl.navigateBack(['/admin/center/place-type']);
     })
         .catch(() => {});
-
   }
 
   /**

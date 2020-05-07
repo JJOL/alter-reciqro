@@ -104,10 +104,10 @@ export class AuthService {
    * USID: M4NC2
    * Pop up a google form of a google provider in order to sign up or login
    */
-  loginGoogleUser() {
+  async loginGoogleUser() {
     return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
-        .then((credential) => {
-          this.updateUserData(credential.user);
+        .then(async (credential) => {
+          await this.updateUserData(credential.user);
           this.isUserLoggedIn.next(true);
           this.getUserByUID(credential.user.uid).then(user => {
             this.userRoles.next(user.roles);
@@ -148,7 +148,9 @@ export class AuthService {
                 take(1),
                 map(
                     user => {
-                      user.id = uid;
+                      if (user) {
+                        user.id = uid;
+                      }
                       return user;
                     }
                 ))

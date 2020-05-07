@@ -7,7 +7,7 @@ import { SharedPageModule } from 'src/app/shared/shared.module';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { PlacesService } from 'src/app/core/services/places.service';
 import { RouterModule } from '@angular/router';
-import {MockAngularFirestore} from 'src/app/core/services/mocks/firestore.mock';
+import { MockAngularFirestore } from 'src/app/core/services/mocks/firestore.mock';
 
 
 const mockService = jasmine.createSpyObj('placeService', ['createPlace', 'allPlaceTypes']);

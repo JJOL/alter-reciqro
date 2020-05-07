@@ -19,7 +19,7 @@ import { ModalBannerPage } from './modal-banner.page';
 })
 
 /**
-   * User Story Id: M2NC4
+   * User Story Id: M2NC5
    * Allows the ModalBannerPageModule to be available for imports
    * @param  
    * @returns 
