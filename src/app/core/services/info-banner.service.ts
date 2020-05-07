@@ -80,12 +80,13 @@ export class InfoBannerService {
    * @param  {} infoBanner
    */
   createInfoBanner(infoBanner) {
+    let arg: string[] = infoBanner.date.split('T');
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(INFO_BANNERS_KEY).add({
         title: infoBanner.title,
         description: infoBanner.description,
         image_url: infoBanner.mainPicture,
-        date: infoBanner.date
+        date: arg[0]
       })
           .then(
               (res) => {
@@ -126,11 +127,12 @@ export class InfoBannerService {
    * @returns Promise
    */
   editInfoBanner(infoBanner, id: string) {
+    let arg: string[] = infoBanner.date.split('T');
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(INFO_BANNERS_KEY).doc(id).set({
         title: infoBanner.title,
         description: infoBanner.description,
-        date: infoBanner.date,
+        date: arg[0],
         image_url: infoBanner.mainPicture
       }, {merge: true} )
           .then(
