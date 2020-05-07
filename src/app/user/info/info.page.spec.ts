@@ -42,7 +42,7 @@ describe('InfoPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ InfoPage ],
-      imports: [IonicModule.forRoot(), RouterModule.forRoot([]), SharedPageModule],
+      imports: [IonicModule.forRoot(), RouterModule.forRoot([]), SharedPageModule, BannerModule],
       providers: [
         { provide: AngularFirestore, useValue: MockAngularFirestore },
         { provide: InfoBannerService, useValue: mockBannerService }
