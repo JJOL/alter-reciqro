@@ -146,6 +146,9 @@ export class PlacesSearcherPagePage  {
     return false;
   }
 
+  close() {
+    this.placeSelected = null;
+  }
 
   onMapInteract() {
     // eslint-disable-next-line no-console

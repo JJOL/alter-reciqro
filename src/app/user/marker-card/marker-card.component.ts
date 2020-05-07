@@ -6,13 +6,24 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './marker-card.component.html',
   styleUrls: ['./marker-card.component.scss'],
 })
+
+// eslint-disable-next-line require-jsdoc
 export class MarkerCardComponent implements OnInit {
   @Input() loadedPlaceType: TipoInstalacion;
   @Input() placeSelected: Place;
+  classname = {
+    'card-title': true,
+    'ion-text-center': true
+  };
 
+  // eslint-disable-next-line require-jsdoc
   constructor() { }
-
-  ngOnInit() {}
+  /**
+   *
+   */
+  ngOnInit() {
+    console.log(this.loadedPlaceType);
+  }
 
 
 

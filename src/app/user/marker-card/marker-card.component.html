@@ -1,15 +1,13 @@
 <div class="markerCard">
     <ion-card *ngIf="placeSelected" >
       <div><img src={{placeSelected.photo}}/> </div> 
-        <ion-card-title class="card-title ion-text-center"  >{{placeSelected.name}}</ion-card-title>
+        <ion-card-title id="title" class="card-title ion-text-center"  >{{placeSelected.name}}</ion-card-title>
         <br>
-        <ion-card-subtitle class="ion-text-center" *ngIf="loadedPlaceType" >Tipo: {{loadedPlaceType.name}}</ion-card-subtitle>
-      <ion-card-content>Descripción: {{placeSelected.description}}
-      </ion-card-content>
-      <ion-card-content>Dirección: {{placeSelected.address}}
-      </ion-card-content>
-      <ion-card-content>Código Postal: {{placeSelected.address}}
-      </ion-card-content>
+        <ion-card-subtitle class="ion-text-center">Tipo: </ion-card-subtitle>
+        <ion-card-subtitle id="subtitle" class="ion-text-center" *ngIf="loadedPlaceType" >{{loadedPlaceType.name}}</ion-card-subtitle>
+        <ion-card-content>Descripción: {{placeSelected.description}}</ion-card-content>
+      <ion-card-content>Dirección: {{placeSelected.address}}</ion-card-content>
+      <ion-card-content>Código Postal: {{placeSelected.address}}</ion-card-content>
       <ion-card-content>
         <ion-button  class="ion-no-padding" fill="outline" *ngIf="placeSelected && loadedPlaceType " ><a target="_blank" href="https://www.google.com/maps/dir//{{placeSelected.location.lat}},{{placeSelected.location.lng}}/@{{placeSelected.location.lat}},{{placeSelected.location.lng}},17z">Ir al lugar</a></ion-button>
       </ion-card-content>
