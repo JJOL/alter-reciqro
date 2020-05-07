@@ -12,13 +12,10 @@ import { ActivatedRoute } from '@angular/router';
   providers: [DatePipe]
 })
 export class DetailEventPage implements OnInit {
-  event: EventModel;
+  eventLoad: EventModel;
   
-  position: { lat: number, lng: number};
+  
 
-  mapPlaces: EventModel[] = [];
-
-  @ViewChild ('mapElement', {static: false}) map;
 
   // eslint-disable-next-line require-jsdoc
   constructor( private activatedRoute: ActivatedRoute,
@@ -39,21 +36,11 @@ export class DetailEventPage implements OnInit {
       const eventId = paraMap.get('eventId');
       
       if (eventId) {
-        console.log(eventId)
+        
         this.eventService.getEventByID(eventId).then(res => {
-          console.log(res.name)
-          this.event = res;
-          // this.mapPlaces = [ this.event ];
-
-          // this.position = {
-          //   lat: res.location.lat,
-          //   lng: res.location.lng
-          // };
-          // this.map.setCenter(this.position);
-
           
+          this.eventLoad = res;
           
-
           
         });
       }

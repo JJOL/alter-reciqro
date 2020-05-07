@@ -6,7 +6,7 @@
     <ion-title>Administrador</ion-title>
     <!--Here we will replace with the government icon-->
     <ion-buttons slot="end" class="ion-padding">
-      <ion-button routerLink="/user/places-searcher-page">
+      <ion-button routerLink="/create-staff">
         <img class="smallImg" src="../../assets/img/blueQ.png">
       </ion-button>
     </ion-buttons>
@@ -15,6 +15,11 @@
 
 
 <ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink='/admin/create-staff'>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   <ion-grid>
     <ion-row>
       <ion-col>
@@ -76,11 +81,7 @@
             </ion-item>
           </ng-container>
         </ion-list>
-        <ion-fab vertical="bottom" horizontal="end">
-          <ion-fab-button routerLink='/admin/create-staff'>
-            <ion-icon name="add"></ion-icon>
-          </ion-fab-button>
-        </ion-fab>
+        
       </ion-col>
     </ion-row>
   </ion-grid>

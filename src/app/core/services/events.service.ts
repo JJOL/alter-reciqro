@@ -107,10 +107,8 @@ export class EventsService {
   getEventByID(id:string): Promise<EventModel> {
     return new Promise((resolve) => {
       let subscription: Subscription;
-      let eventFB=this.firedb.collection(EVENTS_KEY).doc(id).snapshotChanges();
-      
-      eventFB.pipe(map(snapshot => {
-        console.log(snapshot.payload.data())
+      subscription=this.firedb.collection(EVENTS_KEY).doc(id).snapshotChanges().pipe(map(snapshot => {
+        
         return parseFBEventDocToEvent(snapshot);
       }))
           .subscribe(event => {

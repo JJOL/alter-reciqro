@@ -22,7 +22,14 @@ export class AuthService {
   user: Observable<User>;
   isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean> (false);
   userRoles: BehaviorSubject<any> = new BehaviorSubject<any> (empty);
-  // eslint-disable-next-line require-jsdoc
+  
+  /**
+   * @param  {AngularFireAuth} privateafAuth
+   * @param  {SystemService} privateafs
+   * @param  {Router} privaterouter
+   * @param  {ToastController} privatetoastCtrl
+   * Constructor for the auth.service.ts
+   */
   constructor(private afAuth: AngularFireAuth,
               private afs: SystemService,
               private router: Router,
@@ -33,7 +40,7 @@ export class AuthService {
   }
   //User Story ID: M4NC1
   /**
-   * Metodo Registra usuario, toma como entrada el objeto del form y crea una promesa con los servicio de autenticacion de firebase
+   * Input is the form values and creates the user with a promise using the services of firebase authentication
    * @param  {any} userObject
    */
   registerUser(userObject) {
@@ -50,10 +57,9 @@ export class AuthService {
   }
   
   /**
-   * * USID: M4NC2
    * UserStoryID: M4NC1
-   * Metodo crea usuario en la tabla users con su informacion adicional,
-   * toma como entrada el form y el userUID que se creo y crea una promesa con los servicio de firestore firebase
+   * Creates the user with its additional information,
+   * inputs the form values, the user id and creates a promise with the services of firebase firestore 
    * @param  {any} userObject
    * @param  {string} userUID
    */
@@ -74,7 +80,7 @@ export class AuthService {
     });
   }
   /**
-   * USID: M4NC2
+   * USID: M4NC2 y M4NG1
    * Returns a promise that uses auth firebase methods to login with email and user
    * @param  {string} email
    * @param  {string} password
@@ -95,7 +101,7 @@ export class AuthService {
     });
   }
   /**
-   * USID: M4NC2
+   * USID: M4NC2 y M4NG1
    * Pop up a google form of a google provider in order to sign up or login
    */
   loginGoogleUser() {
@@ -110,7 +116,7 @@ export class AuthService {
         });
   }
   /**
-   * USID: M4NC4
+   * USID: M4NC4 y M4NG3
    *  Firebase function that ends user session and redirect to princiapl view
    */
   logoutUser() {
@@ -334,6 +340,8 @@ export class AuthService {
 
   /**
    * Show a toast
+   * USID: M4NC2
+   * USID: M4NC2
    * @param  {} msg
    */
   showToast(msg) {

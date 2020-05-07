@@ -47,7 +47,13 @@ const authStub: any = {
     }
   }
 };
-
+/**
+* @param  {} 'RecoverPasswordPage'
+*  
+* USID: M4NG2  
+* USID: M4NC3
+* Test fo recover password
+*/
 describe('RecoverPasswordPage', () => {
   let component: RecoverPasswordPage;
   let fixture: ComponentFixture<RecoverPasswordPage>;

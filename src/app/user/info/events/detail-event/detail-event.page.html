@@ -1,9 +1,44 @@
-<ion-header>
+<ion-header *ngIf="eventLoad">
   <ion-toolbar>
-    <ion-title>{{event.name}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/user/info/events"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="eventLoad"> {{ eventLoad.name }} </ion-title>
+    
+    
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-grid>
 
+    <ion-row>
+
+      <ion-col size="12" size-sm size-md  *ngIf="eventLoad">
+
+        <ion-card *ngIf="eventLoad">
+          <ion-img [src]="eventLoad.icon"></ion-img>
+          <ion-card-header>
+            <ion-card-subtitle>{{ eventLoad.start_date }}</ion-card-subtitle>
+            <ion-card-title>{{ eventLoad.name }}</ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            
+            <p> {{ eventLoad.description }} </p>
+            <br>
+            <h4> <strong> Finalizacion del evento: </strong> </h4>
+            <p> {{ eventLoad.end_date }} </p>
+            <br>
+            <ion-button  color="primary"  *ngIf="eventLoad" ><a  class="directionEvent" target="_blank" href="https://www.google.com/maps/dir//{{eventLoad.location.lat}},{{eventLoad.location.lng}}/@{{eventLoad.location.lat}},{{eventLoad.location.lng}},17z">Direcciones al Evento</a></ion-button>
+
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+    
+      
+    </ion-row>
+
+  </ion-grid>
 </ion-content>
