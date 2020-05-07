@@ -89,6 +89,14 @@ export class AddCenterPage implements OnInit {
     return this.newCenterForm.get('instalationType');
   }
 
+  /**
+   * User Story ID: M1NG1
+   * Function that returns the schedule type field on the add center form.
+   */
+  get schedule(){
+    return this.newCenterForm.get('schedule');
+  }
+
   public errorMessages = {
     name: [
       { type: 'required', message: 'Nombre es requerido' },
@@ -121,7 +129,12 @@ export class AddCenterPage implements OnInit {
     ],
     instalationType: [
       { type: 'required', message: 'Tipo de Instalación es requerido' },
-    ]
+    ],
+    schedule: [
+      { type: 'required', message: 'Horario es requerido' },
+      { type: 'maxlength', message: 'El horario debe estar en formato "HH:MM:SS a HH:MM:SS" o "24 horas"' },
+    ],
+
   };
 
   newCenterForm = this.formBuilder.group({
@@ -138,7 +151,9 @@ export class AddCenterPage implements OnInit {
       street: ['', [Validators.required, Validators.maxLength(100)]],
       zip: ['', [Validators.required, Validators.pattern('^\\d{5}$')]]
     }),
-    instalationType: ['', [Validators.required]]
+    instalationType: ['', [Validators.required]],
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    schedule: ['', [Validators.required, Validators.maxLength(20)]]
   });
 
   /**

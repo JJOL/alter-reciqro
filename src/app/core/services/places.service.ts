@@ -49,6 +49,7 @@ export function parseFBPlaceDocToPlace(fbPlaceDoc: DocumentSnapshot<any>): Place
       data.places_type,
       data.photo,
       data.qr_code,
+      data.schedule,
   );
 
   return place;
@@ -101,7 +102,8 @@ export class PlacesService {
         photo: placeObject.mainPicture,
         places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
         postal_code: placeObject.address.zip,
-        qr_code: placeObject.qrCode
+        qr_code: placeObject.qrCode,
+        schedule: placeObject.schedule
       })
           .then(
               (res) => {
