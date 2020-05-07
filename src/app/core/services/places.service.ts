@@ -260,6 +260,7 @@ export class PlacesService {
       this.firedb.collection(PLACE_KEY).doc(id).set({
         address: placeObject.address.street,
         description: placeObject.description,
+        schedule: placeObject.schedule,
         location: geoPoint,
         name: placeObject.name,
         photo: placeObject.mainPicture,
