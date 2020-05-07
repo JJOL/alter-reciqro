@@ -9,8 +9,7 @@
     "build": "ng build",
     "test": "ng test --poll=2000",
     "coverage-report": "node metrics/index.js",
-    "lint-report": "ng lint && node metrics/lintmetric.js",
-    "lint": "ng lint --format=stylish",
+
     "e2e": "ng e2e"
   },
   "private": true,
