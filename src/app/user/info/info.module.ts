@@ -15,7 +15,7 @@ import { BannerPopUpPage } from './banner-pop-up/banner-pop-up.page';
     InfoPageRoutingModule,
     SharedPageModule
   ],
-  declarations: [InfoPage ],
+  declarations: [InfoPage, BannerPopUpPage ],
   entryComponents: [BannerPopUpPage]
 })
 /**

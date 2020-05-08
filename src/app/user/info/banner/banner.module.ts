@@ -15,7 +15,7 @@ import { ModalBannerPage } from './modal-banner/modal-banner.page';
     BannerPageRoutingModule,
     SharedPageModule
   ],
-  declarations: [BannerPage],
+  declarations: [BannerPage, ModalBannerPage],
   entryComponents: [ModalBannerPage]
 })
 

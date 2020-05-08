@@ -12,7 +12,7 @@ import { ModalBannerPage } from './modal-banner.page';
     IonicModule,
     ModalBannerPageRoutingModule
   ],
-  declarations: [ModalBannerPage]
+  declarations: []
 })
 
 /**
