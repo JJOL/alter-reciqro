@@ -23,6 +23,14 @@ ion-title {
 .spaceWithPhoto{
 	padding: 25px 5px 1px;
 }
-directionEvent{
-    color:"white";
+.directions{
+	text-align: center;
+}
+@media (max-width: 400px) {
+    ion-title {
+        font-size: 80% !important;
+    }
+    ion-button{
+        font-size: 80% !important;
+    }
 }

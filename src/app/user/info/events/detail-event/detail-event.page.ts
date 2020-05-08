@@ -13,7 +13,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailEventPage implements OnInit {
   eventLoad: EventModel;
-  
+  startDate: String;
+  endDate:String;
   
 
 
@@ -40,13 +41,33 @@ export class DetailEventPage implements OnInit {
         this.eventService.getEventByID(eventId).then(res => {
           
           this.eventLoad = res;
-          
+          this.startDate=dateFormat(this.eventLoad.start_date)
+          this.endDate=dateFormat(this.eventLoad.end_date)
           
         });
       }
     });
 
-
+    /**
+   * USID: M2NC3 
+   * @param  {} date
+   */
+    function dateFormat (date:Date) {
+      var monthNames = [
+        "Enero", "Febrero", "Marzo",
+        "Abril", "Mayo", "Junio", "Julio",
+        "Agosto", "Septiembre", "Octubre",
+        "Noviembre", "Diciembre"
+      ];
+    
+      var day = date.getDate();
+      var monthIndex = date.getMonth();
+      var year = date.getFullYear();
+      var hour = date.getHours();
+      var minutes= date.getMinutes();
+    
+      return day + ' ' + monthNames[monthIndex] + ' ' + year + ' ' +  hour + ':' + minutes;
+    }
 
   }
 

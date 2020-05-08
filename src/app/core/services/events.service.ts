@@ -44,6 +44,7 @@ export function parseFBEventToEvent(fbEvent: any): EventModel {
 export function parseFBEventDocToEvent(fbEvent: any): EventModel {
   const data  = fbEvent.payload.data();
   const id = fbEvent.payload.id;
+  
   const event = new EventModel(
       id,
       data.age,
@@ -142,6 +143,6 @@ export class EventsService {
           });
     });
   }
-
+  
 
 }
