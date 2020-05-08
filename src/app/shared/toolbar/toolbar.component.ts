@@ -18,11 +18,11 @@ export class ToolbarComponent implements OnInit {
   @Input() backButton: boolean;
   @Input() routePath: string;
   @Input() login: boolean;
-  private isLogged: boolean;
-  private admin: boolean;
-  private staff: boolean;
-  private user: boolean;
-  private rolesaux: [];
+  isLogged: boolean;
+  admin: boolean;
+  staff: boolean;
+  user: boolean;
+  rolesaux: [];
   // eslint-disable-next-line require-jsdoc
   constructor(private authService: AuthService, private menu: MenuController,
     private router: Router) {

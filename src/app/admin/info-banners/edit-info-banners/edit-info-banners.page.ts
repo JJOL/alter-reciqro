@@ -13,14 +13,14 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
  * Edit Information banners
  */
 export class EditInfoBannersPage implements OnInit {
-  private dateFlag;
-  private infoBannersForm;
+  dateFlag;
+  infoBannersForm;
 
-  private infoBannerId;
-  private infoBannertitle: string;
-  private infoBannerImageUrl: string;
-  private infoBannerDescription: string;
-  private infoBannerDate;
+  infoBannerId;
+  infoBannertitle: string;
+  infoBannerImageUrl: string;
+  infoBannerDescription: string;
+  infoBannerDate;
   // eslint-disable-next-line require-jsdoc
   constructor(private activatedRoute: ActivatedRoute,
               private toastCtrl: ToastController,
