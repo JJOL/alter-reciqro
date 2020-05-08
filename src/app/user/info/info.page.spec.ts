@@ -9,11 +9,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { MockAngularFirestore } from 'src/app/core/services/mocks/firestore.mock';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { InfoBannerService } from 'src/app/core/services/info-banner.service';
-import { BannerPopUpPage } from './banner-pop-up/banner-pop-up.page';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { BannerPopUpPageRoutingModule } from './banner-pop-up/banner-pop-up-routing.module';
+
 
 
 const authStub: any = {
@@ -95,17 +91,6 @@ mockBannerService.getAllInfoBanners.and.returnValue(
       res([]);
 }));
 
-@NgModule({
-  declarations: [ BannerPopUpPage ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    BannerPopUpPageRoutingModule
-  ]
-})
-class BannerModule {}
-
 describe('InfoPage', () => {
   let component: InfoPage;
   let fixture: ComponentFixture<InfoPage>;
@@ -113,7 +98,7 @@ describe('InfoPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ InfoPage ],
-      imports: [IonicModule.forRoot(), RouterModule.forRoot([]), SharedPageModule, BannerModule],
+      imports: [IonicModule.forRoot(), RouterModule.forRoot([]), SharedPageModule],
       providers: [
         { provide: AngularFireAuth, useValue: authStub },
         { provide: AuthService, useValue: mockAuthentication },
