@@ -7,6 +7,7 @@ import { VisitsService } from './visits.service';
 import { empty, BehaviorSubject } from 'rxjs';
 import { SharedPageModule } from '../../shared/shared.module';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 const mockAuthentication ={
   registerUser: () => {
@@ -76,6 +77,7 @@ describe('VisitsPage', () => {
     visitsMock = jasmine.createSpyObj('VisitsService', ['getAllVisitsForUser'])
     TestBed.configureTestingModule({
       declarations: [ VisitsPage ],
+      imports: [IonicModule.forRoot(), RouterTestingModule, SharedPageModule],
       providers: [
         {provide: VisitsService, useValue: visitsMock},
         { provide: AuthService, useValue: mockAuthentication}
