@@ -15,6 +15,6 @@ import { BannerPopUpPage } from './banner-pop-up.page';
     IonicModule,
     BannerPopUpPageRoutingModule
   ],
-  declarations: [BannerPopUpPage]
+  declarations: []
 })
 export class BannerPopUpPageModule {}
