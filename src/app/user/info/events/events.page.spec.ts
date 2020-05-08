@@ -5,6 +5,66 @@ import { EventsPage } from './events.page';
 import { RouterModule } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { EventsService } from 'src/app/core/services/events.service';
+import { BehaviorSubject,empty } from 'rxjs';
+import { SharedPageModule } from '../../../shared/shared.module';
+import { AuthService } from '../../../core/services/auth.service';
+
+const mockAuthentication ={
+  registerUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  loginEmailUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  loginGoogleUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  logoutUser: () => {
+    return [];
+  },
+  isAuth:  () => {
+    return empty();
+  },
+  updateUserData: () => {
+    return [];
+  },
+  getCurrentUser : () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  updateCurrentUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  sendPasswordResetEmail: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  updateUserByUID: () => {
+    return [];
+  },
+  getUserByUID: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  createUser: ()=> {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  isUserLoggedIn: new BehaviorSubject(false),
+  userRoles: new BehaviorSubject([]),
+};
 
 const arr = function() {};
 
@@ -38,10 +98,11 @@ describe('EventsPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [EventsPage],
-      imports: [IonicModule.forRoot(), RouterModule.forRoot([])],
+      imports: [IonicModule.forRoot(), RouterModule.forRoot([]),SharedPageModule],
       providers: [
         {provide: AngularFirestore, useValue: angularFirestoreStub},
         {provide: EventsService, useValue: mockService},
+        { provide: AuthService, useValue: mockAuthentication }
       ],
     }).compileComponents();
 

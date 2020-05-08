@@ -4,6 +4,7 @@ import { EventModel } from 'src/app/core/models/event.model';
 import { EventsService } from 'src/app/core/services/events.service';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-detail-event',
@@ -13,19 +14,24 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailEventPage implements OnInit {
   eventLoad: EventModel;
-  startDate: String;
-  endDate:String;
-  
-
-
+  linkFB:String;
+  idE:string;
+  startDate:string;
+  endDate:string;
+  startDay:string;
+  // @ViewChild('map', { static: true }) mapElement;
+  @ViewChild('iframeFB',{static:false}) shareButtonFB;
   // eslint-disable-next-line require-jsdoc
   constructor( private activatedRoute: ActivatedRoute,
-    private eventService: EventsService,
-  ) { }
+    private eventService: EventsService
+  ) { 
+    
+  }
 
   // eslint-disable-next-line require-jsdoc
   ngOnInit() {
 
+    
 
     this.activatedRoute.paramMap.subscribe(paraMap => {
 
@@ -35,40 +41,59 @@ export class DetailEventPage implements OnInit {
       }
 
       const eventId = paraMap.get('eventId');
+      this.idE=eventId
+      
       
       if (eventId) {
         
         this.eventService.getEventByID(eventId).then(res => {
           
           this.eventLoad = res;
-          this.startDate=dateFormat(this.eventLoad.start_date)
-          this.endDate=dateFormat(this.eventLoad.end_date)
-          
+          // this.linkFB = `https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fitesm-ca2020.web.app%2Fuser%2Finfo%2Fevents%2F${this.eventLoad.id}&layout=button_count&size=large&appId=725418228231566&width=88&height=28`
+          this.startDate = this.dateFormat(this.eventLoad.start_date,true)
+          this.endDate = this.dateFormat(this.eventLoad.end_date,true)
+          this.startDay =this.dateFormat(this.eventLoad.start_date,false)
+          console.log(this.shareButtonFB)
+          setTimeout(()=>{
+            let buttonFBShare=`<iframe src='https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fitesm-ca2020.web.app%2Fuser%2Finfo%2Fevents%2F${eventId}&layout=button_count&size=large&appId=725418228231566&width=88&height=28' width='88' height='28' style='border:none;overflow:hidden' scrolling='no' frameborder='0' allowTransparency='true' allow='encrypted-medi''></iframe>`
+            this.shareButtonFB.nativeElement.innerHTML=buttonFBShare
+          },1000)
         });
       }
     });
 
-    /**
+   
+  }
+  /**
    * USID: M2NC3 
    * @param  {} date
    */
-    function dateFormat (date:Date) {
-      var monthNames = [
-        "Enero", "Febrero", "Marzo",
-        "Abril", "Mayo", "Junio", "Julio",
-        "Agosto", "Septiembre", "Octubre",
-        "Noviembre", "Diciembre"
-      ];
+  dateFormat (date:Date,flag:boolean) {
+    var monthNames = [
+      "Enero", "Febrero", "Marzo",
+      "Abril", "Mayo", "Junio", "Julio",
+      "Agosto", "Septiembre", "Octubre",
+      "Noviembre", "Diciembre"
+    ];
+  
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+    var hour = date.getHours();
+    var minutes= date.getMinutes();
+    if(flag){
+      if(minutes==0){
+        return `${day} ${monthNames[monthIndex]} ${year} ${hour}:${minutes}0 hrs`;
+      }
     
-      var day = date.getDate();
-      var monthIndex = date.getMonth();
-      var year = date.getFullYear();
-      var hour = date.getHours();
-      var minutes= date.getMinutes();
-    
-      return day + ' ' + monthNames[monthIndex] + ' ' + year + ' ' +  hour + ':' + minutes;
+      return `${day} ${monthNames[monthIndex]} ${year} ${hour}:${minutes} hrs`;
     }
-
+    else{
+      return `${day} ${monthNames[monthIndex]} ${year}`;
+    }
+    
   }
+  
+  
 
 }

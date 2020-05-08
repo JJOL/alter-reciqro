@@ -30,4 +30,13 @@ export class EventsPage implements OnInit {
       this.events = this.events.filter(event => event.start_date >= this.todayDate);
     });
   }
+  /**
+   * User Story Id: M2NC2
+   * Fuction that is executed for autoplaying the slider
+   * @param  
+   * @returns 
+   */
+  slidesDidLoad(BannerSlider){
+    BannerSlider.startAutoplay();
+  }
 }

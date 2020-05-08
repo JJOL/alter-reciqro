@@ -1,25 +1,18 @@
-<ion-header *ngIf="eventLoad">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/user/info/events"></ion-back-button>
-    </ion-buttons>
-    <ion-title *ngIf="eventLoad"> {{ eventLoad.name }} </ion-title>
-    
-    
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
-  <ion-grid>
+<app-toolbar *ngIf='eventLoad' title='{{ eventLoad.name }}' [backButton]="true" routePath="/user/info/events"></app-toolbar>
 
-    <ion-row>
+ 
+  <ion-content>
+    <ion-grid>
 
-      <ion-col size="12" size-sm size-md  *ngIf="eventLoad">
+    <ion-row class="ion-justify-content-center">
+
+      <ion-col  size-md = "6" size-sm = "12"  *ngIf="eventLoad">
 
         <ion-card *ngIf="eventLoad">
           <ion-img [src]="eventLoad.icon"></ion-img>
           <ion-card-header>
-            <ion-card-subtitle>{{ eventLoad.start_date | date:'dd MMMM yyyy HH:mm' }}</ion-card-subtitle>
+            <ion-card-subtitle>{{ startDay }}</ion-card-subtitle>
             <ion-card-title>{{ eventLoad.name }}</ion-card-title>
           </ion-card-header>
         
@@ -27,18 +20,52 @@
             
             <p> {{ eventLoad.description }} </p>
             <br>
-            <h4> <strong> Finalizacion del evento: </strong> </h4>
-            <p> {{ eventLoad.end_date | date:'dd MMMM yyyy HH:mm' }} </p>
+            <h4> <strong> Fecha de inicio del evento: </strong> </h4>
+            <p> {{ startDate }} </p>
             <br>
-            <ion-button class="directions" color="primary"  *ngIf="eventLoad" href="https://www.google.com/maps/dir//{{eventLoad.location.lat}},{{eventLoad.location.lng}}/@{{eventLoad.location.lat}},{{eventLoad.location.lng}},17z" >Direcciones al Evento</ion-button>
+            <h4> <strong> Fecha de finalizacion del evento: </strong> </h4>
+            <p> {{ endDate }} </p>
+            <br>
+            
+            <div id="age">
+              <h4> <strong>¿Quiénes pueden asistir?</strong></h4>
+              <ul >
+                <li *ngFor="let age of eventLoad.age">{{ age }}</li>
+              </ul>
+            </div>
+            
+            
+            <ion-grid>
+              <ion-row class="ion-justify-content-center">
+                <ion-col size-md = "6" size-sm = "12"  >
+                  
+                  
+                    <ion-button  color="primary"  *ngIf="eventLoad" href="https://www.google.com/maps/dir//{{eventLoad.location.lat}},{{eventLoad.location.lng}}/@{{eventLoad.location.lat}},{{eventLoad.location.lng}},17z" >Ver en Mapa </ion-button>      
+                  
+                  </ion-col>
+              </ion-row>
 
+            </ion-grid>
+            
+            <ion-grid>
+              <ion-row class="ion-justify-content-end">
+                <ion-col size-md = "6" size-sm = "12" >
+                  
+                  <div #iframeFB>
+
+                  </div>
+                  </ion-col>
+              </ion-row>
+            </ion-grid>
+            
           </ion-card-content>
         </ion-card>
       </ion-col>
-
-    
-      
     </ion-row>
-
   </ion-grid>
+
+
+  
+                        
+
 </ion-content>

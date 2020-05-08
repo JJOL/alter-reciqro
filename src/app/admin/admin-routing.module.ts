@@ -7,6 +7,8 @@ const routes: Routes = [
   {
     path: '',
     component: AdminPage,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin']}
   },
   {
     path: 'center',

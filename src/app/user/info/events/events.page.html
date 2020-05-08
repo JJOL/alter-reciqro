@@ -1,67 +1,33 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/user/info"> </ion-back-button>
-    </ion-buttons>
-    <ion-title>Eventos</ion-title>
-    <ion-buttons slot="end" class="ion-padding">
-      <ion-button routerLink="/user/places-searcher-page">
-        <img class="smallImg" src="../../../../assets/img/blueQ.png">
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar title="Eventos" [backButton]="true" routePath="/user/info"></app-toolbar>
 
 <ion-content>
-  <ion-grid>
-    <ng-container *ngIf="!events">
-      <ion-spinner name="bubbles"></ion-spinner>
-    </ng-container>
-    <ng-container *ngIf="events">
-      <ion-row>
-        <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title> {{ events[0].name }} </ion-card-title>
-              <ion-card-subtitle> {{ events[0].start_date | date:'dd MMMM yyyy HH:mm' }} / UTC -6 </ion-card-subtitle>
-            </ion-card-header>
-            <ion-img [src]="events[0].icon"></ion-img>
-            <ion-card-content>
-              <p> {{ events[0].description }} </p>
-            </ion-card-content>
-            <div class="ion-text-right">
-              <ion-button 
-              fill="none"
-              color="primary" 
-              [routerLink]="['/user/info/events/detail-event', events[0].id]"
-              >
-              <!-- [routerLink]="['/','places','tabs', 'discover',events[0].id]"> --> 
-              Ver más
-            </ion-button>
-            </div>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
-          <ion-list>
-            <ion-item button
-            
-              *ngFor="let event of events"
-              [routerLink]="['detail-event', event.id]"
-              detail
-            ><!--the detail part adds an arrow... [routerLink]="['/', 'places', 'tabs', 'discover', place.id]"-->
-              <ion-thumbnail slot="start">
-                <ion-img [src]="event.icon"></ion-img>
-              </ion-thumbnail>
-              <ion-label>
-                <h2>{{ event.name }}</h2>
-                <p>{{ event.description }}</p>
-              </ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-col>
-      </ion-row>
-    </ng-container>
-  </ion-grid>
+    <ion-slides pager="true" #EventSlider (ionSlidesDidLoad)="slidesDidLoad(EventSlider)">
+        <ion-slide *ngFor="let event of events">
+            <ion-grid>
+                <ion-row class="ion-justify-content-center">
+                    <ion-col size-md="6" class="ion-align-self-center">
+                        <ion-img [src]="event.icon"></ion-img>
+                        <h2>{{ event.name }}</h2>
+                        <p>{{ event.description }}</p>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+    </ion-slides>
+    <ion-grid>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md = "6" size-sm = "12" >
+            <ion-list >
+              <ion-item *ngFor="let event of events" detail [routerLink]="['/user/info/events/detail-event', event.id]">
+                <ion-thumbnail slot="start">
+                  <ion-img [src]="event.icon"></ion-img>
+                </ion-thumbnail>
+                <ion-label>
+                  <h2> {{ event.name }} </h2>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 </ion-content>
