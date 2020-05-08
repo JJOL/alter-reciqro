@@ -6,6 +6,7 @@ import { InfoPageRoutingModule } from './info-routing.module';
 import { InfoPage } from './info.page';
 import { SharedPageModule } from 'src/app/shared/shared.module';
 import { BannerPopUpPage } from './banner-pop-up/banner-pop-up.page';
+import { BannerPopUpPageModule } from './banner-pop-up/banner-pop-up.module';
 
 @NgModule({
   imports: [
@@ -13,9 +14,10 @@ import { BannerPopUpPage } from './banner-pop-up/banner-pop-up.page';
     FormsModule,
     IonicModule,
     InfoPageRoutingModule,
-    SharedPageModule
+    SharedPageModule,
+    BannerPopUpPageModule
   ],
-  declarations: [InfoPage, BannerPopUpPage ],
+  declarations: [InfoPage],
   entryComponents: [BannerPopUpPage]
 })
 /**
