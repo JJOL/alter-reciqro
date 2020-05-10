@@ -26,7 +26,9 @@ cache:
 install:
   - npm install
   - npm install --prefix=./firebase-deploy firebase-tools
-
+  - cd functions/
+  - npm install
+  - cd ..
 jobs:
   include:
   - stage: test

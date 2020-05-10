@@ -167,5 +167,12 @@ export class DetailPage implements OnInit {
     this.editEventForm.controls.longitude.setValue(lugar.location.lng);
   }
 
+  /**
+   * 
+   **/
+  submit(){
+    
+  }
+
 
 }
