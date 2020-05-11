@@ -42,7 +42,11 @@ jobs:
   - stage: build
     before_script: skip
     install: skip
-    script: npm run build --prod
+    script:
+    - npm run build --prod
+    - cd functions/
+    - tsc
+    - cd ..
   - stage: deploy
     before_script: skip
     install: skip
