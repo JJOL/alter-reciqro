@@ -9,7 +9,6 @@
     "build": "ng build",
     "test": "ng test --poll=2000",
     "coverage-report": "node metrics/index.js",
-
     "e2e": "ng e2e"
   },
   "private": true,

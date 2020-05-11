@@ -5,9 +5,11 @@ import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { SystemService } from './system.service';
 import { parseFBPlaceToPlace } from './places.service';
+import * as firebase from 'firebase/app';
 
 const EVENTS_KEY = '/events';
-
+const GeoPoint = firebase.firestore.GeoPoint;
+const Timestamp = firebase.firestore.Timestamp;
 
 /**
  * User Story ID: M2NC2
@@ -142,6 +144,58 @@ export class EventsService {
           });
     });
   }
-
+  /**
+   * @param  {} event
+   * @param  {string} id
+   */
+  editEvent(event, id:string){
+    const geoPoint = new GeoPoint(event.latitude, event.longitude);
+    const end_dateO = new Timestamp(Date.parse(event.endDate)/1000,0)
+    const start_dateO =  new Timestamp(Date.parse(event.startDate)/1000,0);
+    console.log(event);
+    return new Promise<any>((resolve, reject) => {
+      this.firedb.collection(EVENTS_KEY).doc(id).set({
+        name: event.name,
+        description: event.description,
+        icon: event.icon,
+        location: geoPoint,
+        start_date: start_dateO,
+        end_date: end_dateO ,
+        age:event.age,
+      }, {merge: true} )
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
+    });
+  }
+  /**
+   * @param  {} event
+   */
+  createEvent(event){
+    const geoPoint = new GeoPoint(event.latitude, event.longitude);
+    const end_dateO = new Timestamp(Date.parse(event.endDate)/1000,0)
+    const start_dateO =  new Timestamp(Date.parse(event.startDate)/1000,0);
+    console.log(event);
+    return new Promise<any>((resolve, reject) => {
+      this.firedb.collection(EVENTS_KEY).add({
+        name: event.name,
+        description: event.description,
+        icon: event.icon,
+        location: geoPoint,
+        start_date: start_dateO,
+        end_date: end_dateO ,
+        age:event.age,
+      } )
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
+    });
+  }
 
 }
