@@ -143,6 +143,13 @@ export class GoogleMapComponent implements OnInit, OnChanges {
    * @param  {} place
    */
   async addMarker(place) {
+    var contentString = 
+    '<h1 id="firstHeading" class="firstHeading">'+place.name+'</h1>'+
+    '<p>'+place.description+'</p>'+
+       '<ion-button  class="ion-no-padding" fill="outline" ><a target="_blank" href="https://www.google.com/maps/dir//'+place.location.lat+','+place.location.lng+'/@'+place.location.lat+','+place.location.lng+',17z">Ir al lugar</a></ion-button>';
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
     let icon;
     if(null!=place.places_type)
     { icon = await this.placesServices.getPlaceTypeByID(place.places_type.id)}
@@ -162,7 +169,11 @@ export class GoogleMapComponent implements OnInit, OnChanges {
       this.placeChange.emit(place);
     });
     marker.addListener('click', () => {
-      this.seletedMarker.emit(place);
+      //this.seletedMarker.emit(place);
+      if(this.currentInfoWindow!=null) this.currentInfoWindow.close();
+      this.currentInfoWindow = infowindow;
+      this.currentInfoWindow.open(this.map, marker);
+
     });
 
     return this.markers.push(marker);
