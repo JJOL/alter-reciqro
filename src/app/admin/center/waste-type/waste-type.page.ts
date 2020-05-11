@@ -21,7 +21,7 @@ export class WasteTypePage implements OnInit {
 
   wasteTypes: WasteType[];
 
-   /**
+  /**
    * User Story Id: M2NG11, M2NG13
    * Construtor of the class that uses the Placeservice, WasteService and AlertController
    * @param  {PlacesService} placesService
@@ -33,11 +33,11 @@ export class WasteTypePage implements OnInit {
     private wasteService: WasteService,
     private placesService: PlacesService,
     private alertCtrl: AlertController
-    ) {
+  ) {
     this.wasteService.getWastes().then(data => {
       this.wasteTypes = data;
     });
-   }
+  }
 
   /**
    * User Story Id: M2NG11, M2NG13
@@ -48,7 +48,7 @@ export class WasteTypePage implements OnInit {
   ngOnInit() {
   }
 
-   /**
+  /**
    * User Story Id: M2NG11, M2NG13
    * Method that gets all the wastes
    * @param  

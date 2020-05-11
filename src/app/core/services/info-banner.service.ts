@@ -152,7 +152,7 @@ export class InfoBannerService {
    * @param  {string} id
    * @returns Promise
    */
-   getBannerofDay(date: string): Promise<InfoBanner[]> {
+  getBannerofDay(date: string): Promise<InfoBanner[]> {
     return new Promise((resolve) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<any>(INFO_BANNERS_KEY, ref => ref.where('date', '==', date)).snapshotChanges()

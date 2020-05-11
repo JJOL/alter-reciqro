@@ -15,7 +15,7 @@ const mockBannerService = jasmine.createSpyObj('bannerService', ['getAllInfoBann
 mockBannerService.getAllInfoBanners.and.returnValue(
     new Promise<any>((res) => {
       res([]);
-}));
+    }));
 
 const mockAuthentication ={
   registerUser: () => {
@@ -78,7 +78,7 @@ describe('BannerPage', () => {
   let component: BannerPage;
   let fixture: ComponentFixture<BannerPage>;
   let mockFirestore = new MockAngularFirestore();
-  mockFirestore.setTestData(["dsad","dasd"])
+  mockFirestore.setTestData(['dsad','dasd'])
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

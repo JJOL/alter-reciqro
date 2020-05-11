@@ -71,9 +71,9 @@ const mockAuthentication ={
 const mockWasteService = jasmine.createSpyObj('wasteService', ['addWasteType']);
 
 mockWasteService.addWasteType.and.returnValue(
-  new Promise<any>((res) => {
-    res([]);
-}));
+    new Promise<any>((res) => {
+      res([]);
+    }));
 
 
 describe('AddWasteTypePage', () => {

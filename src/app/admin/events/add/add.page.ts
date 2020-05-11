@@ -164,9 +164,9 @@ export class AddPage implements OnInit {
       this.showToast('Lugar creado de manera exitosa');
       this.navCtrl.navigateBack(['/admin/events']);
     })
-    .catch(() => {
-      this.showToast('Error al cargar el lugar');
-    });
+        .catch(() => {
+          this.showToast('Error al cargar el lugar');
+        });
   }
 
 

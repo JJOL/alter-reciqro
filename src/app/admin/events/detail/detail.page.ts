@@ -181,9 +181,9 @@ export class DetailPage implements OnInit {
       this.showToast('Lugar editado de manera exitosa');
       this.navCtrl.navigateBack(['/admin/events']);
     })
-    .catch(() => {
-      this.showToast('Error al cargar el lugar');
-    });
+        .catch(() => {
+          this.showToast('Error al cargar el lugar');
+        });
   }
 
 
