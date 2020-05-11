@@ -4,7 +4,12 @@ import { PlacesService } from 'src/app/core/services/places.service';
 declare const google: any;
 
 
-const DEFAULT_CENTER_COORD = new google.maps.LatLng(20.588772, -100.390292);
+// const DEFAULT_CENTER_COORD = new google.maps.LatLng(20.588772, -100.390292);
+const DEFAULT_CENTER_COORD = { 
+  lat: 20.588772, 
+  lng: -100.390292
+};
+
 @Component({
   selector: 'app-shared-google-map',
   templateUrl: './google-map.component.html',
@@ -76,7 +81,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   initMap() {
 
     const mapOptions: google.maps.MapOptions = {
-      center: DEFAULT_CENTER_COORD,
+      center: new google.maps.LatLng(DEFAULT_CENTER_COORD.lat, DEFAULT_CENTER_COORD.lng),
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       disableDefaultUI: true
