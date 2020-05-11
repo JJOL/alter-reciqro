@@ -14,10 +14,10 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
  * Componente principal
  */
 export class AppComponent implements OnInit{
-  private isLogged: boolean;
-  private admin: boolean;
-  private staff: boolean;
-  private user: boolean;
+  isLogged: boolean;
+  admin: boolean;
+  staff: boolean;
+  user: boolean;
 
   // eslint-disable-next-line require-jsdoc
   constructor(

@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { MockAngularFirestore } from 'src/app/core/services/mocks/firestore.mock';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { InfoBannerService } from 'src/app/core/services/info-banner.service';
+import { BannerPopUpPageModule } from './banner-pop-up/banner-pop-up.module';
 
 
 
@@ -98,7 +99,7 @@ describe('InfoPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ InfoPage ],
-      imports: [IonicModule.forRoot(), RouterModule.forRoot([]), SharedPageModule],
+      imports: [IonicModule.forRoot(), RouterModule.forRoot([]), SharedPageModule, BannerPopUpPageModule],
       providers: [
         { provide: AngularFireAuth, useValue: authStub },
         { provide: AuthService, useValue: mockAuthentication },

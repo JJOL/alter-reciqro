@@ -1,22 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons col-4 col-sm slot="start">
-      <!--This opens the default menu we have-->
-      <ion-menu-button menu="m1"></ion-menu-button>
-    </ion-buttons>
-    
-    <ion-title  class="ion-text-center">Visitas</ion-title>
-    <!--ion-title    class="ion-text-center">Visitas flag: {{isLogged}}</ion-title-->
-    <ion-buttons  slot="primary" >
-      <ion-button  *ngIf="!isLogged" slot="end" routerLink="/user/login">
-        Regístrate<ion-icon name="person-add-outline"></ion-icon>
-      </ion-button> 
-      <ion-button  *ngIf="isLogged" slot="end" routerLink="/user/">
-        Mi Perfil<ion-icon  name="person-circle"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar title="Visitas" [backButton]="false"></app-toolbar>
 
 <ion-content>
   <ion-button
