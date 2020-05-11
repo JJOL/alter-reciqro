@@ -19,6 +19,7 @@ cache:
      - ./node_modules
      - ./www
      - ./firebase-deploy
+     - ./functions
      - package.json
      - firebase.json
      - .firebaserc
