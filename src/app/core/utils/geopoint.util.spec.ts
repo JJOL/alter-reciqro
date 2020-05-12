@@ -1,4 +1,4 @@
-import { parseDegreesToGoogleGeoPoint } from './geopoint.util';
+import { parseDegreesToGoogleGeoPoint, parseGoogleGeoPointToDegrees } from './geopoint.util';
 
 describe('parseDegreesToGeoPoint', () => {
 
@@ -9,9 +9,11 @@ describe('parseDegreesToGeoPoint', () => {
     it('should calculate correct decimal conversion', () => {
         let testStr = '20\°44\'31.2\"N 100\°26\'49.4\"W';
         let latlng  = parseDegreesToGoogleGeoPoint(testStr);
+        let lat = 20.742,
+            lng = 100.447;
         
-        expect(latlng.lat).toBeCloseTo(20.742, 0.001);
-        expect(latlng.lng).toBeCloseTo(100.447, 0.001);
+        expect(latlng.lat).toBeCloseTo(lat, 0.001);
+        expect(latlng.lng).toBeCloseTo(lng, 0.001);
     });
 
     it('should throw Invalid Format Error with an incorrect string', () => {
@@ -22,3 +24,15 @@ describe('parseDegreesToGeoPoint', () => {
 
 
 });
+
+
+describe('parseGoogleGeoPointToDegrees', () => {
+    it('should calculate correct degree representation', () => {
+        let resultStr = '20\°44\'31.2000\"N 100\°26\'49.2000\"W';
+        let lat = 20.742,
+            lng = 100.447;
+        let str  = parseGoogleGeoPointToDegrees({lat, lng});
+
+        expect(str).toEqual(resultStr);
+    });
+})

@@ -1,8 +1,17 @@
+/**
+ * Equivalence of seconds to minutes and minutes to hours
+ */
+const CONV_EQUIV = 60;
+
+/**
+ * Printing Significant decimals
+ */
+const SIGNIFICANT_DIGITS = 4;
 
 /**
  * Description: Standard Degree Angle Unit
  */
-interface DegreeUnit {
+export interface DegreeUnit {
     h: number;
     m: number;
     s: number;
@@ -53,8 +62,53 @@ function getRegexGeoCoord(locationStr: string): {lat: DegreeUnit, lng: DegreeUni
  * @returns {number}
  */
 function convertDegreesToDecimal(h: number, m: number, s: number): number {
-    let secondDecimals = s / 60,
-        minuteDecimals = (m + secondDecimals) / 60,
+    let secondDecimals = s / CONV_EQUIV,
+        minuteDecimals = (m + secondDecimals) / CONV_EQUIV,
         hourDecimals   = (h + minuteDecimals);
     return hourDecimals;
+}
+
+
+
+/**
+ * User Story ID: M1NG1
+ * Description: Parses a google latlng decimal to Degree
+ * @param  {{ lat: number, lng: number }} latlng
+ * @returns {string}}
+ */
+export function parseGoogleGeoPointToDegrees(latlng: { lat: number, lng: number }): string  {
+
+    let lat = convertDecimalToDegrees(latlng.lat);
+    let lng = convertDecimalToDegrees(latlng.lng);
+
+    return getStringDegreeCoords(lat, lng);
+
+}
+
+/**
+ * Description: Parses a pair of DegreeUnits into a string
+ * @param  {string} locationStr
+ * @returns {lat: DegreeUnit, lng: DegreeUnit}
+ */
+function getStringDegreeCoords(lat: DegreeUnit, lng: DegreeUnit): string {
+    return `${lat.h}\°${lat.m}\'${lat.s.toFixed(SIGNIFICANT_DIGITS)}\"N ` +
+           `${lng.h}\°${lng.m}\'${lng.s.toFixed(SIGNIFICANT_DIGITS)}\"W`;
+}
+
+
+/**
+ * Description: Converts decimals to degres
+ * @param  {number} decimal
+ * @returns {DegreeUnit}
+ */
+function convertDecimalToDegrees(decimal: number): DegreeUnit {
+    let h = Math.floor(decimal);
+    let md = (decimal - h) * CONV_EQUIV,
+        m = Math.floor(md);
+    let s = (md - m) * CONV_EQUIV;
+    return {
+        h,
+        m,
+        s
+    };
 }
