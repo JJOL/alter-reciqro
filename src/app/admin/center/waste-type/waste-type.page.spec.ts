@@ -73,17 +73,17 @@ const mockWasteService = jasmine.createSpyObj('wasteService', ['getWastes', 'del
 mockPlaceService.getIDPlacesTypesByWaste.and.returnValue(
     new Promise<any>((res) => {
       res([]);
-}));
+    }));
 
 mockWasteService.getWastes.and.returnValue(
-  new Promise<any>((res) => {
-    res([]);
-}));
+    new Promise<any>((res) => {
+      res([]);
+    }));
 
 mockWasteService.deleteWasteTypeByID.and.returnValue(
-  new Promise<any>((res) => {
-    res([]);
-}));
+    new Promise<any>((res) => {
+      res([]);
+    }));
 
 
 describe('WasteTypePage', () => {

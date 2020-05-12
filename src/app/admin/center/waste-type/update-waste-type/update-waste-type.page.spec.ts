@@ -71,14 +71,14 @@ const mockAuthentication ={
 const mockWasteService = jasmine.createSpyObj('wasteService', ['getWasteById', 'updateWasteType']);
 
 mockWasteService.getWasteById.and.returnValue(
-  new Promise<any>((res) => {
-    res([]);
-}));
+    new Promise<any>((res) => {
+      res([]);
+    }));
 
 mockWasteService.updateWasteType.and.returnValue(
-  new Promise<any>((res) => {
-    res([]);
-}));
+    new Promise<any>((res) => {
+      res([]);
+    }));
 
 describe('UpdateWasteTypePage', () => {
   let component: UpdateWasteTypePage;

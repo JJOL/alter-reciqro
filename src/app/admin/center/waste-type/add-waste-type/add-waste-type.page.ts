@@ -85,9 +85,9 @@ export class AddWasteTypePage implements OnInit {
     private wasteService: WasteService,
     private navCtrl: NavController,
     private alertCtrl: AlertController
-    ) { }
+  ) { }
 
-    /**
+  /**
    * User Story Id: M2NG14
    * Method called when the page is instatiated
    * @param  

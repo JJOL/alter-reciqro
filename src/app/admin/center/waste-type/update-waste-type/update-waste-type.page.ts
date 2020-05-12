@@ -95,7 +95,7 @@ export class UpdateWasteTypePage implements OnInit {
     private alertCtrl: AlertController
   ) { }
 
-   /**
+  /**
    * User Story Id: M2NG12
    * Method called when the page is instatiated used to get the info of the selected waste type
    * @param  
@@ -121,7 +121,7 @@ export class UpdateWasteTypePage implements OnInit {
     });
   }
 
-   /**
+  /**
    * User Story Id: M2NG12
    * Method called when the waste types is updated usign the WasteService
    * @param  

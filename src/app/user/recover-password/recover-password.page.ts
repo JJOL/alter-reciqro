@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './recover-password.page.html',
   styleUrls: ['./recover-password.page.scss'],
 })
- /**
+/**
    * USID: M4NG2  
    * USID: M4NC3
    * Page controller RecoverPasswordPage
@@ -61,7 +61,7 @@ export class RecoverPasswordPage implements OnInit {
     public formBuilder: FormBuilder,
     private toastCtrl: ToastController
   ) { }
-   /**
+  /**
    * USID: M4NG2  
    * USID: M4NC3
    * Runs when the page is initiated
@@ -69,7 +69,7 @@ export class RecoverPasswordPage implements OnInit {
   ngOnInit() {
   }
 
-   /**
+  /**
    * USID: M4NG2  
    * USID: M4NC3
    * Get email
