@@ -157,7 +157,7 @@ export class AddCenterPage implements OnInit {
     description: ['', [Validators.required, Validators.maxLength(300)]],
     latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
     longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
-    latlngdegrees: ['', [Validators.required, Validators.pattern('^(\d+)\°(\d+)\'(\d+\.?\d*)\"N\s(\d+)\°(\d+)\'(\d+\.?\d*)\"W$')]],
+    latlngdegrees: ['', [Validators.required, Validators.pattern('^(\\d+)°(\\d+)\'(\\d+\.?\\d*)\"N\\s(\\d+)°(\\d+)\'(\\d+\.?\\d*)\"W$')]],
     qrCode: [' '],
     mainPicture: ['NA'],
     address: this.formBuilder.group({
@@ -197,6 +197,11 @@ export class AddCenterPage implements OnInit {
     this.newCenterForm.controls.latitude.setValue(lugar.location.lat);
     this.newCenterForm.controls.longitude.setValue(lugar.location.lng);
     this.newCenterForm.controls.latlngdegrees.setValue(parseGoogleGeoPointToDegrees(lugar.location));
+  }
+
+  onChangeDegree() {
+    console.log(this.newCenterForm.controls.latlngdegrees);
+    
   }
   
   /**

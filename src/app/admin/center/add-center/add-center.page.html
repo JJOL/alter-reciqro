@@ -70,9 +70,9 @@
 
           <ion-item>
             <ion-label position="floating">LatLng Grados</ion-label>
-            <ion-input formControlName="latlngdegrees" inputmode="text"></ion-input>
+            <ion-input formControlName="latlngdegrees" inputmode="text" (change)="onChangeDegree()"></ion-input>
           </ion-item>
-          <div *ngFor="let error of errorMessages.longitude">
+          <div *ngFor="let error of errorMessages.latlngdegrees">
             <ng-container *ngIf="latlngdegrees.hasError(error.type) && (latlngdegrees.dirty || latlngdegrees.touched)">
               <small class="error-message">{{error.message}}</small>
             </ng-container>
