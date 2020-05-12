@@ -149,9 +149,8 @@ export class GoogleMapComponent implements OnInit, OnChanges {
    */
   async addMarker(place) {
     var contentString = 
-    '<h1 id="firstHeading" class="firstHeading">'+place.name+'</h1>'+
-    '<p>'+place.description+'</p>'+
-       '<ion-button  class="ion-no-padding" fill="outline" ><a target="_blank" href="https://www.google.com/maps/dir//'+place.location.lat+','+place.location.lng+'/@'+place.location.lat+','+place.location.lng+',17z">Ir al lugar</a></ion-button>';
+    '<p align> <b>'+place.name+'</b> <br>Horario: '+place.schedule+'<br>'+place.description+'<br>'+place.address+'<br>'+
+    '<a style="text-decoration:none" target="_blank" href="https://www.google.com/maps/dir//'+place.location.lat+','+place.location.lng+'/@'+place.location.lat+','+place.location.lng+',17z">Ver en Google Maps</a></p>';
     var infowindow = new google.maps.InfoWindow({
       content: contentString
     });
