@@ -27,7 +27,7 @@ export function parseDegreesToGoogleGeoPoint(locationStr: string): { lat: number
     let {lat, lng} = getRegexGeoCoord(locationStr)
     
     let latDecimal = convertDegreesToDecimal(lat.h, lat.m, lat.s),
-        lngDecimal = convertDegreesToDecimal(lng.h, lng.m, lng.s);
+        lngDecimal = -1*convertDegreesToDecimal(lng.h, lng.m, lng.s);
 
     return {
         lat: latDecimal,
@@ -79,7 +79,7 @@ function convertDegreesToDecimal(h: number, m: number, s: number): number {
 export function parseGoogleGeoPointToDegrees(latlng: { lat: number, lng: number }): string  {
 
     let lat = convertDecimalToDegrees(latlng.lat);
-    let lng = convertDecimalToDegrees(latlng.lng);
+    let lng = convertDecimalToDegrees(-1*latlng.lng);
 
     return getStringDegreeCoords(lat, lng);
 
