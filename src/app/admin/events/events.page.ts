@@ -26,8 +26,8 @@ export class EventsPage implements OnInit {
    * On ngOnInit all events are loaded.
    */
   ngOnInit() {
-    this.eventService.getAllEvents().then(event => {
-      this.events = event;
+    this.eventService.getAllEvents().then(events => {
+      this.events = events;
       this.events = this.events.filter(event => event.start_date >= this.todayDate);
     });
   }

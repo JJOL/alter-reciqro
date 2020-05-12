@@ -7,14 +7,14 @@ import { EventsService } from 'src/app/core/services/events.service';
 
 const MAXLENGTH = 100;
 @Component({
-  selector: 'app-detail',
-  templateUrl: './detail.page.html',
-  styleUrls: ['./detail.page.scss'],
+  selector: 'app-add',
+  templateUrl: './add.page.html',
+  styleUrls: ['./add.page.scss'],
 })
 /**
  * Se obtine
  */
-export class DetailPage implements OnInit {
+export class AddPage implements OnInit {
 // eslint-disable-next-line require-jsdoc, max-params
   constructor(private eventService: EventsService,  private activatedRoute: ActivatedRoute,
     private navCtrl: NavController,
@@ -135,24 +135,7 @@ export class DetailPage implements OnInit {
   event: EventModel;  
   // eslint-disable-next-line require-jsdoc
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe(paraMap => {
-      if (!paraMap.has('id')) {
-        return;
-      }
-      this.placeId = paraMap.get('id');
-      if (this.placeId) {
-        this.eventService.getEventByID(this.placeId).then( event =>{
-          this.editEventForm.controls.name.setValue(event.name);
-          this.editEventForm.controls.description.setValue(event.description);
-          this.editEventForm.controls.latitude.setValue(event.location.lat);
-          this.editEventForm.controls.longitude.setValue(event.location.lng);
-          this.editEventForm.controls.icon.setValue(event.icon);
-          this.editEventForm.controls.age.setValue(event.age);
-          this.editEventForm.controls.endDate.setValue(event.end_date.toISOString().split('T')[0]);
-          this.editEventForm.controls.startDate.setValue(event.start_date.toISOString().split('T')[0]);
-        })
-      }
-    });
+    
   }
 
   /**
@@ -176,9 +159,9 @@ export class DetailPage implements OnInit {
    * 
    **/
   submit(){
-    this.eventService.editEvent(this.editEventForm.value,this.placeId).then(() => {
+    this.eventService.createEvent(this.editEventForm.value).then(() => {
       // use id
-      this.showToast('Lugar editado de manera exitosa');
+      this.showToast('Lugar creado de manera exitosa');
       this.navCtrl.navigateBack(['/admin/events']);
     })
         .catch(() => {

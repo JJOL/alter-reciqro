@@ -69,6 +69,16 @@
           </div>
 
           <ion-item>
+            <ion-label position="floating">LatLng Grados</ion-label>
+            <ion-input formControlName="latlngdegrees" inputmode="text" (change)="onChangeDegree()"></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.latlngdegrees">
+            <ng-container *ngIf="latlngdegrees.hasError(error.type) && (latlngdegrees.dirty || latlngdegrees.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item>
             <ion-label position="floating">Foto</ion-label>
             <ion-input formControlName="mainPicture" inputmode="url"></ion-input>
           </ion-item>

@@ -85,12 +85,12 @@ const mockBannerService = jasmine.createSpyObj('bannerService', ['getBannerofDay
 mockBannerService.getBannerofDay.and.returnValue(
     new Promise<any>((res) => {
       res([]);
-}));
+    }));
 
 mockBannerService.getAllInfoBanners.and.returnValue(
     new Promise<any>((res) => {
       res([]);
-}));
+    }));
 
 describe('InfoPage', () => {
   let component: InfoPage;
