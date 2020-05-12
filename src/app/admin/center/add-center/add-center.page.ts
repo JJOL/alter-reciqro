@@ -4,6 +4,8 @@ import { PlacesService } from 'src/app/core/services/places.service';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { ToastController } from '@ionic/angular';
 
+import { parseGoogleGeoPointToDegrees } from '../../../core/utils/geopoint.util';
+
 /*tut https://www.youtube.com/watch?v=Yza_59DrRY8*/
 
 @Component({
@@ -47,6 +49,14 @@ export class AddCenterPage implements OnInit {
    */
   get longitude() {
     return this.newCenterForm.get('longitude');
+  }
+
+  /**
+   * User Story ID: M1NG1
+   * Function that returns the longitude field on the add center form.
+   */
+  get latlngdegrees() {
+    return this.newCenterForm.get('latlngdegrees');
   }
 
   /**
@@ -114,6 +124,10 @@ export class AddCenterPage implements OnInit {
       { type: 'required', message: 'Longitud es requerida' },
       { type: 'pattern', message: 'El formato no es correcto'}
     ],
+    latlngdegrees: [
+      { type: 'required', message: 'LatLng en grados es requerida' },
+      { type: 'pattern', message: 'El formato no es correcto'}
+    ],
     qrCode: [
       { type: 'pattern', message: 'El URL no es correcto'}
     ],
@@ -136,7 +150,6 @@ export class AddCenterPage implements OnInit {
     ],
 
   };
-
   newCenterForm = this.formBuilder.group({
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     name: ['', [Validators.required, Validators.maxLength(100)]],
@@ -144,6 +157,7 @@ export class AddCenterPage implements OnInit {
     description: ['', [Validators.required, Validators.maxLength(300)]],
     latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
     longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
+    latlngdegrees: ['', [Validators.required, Validators.pattern('^(\\d+)°(\\d+)\'(\\d+\.?\\d*)\"N\\s(\\d+)°(\\d+)\'(\\d+\.?\\d*)\"W$')]],
     qrCode: [' '],
     mainPicture: ['NA'],
     address: this.formBuilder.group({
@@ -182,6 +196,12 @@ export class AddCenterPage implements OnInit {
   onChangeMarker(lugar) {
     this.newCenterForm.controls.latitude.setValue(lugar.location.lat);
     this.newCenterForm.controls.longitude.setValue(lugar.location.lng);
+    this.newCenterForm.controls.latlngdegrees.setValue(parseGoogleGeoPointToDegrees(lugar.location));
+  }
+
+  onChangeDegree() {
+    console.log(this.newCenterForm.controls.latlngdegrees);
+    
   }
   
   /**
