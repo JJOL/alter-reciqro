@@ -65,13 +65,13 @@ describe('EventsService', () => {
     expect(service).toBeTruthy();
   });
   const event1 = {
-    id : '1', name : 'Centro Cívico', description : 'Recolección de pilas, papel y llantas',
+    id : '1', age:[], name : 'Centro Cívico', description : 'Recolección de pilas, papel y llantas',
     location: { latitude: 4, longitude: 4 },
     icon : 'none'
   };
 
   const event2 = {
-    id : '2', name : 'Basurero Municipal', description : 'Recolección de desechos urbanos',
+    id : '2',age:[], name : 'Basurero Municipal', description : 'Recolección de desechos urbanos',
     location: { latitude: 5, longitude: 5 },
     qr_code : 'none', photo : 'none', address : 'Bernardo Quintana', postal_code : '12345',
     places_type : { id : '1', name : 'Papelera',  description : 'Separación de cartón'}
