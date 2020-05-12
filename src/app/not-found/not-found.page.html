@@ -1,4 +1,4 @@
-<app-toolbar title="Elemento No Encontrado" [backButton]="false" [login]="false" ></app-toolbar>
+<app-toolbar title="404 no encontrado" [backButton]="false" [login]="false" ></app-toolbar>
 
 <ion-content>
     <ion-grid>
@@ -7,13 +7,20 @@
                 <ion-card>
                     <ion-card-header>
                         <ion-card-title>
-                            <h1>No encontramos lo que estabas buscando! :(</h1>
+                            <h1>¡No encontramos lo que estabas buscando! :(</h1>
                         </ion-card-title>
                         <ion-card-subtitle>
                             <h2>Error 404</h2>
                         </ion-card-subtitle>
                     </ion-card-header>
                     <ion-card-content>
+                        <p>Este error ocurre generalmente por las siguientes razones</p>
+                        <ul>
+                            <li>Acceso a una URL erronea.</li>
+                            <li>Un elemento inexistente en el servidor.</li>
+                            <li>Modificación a un elemento existente.</li>
+                        </ul>
+                        <p>Si tienes dudas porfavor contacta a <a href="">ayuda@correo.com</a></p>
                         <ion-button expand="block" [routerLink]="['/user/places-searcher-page']" routerLinkActive="router-link-active" >Regresar a sección principal.</ion-button>
                     </ion-card-content>
                 </ion-card>
