@@ -1,19 +1,12 @@
-import { OnChanges } from '@angular/core';
 /* eslint-disable require-jsdoc */
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AuthService } from './../../core/services/auth.service';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
-import { SharedPage } from './../../shared/shared.page';
-import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
+import { Component, ViewChild, EventEmitter, Output } from '@angular/core';
 import { PlacesService } from 'src/app/core/services/places.service';
-import { ModalController } from '@ionic/angular';
 import { Place } from '../../core/models/place.model';
 import {WasteType} from '../../core/models/waste-type';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import {MarkerCardComponent} from '../marker-card/marker-card.component';
 import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
-import { filter } from 'rxjs/operators';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-places-searcher-page',
@@ -48,13 +41,12 @@ export class PlacesSearcherPagePage  {
     private placesService: PlacesService,
     private geolocationCont: Geolocation,
     public popoverController: PopoverController,
-    private authService: AuthService,
-    private afsAuth: AngularFireAuth
-  ) { }
+    private modalController: ModalController
+  ) {
+   
+  }
 
   async ionViewWillEnter() {
-    /*console.log("aquie esta el obser",this.authService.isUserLoggedIn.value);
-    console.log("logout2",this.authService.isUserLoggedIn.value);*/
     this.filters = await  this.placesService.getAllWasteTypes();
     this.activeFilters = this.filters;
     this.places = await this.filterByType(this.activeFilters);

@@ -1,9 +1,10 @@
 import { AuthService } from './core/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, ModalController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SplashscreenPage } from './user/splashscreen/splashscreen.page';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,8 @@ export class AppComponent implements OnInit{
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private authService: AuthService
+    private authService: AuthService,
+    private modalController: ModalController
   ) {
     this.authService.isUserLoggedIn.asObservable().subscribe(value => {
       this.isLogged = value;
@@ -43,9 +45,13 @@ export class AppComponent implements OnInit{
    */
   initializeApp() {
     this.platform.ready().then(() => {
-      console.log(this.admin)
       this.statusBar.styleDefault();
+      this.presentModal();
       this.splashScreen.hide();
+      setTimeout(() => {
+        this.modalController.dismiss();
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+      }, 2000);
     });
   }
   /**
@@ -58,5 +64,20 @@ export class AppComponent implements OnInit{
   onLogout() {
     this.authService.logoutUser();
   }
+
+  /**
+   * User Story Id: M2NC4
+   * Fuction that is executed for presenting the modal, searching for the modal usign the BannerService
+   * @param  
+   * @returns 
+   */
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: SplashscreenPage,
+      swipeToClose: true,
+    });
+    return modal.present();
+  }
+
 
 }

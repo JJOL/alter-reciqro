@@ -6,9 +6,8 @@ import { empty, BehaviorSubject } from 'rxjs';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
 import { AppComponent } from './app.component';
-
+import { SplashscreenPageModule } from './user/splashscreen/splashscreen.module';
 
 const mockAuthentication ={
   registerUser: () => {
@@ -87,6 +86,7 @@ describe('AppComponent', () => {
     platformSpy = jasmine.createSpyObj('Platform', { ready: platformReadySpy });
 
     TestBed.configureTestingModule({
+      imports: [SplashscreenPageModule],
       declarations: [AppComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [

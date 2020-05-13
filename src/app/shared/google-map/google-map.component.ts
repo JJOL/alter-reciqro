@@ -63,8 +63,6 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     }
     this.markers = [];
 
-    console.log(this.map);
-
     if (this.places && this.map) {
       
       
@@ -149,8 +147,6 @@ export class GoogleMapComponent implements OnInit, OnChanges {
    * @param  {} place
    */
   async addMarker(place) {
-    console.log('adding place');
-    
     var contentString = 
     '<p align> <b>'+place.name+'</b> <br>Horario: '+place.schedule+'<br>'+place.description+'<br>'+place.address+'<br>'+
     '<a style="text-decoration:none" target="_blank" href="https://www.google.com/maps/dir//'+place.location.lat+','+place.location.lng+'/@'+place.location.lat+','+place.location.lng+',17z">Ver en Google Maps</a></p>';

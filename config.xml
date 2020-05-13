@@ -14,11 +14,7 @@
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
-    <preference name="SplashMaintainAspectRatio" value="true" />
-    <preference name="FadeSplashScreenDuration" value="300" />
-    <preference name="SplashShowOnlyFirstTime" value="false" />
-    <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="3000" />
+    <platform name="browser"> <preference name="SplashScreen" value="src/assets/avatarAdmin.png" /> <preference name="SplashScreenDelay" value="3000" /> <!-- defaults to "3000" --> <preference name="SplashScreenBackgroundColor" value="green" /> <!-- defaults to "#464646" --> <preference name="ShowSplashScreen" value="false" /> <!-- defaults to "true" --> <preference name="SplashScreenWidth" value="600" /> <!-- defaults to "170" --> <preference name="SplashScreenHeight" value="300" /> <!-- defaults to "200" --> </platform>
     <platform name="android">
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
             <application android:networkSecurityConfig="@xml/network_security_config" />

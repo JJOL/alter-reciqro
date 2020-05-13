@@ -18,6 +18,8 @@ import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/fi
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
+import { SplashscreenPageModule } from './user/splashscreen/splashscreen.module';
+import { SplashscreenPage } from './user/splashscreen/splashscreen.page';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +31,8 @@ import { environment } from '../environments/environment';
     AngularFireModule.initializeApp(environment.database.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    SharedPageModule
+    SharedPageModule,
+    SplashscreenPageModule
   ],
   providers: [
     StatusBar,
@@ -39,6 +42,7 @@ import { environment } from '../environments/environment';
     { provide: FirestoreSettingsToken, useValue: {} }
   ],
   bootstrap: [AppComponent],
+  entryComponents: [SplashscreenPage]
 })
 // eslint-disable-next-line require-jsdoc
 export class AppModule {}

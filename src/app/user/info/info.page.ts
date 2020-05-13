@@ -53,7 +53,7 @@ export class InfoPage implements OnInit {
       let bannersOfDay: InfoBanner[] = data;
       // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       if(bannersOfDay.length > 0){
-        if(bannersOfDay[0] != undefined){
+        if(bannersOfDay[0] !== undefined){
           const modal = await this.modalController.create({
             component: BannerPopUpPage,
             swipeToClose: true,
@@ -93,7 +93,5 @@ export class InfoPage implements OnInit {
       }
     });
   }
-
-
 
 }

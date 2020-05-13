@@ -1,0 +1,16 @@
+@media (min-width: 1025px) {
+  .outer {
+    margin: 20px auto;
+    width: 25%;
+    padding: 10px 0;
+    /*   overflow: hidden; */
+  }
+  
+  .inner {
+    width: 150%;
+    /* Set left edge of inner element to 50% of the parent element */
+    margin-left: 50%; 
+    /* Move to the left by 50% of own width */
+    transform: translateX(-50%); 
+  }
+}

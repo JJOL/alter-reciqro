@@ -32,6 +32,10 @@ const routes: Routes = [
   {
     path: 'visits',
     loadChildren: () => import('./visits/visits.module').then( m => m.VisitsPageModule)
+  },
+  {
+    path: 'splashscreen',
+    loadChildren: () => import('./splashscreen/splashscreen.module').then( m => m.SplashscreenPageModule)
   }
 ];
 
