@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventsService } from 'src/app/core/services/events.service';
 import { DatePipe } from '@angular/common';
+import { EventModel } from 'src/app/core/models/event.model';
 
 @Component({
   selector: 'app-events',
@@ -12,7 +13,7 @@ import { DatePipe } from '@angular/common';
  * Event page class, provides methods for Angular loading.
 */
 export class EventsPage implements OnInit {
-  events: any[];
+  events: EventModel[];
   todayDate = new Date();
   /**
    * User Story ID: M2NC2
@@ -27,6 +28,7 @@ export class EventsPage implements OnInit {
   ngOnInit() {
     this.eventService.getAllEvents().then(event => {
       this.events = event;
+      console.log(this.events)
       this.events = this.events.filter(event => event.start_date >= this.todayDate);
     });
   }

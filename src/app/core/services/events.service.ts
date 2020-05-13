@@ -67,7 +67,7 @@ export function parseFBEventDocToEvent(fbEvent: any): EventModel {
  * @param  {any} fbEvent
  */
 export function parseFBEventToEvent2(fbEvent: any): EventModel {
-  console.log(fbEvent);
+  
   return parseFBEventToEvent(fbEvent.payload.doc)
 }
 
