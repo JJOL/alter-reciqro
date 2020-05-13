@@ -22,7 +22,9 @@ app-toolbar{
 	text-align: center;
 }
 
-
+ion-button{
+	font-size: 13px;
+}
 
 @media (max-width: 400px) {
     ion-title {
@@ -30,5 +32,8 @@ app-toolbar{
     }
     ion-button{
         font-size: 80% !important;
-    }
+	}
+	h1{
+		font-size: 120% !important;
+	}
 }

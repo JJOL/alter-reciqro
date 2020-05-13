@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators,ValidatorFn, AbstractControl } from '@angular/forms';
@@ -24,7 +24,8 @@ export class EditCenterPage implements OnInit {
 
   place: Place;
   loadedPlacetypes: TipoInstalacion[];
-
+  @ViewChild ('mapElement', {static: true}) map;
+  position: { lat: number, lng: number};
   /**
    * User Story ID: M1NG2
    * Regresa el nombre
@@ -208,7 +209,11 @@ export class EditCenterPage implements OnInit {
           setTimeout(()=>{
             this.newCenterForm.controls.instalationType.setValue(place.places_type.id);
           },100)
-          
+          this.position={
+            lat:place.location.lat,
+            lng:place.location.lng
+          };
+          this.map.setCenter(this.position);
         });
       }
     });
