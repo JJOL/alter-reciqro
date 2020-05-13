@@ -63,10 +63,11 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     }
     this.markers = [];
 
-
+    console.log(this.map);
 
     if (this.places && this.map) {
-
+      
+      
       // Se acota deacuerdo al máximo
       // let min = this.max<this.places.length ? this.max : 0;
       const max =  this.max < this.places.length ? this.max : this.places.length;
@@ -148,6 +149,8 @@ export class GoogleMapComponent implements OnInit, OnChanges {
    * @param  {} place
    */
   async addMarker(place) {
+    console.log('adding place');
+    
     var contentString = 
     '<p align> <b>'+place.name+'</b> <br>Horario: '+place.schedule+'<br>'+place.description+'<br>'+place.address+'<br>'+
     '<a style="text-decoration:none" target="_blank" href="https://www.google.com/maps/dir//'+place.location.lat+','+place.location.lng+'/@'+place.location.lat+','+place.location.lng+',17z">Ver en Google Maps</a></p>';
@@ -156,7 +159,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     });
     let icon;
     if(null!=place.places_type)
-    { icon = await this.placesServices.getPlaceTypeByID(place.places_type.id)}
+    {   icon = await this.placesServices.getPlaceTypeByID(place.places_type.id)}
     const marker: google.maps.Marker = new google.maps.Marker({
       map: this.map,
       position:  new google.maps.LatLng(place.location.lat, place.location.lng),
