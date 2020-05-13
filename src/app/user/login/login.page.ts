@@ -129,4 +129,13 @@ export class LoginPage implements OnInit {
           return err;
         });
   }
+  /**
+   * @param  {} event
+   */
+  keyDownFunction(event) {
+    if (event.keyCode === 13) {
+      this.submit()
+      // rest of your code
+    }
+  }
 }
