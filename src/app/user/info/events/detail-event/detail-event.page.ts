@@ -55,7 +55,7 @@ export class DetailEventPage implements OnInit {
           this.startDay =this.dateFormat(this.eventLoad.start_date,false)
           console.log(this.shareButtonFB)
           setTimeout(()=>{
-            let buttonFBShare=`<iframe src='https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fitesm-ca2020.web.app%2Fuser%2Finfo%2Fevents%2F${eventId}&layout=button_count&size=large&appId=725418228231566&width=88&height=28' width='88' height='28' style='border:none;overflow:hidden' scrolling='no' frameborder='0' allowTransparency='true' allow='encrypted-medi''></iframe>`
+            let buttonFBShare=`<iframe src='https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fitesm-ca2020.web.app%2Fuser%2Finfo%2Fevents%2Fdetail-event%2F${eventId}&layout=button_count&size=large&appId=725418228231566&width=88&height=28' width='88' height='28' style='border:none;overflow:hidden' scrolling='no' frameborder='0' allowTransparency='true' allow='encrypted-medi''></iframe>`
             this.shareButtonFB.nativeElement.innerHTML=buttonFBShare
           },1000)
         });
