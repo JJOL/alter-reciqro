@@ -11,3 +11,46 @@ ion-title {
 	height: 100%;
 	text-align: center;
 }
+
+@media (max-width: 400px) {
+    ion-title {
+        font-size: 70% !important;
+    }
+    ion-button{
+        font-size: 70% !important;
+    }
+}
+
+.error-message{
+	color: var(--ion-color-danger);
+}
+
+.gMap{
+	min-height: 380px !important;
+}
+
+@media only screen and (max-device-width : 640px) {
+	.gMap{
+		min-height: 300px !important;
+	}
+}
+	
+@media only screen and (max-device-width: 768px) {
+	.gMap{
+		min-height: 300px !important;
+	}
+}
+
+@media (max-width: 400px) {
+    ion-title {
+        font-size: 80% !important;
+    }
+    ion-button{
+        font-size: 80% !important;
+    }
+}
+
+.smallImg{
+	display: block;
+	height: 25px;
+}

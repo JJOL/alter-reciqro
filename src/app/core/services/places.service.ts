@@ -265,8 +265,7 @@ export class PlacesService {
         name: placeObject.name,
         photo: placeObject.mainPicture,
         places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
-        postal_code: placeObject.address.zip,
-        qr_code: placeObject.qrCode
+        postal_code: placeObject.address.zip
       }, {merge: true} )
           .then(
               (res) => {

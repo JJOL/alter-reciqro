@@ -15,35 +15,44 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row>
+    <ion-row class="ion-justify-content-center">
       
       <!--The grid says: from smaller screens to ..., put that size (e.g.  <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">)-->
-        <ion-col size="4" offset="4" size-sm="4" offset-sm="4" class="ion-text-center">
+        <ion-col >
         <h1>Acciones</h1>
+
         <ion-button 
         color="primary" 
         routerDirection=" "
         [routerLink]="['/','admin','center', 'add-center']"> 
         Agregar Centro
         </ion-button>
+        <br>
+
         <ion-button 
         color="primary" 
         routerDirection=" "
         [routerLink]="['/','admin','center', 'list-center']"> 
         Visualizar Centros
         </ion-button>
+        <br>
+
         <ion-button 
         color="primary" 
         routerDirection=" "
         [routerLink]="['/','admin','center', 'place-type']"> 
         Visualizar Categoría de Centros
         </ion-button>
+        <br>
+
         <ion-button 
         color="primary" 
         routerDirection=" "
         [routerLink]="['/','admin','center', 'waste-type']"> 
         Visualizar Tipos de Desechos
         </ion-button>
+        <br>
+
       </ion-col>
     </ion-row>
   </ion-grid>

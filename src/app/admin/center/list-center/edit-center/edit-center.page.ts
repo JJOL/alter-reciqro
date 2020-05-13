@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, NavController, ToastController } from '@ionic/angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators,ValidatorFn, AbstractControl } from '@angular/forms';
 import { PlacesService } from 'src/app/core/services/places.service';
 import { Place } from 'src/app/core/models/place.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
@@ -12,6 +12,7 @@ const MAXLENGTH =100
   templateUrl: './edit-center.page.html',
   styleUrls: ['./edit-center.page.scss'],
 })
+
 
 /**
   * User Story ID: M1NG2
@@ -59,14 +60,7 @@ export class EditCenterPage implements OnInit {
   get latitude() {
     return this.newCenterForm.get('latitude');
   }
-  /**
-   * User Story ID: M1NG2
-   * Regresa la url del código qr
-   * @param  {string} {qrCode}
-   */
-  get qrCode() {
-    return this.newCenterForm.get('qrCode');
-  }
+ 
   /**
    * User Story ID: M1NG2
    * Regresa la url de la imagen
@@ -128,9 +122,7 @@ export class EditCenterPage implements OnInit {
       { type: 'required', message: 'Longitud es requerida' },
       { type: 'pattern', message: 'El formato no es correcto'}
     ],
-    qrCode: [
-      { type: 'pattern', message: 'El URL no es correcto'}
-    ],
+    
     mainPicture: [
       { type: 'pattern', message: 'El URL no es correcto'}
     ],
@@ -155,7 +147,6 @@ export class EditCenterPage implements OnInit {
     description: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
     latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
     longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
-    qrCode: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
     mainPicture: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
     address: this.formBuilder.group({
       street: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
@@ -206,16 +197,18 @@ export class EditCenterPage implements OnInit {
           this.newCenterForm.controls.name.setValue(place.name);
           this.newCenterForm.controls.description.setValue(place.description);
           this.newCenterForm.controls.schedule.setValue(place.schedule);
-          this.newCenterForm.controls.qrCode.setValue(place.qr_code);
           this.newCenterForm.controls.mainPicture.setValue(place.photo);
+          
           this.newCenterForm.patchValue({
-            instalationType: place.places_type.id,
             address: {
               zip: place.postal_code,
               street: place.address
             }
           });
-
+          setTimeout(()=>{
+            this.newCenterForm.controls.instalationType.setValue(place.places_type.id);
+          },100)
+          
         });
       }
     });
@@ -273,5 +266,6 @@ export class EditCenterPage implements OnInit {
     }).then(toast => toast.present());
   }
 
+ 
 
 }
