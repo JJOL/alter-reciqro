@@ -6,7 +6,7 @@ import { PlacesService } from 'src/app/core/services/places.service';
 import { Place } from 'src/app/core/models/place.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 
-const MAXLENGTH =100
+const MAXLENGTH =300
 @Component({
   selector: 'app-edit-center',
   templateUrl: './edit-center.page.html',
