@@ -12,6 +12,10 @@ ion-title {
 	text-align: center;
 }
 
+ion-list{
+	min-width: 350px;
+} 
+
 .error-message{
 	color: var(--ion-color-danger);
 }
