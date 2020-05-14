@@ -47,7 +47,7 @@
               <small class="error-message">{{error.message}}</small>
             </ng-container>
           </div>
-
+          <div formGroupName="latlngdecimal">
           <ion-item>
             <ion-label position="floating">Latitud</ion-label>
             <ion-input formControlName="latitude" inputmode="decimal"></ion-input>
@@ -64,6 +64,16 @@
           </ion-item>
           <div *ngFor="let error of errorMessages.longitude">
             <ng-container *ngIf="longitude.hasError(error.type) && (longitude.dirty || longitude.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+        </div>
+          <ion-item>
+            <ion-label position="floating">LatLng Grados</ion-label>
+            <ion-input formControlName="latlngdegrees" inputmode="text"></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.latlngdegrees">
+            <ng-container *ngIf="latlngdegrees.hasError(error.type) && (latlngdegrees.dirty || latlngdegrees.touched)">
               <small class="error-message">{{error.message}}</small>
             </ng-container>
           </div>
@@ -128,7 +138,7 @@
       </form>
     </ion-col>
     <ion-col size="12" size-sm size-md class="gMap">
-      <app-shared-google-map (placeChange)="onChangeMarker($event)" [editable]="true" [max]="1" ></app-shared-google-map>
+      <app-shared-google-map (placeChange)="onChangeMarker($event)" [editable]="true" [max]="1" [places]="markedPlace" ></app-shared-google-map>
     </ion-col>
   </ion-row>
   </ion-grid>

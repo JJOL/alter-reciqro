@@ -16,13 +16,9 @@ export class MarkerCardComponent implements OnInit {
     'ion-text-center': true
   };
 
-  // eslint-disable-next-line require-jsdoc
   constructor() { }
-  /**
-   *
-   */
+
   ngOnInit() {
-    console.log(this.loadedPlaceType);
   }
 
 

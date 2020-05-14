@@ -1,6 +1,7 @@
 {
   "name": "reciqro",
   "integrations": {
+    "cordova": {}
   },
   "type": "angular"
 }
