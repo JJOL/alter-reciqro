@@ -1,11 +1,42 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Metrics</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar title="Métricas" [backButton]="false"></app-toolbar>
 
 <ion-content>
-  <app-indicator-metrics [classMetricsService]="placesMetricsService"></app-indicator-metrics>
-  <app-indicator-metrics [classMetricsService]="delegationMetricsService"></app-indicator-metrics>
-  <app-indicator-metrics [classMetricsService]="systemMetricsService"></app-indicator-metrics>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-md = "10" size-sm = "12" >
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <strong>Resultados de Indicador: Centros</strong>
+            </ion-card-title>
+          </ion-card-header>
+          <app-indicator-metrics [classMetricsService]="placesMetricsService"></app-indicator-metrics>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-md = "10" size-sm = "12" >
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <strong>Resultados de Indicador: Delegaciones</strong>
+            </ion-card-title>
+          </ion-card-header>
+          <app-indicator-metrics [classMetricsService]="delegationMetricsService"></app-indicator-metrics>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-md = "10" size-sm = "12" >
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <strong>Resultados de Indicador: Meses</strong>
+            </ion-card-title>
+          </ion-card-header>
+          <app-indicator-metrics [classMetricsService]="systemMetricsService"></app-indicator-metrics>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid> 
 </ion-content>
