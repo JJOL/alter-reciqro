@@ -16,6 +16,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 /** Login Class  */
 export class LoginPage implements OnInit {
+  
+  rolesaux: string[];
+  isLogged= false;
   /**
    */
   get f() { return this.newCenterForm.controls; }
@@ -68,7 +71,10 @@ export class LoginPage implements OnInit {
   public submit() {
     this.authService.loginEmailUser(this.newCenterForm.value.email, this.newCenterForm.value.password)
         .then( () => {
-          this.router.navigate(['user/places-searcher-page']);
+          
+          setTimeout(()=>{
+            this.adminRedirection()
+          },1000)
         } ).catch (() => {
           this.showToast('Contraseña o Usuario Incorrecto','danger')
           this.newCenterForm.reset;
@@ -130,6 +136,7 @@ export class LoginPage implements OnInit {
         });
   }
   /**
+   * When enter is pressed
    * @param  {} event
    */
   keyDownFunction(event) {
@@ -138,4 +145,29 @@ export class LoginPage implements OnInit {
       // rest of your code
     }
   }
+  /**
+   */
+  adminRedirection(){
+    this.authService.isUserLoggedIn.asObservable().subscribe(value => {
+      this.isLogged = value;
+    });
+    this.authService.userRoles.asObservable().subscribe(roles => {
+      
+      this.rolesaux = roles;
+      
+    });
+
+    if(this.isLogged){
+      console.log(this.rolesaux)
+      console.log(this.rolesaux.includes('admin'));
+      if(this.rolesaux.includes('admin') || this.rolesaux.includes('staff')){
+        this.router.navigate(['admin/center']);
+      }else if(this.rolesaux.includes('user')){
+        
+        this.router.navigate(['user/places-searcher-page']);
+      }
+    }
+    
+  }
+
 }
