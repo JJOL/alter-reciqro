@@ -1,6 +1,6 @@
 import { Place } from 'src/app/core/models/place.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'app-marker-card',
   templateUrl: './marker-card.component.html',
@@ -16,19 +16,14 @@ export class MarkerCardComponent implements OnInit {
     'ion-text-center': true
   };
 
-  constructor() { }
-<<<<<<< HEAD
-  /**
-   *
-   
-  ngOnChanges(changes: SimpleChanges){
-    console.log(this.loadedPlaceType);
-  }*/
-=======
+  // eslint-disable-next-line require-jsdoc
+  constructor() {}
 
+  /**
+   */
   ngOnInit() {
+
   }
->>>>>>> f7ff4a0b2a87fa1181fab3d648f87d205f276f2f
 
 
 

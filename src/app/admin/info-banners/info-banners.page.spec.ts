@@ -91,7 +91,6 @@ describe('InfoBannersPage', () => {
   }));
 
   it('should create', () => {
-    
     expect(component).toBeTruthy();
   });
 });

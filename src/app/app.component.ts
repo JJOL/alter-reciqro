@@ -31,13 +31,11 @@ export class AppComponent implements OnInit{
     this.authService.isUserLoggedIn.asObservable().subscribe(value => {
       this.isLogged = value;
     });
-    if (this.isLogged) {
-      this.authService.userRoles.asObservable().subscribe(roles => {
-        this.admin = roles [1];
-        this.staff = roles [2];
-        this.user = roles[3];
-      });
-    }
+    this.authService.userRoles.asObservable().subscribe(roles => {
+      this.admin = roles [1];
+      this.staff = roles [2];
+      this.user = roles[3];
+    });
     this.initializeApp();
   }
   /**
