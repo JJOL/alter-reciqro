@@ -1,11 +1,11 @@
 <app-toolbar title="Datos Curiosos" [backButton]="true" routePath="/user/info"></app-toolbar>
 
 <ion-content>
-    <ion-slides pager="true">
+    <ion-slides pager="true" #BannerSlider (ionSlidesDidLoad)="slidesDidLoad(BannerSlider)">
         <ion-slide *ngFor="let banner of banners">
             <ion-grid>
                 <ion-row class="ion-justify-content-center">
-                    <ion-col size-md="6">
+                    <ion-col size-md="6" class="ion-align-self-center">
                         <ion-img [src]="banner.image_url"></ion-img>
                         <h2>{{ banner.title }}</h2>
                         <p><b>Sabias que ... </b>{{ banner.description }}</p>

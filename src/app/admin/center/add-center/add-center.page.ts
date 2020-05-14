@@ -4,6 +4,16 @@ import { PlacesService } from 'src/app/core/services/places.service';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { ToastController } from '@ionic/angular';
 
+import { parseGoogleGeoPointToDegrees, parseDegreesToGoogleGeoPoint } from '../../../core/utils/geopoint.util';
+import { Place } from 'src/app/core/models/place.model';
+
+const DEFAULT_MARKER_PLACER: Place = {
+  location: {
+    lat: 20.588772,
+    lng: -100.390292
+  }
+};
+
 /*tut https://www.youtube.com/watch?v=Yza_59DrRY8*/
 
 @Component({
@@ -17,6 +27,9 @@ import { ToastController } from '@ionic/angular';
  */
 export class AddCenterPage implements OnInit {
   loadedPlacetypes: TipoInstalacion[];
+
+  markedPlace: Place[] = [DEFAULT_MARKER_PLACER];
+
   /**
    * User Story ID: M1NG1
    * Function that returns the name field on the add center form.
@@ -38,7 +51,7 @@ export class AddCenterPage implements OnInit {
    * Function that returns the latitude field on the add center form.
    */
   get latitude() {
-    return this.newCenterForm.get('latitude');
+    return this.newCenterForm.get('latlngdecimal.latitude');
   }
 
   /**
@@ -46,7 +59,15 @@ export class AddCenterPage implements OnInit {
    * Function that returns the longitude field on the add center form.
    */
   get longitude() {
-    return this.newCenterForm.get('longitude');
+    return this.newCenterForm.get('latlngdecimal.longitude');
+  }
+
+  /**
+   * User Story ID: M1NG1
+   * Function that returns the longitude field on the add center form.
+   */
+  get latlngdegrees() {
+    return this.newCenterForm.get('latlngdegrees');
   }
 
   /**
@@ -89,6 +110,16 @@ export class AddCenterPage implements OnInit {
     return this.newCenterForm.get('instalationType');
   }
 
+  /**
+   * User Story ID: M1NG1
+   * Function that returns the schedule type field on the add center form.
+   */
+  get schedule(){
+    return this.newCenterForm.get('schedule');
+  }
+
+  private alreadyEditing: boolean;
+
   public errorMessages = {
     name: [
       { type: 'required', message: 'Nombre es requerido' },
@@ -106,6 +137,10 @@ export class AddCenterPage implements OnInit {
       { type: 'required', message: 'Longitud es requerida' },
       { type: 'pattern', message: 'El formato no es correcto'}
     ],
+    latlngdegrees: [
+      { type: 'required', message: 'LatLng en grados es requerida' },
+      { type: 'pattern', message: 'El formato no es correcto'}
+    ],
     qrCode: [
       { type: 'pattern', message: 'El URL no es correcto'}
     ],
@@ -121,16 +156,23 @@ export class AddCenterPage implements OnInit {
     ],
     instalationType: [
       { type: 'required', message: 'Tipo de Instalación es requerido' },
-    ]
-  };
+    ],
+    schedule: [
+      { type: 'required', message: 'Horario es requerido' },
+      { type: 'maxlength', message: 'El horario debe estar en formato "HH:MM:SS a HH:MM:SS" o "24 horas"' },
+    ],
 
+  };
   newCenterForm = this.formBuilder.group({
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     name: ['', [Validators.required, Validators.maxLength(100)]],
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     description: ['', [Validators.required, Validators.maxLength(300)]],
-    latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
-    longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
+    latlngdecimal: this.formBuilder.group({
+      latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
+      longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
+    }),
+    latlngdegrees: ['', [Validators.required, Validators.pattern('^(-?\\d+)°(\\d+)\'(\\d+\.?\\d*)\"N\\s(-?\\d+)°(\\d+)\'(\\d+\.?\\d*)\"W$')]],
     qrCode: [' '],
     mainPicture: ['NA'],
     address: this.formBuilder.group({
@@ -138,7 +180,9 @@ export class AddCenterPage implements OnInit {
       street: ['', [Validators.required, Validators.maxLength(100)]],
       zip: ['', [Validators.required, Validators.pattern('^\\d{5}$')]]
     }),
-    instalationType: ['', [Validators.required]]
+    instalationType: ['', [Validators.required]],
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    schedule: ['', [Validators.required, Validators.maxLength(20)]]
   });
 
   /**
@@ -157,16 +201,83 @@ export class AddCenterPage implements OnInit {
    * On ngOnInit all places are loaded.
    */
   ngOnInit() {
+
+    this.alreadyEditing = false;
+
     this.placeTypeService.allPlaceTypes().then( data => { this.loadedPlacetypes=data });
+
+    this.newCenterForm.get('latlngdegrees').valueChanges.subscribe(this.onChangeDegree.bind(this));
+    this.newCenterForm.get('latlngdecimal').valueChanges.subscribe(this.onChangeLatLng.bind(this));
+
+
+    setTimeout(() => {
+      this.markedPlace = [DEFAULT_MARKER_PLACER];
+    }, 100);
   }
+  
   /**
    * User Story ID: M1NG1
    * Function for updating the lat and long form fields when marker changes position.
    * @param  {} lugar
    */
   onChangeMarker(lugar) {
-    this.newCenterForm.controls.latitude.setValue(lugar.location.lat);
-    this.newCenterForm.controls.longitude.setValue(lugar.location.lng);
+    (window as any).lugar = lugar;
+    if (this.alreadyEditing) return;
+    this.alreadyEditing = true;
+
+    // Update LatLng
+    this.newCenterForm.get('latlngdecimal.latitude').setValue(lugar.location.lat);
+    this.newCenterForm.get('latlngdecimal.longitude').setValue(lugar.location.lng);
+    // Update Degree Value
+    this.newCenterForm.controls.latlngdegrees.setValue(parseGoogleGeoPointToDegrees(lugar.location));
+
+    this.alreadyEditing = false;
+  }
+
+  onChangeDegree(newVal: string) {
+    if (this.alreadyEditing) return;
+    this.alreadyEditing = true;
+
+    const hasError = this.newCenterForm.get('latlngdegrees').invalid;
+    if (!hasError) {
+      let latlng = parseDegreesToGoogleGeoPoint(newVal);
+      // Update LatLng
+      this.newCenterForm.get('latlngdecimal.latitude').setValue(latlng.lat);
+      this.newCenterForm.get('latlngdecimal.longitude').setValue(latlng.lng);
+      // Update Map Marker
+      this.markedPlace = [{
+        location: latlng
+      }];
+    }
+
+    this.alreadyEditing = false;
+
+  }
+
+  onChangeLatLng(newVal: { latitude: number, longitude: number}) {
+    if (this.alreadyEditing) return;
+    this.alreadyEditing = true;
+
+    console.log(newVal);
+    const hasError = this.newCenterForm.get('latlngdecimal').invalid;
+    if (!hasError) {
+      let degreelatlng = parseGoogleGeoPointToDegrees({
+        lat: newVal.latitude,
+        lng: newVal.longitude
+      });
+
+      // Update LatLng Degree
+      this.newCenterForm.controls.latlngdegrees.setValue(degreelatlng);
+      // Update Map Marker
+      this.markedPlace = [{
+        location: {
+          lat: newVal.latitude,
+          lng: newVal.longitude
+        }
+      }];
+    }
+
+    this.alreadyEditing = false;
   }
   
   /**
@@ -174,7 +285,13 @@ export class AddCenterPage implements OnInit {
    * Function for submiting the form of the new place.
    */
   public submit() {
-    this.placeTypeService.createPlace(this.newCenterForm.value)
+    let inputPlaceObj = this.newCenterForm.value;
+    inputPlaceObj.latitude  = parseFloat(inputPlaceObj.latlngdecimal.latitude);
+    inputPlaceObj.longitude = parseFloat(inputPlaceObj.latlngdecimal.longitude);
+    console.log(inputPlaceObj);
+    
+     
+    this.placeTypeService.createPlace(inputPlaceObj)
         .then(() => {
           // use id
           this.showToast('Lugar creado de manera exitosa');

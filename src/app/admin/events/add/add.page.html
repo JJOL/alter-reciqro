@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin/events"> </ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalle evento</ion-title>
+    <ion-buttons slot="end" class="ion-padding">
+      <ion-button routerLink="/user/places-searcher-page">
+        <img class="smallImg" src="../../../../assets/img/blueQ.png">
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-padding-horizontal">
+      
+      <ion-col size="12" size-sm size-md>
+        <form [formGroup]="editEventForm" (ngSubmit)="submit()">
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">Nombre</ion-label>
+              <ion-input formControlName="name" inputmode="text" ></ion-input>
+            </ion-item>
+            <div *ngFor="let error of errorMessages.name">
+              <ng-container *ngIf="name.hasError(error.type) && (name.dirty || name.touched)">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
+  
+            <ion-item>
+              <ion-label position="floating">Descripción</ion-label>
+              <ion-input formControlName="description" inputmode="text"></ion-input>
+            </ion-item>
+            <div *ngFor="let error of errorMessages.description">
+              <ng-container *ngIf="description.hasError(error.type) && (description.dirty || description.touched)">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
+  
+            <ion-item>
+              <ion-label position="floating">Latitud</ion-label>
+              <ion-input formControlName="latitude" inputmode="decimal"></ion-input>
+            </ion-item>
+            <div *ngFor="let error of errorMessages.latitude">
+              <ng-container *ngIf="latitude.hasError(error.type) && (latitude.dirty || latitude.touched)">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
+  
+            <ion-item>
+              <ion-label position="floating">Longitud</ion-label>
+              <ion-input formControlName="longitude" inputmode="decimal"></ion-input>
+            </ion-item>
+            <div *ngFor="let error of errorMessages.longitude">
+              <ng-container *ngIf="longitude.hasError(error.type) && (longitude.dirty || longitude.touched)">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
+  
+            <ion-item>
+              <ion-label position="floating">Imagen</ion-label>
+              <ion-input formControlName="icon" inputmode="url"></ion-input>
+            </ion-item>
+            <div *ngFor="let error of errorMessages.icon">
+              <ng-container *ngIf="icon.hasError(error.type) && (icon.dirty || icon.touched)">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
+  
+          
+            <ion-item>
+              <ion-label position="floating">Edades</ion-label>
+              <ion-select class="myCustomSelect" formControlName="age" placeholder="Elegir" multiple="true">
+                <ion-select-option value="Adultos"> Adultos </ion-select-option>
+                <ion-select-option value="Público en General"> Público en General </ion-select-option>
+                <ion-select-option value="Niños"> Niños </ion-select-option>
+              </ion-select>
+            </ion-item>
+  
+            <div *ngFor="let error of errorMessages.age">
+              <ng-container *ngIf="age.hasError(error.type) && (age.dirty || age.touched)">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
+  
+  
+            <ion-item>
+              <ion-label position="floating">Fecha de inicio</ion-label>
+              <ion-datetime picker-format="D:M:YYYY:h:mm A" displayFormat="D/M/YYYY h:mm A" formControlName="startDate" type="datetime" inputmode="text"></ion-datetime>
+            </ion-item>
+            <div *ngFor="let error of errorMessages.startDate">
+              <ng-container *ngIf="startDate.hasError(error.type) && (startDate.dirty || startDate.touched)">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
+
+            <ion-item>
+              <ion-label position="floating">Fecha de fin</ion-label>
+              <ion-datetime  picker-format="D:M:YYYY:h:mm A" displayFormat="D/M/YYYY h:mm A" formControlName="endDate" type="datetime" inputmode="text"></ion-datetime>
+            </ion-item>
+            <div *ngFor="let error of errorMessages.endDate">
+              <ng-container *ngIf="endDate.hasError(error.type) && (endDate.dirty || endDate.touched)">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
+  
+            <ion-button [disabled]="!editEventForm.valid" type="submit" expand="block">
+              Guardar
+              <ion-icon slot="end" name="create"></ion-icon>
+            </ion-button>
+          </ion-list>
+
+        </form>
+      </ion-col>
+      <ion-col size="12" size-sm size-md class="gMap">
+        <app-shared-google-map (placeChange)="onChangeMarker($event)" [editable]="true" [max]="1" ></app-shared-google-map>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

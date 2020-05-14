@@ -4,14 +4,24 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 
-import * as firebase from 'firebase/app';
 @Component({
   selector: 'app-recover-password',
   templateUrl: './recover-password.page.html',
   styleUrls: ['./recover-password.page.scss'],
 })
+/**
+   * USID: M4NG2  
+   * USID: M4NC3
+   * Page controller RecoverPasswordPage
+   */
 export class RecoverPasswordPage implements OnInit {
+  
   updateBookingForm: FormGroup;
+  /**
+   * USID: M4NG2  
+   * USID: M4NC3
+   * Get email
+   */
   get email() {
     return this.newCenterForm.get('email');
   }
@@ -29,6 +39,19 @@ export class RecoverPasswordPage implements OnInit {
     email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
   
   });
+  
+  /**
+   * @param  {ActivatedRoute} privateactivatedRoute
+   * @param  {AuthService} privateauthService
+   * @param  {Router} privaterouter
+   * @param  {AlertController} privatealertCtrl
+   * @param  {NavController} privatenavCtrl
+   * @param  {FormBuilder} publicformBuilder
+   * @param  {ToastController} privatetoastCtrl
+   * USID: M4NG2  
+   * USID: M4NC3
+   * Constructor
+   */
   constructor(
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
@@ -38,9 +61,19 @@ export class RecoverPasswordPage implements OnInit {
     public formBuilder: FormBuilder,
     private toastCtrl: ToastController
   ) { }
+  /**
+   * USID: M4NG2  
+   * USID: M4NC3
+   * Runs when the page is initiated
+   */
   ngOnInit() {
   }
 
+  /**
+   * USID: M4NG2  
+   * USID: M4NC3
+   * Get email
+   */
   public submit() {
     
     
@@ -58,7 +91,13 @@ export class RecoverPasswordPage implements OnInit {
         });
   }
 
-  showToast(msg) {
+  /**
+   * USID: M4NG2  
+   * USID: M4NC3
+   * Show a toast with a message
+   * @param msg string
+   */
+  showToast(msg: string) {
     this.toastCtrl.create({
       message: msg,
       duration: 2000,

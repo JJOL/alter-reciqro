@@ -12,8 +12,8 @@ import { ToastController, NavController } from '@ionic/angular';
  * Page that is in charge to add new info banners
  */
 export class AddInfoBannersPage implements OnInit {
-  private dateFlag;
-  private infoBannersForm;
+  dateFlag;
+  infoBannersForm;
   // eslint-disable-next-line require-jsdoc
   constructor(
     private formBuilder: FormBuilder,

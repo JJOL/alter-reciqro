@@ -6,6 +6,7 @@ import { BannerPageRoutingModule } from './banner-routing.module';
 import { BannerPage } from './banner.page';
 import { SharedPageModule } from '../../../shared/shared.module';
 import { ModalBannerPage } from './modal-banner/modal-banner.page';
+import { ModalBannerPageModule } from './modal-banner/modal-banner.module';
 
 @NgModule({
   imports: [
@@ -13,14 +14,15 @@ import { ModalBannerPage } from './modal-banner/modal-banner.page';
     FormsModule,
     IonicModule,
     BannerPageRoutingModule,
-    SharedPageModule
+    SharedPageModule,
+    ModalBannerPageModule
   ],
-  declarations: [BannerPage, ModalBannerPage],
+  declarations: [BannerPage],
   entryComponents: [ModalBannerPage]
 })
 
 /**
-   * User Story Id: M2NC4
+   * User Story Id: M2NC5
    * Allows the BannerPageModule to be available for imports
    * @param  
    * @returns 

@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { PlacesService } from 'src/app/core/services/places.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { database } from 'firebase';
+
 
 const VISITS_KEY = 'visited_places_users';
+
 
 @Injectable({
   providedIn: 'root'

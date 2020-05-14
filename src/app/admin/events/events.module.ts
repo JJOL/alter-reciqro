@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { EventsPageRoutingModule } from './events-routing.module';
-
+import {SharedPageModule} from 'src/app/shared/shared.module';
 import { EventsPage } from './events.page';
 
 @NgModule({
@@ -13,7 +13,8 @@ import { EventsPage } from './events.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    EventsPageRoutingModule
+    EventsPageRoutingModule,
+    SharedPageModule
   ],
   declarations: [EventsPage]
 })

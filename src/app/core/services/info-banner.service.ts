@@ -81,12 +81,13 @@ export class InfoBannerService {
    * @param  {} infoBanner
    */
   createInfoBanner(infoBanner) {
+    let arg: string[] = infoBanner.date.split('T');
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(INFO_BANNERS_KEY).add({
         title: infoBanner.title,
         description: infoBanner.description,
         image_url: infoBanner.mainPicture,
-        date: infoBanner.date
+        date: arg[0]
       })
           .then(
               (res) => {
@@ -127,11 +128,12 @@ export class InfoBannerService {
    * @returns Promise
    */
   editInfoBanner(infoBanner, id: string) {
+    let arg: string[] = infoBanner.date.split('T');
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(INFO_BANNERS_KEY).doc(id).set({
         title: infoBanner.title,
         description: infoBanner.description,
-        date: infoBanner.date,
+        date: arg[0],
         image_url: infoBanner.mainPicture
       }, {merge: true} )
           .then(
@@ -143,5 +145,31 @@ export class InfoBannerService {
     });
   }
 
+
+  /**
+   * User Story ID: M2NC4
+   * This function retrives all the banner of an specific date
+   * @param  {string} id
+   * @returns Promise
+   */
+  getBannerofDay(date: string): Promise<InfoBanner[]> {
+    return new Promise((resolve) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<any>(INFO_BANNERS_KEY, ref => ref.where('date', '==', date)).snapshotChanges()
+          .pipe(map(snapshot => {
+            return snapshot.map(wastetype  => {
+              const data = wastetype.payload.doc.data();
+              const id = wastetype.payload.doc.id;
+              return {id, ...data};
+            });
+          }))
+          .subscribe(places => {
+            resolve(places);
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+          });
+    });
+  }
 
 }

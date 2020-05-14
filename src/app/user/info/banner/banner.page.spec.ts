@@ -6,8 +6,16 @@ import { MockAngularFirestore } from 'src/app/core/services/mocks/firestore.mock
 import { AngularFirestore } from '@angular/fire/firestore';
 import { SharedPageModule } from '../../../shared/shared.module';
 import { AuthService } from '../../../core/services/auth.service';
-import { empty, BehaviorSubject } from 'rxjs'
+import { empty, BehaviorSubject } from 'rxjs';
+import { InfoBannerService } from 'src/app/core/services/info-banner.service';
+import { ModalBannerPageModule } from './modal-banner/modal-banner.module';
 
+const mockBannerService = jasmine.createSpyObj('bannerService', ['getAllInfoBanners']);
+
+mockBannerService.getAllInfoBanners.and.returnValue(
+    new Promise<any>((res) => {
+      res([]);
+    }));
 
 const mockAuthentication ={
   registerUser: () => {
@@ -70,15 +78,16 @@ describe('BannerPage', () => {
   let component: BannerPage;
   let fixture: ComponentFixture<BannerPage>;
   let mockFirestore = new MockAngularFirestore();
-  mockFirestore.setTestData(["dsad","dasd"])
+  mockFirestore.setTestData(['dsad','dasd'])
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ BannerPage ],
-      imports: [IonicModule.forRoot(), RouterTestingModule, SharedPageModule],
+      imports: [IonicModule.forRoot(), RouterTestingModule, SharedPageModule, ModalBannerPageModule],
       providers: [
-        { provide: AngularFirestore, useValue: mockFirestore },
-        { provide: AuthService, useValue: mockAuthentication}
+        { provide: AngularFirestore, useValue: MockAngularFirestore },
+        { provide: AuthService, useValue: mockAuthentication },
+        { provide: InfoBannerService, useValue: mockBannerService }
       ]
     }).compileComponents();
 

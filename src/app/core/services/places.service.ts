@@ -49,6 +49,7 @@ export function parseFBPlaceDocToPlace(fbPlaceDoc: DocumentSnapshot<any>): Place
       data.places_type,
       data.photo,
       data.qr_code,
+      data.schedule,
   );
 
   return place;
@@ -101,7 +102,8 @@ export class PlacesService {
         photo: placeObject.mainPicture,
         places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
         postal_code: placeObject.address.zip,
-        qr_code: placeObject.qrCode
+        qr_code: placeObject.qrCode,
+        schedule: placeObject.schedule
       })
           .then(
               (res) => {
@@ -155,7 +157,7 @@ export class PlacesService {
    */
   getPlaceByID(id: string): Promise<Place> {
     return new Promise((resolve, reject) => {
-      let subscription: Subscription;
+      
       console.log('Calling getPlaceByID()');
 
       let placeRef = this.firedb.collection(PLACE_KEY).doc(id).ref;
@@ -258,6 +260,7 @@ export class PlacesService {
       this.firedb.collection(PLACE_KEY).doc(id).set({
         address: placeObject.address.street,
         description: placeObject.description,
+        schedule: placeObject.schedule,
         location: geoPoint,
         name: placeObject.name,
         photo: placeObject.mainPicture,

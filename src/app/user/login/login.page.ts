@@ -69,10 +69,9 @@ export class LoginPage implements OnInit {
     this.authService.loginEmailUser(this.newCenterForm.value.email, this.newCenterForm.value.password)
         .then( () => {
           this.router.navigate(['user/places-searcher-page']);
-        } ).catch (err => {
+        } ).catch (() => {
           this.showToast('Contraseña o Usuario Incorrecto','danger')
           this.newCenterForm.reset;
-          console.log(err);
         });
   }
   /**

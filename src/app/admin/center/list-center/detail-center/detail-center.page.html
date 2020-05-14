@@ -36,6 +36,8 @@
             
             <p> {{ loadedPlace.description }} </p>
             <br>
+            <p> Horario: {{ loadedPlace.schedule }} </p>
+            <br>
             <h4> <strong> Código QR: </strong> </h4>
             <p> {{ loadedPlace.qr_code }} </p>
             <div #qrCodeElement (ready)="renderQRImage()"></div>

@@ -1,22 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {AuthGuard} from '../core/guards/auth.guard';
+import { AuthGuard } from '../core/guards/auth.guard';
 import { AdminPage } from './admin.page';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminPage,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin']}
   },
   {
     path: 'center',
     loadChildren: () => import('./center/center.module').then( m => m.CenterPageModule),
-    canActivate: [AuthGuard],
-    data: { roles: ['admin','staff']}
-  },
-  {
-    path: 'goals',
-    loadChildren: () => import('./goals/goals.module').then( m => m.GoalsPageModule),
     canActivate: [AuthGuard],
     data: { roles: ['admin','staff']}
   },

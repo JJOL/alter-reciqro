@@ -20,35 +20,11 @@
     <ng-container *ngIf="events">
       <ion-row>
         <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title> {{ events[0].name }} </ion-card-title>
-              <ion-card-subtitle> {{ events[0].start_date | date:'dd MMMM yyyy HH:mm' }} / UTC -6 </ion-card-subtitle>
-            </ion-card-header>
-            <ion-img [src]="events[0].icon"></ion-img>
-            <ion-card-content>
-              <p> {{ events[0].description }} </p>
-            </ion-card-content>
-            <div class="ion-text-right">
-              <ion-button 
-              fill="none"
-              color="primary" 
-              routerDirection=" "
-              >
-              <!-- [routerLink]="['/','places','tabs', 'discover',events[0].id]"> --> 
-              Ver más
-            </ion-button>
-            </div>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
           <ion-list>
             <ion-item 
-              *ngFor="let event of events.slice(1)"
-              detail
-            ><!--the detail part adds an arrow... [routerLink]="['/', 'places', 'tabs', 'discover', place.id]"-->
+              *ngFor="let event of events"
+              
+            >
               <ion-thumbnail slot="start">
                 <ion-img [src]="event.icon"></ion-img>
               </ion-thumbnail>
@@ -56,10 +32,17 @@
                 <h2>{{ event.name }}</h2>
                 <p>{{ event.description }}</p>
               </ion-label>
+               <ion-button [routerLink]="['/admin/events/detail', event.id]" ><ion-icon name="create-outline"></ion-icon></ion-button>
+               <ion-button (click)="delete(event.id)"><ion-icon name="trash-outline"></ion-icon></ion-button>
             </ion-item>
           </ion-list>
         </ion-col>
       </ion-row>
     </ng-container>
+    <ion-fab>
+      <ion-fab-button [routerLink]="['/admin/events/add']"  >
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
   </ion-grid>
 </ion-content>

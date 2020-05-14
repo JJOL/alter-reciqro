@@ -1,18 +1,12 @@
-import { OnChanges } from '@angular/core';
-/* eslint-disable require-jsdoc */
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from './../../core/services/auth.service';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
-import { SharedPage } from './../../shared/shared.page';
-import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
+import { Component, ViewChild, EventEmitter, Output } from '@angular/core';
 import { PlacesService } from 'src/app/core/services/places.service';
-import { ModalController } from '@ionic/angular';
 import { Place } from '../../core/models/place.model';
 import {WasteType} from '../../core/models/waste-type';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import {MarkerCardComponent} from '../marker-card/marker-card.component';
 import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
-import { filter } from 'rxjs/operators';
 import { PopoverController } from '@ionic/angular';
 
 @Component({
@@ -43,7 +37,7 @@ export class PlacesSearcherPagePage  {
 
   @Output() changeView = new EventEmitter();
 
-  // eslint-disable-next-line max-params
+  // eslint-disable-next-line max-params, require-jsdoc
   constructor(
     private placesService: PlacesService,
     private geolocationCont: Geolocation,
@@ -51,10 +45,12 @@ export class PlacesSearcherPagePage  {
     private authService: AuthService,
     private afsAuth: AngularFireAuth
   ) { }
-
+  /**
+   *  User Story ID: M1NC1
+   * Loads the preset filters and places
+   */
   async ionViewWillEnter() {
-    /*console.log("aquie esta el obser",this.authService.isUserLoggedIn.value);
-    console.log("logout2",this.authService.isUserLoggedIn.value);*/
+
     this.filters = await  this.placesService.getAllWasteTypes();
     this.activeFilters = this.filters;
     this.places = await this.filterByType(this.activeFilters);
@@ -69,19 +65,15 @@ export class PlacesSearcherPagePage  {
     }
   }
 
-  async onViewportChange(bounds) {
-    this.places = await this.queryPlaces({lat: bounds.getNorthEast().lat(), lng: bounds.getNorthEast().lng()},
-        {lat: bounds.getSouthWest().lat(), lng: bounds.getSouthWest().lng()});
-  }
 
 
-  async queryPlaces(topLeftPos, botRightPos) {
-    return this.placesService.searchMapPlaces(topLeftPos, botRightPos);
-  }
 
+  /**
+   * User Story ID:  M1NC2
+   * Show the filter menu popover 
+   */
   async presentFilterModal() {
     this.modal = await this.popoverController.create({
-      // cahnge component
       component: FilterMenuComponent,
       componentProps: {
         filters: this.filters,
@@ -106,6 +98,7 @@ export class PlacesSearcherPagePage  {
   }
 
 
+  // eslint-disable-next-line require-jsdoc
   emitPlace(place) {
     this.placeSelected = place;
     // eslint-disable-next-line no-console
@@ -125,7 +118,11 @@ export class PlacesSearcherPagePage  {
     }
   }
 
-
+  /**
+   * User Story ID: M1NC2
+   * Consumes places services with the filters
+   * @param  {WasteType[]} filters
+   */
   async filterByType(filters: WasteType[]) {
     if (filters.length !== 0) {
       return this.placesService.getIDPlacesTypesByWaste(filters).then(dataplacetype => {
@@ -134,7 +131,9 @@ export class PlacesSearcherPagePage  {
     }
 
   }
-
+  /**
+   * Sets a Queretaro state viewport 
+   */
   viewQro() {
     if (this.map) {
       this.map.setCenter({lat: 20.588772, lng: -100.390292});
@@ -145,14 +144,11 @@ export class PlacesSearcherPagePage  {
     }
     return false;
   }
-
+  /**
+   */
   close() {
     this.placeSelected = null;
   }
 
-  onMapInteract() {
-    // eslint-disable-next-line no-console
-    console.log('MAP INTERACT');
-
-  }
+ 
 }

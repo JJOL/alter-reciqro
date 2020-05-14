@@ -1,12 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
 import { InfoPage } from './info.page';
 import { SharedPageModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { BehaviorSubject, empty } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { MockAngularFirestore } from 'src/app/core/services/mocks/firestore.mock';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { InfoBannerService } from 'src/app/core/services/info-banner.service';
+import { BannerPopUpPageModule } from './banner-pop-up/banner-pop-up.module';
+
 
 
 const authStub: any = {
@@ -76,6 +80,18 @@ const mockAuthentication ={
   userRoles: new BehaviorSubject([]),
 };
 
+const mockBannerService = jasmine.createSpyObj('bannerService', ['getBannerofDay', 'getAllInfoBanners']);
+
+mockBannerService.getBannerofDay.and.returnValue(
+    new Promise<any>((res) => {
+      res([]);
+    }));
+
+mockBannerService.getAllInfoBanners.and.returnValue(
+    new Promise<any>((res) => {
+      res([]);
+    }));
+
 describe('InfoPage', () => {
   let component: InfoPage;
   let fixture: ComponentFixture<InfoPage>;
@@ -83,10 +99,14 @@ describe('InfoPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ InfoPage ],
-      imports: [IonicModule.forRoot(), RouterModule.forRoot([]), SharedPageModule],
+      imports: [IonicModule.forRoot(), RouterModule.forRoot([]), SharedPageModule, BannerPopUpPageModule],
       providers: [
         { provide: AngularFireAuth, useValue: authStub },
-        { provide: AuthService, useValue: mockAuthentication }]
+        { provide: AuthService, useValue: mockAuthentication },
+        { provide: AngularFirestore, useValue: MockAngularFirestore },
+        { provide: InfoBannerService, useValue: mockBannerService }
+      ]
+
     }).compileComponents();
 
     fixture = TestBed.createComponent(InfoPage);
