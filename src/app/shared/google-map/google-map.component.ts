@@ -147,40 +147,44 @@ export class GoogleMapComponent implements OnInit, OnChanges {
    * @param  {} place
    */
   async addMarker(place) {
-    var contentString = 
+    if (place!=null){
+      let contentString = '';
+      contentString = 
     '<p align> <b>'+place.name+'</b> <br>Horario: '+place.schedule+'<br>'+place.description+'<br>'+place.address+'<br>'+
-    '<a style="text-decoration:none" target="_blank" href="https://www.google.com/maps/dir//'+place.location.lat+','+place.location.lng+'/@'+place.location.lat+','+place.location.lng+',17z">Ver en Google Maps</a></p>';
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString
-    });
-    let icon;
-    if(null!=place.places_type)
-    {   icon = await this.placesServices.getPlaceTypeByID(place.places_type.id)}
-    const marker: google.maps.Marker = new google.maps.Marker({
-      map: this.map,
-      position:  new google.maps.LatLng(place.location.lat, place.location.lng),
-      icon: icon? icon.icon_url:'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-      draggable: this.editable ? true : false,
+    '<a style="text-decoration:none" target="_blank" '+
+    'href="https://www.google.com/maps/dir//'+place.location.lat+','+place.location.lng+'/@'+place.location.lat+','+place.location.lng+',17z">'+
+    'Ver en Google Maps</a></p>';
+      var infowindow = new google.maps.InfoWindow({
+        content: contentString
+      });
+      let icon;
+      if(null!=place.places_type)
+      {   icon = await this.placesServices.getPlaceTypeByID(place.places_type.id)}
+      const marker: google.maps.Marker = new google.maps.Marker({
+        map: this.map,
+        position:  new google.maps.LatLng(place.location.lat, place.location.lng),
+        icon: icon? icon.icon_url:'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+        draggable: this.editable ? true : false,
       // animation: google.maps.Animation.DROP
-    });
+      });
 
-    marker.addListener('dragend', event => {
-      const place = {
-        location: {
-          lat: event.latLng.lat(),
-          lng: event.latLng.lng()}
-      };
-      this.placeChange.emit(place);
-    });
-    marker.addListener('click', () => {
+      marker.addListener('dragend', event => {
+        const place = {
+          location: {
+            lat: event.latLng.lat(),
+            lng: event.latLng.lng()}
+        };
+        this.placeChange.emit(place);
+      });
+      marker.addListener('click', () => {
       //this.seletedMarker.emit(place);
-      if(this.currentInfoWindow!=null) this.currentInfoWindow.close();
-      this.currentInfoWindow = infowindow;
-      this.currentInfoWindow.open(this.map, marker);
+        if(this.currentInfoWindow!=null) this.currentInfoWindow.close();
+        this.currentInfoWindow = infowindow;
+        this.currentInfoWindow.open(this.map, marker);
 
-    });
+      });
 
-    return this.markers.push(marker);
+      return this.markers.push(marker);
 
-  }
+    }}
 }
