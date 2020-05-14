@@ -6,7 +6,7 @@ import { PlacesService } from 'src/app/core/services/places.service';
 import { Place } from 'src/app/core/models/place.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 
-const MAXLENGTH =100
+const MAXLENGTH =300
 @Component({
   selector: 'app-edit-center',
   templateUrl: './edit-center.page.html',
@@ -155,7 +155,7 @@ export class EditCenterPage implements OnInit {
     description: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
     latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
     longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
-    qrCode: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
+    qrCode: [''],
     mainPicture: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
     address: this.formBuilder.group({
       street: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
@@ -190,34 +190,39 @@ export class EditCenterPage implements OnInit {
    * Obtenemos los catalogos necesarios para la edición del centro
    */
   ngOnInit() {
-    this.placeService.allPlaceTypes().then( data => { this.loadedPlacetypes = data;
-    });
     this.activatedRoute.paramMap.subscribe(paraMap => {
       if (!paraMap.has('centerId')) {
         return;
-
       }
-      const placeId = paraMap.get('centerId');
-      if (placeId) {
-        this.placeService.getPlaceByID(placeId).then(place => {
-          this.place = place;
-          this.newCenterForm.controls.latitude.setValue(place.location.lat);
-          this.newCenterForm.controls.longitude.setValue(place.location.lng);
-          this.newCenterForm.controls.name.setValue(place.name);
-          this.newCenterForm.controls.description.setValue(place.description);
-          this.newCenterForm.controls.schedule.setValue(place.schedule);
-          this.newCenterForm.controls.qrCode.setValue(place.qr_code);
-          this.newCenterForm.controls.mainPicture.setValue(place.photo);
-          this.newCenterForm.patchValue({
-            instalationType: place.places_type.id,
-            address: {
-              zip: place.postal_code,
-              street: place.address
-            }
+
+      this.placeService.allPlaceTypes().then( data => { 
+        this.loadedPlacetypes = data; 
+
+
+        const placeId = paraMap.get('centerId');
+        if (placeId) {
+          this.placeService.getPlaceByID(placeId).then(place => {
+            this.place = place;
+            this.newCenterForm.controls.latitude.setValue(place.location.lat);
+            this.newCenterForm.controls.longitude.setValue(place.location.lng);
+            this.newCenterForm.controls.name.setValue(place.name);
+            this.newCenterForm.controls.description.setValue(place.description);
+            this.newCenterForm.controls.schedule.setValue(place.schedule);
+            this.newCenterForm.controls.qrCode.setValue(place.qr_code);
+            this.newCenterForm.controls.mainPicture.setValue(place.photo);
+            this.newCenterForm.patchValue({
+              instalationType: place.places_type.id,
+              address: {
+                zip: place.postal_code,
+                street: place.address
+              }
+            });
+
           });
+        }
+      });
 
-        });
-      }
+      
     });
 
   }

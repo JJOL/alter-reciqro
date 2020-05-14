@@ -1,0 +1,36 @@
+ion-card{
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 1025px) {
+  .bak{
+    width: 100%;
+    height: 100%;
+    background-color: #1c2d65 !important;
+  }
+  .outer {
+    margin: 20px auto;
+    width: 25%;
+    padding: 10px 0;
+  }
+  
+  .inner {
+    width: 150%;
+    /* Set left edge of inner element to 50% of the parent element */
+    margin-left: 50%; 
+    /* Move to the left by 50% of own width */
+    transform: translateX(-50%); 
+  }
+}
+
+.bak{
+  width: 100%;
+  height: 100%;
+  background-color: #1c2d65 !important;
+}
+
+
+:host{
+  --background: #1c2d65;
+}

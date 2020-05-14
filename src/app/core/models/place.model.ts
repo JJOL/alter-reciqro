@@ -22,18 +22,18 @@ export class Place {
    * @param  {string} publicreadonlyqr_code
    */
   constructor(
-        public readonly id: string,
-        public readonly name: string,
-        public readonly description: string,
-        public readonly location: {
+        public readonly id?: string,
+        public readonly name?: string,
+        public readonly description?: string,
+        public readonly location?: {
             lat: number,
             lng: number
         },
-        public readonly address: string,
-        public readonly postal_code: number,
-        public readonly places_type: TipoInstalacion,
-        public readonly photo: string,
-        public readonly qr_code: string,
-        public readonly schedule: string,
+        public readonly address?: string,
+        public readonly postal_code?: number,
+        public readonly places_type?: TipoInstalacion,
+        public readonly photo?: string,
+        public readonly qr_code?: string,
+        public readonly schedule?: string,
   ) {}
 }
