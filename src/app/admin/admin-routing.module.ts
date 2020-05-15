@@ -17,12 +17,6 @@ const routes: Routes = [
     data: { roles: ['admin','staff']}
   },
   {
-    path: 'goals',
-    loadChildren: () => import('./goals/goals.module').then( m => m.GoalsPageModule),
-    canActivate: [AuthGuard],
-    data: { roles: ['admin','staff']}
-  },
-  {
     path: 'metrics',
     loadChildren: () => import('./metrics/metrics.module').then( m => m.MetricsPageModule),
     canActivate: [AuthGuard],

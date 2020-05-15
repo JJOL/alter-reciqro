@@ -17,12 +17,12 @@ export class MarkerCardComponent implements OnInit {
   };
 
   // eslint-disable-next-line require-jsdoc
-  constructor() { }
+  constructor() {}
+
   /**
-   *
    */
   ngOnInit() {
-    console.log(this.loadedPlaceType);
+
   }
 
 

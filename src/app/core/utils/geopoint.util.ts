@@ -40,7 +40,7 @@ export function parseDegreesToGoogleGeoPoint(locationStr: string): { lat: number
  * @returns {lat: DegreeUnit, lng: DegreeUnit}
  */
 function getRegexGeoCoord(locationStr: string): {lat: DegreeUnit, lng: DegreeUnit} {
-    const expr = /^(\d+)\°(\d+)\'(\d+\.?\d*)\"N\s(\d+)\°(\d+)\'(\d+\.?\d*)\"W$/;
+    const expr = /^(-?\d+)\°(\d+)\'(\d+\.?\d*)\"N\s(-?\d+)\°(\d+)\'(\d+\.?\d*)\"W$/;
     let res = expr.exec(locationStr);
     if (!res) {
         throw new Error('InvalidFormatError: String doesn\'t match Degree format.')
