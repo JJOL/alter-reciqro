@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, NavController, ToastController } from '@ionic/angular';
-import { FormGroup, FormBuilder, Validators,ValidatorFn, AbstractControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NavController, ToastController } from '@ionic/angular';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PlacesService } from 'src/app/core/services/places.service';
 import { Place } from 'src/app/core/models/place.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
@@ -13,7 +13,6 @@ const MAXLENGTH =300
   styleUrls: ['./edit-center.page.scss'],
 })
 
-
 /**
   * User Story ID: M1NG2
    * Componente de página para edición de centros
@@ -24,8 +23,7 @@ export class EditCenterPage implements OnInit {
 
   place: Place;
   loadedPlacetypes: TipoInstalacion[];
-  @ViewChild ('mapElement', {static: true}) map;
-  position: { lat: number, lng: number};
+
   /**
    * User Story ID: M1NG2
    * Regresa el nombre
@@ -61,7 +59,14 @@ export class EditCenterPage implements OnInit {
   get latitude() {
     return this.newCenterForm.get('latitude');
   }
- 
+  /**
+   * User Story ID: M1NG2
+   * Regresa la url del código qr
+   * @param  {string} {qrCode}
+   */
+  get qrCode() {
+    return this.newCenterForm.get('qrCode');
+  }
   /**
    * User Story ID: M1NG2
    * Regresa la url de la imagen
@@ -109,11 +114,11 @@ export class EditCenterPage implements OnInit {
   public errorMessages = {
     name: [
       { type: 'required', message: 'Nombre es requerido' },
-      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 300 caracteres'}
+      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 100 caracteres'}
     ],
     description: [
       { type: 'required', message: 'Descripción es requerida' },
-      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 300 caracteres'}
+      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 100 caracteres'}
     ],
     latitude: [
       { type: 'required', message: 'Latitud es requerida' },
@@ -123,22 +128,26 @@ export class EditCenterPage implements OnInit {
       { type: 'required', message: 'Longitud es requerida' },
       { type: 'pattern', message: 'El formato no es correcto'}
     ],
-    
+    qrCode: [
+      { type: 'pattern', message: 'El URL no es correcto'}
+    ],
     mainPicture: [
       { type: 'pattern', message: 'El URL no es correcto'}
     ],
     street: [
       { type: 'required', message: 'Calle es requerida' },
-      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 300 caracteres'}
+      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 100 caracteres'}
+    ],
+    zip: [
+    
     ],
     instalationType: [
       { type: 'required', message: 'Tipo de Instalación es requerido' },
     ],
     schedule: [
       { type: 'required', message: 'Horario es requerido' },
-      { type: 'maxlength', message: 'El horario tiene una longitud máxima de 40 caracteres' },
+      { type: 'maxlength', message: 'El horario debe estar en formato "HH:MM:SS a HH:MM:SS" o "24 horas"' },
     ],
-    zip: []
   };
 
   newCenterForm = this.formBuilder.group({
@@ -146,6 +155,7 @@ export class EditCenterPage implements OnInit {
     description: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
     latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
     longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
+    qrCode: [''],
     mainPicture: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
     address: this.formBuilder.group({
       street: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
@@ -153,7 +163,7 @@ export class EditCenterPage implements OnInit {
     }),
     instalationType: ['', [Validators.required]],
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    schedule: ['', [Validators.required, Validators.maxLength(40)]]
+    schedule: ['', [Validators.required, Validators.maxLength(20)]]
   });
 
   
@@ -210,7 +220,9 @@ export class EditCenterPage implements OnInit {
 
           });
         }
-      });      
+      });
+
+      
     });
 
   }
@@ -266,6 +278,5 @@ export class EditCenterPage implements OnInit {
     }).then(toast => toast.present());
   }
 
- 
 
 }
