@@ -1,5 +1,17 @@
-
-<app-toolbar title="Administrar Centros de Recolección" [backButton]="false"></app-toolbar>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!--This opens the default menu we have-->
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Administrador</ion-title>
+    <ion-buttons slot="end" class="ion-padding">
+      <ion-button routerLink="/user/places-searcher-page">
+        <img class="smallImg" src="../../../assets/img/blueQ.png">
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content>
   <ion-grid>

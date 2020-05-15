@@ -5,6 +5,66 @@ import { AdminPage } from './admin.page';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AdminService } from '../core/services/admin.service';
 import { RouterModule } from '@angular/router';
+import { SharedPageModule } from '../shared/shared.module';
+import { BehaviorSubject , empty} from 'rxjs';
+import { AuthService } from '../core/services/auth.service';
+
+const mockAuthentication ={
+  registerUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  loginEmailUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  loginGoogleUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  logoutUser: () => {
+    return [];
+  },
+  isAuth:  () => {
+    return empty();
+  },
+  updateUserData: () => {
+    return [];
+  },
+  getCurrentUser : () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  updateCurrentUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  sendPasswordResetEmail: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  updateUserByUID: () => {
+    return [];
+  },
+  getUserByUID: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  createUser: ()=> {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  isUserLoggedIn: new BehaviorSubject(false),
+  userRoles: new BehaviorSubject([]),
+};
 
 const mockService = jasmine.createSpyObj('adminService', ['getAllAdministrators']);
 
@@ -21,10 +81,11 @@ describe('AdminPage', () => {
     const firestoreMockSpy = jasmine.createSpyObj('AngularFirestore', ['collection']);
     TestBed.configureTestingModule({
       declarations: [ AdminPage ],
-      imports: [IonicModule.forRoot(), RouterModule.forRoot([])],
+      imports: [IonicModule.forRoot(), RouterModule.forRoot([]),SharedPageModule],
       providers: [
         { provide: AngularFirestore, useValue: firestoreMockSpy },
         { provide: AdminService, useValue: mockService },
+        { provide: AuthService, useValue: mockAuthentication }
       ]
     }).compileComponents();
 
