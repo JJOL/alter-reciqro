@@ -1,6 +1,7 @@
+import { resolve } from 'url';
 import { Injectable } from '@angular/core';
 import { EventModel } from '../models/event.model';
-import { AngularFirestore,DocumentSnapshot } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentSnapshot } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { SystemService } from './system.service';
@@ -10,7 +11,7 @@ import * as firebase from 'firebase/app';
 const EVENTS_KEY = '/events';
 const GeoPoint = firebase.firestore.GeoPoint;
 const Timestamp = firebase.firestore.Timestamp;
-
+const currentDate = new Date();
 /**
  * User Story ID: M2NC2
  * User Story ID M2NC3
@@ -46,7 +47,7 @@ export function parseFBEventToEvent(fbEvent: any): EventModel {
 export function parseFBEventDocToEvent(fbEvent: any): EventModel {
   const data  = fbEvent.payload.data();
   const id = fbEvent.payload.id;
-  
+
   const event = new EventModel(
       id,
       data.age,
@@ -62,13 +63,13 @@ export function parseFBEventDocToEvent(fbEvent: any): EventModel {
   );
   return event;
 }
-    
+
 /**
  * @param  {any} fbEvent
  */
 export function parseFBEventToEvent2(fbEvent: any): EventModel {
-  
-  return parseFBEventToEvent(fbEvent.payload.doc)
+
+  return parseFBEventToEvent(fbEvent.payload.doc);
 }
 
 @Injectable({
@@ -81,13 +82,12 @@ export class EventsService {
   /**
    * User Story ID: M1NC1
    * Description: This function returns all the events from firebase.
-  /**
    * Constructor for the class, only external service used will be the Firestore one.
    * @param  {AngularFirestore} privatefiredb
    */
-  constructor(private firedb: SystemService) 
-  {}
-  /** 
+  constructor(private firedb: SystemService,
+              private db: AngularFirestore) {}
+  /**
    * User Story ID: M1NC1
    * Function that returns all events on the database, unfiltered, with all its associated data.
    * @returns Promise
@@ -107,11 +107,8 @@ export class EventsService {
           });
     });
   }
-
-
-  
   /**
-   * User Story ID: M2NG4 
+   * User Story ID: M2NG4
    * Function that delete a specific event
    * @param  {string} id
    * @returns Promise
@@ -123,18 +120,18 @@ export class EventsService {
       });
     });
   }
-  
+
   /**
-   * User Story ID: M2NG4,M2NC3 
+   * User Story ID: M2NG4,M2NC3
    * Function that returns a specific place on the database, filtered by its id, with all its associated data.
    * @param  {string} id
    * @returns Promise
    */
-  getEventByID(id:string): Promise<EventModel> {
+  getEventByID(id: string): Promise<EventModel> {
     return new Promise((resolve) => {
       let subscription: Subscription;
-      subscription=this.firedb.collection(EVENTS_KEY).doc(id).snapshotChanges().pipe(map(snapshot => {
-        
+      subscription = this.firedb.collection(EVENTS_KEY).doc(id).snapshotChanges().pipe(map(snapshot => {
+
         return parseFBEventDocToEvent(snapshot);
       }))
           .subscribe(event => {
@@ -146,13 +143,15 @@ export class EventsService {
     });
   }
   /**
+   * User Story ID: M1NG5
+   * Description: This function returns the edited event.
    * @param  {} event
    * @param  {string} id
    */
-  editEvent(event, id:string){
+  editEvent(event, id: string) {
     const geoPoint = new GeoPoint(event.latitude, event.longitude);
-    const end_dateO = new Timestamp(Date.parse(event.endDate)/1000,0)
-    const start_dateO =  new Timestamp(Date.parse(event.startDate)/1000,0);
+    const end_dateO = new Timestamp(Date.parse(event.endDate) / 1000, 0);
+    const start_dateO =  new Timestamp(Date.parse(event.startDate) / 1000, 0);
     console.log(event);
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(EVENTS_KEY).doc(id).set({
@@ -162,7 +161,7 @@ export class EventsService {
         location: geoPoint,
         start_date: start_dateO,
         end_date: end_dateO ,
-        age:event.age,
+        age: event.age,
       }, {merge: true} )
           .then(
               (res) => {
@@ -173,13 +172,14 @@ export class EventsService {
     });
   }
   /**
+   * User Story ID: M1NG2
+   * Description: This function creates an event.
    * @param  {} event
    */
-  createEvent(event){
+  createEvent(event) {
     const geoPoint = new GeoPoint(event.latitude, event.longitude);
-    const end_dateO = new Timestamp(Date.parse(event.endDate)/1000,0)
-    const start_dateO =  new Timestamp(Date.parse(event.startDate)/1000,0);
-    console.log(event);
+    const end_dateO = new Timestamp(Date.parse(event.endDate) / 1000, 0);
+    const start_dateO =  new Timestamp(Date.parse(event.startDate) / 1000, 0);
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(EVENTS_KEY).add({
         name: event.name,
@@ -188,7 +188,7 @@ export class EventsService {
         location: geoPoint,
         start_date: start_dateO,
         end_date: end_dateO ,
-        age:event.age,
+        age: event.age,
       } )
           .then(
               (res) => {
@@ -198,5 +198,19 @@ export class EventsService {
           );
     });
   }
-
+  /**
+   * User Story ID: M1NG2
+   * Description: This function deletes the past events.
+   * @returns Promise
+   */
+  async erasePastEvents(): Promise<EventModel> {
+    const batch = this.db.firestore.batch();
+    return new Promise(async () => {
+      const pastEvents =  await this.db.collection(EVENTS_KEY).ref.where('end_date', '<', currentDate).get();
+      pastEvents.forEach(event => {
+        batch.delete(event.ref);
+      });
+      await batch.commit();
+    });
+  }
 }

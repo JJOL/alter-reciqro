@@ -16,10 +16,11 @@ const MAXLENGTH = 100;
  */
 export class AddPage implements OnInit {
 // eslint-disable-next-line require-jsdoc, max-params
-  constructor(private eventService: EventsService,  private activatedRoute: ActivatedRoute,
-    private navCtrl: NavController,
-    public formBuilder: FormBuilder,
-    private toastCtrl: ToastController) { }
+  constructor(private eventService: EventsService,
+              private activatedRoute: ActivatedRoute,
+              private navCtrl: NavController,
+              public formBuilder: FormBuilder,
+              private toastCtrl: ToastController) { }
 
   /**
    * User Story ID: M1NG2
@@ -37,7 +38,7 @@ export class AddPage implements OnInit {
   get description() {
     return this.editEventForm.get('description');
   }
-  
+
   /**
    * User Story ID: M1NG2
    * Regresa la longitud de la coordenada
@@ -64,7 +65,7 @@ export class AddPage implements OnInit {
   }
   /**
    * User Story ID: M1NG2
-   * Regresa la calle 
+   * Regresa la calle
    * @param  {string} {street}
    */
   get startDate() {
@@ -72,7 +73,7 @@ export class AddPage implements OnInit {
   }
   /**
    * User Story ID: M1NG2
-   * Regresa la calle 
+   * Regresa la calle
    * @param  {string} {street}
    */
   get endDate() {
@@ -80,7 +81,7 @@ export class AddPage implements OnInit {
   }
   /**
    * User Story ID: M1NG2
-   * Regresa la calle 
+   * Regresa la calle
    * @param  {string} {street}
    */
   get age() {
@@ -115,7 +116,7 @@ export class AddPage implements OnInit {
       { type: 'maxlength', message: 'El horario debe estar en formato "HH:MM:SS a HH:MM:SS" o "24 horas"' },
     ],
     age: [
-      { type: 'required', message: 'Longitud es requerida' },
+      { type: 'required', message: 'Rango de edad es requerida' },
     ]
   };
 
@@ -132,21 +133,27 @@ export class AddPage implements OnInit {
 
   placeId: string;
 
-  event: EventModel;  
+  event: EventModel;
   // eslint-disable-next-line require-jsdoc
   ngOnInit() {
-    
+
   }
 
   /**
    * User Story ID: M1NG1
    * Function for updating the lat and long form fields when marker changes position.
    * @param  {} lugar
-   **/
+   */
   onChangeMarker(lugar) {
     this.editEventForm.controls.latitude.setValue(lugar.location.lat);
     this.editEventForm.controls.longitude.setValue(lugar.location.lng);
   }
+
+  /**
+   * User Story ID: M4NG8
+   * Function for showing the toast to the user.
+   * @param  {} msg
+   */
   showToast(msg) {
     this.toastCtrl.create({
       message: msg,
@@ -155,10 +162,11 @@ export class AddPage implements OnInit {
       color: 'success'
     }).then(toast => toast.present());
   }
+
   /**
-   * 
-   **/
-  submit(){
+   * Method that is used by the form when all the information has benn entered
+   */
+  submit() {
     this.eventService.createEvent(this.editEventForm.value).then(() => {
       // use id
       this.showToast('Lugar creado de manera exitosa');
