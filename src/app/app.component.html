@@ -19,7 +19,11 @@
           </ion-item>
           <ion-item *ngIf="admin || staff" lines="none" routerLink="/admin/center">
             <ion-icon name="file-tray-stacked-outline" slot="start"></ion-icon>
-            <ion-label>Administrar Centros de Recolección</ion-label>
+            <ion-label>Administrador</ion-label>
+          </ion-item>
+          <ion-item lines="none" routerLink="/user/info/events">
+            <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+            <ion-label>Eventos</ion-label>
           </ion-item>
           <ion-item lines="none" routerLink="/user/info">
             <ion-icon name="information-circle-outline" slot="start"></ion-icon>
@@ -27,7 +31,7 @@
           </ion-item>
           <ion-item  lines="none" routerLink="/user/places-searcher-page">
             <ion-icon name="search-circle-outline" slot="start"></ion-icon>
-            <ion-label>Buscador de Centros</ion-label>
+            <ion-label>Mapa de Centros</ion-label>
           </ion-item>
           <ion-item *ngIf="isLogged" lines="none" (click)="onLogout()" button>
             <ion-icon name="exit-outline" slot="start"></ion-icon>

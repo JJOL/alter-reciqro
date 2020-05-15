@@ -26,6 +26,8 @@ export class EditCenterPage implements OnInit {
   loadedPlacetypes: TipoInstalacion[];
   @ViewChild ('mapElement', {static: true}) map;
   position: { lat: number, lng: number};
+ 
+
   /**
    * User Story ID: M1NG2
    * Regresa el nombre
@@ -172,13 +174,34 @@ export class EditCenterPage implements OnInit {
     private placeService: PlacesService,
     private navCtrl: NavController,
     public formBuilder: FormBuilder,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    public alertController: AlertController
   ) { }
+
+   /**
+   */
+  ionViewCanLeave() {
+    return new Promise(async (resolve, reject) => {
+      (await this.alertController.create({
+        header: 'Confirmar',
+        message: 'Mensaje <strong>¿Cerrar sin guardar cambios?</strong>!!!',
+        /* title and message etc ... */
+        buttons: [{
+          text: "Leave",
+          handler: resolve
+        }, {
+          text: "Stay",
+          handler: reject
+        }]
+      })).present();
+    });
+  }
   /**
    * User Story ID: M1NG2
    * Obtenemos los catalogos necesarios para la edición del centro
    */
   ngOnInit() {
+    
     this.activatedRoute.paramMap.subscribe(paraMap => {
       if (!paraMap.has('centerId')) {
         return;
@@ -197,16 +220,22 @@ export class EditCenterPage implements OnInit {
             this.newCenterForm.controls.name.setValue(place.name);
             this.newCenterForm.controls.description.setValue(place.description);
             this.newCenterForm.controls.schedule.setValue(place.schedule);
-            this.newCenterForm.controls.qrCode.setValue(place.qr_code);
             this.newCenterForm.controls.mainPicture.setValue(place.photo);
+            
             this.newCenterForm.patchValue({
-              instalationType: place.places_type.id,
               address: {
                 zip: place.postal_code,
                 street: place.address
               }
             });
-
+            setTimeout(()=>{
+              this.newCenterForm.controls.instalationType.setValue(place.places_type.id);
+            },100)
+            this.position={
+              lat:place.location.lat,
+              lng:place.location.lng
+            };
+            this.map.setCenter(this.position);
           });
         }
       });      
