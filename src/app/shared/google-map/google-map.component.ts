@@ -151,6 +151,8 @@ export class GoogleMapComponent implements OnInit, OnChanges {
       let contentString = '';
       contentString = 
     '<p align> <b>'+place.name+'</b> <br>Horario: '+place.schedule+'<br>'+place.description+'<br>'+place.address+'<br>'+
+    '<img src="'+place.photo+'"  height="200" width="200" ><br>'
+    +
     '<a style="text-decoration:none" target="_blank" '+
     'href="https://www.google.com/maps/dir//'+place.location.lat+','+place.location.lng+'/@'+place.location.lat+','+place.location.lng+',17z">'+
     'Ver en Google Maps</a></p>';
