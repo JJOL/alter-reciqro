@@ -1,7 +1,6 @@
 <app-toolbar title="Tipos de Residuos" [backButton]="true" routePath="/admin/center"></app-toolbar>
 
 <ion-content>
-  <!--<ion-backdrop stopPropagation="false">-->
     <ion-grid>
       <ion-row class="ion-justify-content-center">
         <ion-col size-md = "8" size-sm = "12" >
@@ -26,11 +25,9 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button routerLink='/admin/center/waste-type/addWasteType'>
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-  <!--</ion-backdrop>-->
 </ion-content>
+<ion-fab vertical="bottom" horizontal="end" edge="true">
+  <ion-fab-button routerLink='/admin/center/waste-type/addWasteType'>
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

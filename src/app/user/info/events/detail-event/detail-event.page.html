@@ -1,5 +1,11 @@
 
+<<<<<<< HEAD
 <app-toolbar *ngIf='eventLoad' title='{{ eventLoad.name }}' [backButton]="true" routePath="/user/info/events"></app-toolbar>
+=======
+<app-toolbar *ngIf="eventLoad" title="{{ eventLoad.name }}" [backButton]="true" [login]="false" routePath="/user/info/events"></app-toolbar>
+<ion-content>
+  <ion-grid>
+>>>>>>> usereventsBugs
 
  
   <ion-content>
@@ -26,6 +32,7 @@
             <h4> <strong> Fecha de finalizacion del evento: </strong> </h4>
             <p> {{ endDate }} </p>
             <br>
+<<<<<<< HEAD
             
             <div id="age">
               <h4> <strong>¿Quiénes pueden asistir?</strong></h4>
@@ -52,6 +59,13 @@
                 <ion-col size-md = "6" size-sm = "12" >
                   
                   <div #iframeFB>
+=======
+            <ion-item class="ion-no-padding">
+              <ion-checkbox [(ngModel)]="interested" (click) = "addValue($event)"></ion-checkbox>
+              <ion-label>Estoy interesado</ion-label></ion-item>
+            <br>
+            <ion-button  color="primary"  *ngIf="eventLoad" href="https://www.google.com/maps/dir//{{eventLoad.location.lat}},{{eventLoad.location.lng}}/@{{eventLoad.location.lat}},{{eventLoad.location.lng}},17z" >Direcciones al Evento</ion-button>
+>>>>>>> usereventsBugs
 
                   </div>
                   </ion-col>

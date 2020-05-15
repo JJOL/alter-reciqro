@@ -1,12 +1,13 @@
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
 import { DetailEventPage } from './detail-event.page';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from, BehaviorSubject, empty } from 'rxjs';
 import { SharedPageModule } from '../../../../shared/shared.module';
 import { AuthService } from '../../../../core/services/auth.service';
+
 const mockAuthentication ={
   registerUser: () => {
     return new Promise((resolve) => {
@@ -55,6 +56,9 @@ const mockAuthentication ={
       resolve([]);
     });
   },
+  getUserMail: () => {
+    return ;
+  },
   createUser: ()=> {
     return new Promise((resolve) => {
       resolve([]);
@@ -82,7 +86,7 @@ describe('DetailEventPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ DetailEventPage ],
-      imports: [IonicModule.forRoot(), RouterTestingModule,SharedPageModule],
+      imports: [IonicModule.forRoot(), RouterTestingModule,SharedPageModule,ReactiveFormsModule,FormsModule],
       providers: [
         { provide: AngularFirestore, useValue: angularFirestoreStub },
         { provide: AuthService, useValue: mockAuthentication }
