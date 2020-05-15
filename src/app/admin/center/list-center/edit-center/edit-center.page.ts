@@ -114,11 +114,11 @@ export class EditCenterPage implements OnInit {
   public errorMessages = {
     name: [
       { type: 'required', message: 'Nombre es requerido' },
-      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 100 caracteres'}
+      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 300 caracteres'}
     ],
     description: [
       { type: 'required', message: 'Descripción es requerida' },
-      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 100 caracteres'}
+      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 300 caracteres'}
     ],
     latitude: [
       { type: 'required', message: 'Latitud es requerida' },
@@ -136,17 +136,14 @@ export class EditCenterPage implements OnInit {
     ],
     street: [
       { type: 'required', message: 'Calle es requerida' },
-      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 100 caracteres'}
-    ],
-    zip: [
-      { type: 'required', message: 'Código Postal es requerido' },
+      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 300 caracteres'}
     ],
     instalationType: [
       { type: 'required', message: 'Tipo de Instalación es requerido' },
     ],
     schedule: [
       { type: 'required', message: 'Horario es requerido' },
-      { type: 'maxlength', message: 'El horario debe estar en formato "HH:MM:SS a HH:MM:SS" o "24 horas"' },
+      { type: 'maxlength', message: 'El horario tiene una longitud máxima de 40 caracteres' },
     ],
   };
 
@@ -156,14 +153,14 @@ export class EditCenterPage implements OnInit {
     latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
     longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
     qrCode: [''],
-    mainPicture: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
+    mainPicture: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')],
     address: this.formBuilder.group({
       street: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
-      zip: ['', [Validators.required, Validators.pattern('^\\d{5}$')]]
+      zip: [' ']
     }),
     instalationType: ['', [Validators.required]],
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    schedule: ['', [Validators.required, Validators.maxLength(20)]]
+    schedule: ['', [Validators.required, Validators.maxLength(40)]]
   });
 
   
@@ -220,9 +217,7 @@ export class EditCenterPage implements OnInit {
 
           });
         }
-      });
-
-      
+      });      
     });
 
   }

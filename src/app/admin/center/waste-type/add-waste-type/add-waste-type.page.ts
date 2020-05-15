@@ -66,7 +66,7 @@ export class AddWasteTypePage implements OnInit {
   newWasteForm = this.formBuilder.group({
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     title: ['', [Validators.required, Validators.maxLength(100)]],
-    url: ['',[Validators.required, Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')]],
+    url: ['',[Validators.required]],
     description: ['',[Validators.required, Validators.maxLength(300)]]
   });
 

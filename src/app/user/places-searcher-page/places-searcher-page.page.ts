@@ -7,7 +7,8 @@ import { Place } from '../../core/models/place.model';
 import {WasteType} from '../../core/models/waste-type';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, ModalController } from '@ionic/angular';
+import { SplashscreenPage } from '../splashscreen/splashscreen.page';
 
 @Component({
   selector: 'app-places-searcher-page',
@@ -43,14 +44,19 @@ export class PlacesSearcherPagePage  {
     private geolocationCont: Geolocation,
     public popoverController: PopoverController,
     private authService: AuthService,
-    private afsAuth: AngularFireAuth
+    private afsAuth: AngularFireAuth,
+    private modalController: ModalController
   ) { }
   /**
    *  User Story ID: M1NC1
    * Loads the preset filters and places
    */
   async ionViewWillEnter() {
-
+    this.presentModal();
+    setTimeout(() => {
+      this.modalController.dismiss();
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    }, 2000);
     this.filters = await  this.placesService.getAllWasteTypes();
     this.activeFilters = this.filters;
     this.places = await this.filterByType(this.activeFilters);
@@ -64,9 +70,6 @@ export class PlacesSearcherPagePage  {
     } catch (err) {
     }
   }
-
-
-
 
   /**
    * User Story ID:  M1NC2
@@ -150,5 +153,18 @@ export class PlacesSearcherPagePage  {
     this.placeSelected = null;
   }
 
+  /**
+   * User Story Id: M2NC4
+   * Fuction that is executed for presenting the modal, searching for the modal usign the BannerService
+   * @param  
+   * @returns 
+   */
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: SplashscreenPage,
+      swipeToClose: true,
+    });
+    return modal.present();
+  }
  
 }

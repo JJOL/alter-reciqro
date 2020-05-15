@@ -8,6 +8,8 @@ import { PlacesSearcherPagePage } from './places-searcher-page.page';
 import { SharedPageModule } from '../../shared/shared.module';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
+import { SplashscreenPageModule } from '../splashscreen/splashscreen.module';
+import { SplashscreenPage } from '../splashscreen/splashscreen.page';
 
 @NgModule({
   imports: [
@@ -15,13 +17,14 @@ import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.com
     FormsModule,
     IonicModule,
     PlacesSearcherPagePageRoutingModule,
-    SharedPageModule
+    SharedPageModule,
+    SplashscreenPageModule
   ],
   declarations: [PlacesSearcherPagePage, MarkerCardComponent],
   providers: [
     Geolocation
   ],
-  entryComponents: [FilterMenuComponent]
+  entryComponents: [FilterMenuComponent, SplashscreenPage]
 })
 // eslint-disable-next-line require-jsdoc
 export class PlacesSearcherPagePageModule {}

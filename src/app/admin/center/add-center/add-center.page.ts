@@ -151,9 +151,6 @@ export class AddCenterPage implements OnInit {
       { type: 'required', message: 'Calle es requerida' },
       { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 100 caracteres'}
     ],
-    zip: [
-      { type: 'required', message: 'Código Postal es requerido' },
-    ],
     instalationType: [
       { type: 'required', message: 'Tipo de Instalación es requerido' },
     ],
@@ -172,13 +169,14 @@ export class AddCenterPage implements OnInit {
       latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
       longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
     }),
+    // eslint-disable-next-line max-len
     latlngdegrees: ['', [Validators.required, Validators.pattern('^(-?\\d+)°(\\d+)\'(\\d+\.?\\d*)\"N\\s(-?\\d+)°(\\d+)\'(\\d+\.?\\d*)\"W$')]],
     qrCode: [' '],
     mainPicture: ['NA'],
     address: this.formBuilder.group({
       // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       street: ['', [Validators.required, Validators.maxLength(100)]],
-      zip: ['', [Validators.required, Validators.pattern('^\\d{5}$')]]
+      zip: [' ']
     }),
     instalationType: ['', [Validators.required]],
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
@@ -234,6 +232,11 @@ export class AddCenterPage implements OnInit {
     this.alreadyEditing = false;
   }
 
+  /**
+   * User Story ID: M1NG1
+   * Function for updating the lat and long form fields when marker changes position with the SH coordinates.
+   * @param  {} newVal
+   */
   onChangeDegree(newVal: string) {
     if (this.alreadyEditing) return;
     this.alreadyEditing = true;
@@ -249,16 +252,18 @@ export class AddCenterPage implements OnInit {
         location: latlng
       }];
     }
-
     this.alreadyEditing = false;
-
   }
 
+  /**
+   * User Story ID: M1NG1
+   * Function for updating the lat and long form fields when marker changes position with the SH coordinates.
+   * @param  {} newVal
+   */
   onChangeLatLng(newVal: { latitude: number, longitude: number}) {
     if (this.alreadyEditing) return;
     this.alreadyEditing = true;
 
-    console.log(newVal);
     const hasError = this.newCenterForm.get('latlngdecimal').invalid;
     if (!hasError) {
       let degreelatlng = parseGoogleGeoPointToDegrees({
@@ -276,7 +281,6 @@ export class AddCenterPage implements OnInit {
         }
       }];
     }
-
     this.alreadyEditing = false;
   }
   
@@ -288,8 +292,6 @@ export class AddCenterPage implements OnInit {
     let inputPlaceObj = this.newCenterForm.value;
     inputPlaceObj.latitude  = parseFloat(inputPlaceObj.latlngdecimal.latitude);
     inputPlaceObj.longitude = parseFloat(inputPlaceObj.latlngdecimal.longitude);
-    console.log(inputPlaceObj);
-    
      
     this.placeTypeService.createPlace(inputPlaceObj)
         .then(() => {

@@ -41,8 +41,7 @@ import { SplashscreenPage } from './user/splashscreen/splashscreen.page';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {} }
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [SplashscreenPage]
+  bootstrap: [AppComponent]
 })
 // eslint-disable-next-line require-jsdoc
 export class AppModule {}
