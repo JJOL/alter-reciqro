@@ -6,9 +6,6 @@
       <ion-grid>
           <ion-row class="ion-justify-content-center" > 
               <ion-col size-md = "4" size-xs = "12" >
-                  <ion-item>
-                      <ion-searchbar showCancelButton="always" placeholder="Buscar" animated></ion-searchbar>
-                  </ion-item>
                   <ion-select placeholder="Elegir" multiple="false" [(ngModel)]="selectedInstance">
                     <ion-select-option 
                         *ngFor="let inst of instances" 
@@ -29,15 +26,17 @@
                   </ion-item>
               </ion-col>
           </ion-row>
-          <ion-row>
-              <ion-col>
-                  <ion-button (click)="sendParametersChangeEvent()">
-                      Calcular
-                  </ion-button>
+          <ion-row class="ion-justify-content-center">
+              <ion-col push-md="5" push-sm="2">
+                  <div>
+                    <ion-button (click)="sendParametersChangeEvent()">
+                        Calcular
+                    </ion-button>
+                  </div>
               </ion-col>
           </ion-row>
-          <ion-row class = "ion-justify-content-center">
-              <ion-col size-md = "12" offset-md = "3" pull-xs = "12" pull-md = "0">
+          <ion-row class = "ion-justify-content-start">
+              <ion-col >
                   <canvas id = "chart" width="5" #chartCanvasEl>
 
                   </canvas>

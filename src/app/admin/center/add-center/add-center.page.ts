@@ -158,6 +158,7 @@ export class AddCenterPage implements OnInit {
       { type: 'required', message: 'Horario es requerido' },
       { type: 'maxlength', message: 'El horario debe estar en formato "HH:MM:SS a HH:MM:SS" o "24 horas"' },
     ],
+    zip: []
 
   };
   newCenterForm = this.formBuilder.group({

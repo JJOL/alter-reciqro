@@ -14,6 +14,7 @@ import { VisitsService } from './visits.service';
 export class VisitsPage {
 
   visits = [];
+  date: string[];
 
   constructor(
     private visitsService: VisitsService

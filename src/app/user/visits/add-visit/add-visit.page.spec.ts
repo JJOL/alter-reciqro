@@ -6,6 +6,67 @@ import { QrscannerComponent } from 'src/app/shared/qrscanner/qrscanner.component
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { VisitsService } from '../visits.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SharedPageModule } from '../../../shared/shared.module';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { empty, BehaviorSubject } from 'rxjs';
+
+const mockAuthentication ={
+  registerUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  loginEmailUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  loginGoogleUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  logoutUser: () => {
+    return [];
+  },
+  isAuth:  () => {
+    return empty();
+  },
+  updateUserData: () => {
+    return [];
+  },
+  getCurrentUser : () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  updateCurrentUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  sendPasswordResetEmail: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  updateUserByUID: () => {
+    return [];
+  },
+  getUserByUID: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  createUser: ()=> {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  isUserLoggedIn: new BehaviorSubject(false),
+  userRoles: new BehaviorSubject([]),
+};
+
 
 describe('AddVisitPage', () => {
   let component: AddVisitPage;
@@ -17,9 +78,10 @@ describe('AddVisitPage', () => {
     visitsMock = jasmine.createSpyObj('VisitsService', ['registerQRVisit']);
     TestBed.configureTestingModule({
       declarations: [ AddVisitPage ],
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, SharedPageModule],
       providers: [
-        {provide: VisitsService, useValue: visitsMock}
+        {provide: VisitsService, useValue: visitsMock},
+        { provide: AuthService, useValue: mockAuthentication}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

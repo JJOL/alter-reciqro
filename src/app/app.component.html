@@ -21,6 +21,10 @@
             <ion-icon name="file-tray-stacked-outline" slot="start"></ion-icon>
             <ion-label>Administrar Centros de Recolección</ion-label>
           </ion-item>
+          <ion-item *ngIf="admin || staff" lines="none" routerLink="/admin/metrics">
+            <ion-icon name="analytics-outline" slot="start"></ion-icon>
+            <ion-label>Reporte de Métricas</ion-label>
+          </ion-item>
           <ion-item lines="none" routerLink="/user/info">
             <ion-icon name="information-circle-outline" slot="start"></ion-icon>
             <ion-label>Información</ion-label>
@@ -28,6 +32,10 @@
           <ion-item  lines="none" routerLink="/user/places-searcher-page">
             <ion-icon name="search-circle-outline" slot="start"></ion-icon>
             <ion-label>Buscador de Centros</ion-label>
+          </ion-item>
+          <ion-item *ngIf="isLogged" lines="none" routerLink="/user/visits" button>
+            <ion-icon name="disc-outline" slot="start"></ion-icon>
+            <ion-label>Visitas</ion-label>
           </ion-item>
           <ion-item *ngIf="isLogged" lines="none" (click)="onLogout()" button>
             <ion-icon name="exit-outline" slot="start"></ion-icon>
