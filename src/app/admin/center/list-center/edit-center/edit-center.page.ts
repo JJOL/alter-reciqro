@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, ToastController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -186,28 +186,10 @@ export class EditCenterPage implements OnInit {
     private placeService: PlacesService,
     private navCtrl: NavController,
     public formBuilder: FormBuilder,
-    private toastCtrl: ToastController,
-    public alertController: AlertController
+    private toastCtrl: ToastController
   ) { }
 
-   /**
-   */
-  ionViewCanLeave() {
-    return new Promise(async (resolve, reject) => {
-      (await this.alertController.create({
-        header: 'Confirmar',
-        message: 'Mensaje <strong>¿Cerrar sin guardar cambios?</strong>!!!',
-        /* title and message etc ... */
-        buttons: [{
-          text: "Leave",
-          handler: resolve
-        }, {
-          text: "Stay",
-          handler: reject
-        }]
-      })).present();
-    });
-  }
+  
   /**
    * User Story ID: M1NG2
    * Obtenemos los catalogos necesarios para la edición del centro
