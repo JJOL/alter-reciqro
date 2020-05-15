@@ -1,3 +1,6 @@
+import { SharedPageModule } from 'src/app/shared/shared.module';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { BehaviorSubject, empty } from 'rxjs';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
@@ -5,9 +8,10 @@ import { EventsPage } from './events.page';
 import { RouterModule } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { EventsService } from 'src/app/core/services/events.service';
-import { BehaviorSubject,empty } from 'rxjs';
-import { SharedPageModule } from '../../../shared/shared.module';
-import { AuthService } from '../../../core/services/auth.service';
+
+
+
+const arr = function() {};
 
 const mockAuthentication ={
   registerUser: () => {
@@ -65,9 +69,6 @@ const mockAuthentication ={
   isUserLoggedIn: new BehaviorSubject(false),
   userRoles: new BehaviorSubject([]),
 };
-
-const arr = function() {};
-
 const collectionStub3 = {
   subscribe: jasmine.createSpy('subscribe').and.returnValue(arr),
 };

@@ -46,6 +46,15 @@ export class AuthService {
           this.isUserLoggedIn.next(false);
         });
   }
+  /**
+   * Get email of the current user
+   */
+  getUserMail() {
+    let user = this.afAuth.auth.currentUser;
+    return user.email;
+  }
+
+
   //User Story ID: M4NC1
   /**
    * Input is the form values and creates the user with a promise using the services of firebase authentication
@@ -140,6 +149,7 @@ export class AuthService {
   isAuth() {
     return this.afAuth.authState.pipe(map(auth =>  auth));
   }
+  
   /**
    * USID: M4NC2
    * Returns the user info by uid
