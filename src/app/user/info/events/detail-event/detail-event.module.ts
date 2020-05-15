@@ -1,6 +1,7 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedPageModule } from 'src/app/shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -12,8 +13,10 @@ import { DetailEventPage } from './detail-event.page';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule,
-    DetailEventPageRoutingModule
+    DetailEventPageRoutingModule,
+    SharedPageModule
   ],
   declarations: [DetailEventPage]
 })

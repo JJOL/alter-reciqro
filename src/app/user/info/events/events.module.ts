@@ -1,3 +1,4 @@
+import { SharedPageModule } from 'src/app/shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +14,8 @@ import { EventsPage } from './events.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    EventsPageRoutingModule
+    EventsPageRoutingModule,
+    SharedPageModule
   ],
   declarations: [EventsPage]
 })

@@ -77,7 +77,7 @@ export class InfoBannerService {
 
   /**
    * User Story ID: M2NG8
-   * Description: This function creates a place in firebase
+   * Description: This function creates an info banner in firebase
    * @param  {} infoBanner
    */
   createInfoBanner(infoBanner) {

@@ -1,14 +1,5 @@
-<ion-header *ngIf="eventLoad">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/user/info/events"></ion-back-button>
-    </ion-buttons>
-    <ion-title *ngIf="eventLoad"> {{ eventLoad.name }} </ion-title>
-    
-    
-  </ion-toolbar>
-</ion-header>
 
+<app-toolbar *ngIf="eventLoad" title="{{ eventLoad.name }}" [backButton]="true" [login]="false" routePath="/user/info/events"></app-toolbar>
 <ion-content>
   <ion-grid>
 
@@ -29,6 +20,10 @@
             <br>
             <h4> <strong> Finalizacion del evento: </strong> </h4>
             <p> {{ eventLoad.end_date }} </p>
+            <br>
+            <ion-item class="ion-no-padding">
+              <ion-checkbox [(ngModel)]="interested" (click) = "addValue($event)"></ion-checkbox>
+              <ion-label>Estoy interesado</ion-label></ion-item>
             <br>
             <ion-button  color="primary"  *ngIf="eventLoad" href="https://www.google.com/maps/dir//{{eventLoad.location.lat}},{{eventLoad.location.lng}}/@{{eventLoad.location.lat}},{{eventLoad.location.lng}},17z" >Direcciones al Evento</ion-button>
 
