@@ -29,7 +29,7 @@ export class ToolbarComponent implements OnInit {
   constructor(private authService: AuthService, private menu: MenuController,
     private router: Router,public alertController: AlertController) {
   }
-
+  
   /**
    */
   ionViewDidEnter() {
@@ -56,7 +56,8 @@ export class ToolbarComponent implements OnInit {
     });
   }
   /**
-   * Presentar alerta de confirmación cuando se este saliendo de un edit
+   * Presentar alerta de confirmación cuando se este saliendo de un edit.
+   * 
    */
   async presentAlertConfirm() {
     const alert = await this.alertController.create({
