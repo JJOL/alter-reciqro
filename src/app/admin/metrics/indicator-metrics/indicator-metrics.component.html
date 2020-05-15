@@ -1,9 +1,20 @@
-<app-indicator-graph 
-    [indicatorClassName]="indicatorClassName"
-    [instances]="instances"
-    [indicatorDisplayData]="graphDataArr"
-    (dataParametersChange)="onUserGraphInput($event)">
-</app-indicator-graph>
-<app-indicator-table
-    [keyValueData]="tableDataArr"
-></app-indicator-table>
+<ion-grid>
+    <ion-row class="ion-justify-content-center">
+        <ion-col size-md = "4" size-sm = "12">
+            <app-indicator-table
+                [keyValueData]="tableDataArr">
+            </app-indicator-table>
+        </ion-col>
+        <ion-col size-md = "8" size-sm = "12">
+            <app-indicator-graph 
+            [indicatorClassName]="indicatorClassName"
+            [instances]="instances"
+            [indicatorDisplayData]="graphDataArr"
+            (dataParametersChange)="onUserGraphInput($event)">
+        </app-indicator-graph>
+        </ion-col>
+    </ion-row>
+    <br><hr>
+</ion-grid>
+
+                

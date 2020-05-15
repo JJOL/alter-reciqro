@@ -138,6 +138,7 @@ export class EditCenterPage implements OnInit {
       { type: 'required', message: 'Horario es requerido' },
       { type: 'maxlength', message: 'El horario tiene una longitud máxima de 40 caracteres' },
     ],
+    zip: []
   };
 
   newCenterForm = this.formBuilder.group({
