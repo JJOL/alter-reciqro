@@ -217,14 +217,10 @@ export class EditCenterPage implements OnInit {
                 street: place.address
               }
             });
-
           });
         }
       });
-
-      
     });
-
   }
 
 
