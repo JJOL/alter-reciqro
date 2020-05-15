@@ -9,7 +9,7 @@ import { InfoBanner } from 'src/app/core/models/info-banner.model';
   styleUrls: ['./info-banners.page.scss'],
 })
 /**
- * Information Banners
+ * Page incharge of Information Banners
  */
 export class InfoBannersPage implements OnInit {
 
@@ -26,6 +26,8 @@ export class InfoBannersPage implements OnInit {
   ngOnInit() {
   }
   /**
+   * User Story Id: M2NG6
+   * Method that calls the service infoBannerService to delete an existing information banner, asking first if you want to delete it
    */
   onDeleteInfoBanner(infoBannerId,title){
     this.alertCtrl.create ({
@@ -81,7 +83,7 @@ export class InfoBannersPage implements OnInit {
     }).then(toast => toast.present());
   }
   /**
-   * Listen to check if there is a change
+   * Listen to check if there is a change in the view considering all the infobanners
    */
   ionViewWillEnter() {
     this.infoBannerService.getAllInfoBanners()
