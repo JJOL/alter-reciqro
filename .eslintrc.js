@@ -185,7 +185,6 @@ module.exports = {
         '@angular-eslint/use-pipe-transform-interface': 'error',
 
         //COnfig custom
-        'max-params': ["error", 3],
         'require-jsdoc': ['error', {
           require: {
             FunctionDeclaration: true,
@@ -223,11 +222,6 @@ module.exports = {
               ],
             },
           ],
-          "no-magic-numbers": "off",
-          "@typescript-eslint/no-magic-numbers": [
-            "error",{
-              enforceConst: true,
-      /* options */}],
           "eqeqeq": ["error", "always", {"null": "ignore"}],
           "no-empty-function": "off",
           "@typescript-eslint/no-explicit-any": ["warn"],

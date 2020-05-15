@@ -6,6 +6,9 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './banner-pop-up.page.html',
   styleUrls: ['./banner-pop-up.page.scss'],
 })
+/**
+ * Exporting the class so it is externally accessible.
+ */
 export class BannerPopUpPage implements OnInit {
 
   @Input() title: string;

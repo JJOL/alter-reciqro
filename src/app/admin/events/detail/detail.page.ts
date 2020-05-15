@@ -118,7 +118,7 @@ export class DetailPage implements OnInit {
       { type: 'required', message: 'Longitud es requerida' },
     ]
   };
-
+  eventos: any;
   editEventForm = this.formBuilder.group({
     name: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
     description: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
@@ -141,16 +141,18 @@ export class DetailPage implements OnInit {
       }
       this.placeId = paraMap.get('id');
       if (this.placeId) {
-        this.eventService.getEventByID(this.placeId).then( event =>{
-          this.editEventForm.controls.name.setValue(event.name);
-          this.editEventForm.controls.description.setValue(event.description);
-          this.editEventForm.controls.latitude.setValue(event.location.lat);
-          this.editEventForm.controls.longitude.setValue(event.location.lng);
-          this.editEventForm.controls.icon.setValue(event.icon);
-          this.editEventForm.controls.age.setValue(event.age);
-          this.editEventForm.controls.endDate.setValue(event.end_date.toISOString().split('T')[0]);
-          this.editEventForm.controls.startDate.setValue(event.start_date.toISOString().split('T')[0]);
-        })
+       
+          this.eventService.getEventByID(this.placeId).then( event =>{
+            this.editEventForm.controls.name.setValue(event.name);
+            this.editEventForm.controls.description.setValue(event.description);
+            this.editEventForm.controls.latitude.setValue(event.location.lat);
+            this.editEventForm.controls.longitude.setValue(event.location.lng);
+            this.editEventForm.controls.icon.setValue(event.icon);
+            this.editEventForm.controls.age.setValue(event.age);
+            this.editEventForm.controls.endDate.setValue(event.end_date.toISOString().split('T')[0]);
+            this.editEventForm.controls.startDate.setValue(event.start_date.toISOString().split('T')[0]);
+          })
+      
       }
     });
   }
