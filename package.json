@@ -10,7 +10,7 @@
     "test": "ng test --poll=2000",
     "coverage-report": "node metrics/index.js",
     "e2e": "ng e2e",
-    "lint-report": "ng lint && node metrics/lintmetric.js",
+    "lint-report": "ng lint && node metrics/lintmetric.js"
   },
   "private": true,
   "dependencies": {
