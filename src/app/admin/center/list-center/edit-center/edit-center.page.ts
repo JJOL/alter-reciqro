@@ -166,7 +166,7 @@ export class EditCenterPage implements OnInit {
     }),
     instalationType: ['', [Validators.required]],
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    schedule: ['', [Validators.required, Validators.maxLength(20)]]
+    schedule: ['', [Validators.required, Validators.maxLength(50)]]
   });
 
   
