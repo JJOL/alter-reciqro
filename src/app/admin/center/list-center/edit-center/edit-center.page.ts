@@ -135,7 +135,7 @@ export class EditCenterPage implements OnInit {
       { type: 'pattern', message: 'El URL no es correcto'}
     ],
     mainPicture: [
-      { type: 'pattern', message: 'El URL no es correcto'}
+      
     ],
     street: [
       { type: 'required', message: 'Calle es requerida' },
@@ -159,7 +159,7 @@ export class EditCenterPage implements OnInit {
     latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
     longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
     qrCode: [''],
-    mainPicture: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
+    mainPicture: [''], /*This should be a picture*/
     address: this.formBuilder.group({
       street: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
       zip: [' ']

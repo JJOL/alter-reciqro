@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {WasteType} from '../../../core/models/waste-type';
 import { PopoverController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-filter-menu',
@@ -14,7 +15,7 @@ import { PopoverController } from '@ionic/angular';
 export class FilterMenuComponent implements OnInit {
   
   // eslint-disable-next-line require-jsdoc, max-params
-  constructor(public popoverController: PopoverController) {}
+  constructor(public popoverController: PopoverController, private router: Router) {}
   @Input() filters: WasteType [] = [];
   @Input() activeFilters: WasteType [] = [];
 
@@ -45,6 +46,18 @@ export class FilterMenuComponent implements OnInit {
   dismiss() {
     this.popoverController.dismiss(this.activeFilters);
   }
+
+  /**
+   *  US ID: M1NC2
+   * Dismisses the modal and redirect to info waste
+   */
+  wasteInfo() {
+    this.popoverController.dismiss(this.activeFilters);
+    this.router.navigate(['/user/info/waste/']);
+  }
+
+  
+
   /**
    * US ID: M1NC2
    * Changes the current checkbox status by checking the active filter array
