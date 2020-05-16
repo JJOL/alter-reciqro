@@ -8,6 +8,7 @@ import { DelegationService } from 'src/app/core/services/delegation.service';
 const MIN_LENGTH_PASSWORD = 8
 const MAX_LENGTH_ALIAS = 100
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
@@ -19,6 +20,8 @@ const MAX_LENGTH_ALIAS = 100
  */
 export class RegisterPage implements OnInit {
   delegations:any[];
+
+  public acceptedPrivacyPolicy = false
 
   /**
    * User Story ID: M4NC1
@@ -88,6 +91,10 @@ export class RegisterPage implements OnInit {
     delegation_id: [
       { type: 'required', message: 'Es necesario elegir una delegación'}
     ],
+
+    privacy_policy: [
+      { type: 'required', message: 'Es necesario leer y aceptar la política de privacidad'}
+    ]
     
   };
 
@@ -97,9 +104,11 @@ export class RegisterPage implements OnInit {
     password: ['', [Validators.required, Validators.minLength(MIN_LENGTH_PASSWORD)]],
     confirmPassword: ['', Validators.required],
     delegation_id: ['', Validators.required], 
+    privacy_policy: ['', Validators.required]
   },{
     validator: this.mustMatch('password', 'confirmPassword')
   });
+
   /**
    * @param  {AuthService} privateauthService
    * @param  {NavController} privatenavCtrl
@@ -125,6 +134,18 @@ export class RegisterPage implements OnInit {
     this.delegationService.getDelegations().then(delegation => {
       this.delegations = delegation;
     });
+  }
+
+  /**
+   * User Story ID: 
+   * validates privacy policy is accepted
+   */
+  hasReadPrivacyPolicy () {
+    if (true === this.acceptedPrivacyPolicy) {
+      this.acceptedPrivacyPolicy = false;
+    } else {
+      this.acceptedPrivacyPolicy = true;
+    }
   }
 
   /**
