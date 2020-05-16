@@ -37,7 +37,6 @@ ion-title {
 }
 app-toolbar{
 	color: white;
-	
 	text-align: center;
 }
 
@@ -50,5 +49,9 @@ app-toolbar{
 	}
 	h1{
 		font-size: 120% !important;
+	}
+	app-toolbar{
+		color: white;
+		text-align: center;
 	}
 }
