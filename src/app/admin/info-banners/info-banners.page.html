@@ -1,4 +1,4 @@
-<app-toolbar title="Fichas Informativas" [backButton]="false" ></app-toolbar>
+<app-toolbar title="Fichas Informativas" [backButton]="true" routePath="/admin/center"></app-toolbar>
   <ion-content>
     <ion-grid>
       <ion-row>
@@ -11,6 +11,8 @@
                 </ion-thumbnail>
                 <ion-label>
                   <h2> {{ infoBanner.title }} </h2>
+                  <br>
+                  <h5>{{infoBanner.date | date:'dd/MMMM/yyyy '}}</h5>
                 </ion-label>
                 <ion-button fill="clear" class="bold"  [routerLink]="['/admin/info-banners/edit', infoBanner.id]">
                   <ion-icon slot="icon-only" name="create-outline"></ion-icon>

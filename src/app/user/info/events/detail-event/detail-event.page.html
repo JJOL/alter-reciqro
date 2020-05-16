@@ -1,22 +1,27 @@
 
-<<<<<<< HEAD
 <app-toolbar *ngIf='eventLoad' title='{{ eventLoad.name }}' [backButton]="true" routePath="/user/info/events"></app-toolbar>
-=======
-<app-toolbar *ngIf="eventLoad" title="{{ eventLoad.name }}" [backButton]="true" [login]="false" routePath="/user/info/events"></app-toolbar>
-<ion-content>
-  <ion-grid>
->>>>>>> usereventsBugs
 
  
   <ion-content>
     <ion-grid>
 
     <ion-row class="ion-justify-content-center">
-
+    
       <ion-col  size-md = "6" size-sm = "12"  *ngIf="eventLoad">
-
+       
+        <ion-grid>
+          <ion-row class=padding>
+            <ion-col size="12" style="text-align: right">
+              <div #iframeFB>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        
         <ion-card *ngIf="eventLoad">
           <ion-img [src]="eventLoad.icon"></ion-img>
+          <div #iframeFB style="text-align: right">
+          </div>
           <ion-card-header>
             <ion-card-subtitle>{{ startDay }}</ion-card-subtitle>
             <ion-card-title>{{ eventLoad.name }}</ion-card-title>
@@ -32,7 +37,6 @@
             <h4> <strong> Fecha de finalizacion del evento: </strong> </h4>
             <p> {{ endDate }} </p>
             <br>
-<<<<<<< HEAD
             
             <div id="age">
               <h4> <strong>¿Quiénes pueden asistir?</strong></h4>
@@ -45,9 +49,12 @@
             <ion-grid>
               <ion-row class="ion-justify-content-center">
                 <ion-col size-md = "6" size-sm = "12"  >
-                  
-                  
-                    <ion-button  color="primary"  *ngIf="eventLoad" href="https://www.google.com/maps/dir//{{eventLoad.location.lat}},{{eventLoad.location.lng}}/@{{eventLoad.location.lat}},{{eventLoad.location.lng}},17z" >Ver en Mapa </ion-button>      
+                  <ion-button  color="primary"  *ngIf="eventLoad" href="https://www.google.com/maps/dir//{{eventLoad.location.lat}},{{eventLoad.location.lng}}/@{{eventLoad.location.lat}},{{eventLoad.location.lng}},17z" >Ver en Mapa </ion-button> 
+                  <ion-item class="ion-no-padding">
+                     
+                    <ion-checkbox [(ngModel)]="interested" (click) = "addValue($event)"></ion-checkbox>
+                    <ion-label>Estoy interesado</ion-label></ion-item>
+                    
                   
                   </ion-col>
               </ion-row>
@@ -58,16 +65,10 @@
               <ion-row class="ion-justify-content-end">
                 <ion-col size-md = "6" size-sm = "12" >
                   
-                  <div #iframeFB>
-=======
-            <ion-item class="ion-no-padding">
-              <ion-checkbox [(ngModel)]="interested" (click) = "addValue($event)"></ion-checkbox>
-              <ion-label>Estoy interesado</ion-label></ion-item>
-            <br>
-            <ion-button  color="primary"  *ngIf="eventLoad" href="https://www.google.com/maps/dir//{{eventLoad.location.lat}},{{eventLoad.location.lng}}/@{{eventLoad.location.lat}},{{eventLoad.location.lng}},17z" >Direcciones al Evento</ion-button>
->>>>>>> usereventsBugs
-
-                  </div>
+                  
+                  
+                  <br>
+                  
                   </ion-col>
               </ion-row>
             </ion-grid>

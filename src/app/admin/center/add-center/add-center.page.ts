@@ -7,6 +7,8 @@ import { ToastController } from '@ionic/angular';
 import { parseGoogleGeoPointToDegrees, parseDegreesToGoogleGeoPoint } from '../../../core/utils/geopoint.util';
 import { Place } from 'src/app/core/models/place.model';
 
+const MAX_LEN = 300;
+
 const DEFAULT_MARKER_PLACER: Place = {
   location: {
     lat: 20.588772,
@@ -163,10 +165,8 @@ export class AddCenterPage implements OnInit {
     ]
   };
   newCenterForm = this.formBuilder.group({
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    name: ['', [Validators.required, Validators.maxLength(100)]],
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    description: ['', [Validators.required, Validators.maxLength(300)]],
+    name: ['', [Validators.required, Validators.maxLength(MAX_LEN)]],
+    description: ['', [Validators.required, Validators.maxLength(MAX_LEN)]],
     latlngdecimal: this.formBuilder.group({
       latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
       longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
@@ -176,13 +176,11 @@ export class AddCenterPage implements OnInit {
     qrCode: [' '],
     mainPicture: ['NA'],
     address: this.formBuilder.group({
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-      street: ['', [Validators.required, Validators.maxLength(100)]],
+      street: ['', [Validators.required, Validators.maxLength(MAX_LEN)]],
       zip: [' ']
     }),
     instalationType: ['', [Validators.required]],
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    schedule: ['', [Validators.required, Validators.maxLength(50)]]
+    schedule: ['', [Validators.required, Validators.maxLength(MAX_LEN)]]
   });
 
   /**
@@ -272,7 +270,6 @@ export class AddCenterPage implements OnInit {
         lat: newVal.latitude,
         lng: newVal.longitude
       });
-
       // Update LatLng Degree
       this.newCenterForm.controls.latlngdegrees.setValue(degreelatlng);
       // Update Map Marker

@@ -20,15 +20,15 @@ import { ActivatedRoute } from '@angular/router';
  */
 export class DetailEventPage implements OnInit {
   eventLoad: EventModel;
-  linkFB: String;
-  idE: string;
+  linkFB: string;
+  email:string;
   startDate: string;
   endDate: string;
   startDay: string;
   // @ViewChild('map', { static: true }) mapElement;
   @ViewChild('iframeFB', {static: false}) shareButtonFB;
   interested: boolean;
-  email = this.authService.getUserMail();
+  
   eventId: string;
 
   // eslint-disable-next-line require-jsdoc
@@ -57,13 +57,13 @@ export class DetailEventPage implements OnInit {
         return;
       }
 
-      const eventId = paraMap.get('eventId');
-      this.idE = eventId;
+      this.eventId = paraMap.get('eventId');
+      
 
 
-      if (eventId) {
+      if (this.eventId) {
 
-        this.eventService.getEventByID(eventId).then(res => {
+        this.eventService.getEventByID(this.eventId).then(res => {
 
           this.eventLoad = res;
           // this.linkFB = `https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fitesm-ca2020.web.app%2Fuser%2Finfo%2Fevents%2F${this.eventLoad.id}&layout=button_count&size=large&appId=725418228231566&width=88&height=28`
@@ -71,10 +71,19 @@ export class DetailEventPage implements OnInit {
           this.endDate = this.dateFormat(this.eventLoad.end_date, true);
           this.startDay = this.dateFormat(this.eventLoad.start_date, false);
           setTimeout(() => {
-            const buttonFBShare = `<iframe src='https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fitesm-ca2020.web.app%2Fuser%2Finfo%2Fevents%2Fdetail-event%2F${eventId}&layout=button_count&size=large&appId=725418228231566&width=88&height=28' width='88' height='28' style='border:none;overflow:hidden' scrolling='no' frameborder='0' allowTransparency='true' allow='encrypted-medi''></iframe>`;
+            const buttonFBShare = `<iframe src='https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fitesm-ca2020.web.app%2Fuser%2Finfo%2Fevents%2Fdetail-event%2F${this.eventId}&layout=button_count&size=large&appId=725418228231566&width=88&height=28' width='88' height='28' style='border:none;overflow:hidden' scrolling='no' frameborder='0' allowTransparency='true' allow='encrypted-medi''></iframe>`;
             this.shareButtonFB.nativeElement.innerHTML = buttonFBShare;
           }, 100);
           this.eventId = paraMap.get('eventId');
+          this.email = this.authService.getUserMail();
+          this.eventLoad = res;
+          this.userEventService.getUserEventByID(this.eventId, this.email).then(interested => {
+            if (interested) {
+              this.interested = true;
+            } else {
+              this.interested = false;
+            }
+          });
 
         });
         this.eventService.getEventByID(this.eventId).then(res => {
@@ -199,7 +208,7 @@ export class DetailEventPage implements OnInit {
     let hour = date.getHours();
     let minutes = date.getMinutes();
     if (flag) {
-      if (minutes == 0) {
+      if (0 === minutes) {
         return `${day} ${monthNames[monthIndex]} ${year} ${hour}:${minutes}0 hrs`;
       }
 

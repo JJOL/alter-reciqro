@@ -14,11 +14,13 @@ import {SharedPageModule} from '../../../../shared/shared.module';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    // FormsModule,
     IonicModule,
     EditCenterPageRoutingModule,
     SharedPageModule,
   ],
   declarations: [EditCenterPage]
 })
+/**
+ * Exporting the class so it is externally accessible.
+ */
 export class EditCenterPageModule {}

@@ -14,5 +14,7 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-// eslint-disable-next-line require-jsdoc
+/**
+ * Exporting the class so it is externally accessible.
+ */
 export class AddCenterPageRoutingModule {}
