@@ -72,4 +72,7 @@ export class UserPage implements OnInit {
       color: 'success'
     }).then(toast => toast.present());
   }
+  logout() {
+    this.authService.logoutUser();
+  }
 }
