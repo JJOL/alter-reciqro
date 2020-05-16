@@ -1,13 +1,11 @@
-import { AngularFirestore, DocumentSnapshot } from '@angular/fire/firestore';
-import { Subscription, of } from 'rxjs';
-import { map, take, catchError } from 'rxjs/operators';
+import { DocumentSnapshot } from '@angular/fire/firestore';
+import { Subscription } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
-
 import { Injectable } from '@angular/core';
 import { Place } from '../models/place.model';
 import { TipoInstalacion } from '../models/tipo-instalacion.model';
 import { WasteType, PlacesWasteTypes } from '../models/waste-type';
-
 import { SystemService } from './system.service';
 
 const PLACE_KEY = '/places';
@@ -79,7 +77,6 @@ export class PlacesService {
   /**
    * User Story ID: M1NG4
    * Description: This function returns all the places from firebase.
-  /**
    * Constructor for the class, only external service used will be the Firestore one.
    * @param  {AngularFirestore} privatefiredb
    */
@@ -127,7 +124,6 @@ export class PlacesService {
       });
     });
   }
-
   
   /** 
    * User Story ID: M1NC1
@@ -157,18 +153,15 @@ export class PlacesService {
    */
   getPlaceByID(id: string): Promise<Place> {
     return new Promise((resolve, reject) => {
-      
-      console.log('Calling getPlaceByID()');
-
       let placeRef = this.firedb.collection(PLACE_KEY).doc(id).ref;
       placeRef.get()
           .then(docSnap => {
             if (docSnap.exists) {
-              console.log('PLACE ITEM DOES EXISTS');
               let place = parseFBPlaceDocToPlace(docSnap as DocumentSnapshot<any>);       
               resolve(place);     
             }
             else {
+              // eslint-disable-next-line prefer-promise-reject-errors
               reject('ERROR: PlacesService.getPlaceByID(): Place does not exist.');
             }
           })
@@ -347,6 +340,7 @@ export class PlacesService {
   async getIDWasteTypeByPlace(filters: TipoInstalacion): Promise<WasteType[]> {
     return new Promise((resolve) => {
       let subscription: Subscription;
+      // eslint-disable-next-line max-len
       subscription = this.firedb.collection<WasteType>(PLACE_TYPE_WASTE_TYPE, ref => ref.where('place_type', 'in', filters.id)).snapshotChanges()
           .pipe(map(snapshot => {
             return snapshot.map(wastetype  => {
@@ -471,6 +465,7 @@ export class PlacesService {
   getAllWasteTypeByPlaceType(placeTypeId: string): Promise<PlacesWasteTypes[]> {
     return new Promise((resolve) => {
       let subscription: Subscription;
+      // eslint-disable-next-line max-len
       subscription = this.firedb.collection<PlacesWasteTypes>(PLACE_TYPE_WASTE_TYPE, ref => ref.where('place_type', '==', placeTypeId)  ).snapshotChanges()
           .pipe(map(snapshot => {
             return snapshot.map(wastetype  => {

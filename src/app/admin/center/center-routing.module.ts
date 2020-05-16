@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { CenterPage } from './center.page';
 
 const routes: Routes = [
@@ -30,4 +29,8 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
+
+/**
+ * Exporting the class so it is externally accessible.
+ */
 export class CenterPageRoutingModule {}

@@ -22,5 +22,8 @@ import { RouterModule } from '@angular/router';
   exports: [],
   declarations: [CenterPage]
 })
-// eslint-disable-next-line require-jsdoc
+
+/**
+ * Exporting the class so it is externally accessible.
+ */
 export class CenterPageModule {}

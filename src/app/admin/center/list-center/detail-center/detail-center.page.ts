@@ -36,9 +36,8 @@ export class CenterDetailPage implements OnInit {
 
   /**
    * User Story ID: M1NG5
-   * 
+   * Constructor for the class.
    */
-  // eslint-disable-next-line max-params
   constructor(
     private activatedRoute: ActivatedRoute,
     private placeService: PlacesService,
@@ -48,12 +47,12 @@ export class CenterDetailPage implements OnInit {
 
   /**
    * User Story ID: M1NG5
+   * Whenever the pages gets called, we load the detail of the place.
    */
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
 
       if (!paraMap.has('centerId')) {
-        // redirect
         return;
       }
 
@@ -72,9 +71,7 @@ export class CenterDetailPage implements OnInit {
           this.map.setCenter(this.position);
 
           this.renderQRImage();
-          
-
-          // get placeType
+      
           if (this.loadedPlace.places_type.id) {
             this.placeService.getPlaceTypeByID('' + this.loadedPlace.places_type.id).then(placeType => {
               this.loadedPlaceType = placeType;
@@ -92,7 +89,7 @@ export class CenterDetailPage implements OnInit {
   }
   /**
    * User Story ID: M1NG6
-   * Description: Renders the QR Image associated to the Place
+   * Renders the QR Image associated to the Place.
    */
   renderQRImage() {
     let data = this.loadedPlace.id;
@@ -107,26 +104,11 @@ export class CenterDetailPage implements OnInit {
       width: 128,
       height: 128
     });
-    // With promises
-    // QRCode.toDataURL('I am a pony!')
-    // .then(url => {
-    //   console.log(url)
-    // })
-    // .catch(err => {
-    //   console.error(err)
-    // });
   }
 
   /**
-   * User Story ID: M1NG5
-   */
-  ionViewWillEnter() {
-    
-  }
-  
-  /**
    * User Story ID: M1NG3
-   * Description: This function warns the user before deleting a place with an alert
+   * This function warns the user before deleting a place with an alert
    */
   onDeletePlace() {
     this.alertCtrl.create ({
@@ -148,5 +130,4 @@ export class CenterDetailPage implements OnInit {
       alertEl.present();
     });
   }
-
 }

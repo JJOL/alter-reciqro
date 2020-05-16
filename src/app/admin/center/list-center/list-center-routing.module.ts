@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { ListCenterPage } from './list-center.page';
 
 const routes: Routes = [
@@ -28,6 +27,7 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
+
 /**
  * Exporting ListCenterPageRoutingModule class so it is externally accessible.
  */

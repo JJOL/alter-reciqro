@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { EditCenterPage } from './edit-center.page';
 
 const routes: Routes = [
@@ -14,7 +13,7 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-/*
-*Exportar la clase edit
-*/
+/**
+ * Exporting the class so it is externally accessible.
+ */
 export class EditCenterPageRoutingModule {}
