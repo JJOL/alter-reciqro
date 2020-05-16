@@ -54,9 +54,10 @@
               <div> <ion-icon name="megaphone"></ion-icon> <br> <label>Eventos</label> </div>   
               </ion-button>
             </ion-col>
-            
           </ion-row>
-
+        <div *ngIf="roles.includes('admin')">
+          <ion-row>
+          <ion-col size="6">
           <ion-button 
           color="azul"
           expand="block"
@@ -64,7 +65,28 @@
           [routerLink]="['/','admin','info-banners']"> 
           <div> <ion-icon name="leaf"></ion-icon> <br> <label>Fichas Informativas</label> </div>   
           </ion-button>
-
+        </ion-col>
+        <ion-col size="6">
+          <ion-button 
+          color="azul"
+          expand="block"
+          routerDirection=" "
+          [routerLink]="['/','admin']"> 
+          <div> <ion-icon name="people-outline"></ion-icon> <br> <label>Usuarios</label> </div>   
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div *ngIf="!roles.includes('admin')">
+      <ion-button 
+      color="azul"
+      expand="block"
+      routerDirection=" "
+      [routerLink]="['/','admin','info-banners']"> 
+      <div> <ion-icon name="leaf"></ion-icon> <br> <label>Fichas Informativas</label> </div>   
+      </ion-button>
+   
+</div>
       </ion-col>
     </ion-row>
   </ion-grid>
