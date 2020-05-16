@@ -9,6 +9,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { empty, BehaviorSubject } from 'rxjs';
 import { InfoBannerService } from 'src/app/core/services/info-banner.service';
 import { ModalBannerPageModule } from './modal-banner/modal-banner.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const mockBannerService = jasmine.createSpyObj('bannerService', ['getAllInfoBanners']);
 
@@ -83,7 +84,7 @@ describe('BannerPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ BannerPage ],
-      imports: [IonicModule.forRoot(), RouterTestingModule, SharedPageModule, ModalBannerPageModule],
+      imports: [IonicModule.forRoot(), RouterTestingModule, SharedPageModule, ModalBannerPageModule, NgxPaginationModule],
       providers: [
         { provide: AngularFirestore, useValue: MockAngularFirestore },
         { provide: AuthService, useValue: mockAuthentication },

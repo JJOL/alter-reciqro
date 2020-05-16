@@ -17,9 +17,9 @@
     </ion-slides>
     <ion-grid>
         <ion-row class="ion-justify-content-center" >
-          <ion-col size-md = "6" size-sm = "12" >
+          <ion-col size-md = "6" size-sm = "12" class="ion-text-center">
             <ion-list >
-              <ion-item *ngFor="let event of events" detail [routerLink]="['/user/info/events/detail-event', event.id]">
+              <ion-item *ngFor="let event of events | paginate: { itemsPerPage: 10, currentPage: actualPage }" detail [routerLink]="['/user/info/events/detail-event', event.id]">
                 <ion-thumbnail slot="start">
                   <ion-img [src]="event.icon"></ion-img>
                 </ion-thumbnail>
@@ -28,13 +28,17 @@
                 </ion-label>
               </ion-item>
             </ion-list>
+            <pagination-controls (pageChange)="actualPage = $event"
+              directionLinks="true"
+              responsive="true"
+              previousLabel="Anterior"
+              nextLabel="Siguiente"
+              screenReaderPaginationLabel="Pagination">
+            </pagination-controls>
           </ion-col>
         </ion-row>
       </ion-grid>
       </div>
-
-      
-      
         <ion-grid *ngIf="lengthEvents==0">
           <ion-row>
             <ion-col>

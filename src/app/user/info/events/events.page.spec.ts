@@ -10,6 +10,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { EventsService } from 'src/app/core/services/events.service';
 import { FormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -101,7 +102,7 @@ describe('EventsPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [EventsPage],
-      imports: [IonicModule.forRoot(), RouterModule.forRoot([]),SharedPageModule,RouterTestingModule],
+      imports: [IonicModule.forRoot(), RouterModule.forRoot([]),SharedPageModule,RouterTestingModule, NgxPaginationModule],
       providers: [
         FormBuilder,
         {provide: AngularFirestore, useValue: angularFirestoreStub},

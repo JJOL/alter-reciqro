@@ -4,9 +4,9 @@
   
   <ion-grid>
     <ion-row class="ion-justify-content-center">
-      <ion-col size-md = "8" size-sm = "12" >
+      <ion-col size-md = "8" size-sm = "12" class="ion-text-center">
         <ion-list >
-          <ion-item *ngFor="let placeType of placeTypes | paginate: { itemsPerPage: 10, currentPage: actualPage }" >
+          <ion-item *ngFor="let placeType of placeTypes | paginate: { itemsPerPage: 9, currentPage: actualPage }" >
             <ion-thumbnail slot="start">
               <ion-img [src]="placeType.icon_url"></ion-img>
             </ion-thumbnail>

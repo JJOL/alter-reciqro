@@ -7,6 +7,7 @@ import { DelegationModel } from '../models/delegation.model';
 import { SystemService } from './system.service';
 
 const DELEGATION_KEY = '/delegation';
+const USERS_KEY = '/users';
 /**
  * User Story ID: M4NC5
  * Function that casts a firebase delegation to our delegation model.
@@ -77,6 +78,24 @@ export class DelegationService {
             }
             resolve(delegation);
           });
+    });
+  }
+  /**
+   * This function edits the alias of an existing user
+   * @param  {} nickName
+   * @param  {string} id
+   */
+  changeNickName(nickName,id: string) {
+    return new Promise<any>((resolve, reject) => {
+      this.firedb.collection(USERS_KEY).doc(id).set({
+        alias: nickName.nickName
+      }, {merge: true} )
+          .then(
+              (res) => {
+                resolve(res);
+              },
+              err => reject(err)
+          );
     });
   }
 

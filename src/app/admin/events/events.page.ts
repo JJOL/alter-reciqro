@@ -16,6 +16,7 @@ import { DatePipe } from '@angular/common';
 export class EventsPage implements OnInit {
   events: EventModel[];
   todayDate = new Date();
+  actualPage = 1;
   /**
    * User Story ID: M2NC2
    * Constructor only uses as an external service the Event Service, so that reading operations can be performed.

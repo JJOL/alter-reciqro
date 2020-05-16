@@ -8,6 +8,7 @@ import { AdminPageRoutingModule } from './admin-routing.module';
 
 import { AdminPage } from './admin.page';
 import { RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     ReactiveFormsModule,
     AdminPageRoutingModule,
-    SharedPageModule
+    SharedPageModule,
+    NgxPaginationModule
   ],
   declarations: [AdminPage]
 })

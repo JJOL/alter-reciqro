@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 import { MockAngularFirestore } from '../../core/services/mocks/firestore.mock';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 let mockFirestore = new MockAngularFirestore();
@@ -76,7 +77,7 @@ describe('InfoBannersPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ InfoBannersPage ],
-      imports: [IonicModule.forRoot(), RouterTestingModule, SharedPageModule, ReactiveFormsModule],
+      imports: [IonicModule.forRoot(), RouterTestingModule, SharedPageModule, ReactiveFormsModule, NgxPaginationModule],
       providers: [
         { provide: AngularFirestore, useValue: mockFirestore},
         { provide: AuthService, useValue: mockAuthentication}
