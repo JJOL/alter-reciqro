@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-button (click)="onClearCache()">Clear Cache</ion-button>
   <ion-grid>
     <ion-row *ngFor="let c of calls">
       <ion-col>{{ c.key }}</ion-col>
