@@ -11,11 +11,11 @@
 
 
     <ion-row>
-      <ion-col size = "12" size-sm = "8" offset-sm="2" text-center>
+      <ion-col size = "12" size-sm = "8" offset-sm="2" class="ion-text-center">
         <ion-list *ngIf="places" >
           <ion-item button
           [routerLink]="['/','admin','center','list-center' ,place.id]"
-            *ngFor="let place of places.slice(1) | paginate: { itemsPerPage: 10, currentPage: actualPage }" 
+            *ngFor="let place of places.slice(1) | paginate: { itemsPerPage: 9, currentPage: actualPage }" 
             detail
           >
             <ion-thumbnail slot="start">

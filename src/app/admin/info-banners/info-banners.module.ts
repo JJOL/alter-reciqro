@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { InfoBannersPageRoutingModule } from './info-banners-routing.module';
 
 import { InfoBannersPage } from './info-banners.page';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { InfoBannersPage } from './info-banners.page';
     FormsModule,
     IonicModule,
     InfoBannersPageRoutingModule,
-    SharedPageModule
+    SharedPageModule,
+    NgxPaginationModule
   ],
   declarations: [InfoBannersPage]
 })

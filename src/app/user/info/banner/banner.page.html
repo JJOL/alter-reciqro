@@ -16,9 +16,9 @@
     </ion-slides>
     <ion-grid>
         <ion-row class="ion-justify-content-center">
-          <ion-col size-md = "6" size-sm = "12" >
+          <ion-col size-md = "6" size-sm = "12" class="ion-text-center">
             <ion-list >
-              <ion-item button *ngFor="let banner of banners" detail (click)="seeDetail(banner.title, banner.description, banner.image_url, banner.date)">
+              <ion-item button *ngFor="let banner of banners | paginate: { itemsPerPage: 9, currentPage: actualPage }" detail (click)="seeDetail(banner.title, banner.description, banner.image_url, banner.date)">
                 <ion-thumbnail slot="start">
                   <ion-img [src]="banner.image_url"></ion-img>
                 </ion-thumbnail>
@@ -27,6 +27,13 @@
                 </ion-label>
               </ion-item>
             </ion-list>
+            <pagination-controls (pageChange)="actualPage = $event"
+              directionLinks="true"
+              responsive="true"
+              previousLabel="Anterior"
+              nextLabel="Siguiente"
+              screenReaderPaginationLabel="Pagination">
+            </pagination-controls>
           </ion-col>
         </ion-row>
       </ion-grid>

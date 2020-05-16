@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { EventsPageRoutingModule } from './events-routing.module';
 import {SharedPageModule} from 'src/app/shared/shared.module';
 import { EventsPage } from './events.page';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { EventsPage } from './events.page';
     FormsModule,
     IonicModule,
     EventsPageRoutingModule,
-    SharedPageModule
+    SharedPageModule,
+    NgxPaginationModule
   ],
   declarations: [EventsPage]
 })

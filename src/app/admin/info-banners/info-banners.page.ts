@@ -13,7 +13,8 @@ import { InfoBanner } from 'src/app/core/models/info-banner.model';
  */
 export class InfoBannersPage implements OnInit {
 
-  infoBanners: InfoBanner[]
+  infoBanners: InfoBanner[];
+  actualPage = 1;
 
   // eslint-disable-next-line require-jsdoc
   constructor(

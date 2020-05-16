@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { SharedPageModule } from '../shared/shared.module';
 import { BehaviorSubject , empty} from 'rxjs';
 import { AuthService } from '../core/services/auth.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const mockAuthentication ={
   registerUser: () => {
@@ -81,7 +82,7 @@ describe('AdminPage', () => {
     const firestoreMockSpy = jasmine.createSpyObj('AngularFirestore', ['collection']);
     TestBed.configureTestingModule({
       declarations: [ AdminPage ],
-      imports: [IonicModule.forRoot(), RouterModule.forRoot([]),SharedPageModule],
+      imports: [IonicModule.forRoot(), RouterModule.forRoot([]),SharedPageModule, NgxPaginationModule],
       providers: [
         { provide: AngularFirestore, useValue: firestoreMockSpy },
         { provide: AdminService, useValue: mockService },

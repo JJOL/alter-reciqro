@@ -50,6 +50,10 @@
             <ion-icon name="bar-chart-outline" slot="start"></ion-icon>
             <ion-label>Reporte de Métricas</ion-label>
           </ion-item>
+          <ion-item *ngIf="roles.admin" lines="none" routerLink="/admin/sys-analytics">
+            <ion-icon name="bar-chart-outline" slot="start"></ion-icon>
+            <ion-label>System Analytics</ion-label>
+          </ion-item>
           <br>
           <div  class="leftpad">
             <ion-label>Público en general</ion-label>
@@ -75,6 +79,10 @@
           <ion-item *ngIf="isLogged" lines="none" routerLink="/user/visits" button>
             <ion-icon name="disc-outline" slot="start"></ion-icon>
             <ion-label>Visitas</ion-label>
+          </ion-item>
+          <ion-item *ngIf="isLogged" lines="none" routerLink="/user/" button>
+            <ion-icon name="person-outline" slot="start"></ion-icon>
+            <ion-label>Mi Perfil</ion-label>
           </ion-item>
           <ion-item *ngIf="isLogged" lines="none" (click)="onLogout()" button>
             <ion-icon name="exit-outline" slot="start"></ion-icon>

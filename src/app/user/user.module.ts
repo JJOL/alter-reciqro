@@ -1,7 +1,7 @@
 import { SharedPageModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -15,7 +15,8 @@ import { UserPage } from './user.page';
     FormsModule,
     IonicModule,
     UserPageRoutingModule,
-    SharedPageModule
+    SharedPageModule,
+    ReactiveFormsModule
   ],
   declarations: [UserPage]
 })
