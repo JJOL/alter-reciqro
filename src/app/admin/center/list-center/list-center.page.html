@@ -18,7 +18,7 @@
         <ion-list *ngIf="places" >
           <ion-item button
           [routerLink]="['/','admin','center','list-center' ,place.id]"
-            *ngFor="let place of places.slice(1)" 
+            *ngFor="let place of places.slice(1) | paginate: { itemsPerPage: 10, currentPage: actualPage }" 
             detail
           >
             <ion-thumbnail slot="start">
@@ -32,6 +32,14 @@
            
           </ion-item>
         </ion-list>
+        <pagination-controls (pageChange)="actualPage = $event"
+          directionLinks="true"
+          responsive="true"
+          previousLabel="Anterior"
+          nextLabel="Siguiente"
+          screenReaderPaginationLabel="Pagination">
+        </pagination-controls>
+        
       </ion-col>
     </ion-row>
 

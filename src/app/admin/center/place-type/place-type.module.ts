@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { PlaceTypePageRoutingModule } from './place-type-routing.module';
 import { PlaceTypePage } from './place-type.page';
 import { SharedPageModule } from '../../../shared/shared.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { SharedPageModule } from '../../../shared/shared.module';
     FormsModule,
     IonicModule,
     PlaceTypePageRoutingModule,
-    SharedPageModule
+    SharedPageModule,
+    NgxPaginationModule
   ],
   declarations: [PlaceTypePage],
 })

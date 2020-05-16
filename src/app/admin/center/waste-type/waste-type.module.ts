@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { WasteTypePageRoutingModule } from './waste-type-routing.module';
 import { SharedPageModule } from '../../../shared/shared.module';
 import { WasteTypePage } from './waste-type.page';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { WasteTypePage } from './waste-type.page';
     FormsModule,
     IonicModule,
     WasteTypePageRoutingModule,
-    SharedPageModule
+    SharedPageModule,
+    NgxPaginationModule
   ],
   declarations: [WasteTypePage]
 })

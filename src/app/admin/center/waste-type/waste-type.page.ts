@@ -18,6 +18,7 @@ import { AlertController } from '@ionic/angular';
 export class WasteTypePage implements OnInit {
 
   wasteTypes: WasteType[];
+  actualPage: number = 1;
 
   /**
    * User Story Id: M2NG11, M2NG13

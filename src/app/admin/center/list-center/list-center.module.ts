@@ -8,6 +8,7 @@ import { ListCenterPageRoutingModule } from './list-center-routing.module';
 
 import { ListCenterPage } from './list-center.page';
 import { SharedPageModule } from 'src/app/shared/shared.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { SharedPageModule } from 'src/app/shared/shared.module';
     FormsModule,
     IonicModule,
     ListCenterPageRoutingModule,
-    SharedPageModule
+    SharedPageModule,
+    NgxPaginationModule
   ],
   declarations: [ListCenterPage]
 })
