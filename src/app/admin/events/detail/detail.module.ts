@@ -12,7 +12,7 @@ import {SharedPageModule} from '../../../shared/shared.module';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
+    // FormsModule,
     ReactiveFormsModule,
     IonicModule,
     DetailPageRoutingModule,
