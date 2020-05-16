@@ -124,7 +124,7 @@ export class CreateStaffPage implements OnInit {
     })
         .catch(() => {
           this.showToast('Error el usuario con este correo ya existe','danger');
-          this.newCenterForm.reset();
+          
         });
     return
   }

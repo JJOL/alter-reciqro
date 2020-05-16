@@ -165,7 +165,8 @@ export class GoogleMapComponent implements OnInit, OnChanges {
       const marker: google.maps.Marker = new google.maps.Marker({
         map: this.map,
         position:  new google.maps.LatLng(place.location.lat, place.location.lng),
-        icon: icon? icon.icon_url:'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+        icon: icon? {url:icon.icon_url,scaledSize: new google.maps.Size(64, 67)}:'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+        
         draggable: this.editable ? true : false,
       // animation: google.maps.Animation.DROP
       });

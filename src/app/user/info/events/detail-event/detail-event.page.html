@@ -5,24 +5,32 @@
 <ion-content>
   <ion-grid>
     <ion-row class="ion-justify-content-center">
-      <ion-col size-md="6" size-sm="12" *ngIf="eventLoad">
-        <ion-grid>
-          <ion-row class=padding>
-            <ion-col size="11" style="text-align: right">
-              <div #iframeFB>
-              </div>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+    
+      <ion-col  size-md = "6" size-sm = "12"  *ngIf="eventLoad">
+       
+        
+        
         <ion-card *ngIf="eventLoad">
-          <ion-img [src]="eventLoad.icon"></ion-img>
-          <div #iframeFB style="text-align: right">
-          </div>
-          <ion-card-header>
-            <ion-card-subtitle>{{ startDay }}</ion-card-subtitle>
-            <ion-card-title>{{ eventLoad.name }}</ion-card-title>
-          </ion-card-header>
           <ion-card-content>
+          <ion-img [src]="eventLoad.icon"></ion-img>
+          <ion-grid>
+            <ion-row class=padding>
+              <ion-col size= '8' >
+                <ion-card-header>
+                  <ion-card-subtitle>{{ startDay }}</ion-card-subtitle>
+                  <ion-card-title>{{ eventLoad.name }}</ion-card-title>
+                  </ion-card-header>
+              </ion-col>
+              <ion-col size="4" style="text-align: right">
+                <div #iframeFB>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+        
+          
+            
             <p> {{ eventLoad.description }} </p>
             <br>
             <h4> <strong> Fecha de inicio del evento: </strong> </h4>
