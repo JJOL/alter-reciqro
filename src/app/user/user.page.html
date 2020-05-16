@@ -24,8 +24,9 @@
           <div class="card-body">
             <div class="user-meta ion-text-center">
               <h3 class="playername">Ciudadano {{user?user.alias:""}}</h3>
+              <h5 class="country">{{userDelegation}}</h5>
             </div>
-
+            <br>
             <ion-list>
               <ion-item *ngIf="delegations">
                 <ion-label>Delegación</ion-label>
