@@ -81,6 +81,12 @@
         > {{delegation.name}} </ion-select-option>
       </ion-select>
     </ion-item>
+    
+    <ion-item>
+      <ion-checkbox color="primary" slot="start" (click) = "hasReadPrivacyPolicy()"></ion-checkbox>
+      <ion-label>He leído y acepto la Política de Privacidad</ion-label>
+      <ion-input ></ion-input>
+    </ion-item>
 
     <div *ngFor="let error of errorMessages.delegation_id">
       <ng-container *ngIf="delegation_id.hasError(error.type) && (delegation_id.dirty || delegation_id.touched)">
@@ -88,7 +94,7 @@
       </ng-container>
     </div>
     <br>
-    <ion-button [disabled]="!newCenterForm.valid" type="submit" expand="block">
+    <ion-button [disabled]="!newCenterForm.valid && !acceptedPrivacyPolicy.valueOf()" type="submit" expand="block">
       Registrarme
       <ion-icon slot="end" name="send"></ion-icon>
     </ion-button>
