@@ -88,7 +88,7 @@ export class EventsService {
   constructor(private firedb: SystemService,
               private db: AngularFirestore) {}
   /**
-   * User Story ID: M1NC1
+   * User Story ID: M2NC1, M2NC2
    * Function that returns all events on the database, unfiltered, with all its associated data.
    * @returns Promise
    */
@@ -123,7 +123,7 @@ export class EventsService {
 
   /**
    * User Story ID: M2NG4,M2NC3
-   * Function that returns a specific place on the database, filtered by its id, with all its associated data.
+   * Returns a specific place on the database, filtered by its id, along its associated data.
    * @param  {string} id
    * @returns Promise
    */
@@ -152,7 +152,6 @@ export class EventsService {
     const geoPoint = new GeoPoint(event.latitude, event.longitude);
     const end_dateO = new Timestamp(Date.parse(event.endDate) / 1000, 0);
     const start_dateO =  new Timestamp(Date.parse(event.startDate) / 1000, 0);
-    console.log(event);
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(EVENTS_KEY).doc(id).set({
         name: event.name,

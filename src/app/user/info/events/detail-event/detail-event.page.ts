@@ -1,15 +1,12 @@
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UserEventService } from './../../../../core/services/userevent.service';
-import { UserEvent } from './../../../../core/models/userevent.model';
 import { AlertController, ToastController } from '@ionic/angular';
 import { ChangeDetectorRef } from '@angular/core';
-/* eslint-disable require-jsdoc */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { EventModel } from 'src/app/core/models/event.model';
 import { EventsService } from 'src/app/core/services/events.service';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-detail-event',
@@ -17,6 +14,10 @@ import { async } from '@angular/core/testing';
   styleUrls: ['./detail-event.page.scss'],
   providers: [DatePipe]
 })
+/**
+ *  User Story ID: M2NC3
+ * Detail page for event info
+ */
 export class DetailEventPage implements OnInit {
   eventLoad: EventModel;
   linkFB: String;
@@ -40,7 +41,11 @@ export class DetailEventPage implements OnInit {
                private authService: AuthService
   ) { }
 
-  // eslint-disable-next-line require-jsdoc
+  
+  /**
+   * User Story ID: M2NC3,M2NC5
+   * Gets the current event ID and loads such event
+   */
   ngOnInit() {
 
 
@@ -65,30 +70,29 @@ export class DetailEventPage implements OnInit {
           this.startDate = this.dateFormat(this.eventLoad.start_date, true);
           this.endDate = this.dateFormat(this.eventLoad.end_date, true);
           this.startDay = this.dateFormat(this.eventLoad.start_date, false);
-          console.log(this.shareButtonFB);
           setTimeout(() => {
             const buttonFBShare = `<iframe src='https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fitesm-ca2020.web.app%2Fuser%2Finfo%2Fevents%2Fdetail-event%2F${eventId}&layout=button_count&size=large&appId=725418228231566&width=88&height=28' width='88' height='28' style='border:none;overflow:hidden' scrolling='no' frameborder='0' allowTransparency='true' allow='encrypted-medi''></iframe>`;
             this.shareButtonFB.nativeElement.innerHTML = buttonFBShare;
           }, 100);
           this.eventId = paraMap.get('eventId');
 
-    });
+        });
         this.eventService.getEventByID(this.eventId).then(res => {
 
-      this.eventLoad = res;
+          this.eventLoad = res;
 
-      this.userEventService.getUserEventByID(this.eventId, this.email).then(interested => {
-        if (interested) {
-          this.interested = true;
-        } else {
-          this.interested = false;
-        }
-      });
+          this.userEventService.getUserEventByID(this.eventId, this.email).then(interested => {
+            if (interested) {
+              this.interested = true;
+            } else {
+              this.interested = false;
+            }
+          });
+        });
+
+      }
     });
-
-    }
-  });
-}
+  }
 
 
   /**
@@ -178,7 +182,7 @@ export class DetailEventPage implements OnInit {
     }).then(toast => toast.present());
   }
   /**
-   * USID: M2NC3
+   * User Story ID: M2NC3
    * @param  {} date
    */
   dateFormat(date: Date, flag: boolean) {

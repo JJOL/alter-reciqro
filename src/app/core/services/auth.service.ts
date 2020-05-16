@@ -120,7 +120,7 @@ export class AuthService {
     });
   }
   /**
-   * USID: M4NC2, M4NG1
+   * USID: M4NC1,M4NC2, M4NG1
    * Pop ups a google form from the google provider in order to sign up or login
    */
   async loginGoogleUser() {

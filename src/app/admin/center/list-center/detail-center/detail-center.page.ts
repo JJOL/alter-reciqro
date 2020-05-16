@@ -1,4 +1,3 @@
-/* eslint-disable require-jsdoc */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
@@ -38,7 +37,7 @@ export class CenterDetailPage implements OnInit {
    * User Story ID: M1NG5
    * 
    */
-  // eslint-disable-next-line max-params
+  // eslint-disable-next-line max-params, require-jsdoc
   constructor(
     private activatedRoute: ActivatedRoute,
     private placeService: PlacesService,
@@ -48,6 +47,7 @@ export class CenterDetailPage implements OnInit {
 
   /**
    * User Story ID: M1NG5
+   * Loads the current center
    */
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {

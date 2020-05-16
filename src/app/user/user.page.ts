@@ -10,6 +10,7 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./user.page.scss'],
 })
 /**
+ * User Story ID:M4NC5
  * This component loads all the current user data
  */
 export class UserPage implements OnInit {
@@ -28,7 +29,9 @@ export class UserPage implements OnInit {
               private authService: AuthService,
               private toastCtrl: ToastController) { }
   /**
+ * User Story ID:M4NC5
  * Loads the delegations catalog in order to show the list
+ * 
  */
   ngOnInit() {
     this.authService.getCurrentUser().then( user =>{
@@ -43,12 +46,7 @@ export class UserPage implements OnInit {
     });
     
   }
-  /**
-   * Logout methos to close fireauth
-   */
-  logout() {
-    this.authService.logoutUser();
-  }
+ 
   /**
    * User Story ID: M4NC5
   * Update the delegation of the user
@@ -63,7 +61,7 @@ export class UserPage implements OnInit {
 
   /**
    * User Story ID: M4NC5
-   * Function for showing the toast to the user.
+   * Creates and shows the toast to the user.
    * @param  {} msg
    */
   public showToast(msg) {

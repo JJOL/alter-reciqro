@@ -52,7 +52,7 @@ export class AppComponent implements OnInit{
   }
 
   /**
-   * User Story ID: M4NG3
+   * User Story ID: M4NC4,M4NG3
    * Logouts the current users
    */
   onLogout() {

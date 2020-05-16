@@ -154,8 +154,8 @@ export class PlacesSearcherPagePage  {
   }
 
   /**
-   * User Story ID: M2NC4
-   * Fuction that is executed for presenting the modal, searching for the modal usign the BannerService
+   * User Story ID: M2NC9
+   * Presents the modal Splashscreen
    * @param  
    * @returns 
    */

@@ -13,22 +13,29 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 
 /** 
- *  User Story Id: M2NC4
- * Login Class  */
+ *  User Story ID: M4NC2
+ * Login Page Component
+ * */
 export class LoginPage implements OnInit {
   
   rolesaux: string[];
   isLogged= false;
   /**
+   * User Story ID: M4NC2
+   * Getter for the whole form
    */
   get f() { return this.newCenterForm.controls; }
   /**
+   * User Story ID: M4NC2
+   * Getter for the email
    */
   get email() {
     return this.newCenterForm.get('email');
-  }
+  }  
   /**
-   */
+  * User Story ID: M4NC2
+  * Getter for the password
+  */
   get password() {
     return this.newCenterForm.get('password');
   }
@@ -65,8 +72,8 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
   /**
-   * User Story Id: M2NC4
-   * Method that calls auth service so that the user can login to the app with email and password
+   * User Story ID: M4NC2,M4NG1
+   * Calls auth service so that the user can login to the app with email and password
    * @returns void
    */
   public submit() {
