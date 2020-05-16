@@ -1,7 +1,6 @@
 
 import { SharedPageModule } from 'src/app/shared/shared.module';
-import { AuthService } from './../../core/services/auth.service';
-
+import { TooltipsModule } from 'ionic-tooltips';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -13,6 +12,7 @@ import { LoginPage } from './login.page';
   imports: [
     CommonModule,
     // FormsModule,
+    TooltipsModule.forRoot(),
     ReactiveFormsModule,
     IonicModule,
     LoginPageRoutingModule,

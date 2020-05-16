@@ -84,7 +84,7 @@ export class LoginPage implements OnInit {
             this.adminRedirection()
           },1000)
         } ).catch (() => {
-          this.showToast('Contraseña o Usuario Incorrecto','danger')
+          this.showToast('Contraseña o Usuario Incorrecto si has olvidado la contraseña presiona ¿Olvidaste tu contraseña?','danger')
           this.newCenterForm.reset;
         });
   }
@@ -114,7 +114,7 @@ export class LoginPage implements OnInit {
    */
   isAnError(error) {
     if ('auth/user-not-found' === error.code || 'auth/wrong-password' === error.code) {
-      this.showToast('Error, contraseña o usuario incorrecto','danger');
+      this.showToast('Error, contraseña o usuario incorrecto,si has olvidado la contraseña presiona ¿Olvidaste tu contraseña?','danger');
 
     }
   }

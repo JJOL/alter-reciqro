@@ -160,7 +160,7 @@ export class RegisterPage implements OnInit {
     
       this.navCtrl.navigateBack(['/']);
     })
-        .catch(err => {
+        .catch( ()=> {
           this.showToast('Error el usuario con este correo ya existe');
           
           this.newCenterForm.reset();

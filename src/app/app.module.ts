@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy, RouterModule } from '@angular/router';
+import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -20,7 +20,6 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { SplashscreenPageModule } from './user/splashscreen/splashscreen.module';
 import {NgxPaginationModule} from 'ngx-pagination'; 
-import { SplashscreenPage } from './user/splashscreen/splashscreen.page';
 
 @NgModule({
   declarations: [AppComponent],
