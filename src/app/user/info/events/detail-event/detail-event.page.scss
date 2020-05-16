@@ -4,8 +4,13 @@ ion-toolbar{
 
 ion-button{
 	margin: auto;
+	size: 50%;
 }
 
+ion-checkbox{
+	margin: 4px;
+	--border-color:primary;
+}
 
 ion-title {
 	position: absolute;
