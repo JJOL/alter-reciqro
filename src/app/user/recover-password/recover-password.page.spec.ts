@@ -2,10 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { RouterTestingModule } from '@angular/router/testing';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { RecoverPasswordPage } from './recover-password.page';
-import { from, empty } from 'rxjs';
+import {  empty } from 'rxjs';
 
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 

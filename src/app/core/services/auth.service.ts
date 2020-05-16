@@ -18,7 +18,9 @@ const USER_KEY = '/users';
 @Injectable({
   providedIn:'root'
 })
-/** Servicio para autenticaciom de usuario */
+/** 
+ * AuthService for auth operations
+ */
 export class AuthService {
   auxiliar: string;
   user: Observable<User>;
@@ -42,11 +44,12 @@ export class AuthService {
             this.isUserLoggedIn.next(true);
             this.userRoles.next(user.roles);
           }
-        }).catch((err) => {
+        }).catch(() => {
           this.isUserLoggedIn.next(false);
         });
   }
   /**
+   * User Story ID: M4NG2
    * Get email of the current user
    */
   getUserMail() {
@@ -55,8 +58,9 @@ export class AuthService {
   }
 
 
-  //User Story ID: M4NC1
+
   /**
+   * User Story ID: M4NC1
    * Input is the form values and creates the user with a promise using the services of firebase authentication
    * @param  {any} userObject
    */
@@ -95,7 +99,7 @@ export class AuthService {
     });
   }
   /**
-   * USID: M4NC2 y M4NG1
+   * User Story ID: M4NC2, M4NG1
    * Returns a promise that uses auth firebase methods to login with email and user
    * @param  {string} email
    * @param  {string} password
@@ -116,8 +120,8 @@ export class AuthService {
     });
   }
   /**
-   * USID: M4NC2 y M4NG1
-   * Pop up a google form of a google provider in order to sign up or login
+   * USID: M4NC2, M4NG1
+   * Pop ups a google form from the google provider in order to sign up or login
    */
   async loginGoogleUser() {
     return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
@@ -131,8 +135,8 @@ export class AuthService {
         });
   }
   /**
-   * USID: M4NC4 y M4NG3
-   *  Firebase function that ends user session and redirect to princiapl view
+   * User Story ID: M4NC4, M4NG3
+   *  Firebase function that ends user session and redirect to principal view
    */
   logoutUser() {
     return this.afAuth.auth.signOut().then(() => {
@@ -143,7 +147,7 @@ export class AuthService {
     });
   }
   /**
-   * USID: M4NC2
+   * User Story ID: M4NC2
    * Returns Observable of the User state if is authenticated
    */
   isAuth() {
@@ -151,7 +155,7 @@ export class AuthService {
   }
   
   /**
-   * USID: M4NC2
+   * User Story ID: M4NC2
    * Returns the user info by uid
    * @param  {string} uid
    */
@@ -182,7 +186,7 @@ export class AuthService {
   }
 
   /**
-   * USID: M4NC2
+   * User Story ID: M4NC2
    * Updateuserdata:
    * Updates user data in case there is no information it is used in logingoogle method
    * @param  {} user
@@ -243,8 +247,9 @@ export class AuthService {
   }
 
   /**
+   * User Story ID: M4NG1
    *  Gets the current logged user
-   * USID: M4NC2
+   * 
    * @returns Promise
    */
   getCurrentUser():Promise<any>{
@@ -259,10 +264,8 @@ export class AuthService {
     });
   }
   /**
+   * User story ID: M4NG2,M4NC3
    * Description: It sends an email to the user, so they can reset their password
-   * User story ID: M4NG2 
-   * User story ID: M4NC3
-   * 
    * @param  {string} email
    */
   sendPasswordResetEmail(email: string){

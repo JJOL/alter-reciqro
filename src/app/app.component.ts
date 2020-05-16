@@ -52,7 +52,8 @@ export class AppComponent implements OnInit{
   }
 
   /**
-   * Required by Angular.
+   * User Story ID: M4NG3
+   * Logouts the current users
    */
   onLogout() {
     this.authService.logoutUser();
