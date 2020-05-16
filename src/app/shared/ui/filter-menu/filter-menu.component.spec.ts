@@ -8,6 +8,7 @@ import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestor
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../../environments/environment';
 import { from } from 'rxjs';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 const arr = [[]];
@@ -29,7 +30,7 @@ describe('FilterMenuComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ FilterMenuComponent, FilterButtonComponent],
-      imports: [IonicModule.forRoot()],
+      imports: [IonicModule.forRoot(), NgxPaginationModule],
       providers: [   { provide: AngularFirestore, useValue: angularFirestoreStub }]
     }).compileComponents();
 

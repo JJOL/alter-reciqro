@@ -15,7 +15,8 @@ import { EventModel } from 'src/app/core/models/event.model';
 export class EventsPage implements OnInit {
   events: EventModel[];
   todayDate = new Date();
-  lengthEvents=-1
+  lengthEvents=-1;
+  actualPage = 1;
   /**
    * User Story ID: M2NC1, M2NC2
    * Constructor only uses as an external service the Event Service, so that reading operations can be performed.

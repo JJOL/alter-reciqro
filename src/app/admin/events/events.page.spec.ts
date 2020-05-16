@@ -8,6 +8,7 @@ import { EventsService } from 'src/app/core/services/events.service';
 import { SharedPageModule } from 'src/app/shared/shared.module';
 import { AuthService } from '../../core/services/auth.service';
 import { empty,BehaviorSubject } from 'rxjs';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 let mockFirestore = new MockAngularFirestore();
 
@@ -89,7 +90,7 @@ describe('EventsPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [EventsPage],
-      imports: [IonicModule.forRoot(), RouterModule.forRoot([]),SharedPageModule],
+      imports: [IonicModule.forRoot(), RouterModule.forRoot([]),SharedPageModule, NgxPaginationModule],
       providers: [
         {provide: AngularFirestore, useValue: mockFirestore},
         {provide: EventsService, useValue: mockService},

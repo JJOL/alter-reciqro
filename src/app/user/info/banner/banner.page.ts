@@ -19,6 +19,7 @@ import { InfoBanner } from '../../../core/models/info-banner.model';
 export class BannerPage implements OnInit {
 
   banners: InfoBanner[];
+  actualPage = 1;
 
   /**
    * User Story Id: M2NC5
