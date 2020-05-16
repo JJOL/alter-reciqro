@@ -1,9 +1,9 @@
-<app-toolbar title="Salir" [backButton]="false" [login]="false" [logout]="true" ></app-toolbar>
+<app-toolbar title="Mi Perfil" [backButton]="false" [login]="false" [logout]="true" ></app-toolbar>
  
 <ion-content fullscreen="true" slot="fixed">
   <ion-grid>
     <ion-row>
-      <ion-col size="12" size-sm size-md size-lg="8" offset-lg="2">
+      <ion-col size="12" size-lg="6" size-md="6" offset-lg="3" offset-md="3">
         <div class="card">
           <div class="header">
             <div class="avatar">
@@ -12,12 +12,16 @@
           </div>
           <div class="card-body">
             <div class="user-meta ion-text-center">
-              <h3 class="playername">Ciudadano {{user?user.alias:""}}</h3>
+              <h3 *ngIf="currentNickName" class="playername">Ciudadano {{currentNickName}}</h3>
               <h5 class="country">{{userDelegation}}</h5>
             </div>
             <br>
             <ion-list>
-              <ion-item *ngIf="delegations">
+              <br>
+              <ion-label class="blue">Cambia tu delegación</ion-label>
+              <br>
+              <br>
+              <ion-item *ngIf="delegations"> 
                 <ion-label>Delegación</ion-label>
                 <ion-select (ionChange)="changeDelegation($event)" cancelText="CANCEL" okText="OK" multiple="false" [selectedText]="userDelegation">
                   <ion-select-option 
@@ -32,6 +36,27 @@
                 <ion-spinner name="circles"></ion-spinner>
               </ion-item>
             </ion-list>
+            <br>
+              <ion-label class="blue">Cambia tu alias</ion-label>
+              <br>
+            <form [formGroup]="nickNameForm" (ngSubmit)="submit()">
+              <ion-list>
+                <ion-item>
+                  <ion-label position="floating">Alias</ion-label>
+                  <ion-input placeholder = "Superciudadano" formControlName="nickName" [(ngModel)] = "currentNickName"></ion-input>
+                </ion-item>
+                <div *ngFor="let error of errorMessages.nickName">
+                  <ng-container *ngIf="nickName.hasError(error.type) && (nickName.dirty || nickName.touched)">
+                    <small class="error-message">{{error.message}}</small>
+                  </ng-container>
+                </div>
+  
+                <ion-button [disabled]="!nickNameForm.valid" type="submit" expand="block">
+                  Actualizar alias
+                  <ion-icon slot="end" name="create"></ion-icon>
+                </ion-button>
+              </ion-list>
+            </form>
           </div>
         </div>
       </ion-col>

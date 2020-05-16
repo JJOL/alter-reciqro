@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { SharedPageModule } from './../shared/shared.module';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -123,7 +124,7 @@ describe('UserPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ UserPage ],
-      imports: [IonicModule.forRoot(), RouterModule.forRoot([]),SharedPageModule],
+      imports: [IonicModule.forRoot(), RouterModule.forRoot([]),SharedPageModule,ReactiveFormsModule],
       providers: [
         {provide: AngularFirestore, useValue: mockFirebase},
         { provide: AuthService, useValue: mockAuthentication },
@@ -150,13 +151,13 @@ describe('UserPage', () => {
 
   it('should retrieve delegation by id on init', () => {
     const delegationServiceTest = TestBed.get(DelegationService);
-    component.ngOnInit();
+    component.ionViewWillEnter();
     expect(delegationServiceTest.getDelegationByID.calls.count()).toBeGreaterThanOrEqual(1);
   });
 
   it('should retrieve all delegations', () => {
     const delegationServiceTest = TestBed.get(DelegationService);
-    component.ngOnInit();
+    component.ionViewWillEnter();
     expect(delegationServiceTest.getDelegations.calls.count()).toBeGreaterThanOrEqual(1);
   });
 
