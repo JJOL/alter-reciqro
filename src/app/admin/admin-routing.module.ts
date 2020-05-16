@@ -42,7 +42,9 @@ const routes: Routes = [
   },
   {
     path: 'sys-analytics',
-    loadChildren: () => import('./sys-analytics/sys-analytics.module').then( m => m.SysAnalyticsPageModule)
+    loadChildren: () => import('./sys-analytics/sys-analytics.module').then( m => m.SysAnalyticsPageModule),
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
   }
 
 ];

@@ -1,11 +1,9 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>sys-analytics</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar title="System Analytics" [backButton]="false"></app-toolbar>
 
 <ion-content>
-
+  <ion-button (click)="onClearCache()">Clear Cache</ion-button>
+  <br>
+  <label>Call Count:{{ calls.length }}</label>
   <ion-grid>
     <ion-row *ngFor="let c of calls">
       <ion-col>{{ c.key }}</ion-col>
