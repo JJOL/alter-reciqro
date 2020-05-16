@@ -7,6 +7,7 @@ import { EventModel } from 'src/app/core/models/event.model';
 import { EventsService } from 'src/app/core/services/events.service';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-detail-event',
@@ -37,7 +38,8 @@ export class DetailEventPage implements OnInit {
                private alertCtrl: AlertController,
                private toastCtrl: ToastController,
                private userEventService: UserEventService,
-               private authService: AuthService
+               private authService: AuthService,
+               private titleService: Title
   ) { }
 
   
@@ -63,8 +65,8 @@ export class DetailEventPage implements OnInit {
       if (this.eventId) {
 
         this.eventService.getEventByID(this.eventId).then(res => {
-
           this.eventLoad = res;
+          this.titleService.setTitle (this.eventLoad.name); 
           // this.linkFB = `https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fitesm-ca2020.web.app%2Fuser%2Finfo%2Fevents%2F${this.eventLoad.id}&layout=button_count&size=large&appId=725418228231566&width=88&height=28`
           this.startDate = this.dateFormat(this.eventLoad.start_date, true);
           this.endDate = this.dateFormat(this.eventLoad.end_date, true);

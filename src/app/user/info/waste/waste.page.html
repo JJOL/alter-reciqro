@@ -19,7 +19,9 @@
         <ion-col>
           <ion-slides pager="true" #BannerSlider (ionSlidesDidLoad)="slidesDidLoad(BannerSlider)">
             <ion-slide *ngFor="let waste of wastes">
-              <ion-img [src]="waste.icon"></ion-img>
+              <div class="foto_residuo">
+                <ion-img  [src]="waste.icon"></ion-img>
+              </div>
               <h2>{{waste.name}}</h2>
               <p>{{waste.description}}</p>
             </ion-slide>

@@ -3,34 +3,27 @@
 
 
 <ion-content>
+  
   <ion-grid>
     <ion-row class="ion-justify-content-center">
     
-      <ion-col  size-md = "6" size-sm = "12"  *ngIf="eventLoad">
+      <ion-col  size-md = "8" size-sm = "12"  *ngIf="eventLoad">
        
         
         
         <ion-card *ngIf="eventLoad">
-          <ion-card-content>
+          <meta property="og:title" content="{{eventLoad.name}}">
+          <meta property="og:image" content="{{eventLoad.icon}}">
+          <meta property="og:description" content="{{eventLoad.description}}">
           <ion-img [src]="eventLoad.icon"></ion-img>
-          <ion-grid>
-            <ion-row class=padding>
-              <ion-col size= '8' >
-                <ion-card-header>
-                  <ion-card-subtitle>{{ startDay }}</ion-card-subtitle>
-                  <ion-card-title>{{ eventLoad.name }}</ion-card-title>
-                  </ion-card-header>
-              </ion-col>
-              <ion-col size="4" style="text-align: right">
-                <div #iframeFB>
-                </div>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
           
-        
           
-            
+            <ion-card-header>
+            <ion-card-subtitle>{{ startDay }}</ion-card-subtitle>
+            <ion-card-title>{{ eventLoad.name }}</ion-card-title>
+            </ion-card-header>
+          
+            <ion-card-content>
             <p> {{ eventLoad.description }} </p>
             <br>
             <h4> <strong> Fecha de inicio del evento: </strong> </h4>
@@ -47,13 +40,22 @@
             </div>
             <ion-grid>
               <ion-row ion-text-center>
-                <ion-col size-md = "6" size-sm = "12" >
+                <ion-col  >
                   <ion-button color="primary" size="default" *ngIf="eventLoad" href="https://www.google.com/maps/dir//{{eventLoad.location.lat}},{{eventLoad.location.lng}}/@{{eventLoad.location.lat}},{{eventLoad.location.lng}},17z" target="_blank">Ver en Mapa </ion-button> 
                 </ion-col> 
                   <ion-button fill="outline" size="default" *ngIf='email'>
                     <ion-checkbox [(ngModel)]="interested" (click)="addValue($event)"></ion-checkbox>
                     <ion-label>Interesado</ion-label>
                   </ion-button>
+              </ion-row>
+              <br>
+              <ion-row class=padding>
+                
+                <ion-col size="12" style="text-align: center">
+                  
+                  <div #iframeFB>
+                  </div>
+                </ion-col>
               </ion-row>
             </ion-grid>
           </ion-card-content>
