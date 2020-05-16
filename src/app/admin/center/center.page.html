@@ -1,78 +1,69 @@
 <app-toolbar title="Administracion" [backButton]="false" [login]="false" ></app-toolbar>
 
 <ion-content>
+  
   <ion-grid>
     <ion-row padding>
+
+      
       
         <ion-col size="12" size-sm size-md style="text-align: center" >
-        <h1>Centros</h1>
-          <br>
-        <ion-button 
-        color="primary" 
-        routerDirection=" "
-        [routerLink]="['/','admin','center', 'list-center']"> 
-        Administrar Centros
-        </ion-button>
-        <br>
-        <ion-button 
-        color="primary" 
-        routerDirection=" "
-        [routerLink]="['/','admin','center', 'add-center']"> 
-        Agregar Centro
-        </ion-button>
-        
-        <br>
-        <br>
-        <h2>Categorías de Centros</h2>
-        <br>
-        <ion-button 
-        color="primary" 
-        routerDirection=" "
-        [routerLink]="['/','admin','center', 'place-type']"> 
-        Administrar Categoría de Centros
-        </ion-button>
-        <br>
-        <br>
-        <h1>Desechos</h1>
-        <br>
-        <ion-button 
-        color="primary" 
-        routerDirection=" "
-        [routerLink]="['/','admin','center', 'waste-type']"> 
-        Administrar Tipos de Residuos
-        </ion-button>
-        <br> <br>
-        <h1>Eventos</h1>
-        <ion-button 
-        color="primary" 
-        routerDirection=" "
-        [routerLink]="['/','admin','events']"> 
-        Administrar Eventos
-        </ion-button>
-        <br> <br>
-        <h1>Banners</h1>
-        <ion-button 
-        color="primary" 
-        routerDirection=" "
-        [routerLink]="['/','admin','info-banners']"> 
-        Administrar Banners
-        </ion-button>
-        <br> <br>
-        <h1>Usuarios</h1>
-        <ion-button 
-        color="primary" 
-        routerDirection=" "
-        [routerLink]="['/','admin']"> 
-        Administrar Usuarios
-        </ion-button>
-        <br> <br>
-        <h1>Fichas Informativas (Banners)</h1>
-        <ion-button 
-        color="primary" 
-        routerDirection=" "
-        [routerLink]="['/','admin','info-banners']"> 
-        Visualizar Fichas Informativas
-        </ion-button>
+
+          <ion-row >
+
+            <ion-col size="6">
+              <ion-button 
+                color="azul"
+                expand="block"
+                routerDirection=" "
+                [routerLink]="['/','admin','center', 'list-center']"> 
+                <div> <ion-icon name="navigate"></ion-icon> <br> <label>Centros</label> </div>   
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="6">
+              <ion-button 
+              color="azul"
+              expand="block"
+              routerDirection=" "
+              [routerLink]="['/','admin','center', 'place-type']"> 
+              <div> <ion-icon name="business"></ion-icon> <br> <label>Categorías de Centros</label> </div>   
+              </ion-button>
+            </ion-col>
+            
+          </ion-row>
+
+          <ion-row >
+
+            <ion-col size="6">
+              <ion-button 
+              color="azul"
+              expand="block"
+              routerDirection=" "
+              [routerLink]="['/','admin','center', 'waste-type']"> 
+              <div> <ion-icon name="trash"></ion-icon> <br> <label>Tipos de Residuos</label> </div>   
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="6">
+              <ion-button 
+              color="azul"
+              expand="block"
+              routeroDirection=" "
+              [routerLink]="['/','admin','events']"> 
+              <div> <ion-icon name="megaphone"></ion-icon> <br> <label>Eventos</label> </div>   
+              </ion-button>
+            </ion-col>
+            
+          </ion-row>
+
+          <ion-button 
+          color="azul"
+          expand="block"
+          routerDirection=" "
+          [routerLink]="['/','admin','info-banners']"> 
+          <div> <ion-icon name="leaf"></ion-icon> <br> <label>Fichas Informativas</label> </div>   
+          </ion-button>
 
       </ion-col>
     </ion-row>
