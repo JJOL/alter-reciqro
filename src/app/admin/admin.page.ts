@@ -50,7 +50,17 @@ export class AdminPage implements OnInit {
    */
   onAddAdmin(id: string) {
     this.adminService.addAdministratorUser(id).then( () => {
-      this.adminService.getAllAdministrators().then( admin => { this.admins = admin } );
+      this.adminService.getAllAdministrators().then( admin => { 
+        this.admins = admin;
+        if( this.admins != undefined){
+          this.users = this.admins.filter( user => {
+            return user.roles.indexOf('user') !== -1 && user.roles.indexOf('staff') == -1;
+          });
+          this.staffs = this.admins.filter( staff => {
+            return staff.roles.indexOf('staff') !== -1 && staff.roles.indexOf('admin') == -1;
+          });
+        }
+      } );
     });
   }
 
@@ -60,7 +70,17 @@ export class AdminPage implements OnInit {
    */
   onDeleteAdmin(id: string) {
     this.adminService.removeStaffUser(id).then( () => {
-      this.adminService.getAllAdministrators().then( admin => { this.admins = admin } );
+      this.adminService.getAllAdministrators().then( admin => { 
+        this.admins = admin;
+        if( this.admins != undefined){
+          this.users = this.admins.filter( user => {
+            return user.roles.indexOf('user') !== -1 && user.roles.indexOf('staff') == -1;
+          });
+          this.staffs = this.admins.filter( staff => {
+            return staff.roles.indexOf('staff') !== -1 && staff.roles.indexOf('admin') == -1;
+          });
+        }
+       } );
     });
   }
 }

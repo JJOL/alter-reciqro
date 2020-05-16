@@ -14,7 +14,7 @@
             <ion-label>Iniciar Sesión</ion-label>
           </ion-item>
           <br>
-          <div  class="leftpad">
+          <div *ngIf="roles.admin || roles.staff" class="leftpad">
             <ion-label>Administración</ion-label>
           </div>
           <br>
@@ -40,7 +40,7 @@
           </ion-item>
           <ion-item *ngIf="roles.admin || roles.staff" lines="none" routerLink="/admin/info-banners">
             <ion-icon name="pricetag-outline" slot="start"></ion-icon>
-            <ion-label>Fichas informativas</ion-label>
+            <ion-label>Banners</ion-label>
           </ion-item>
           <ion-item *ngIf="roles.admin || roles.staff" lines="none" routerLink="/admin/events">
             <ion-icon name="newspaper-outline" slot="start"></ion-icon>
@@ -72,7 +72,7 @@
             <ion-label>Eventos</ion-label>
           </ion-item>
           <br>
-          <div  class="leftpad">
+          <div  *ngIf="roles.user" class="leftpad">
             <ion-label>Usuarios</ion-label>
           </div>
           <br>
