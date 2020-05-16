@@ -14,7 +14,7 @@
             <ion-label>Iniciar Sesión</ion-label>
           </ion-item>
           <br>
-          <div  class="leftpad">
+          <div *ngIf="roles.admin || roles.staff" class="leftpad">
             <ion-label>Administración</ion-label>
           </div>
           <br>
@@ -72,7 +72,7 @@
             <ion-label>Eventos</ion-label>
           </ion-item>
           <br>
-          <div  class="leftpad">
+          <div  *ngIf="roles.user" class="leftpad">
             <ion-label>Usuarios</ion-label>
           </div>
           <br>
