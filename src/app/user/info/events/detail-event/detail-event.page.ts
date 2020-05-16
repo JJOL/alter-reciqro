@@ -28,7 +28,6 @@ export class DetailEventPage implements OnInit {
   // @ViewChild('map', { static: true }) mapElement;
   @ViewChild('iframeFB', {static: false}) shareButtonFB;
   interested: boolean;
-  
   eventId: string;
 
   // eslint-disable-next-line require-jsdoc

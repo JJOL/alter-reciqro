@@ -19,32 +19,22 @@ export class ToolbarComponent implements OnInit {
   @Input() routePath: string;
   @Input() login: boolean;
   @Input() editPage: boolean
+  @Input() logout: boolean
   @ViewChild(IonBackButtonDelegate, { static: false }) backButtonA: IonBackButtonDelegate;
   isLogged: boolean;
   admin: boolean;
   staff: boolean;
   user: boolean;
   rolesaux: [];
+  pages = [];
   // eslint-disable-next-line require-jsdoc
   constructor(private authService: AuthService, private menu: MenuController,
     private router: Router,public alertController: AlertController) {
   }
-  
-  /**
-   */
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter');
-    this.setUIBackButtonAction();
-    
-  }
-  pages = [];
-  //@ViewChild(Nav) nav: Nav;
   /**
    * NgOnInit
    */
   ngOnInit() {
-    
-    console.log(this.editPage)
     this.authService.isUserLoggedIn.asObservable().subscribe(value => {
       this.isLogged = value;
     });
@@ -57,7 +47,6 @@ export class ToolbarComponent implements OnInit {
   }
   /**
    * Presentar alerta de confirmación cuando se este saliendo de un edit.
-   * 
    */
   async presentAlertConfirm() {
     const alert = await this.alertController.create({
@@ -69,30 +58,24 @@ export class ToolbarComponent implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+            console.log(blah);
           }
         }, {
           text: 'Confirmar',
           handler: () => {
-            console.log('Confirm Okay');
-            this.router.navigate([this.routePath])
+            this.router.navigate([this.routePath]);
           }
         }
       ]
     });
-
     await alert.present();
   }
-  
+
   /**
+   * User Story ID: M4NC1
+   * Logout user
    */
-  setUIBackButtonAction() {
-    this.backButtonA.onClick = () => {
-      if(this.editPage){
-        this.presentAlertConfirm()
-      }else{
-        this.router.navigate([this.routePath])
-      }
-    };
+  logoutUser() {
+    this.authService.logoutUser();
   }
 }
