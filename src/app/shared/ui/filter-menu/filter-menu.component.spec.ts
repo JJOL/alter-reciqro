@@ -5,6 +5,8 @@ import {FilterButtonComponent} from '../filter-button/filter-button.component';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from } from 'rxjs';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { Router, RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 
 const arr = [[]];
@@ -26,8 +28,8 @@ describe('FilterMenuComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ FilterMenuComponent, FilterButtonComponent],
-      imports: [IonicModule.forRoot(), NgxPaginationModule],
-      providers: [   { provide: AngularFirestore, useValue: angularFirestoreStub }]
+      imports: [IonicModule.forRoot(), NgxPaginationModule,RouterTestingModule.withRoutes([])],
+      providers: [ { provide: AngularFirestore, useValue: angularFirestoreStub }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(FilterMenuComponent);

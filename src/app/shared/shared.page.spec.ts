@@ -8,6 +8,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { environment } from '../../environments/environment';
 import { from } from 'rxjs';
 import {MockAngularFirestore} from 'src/app/core/services/mocks/firestore.mock';
+import { RouterTestingModule } from '@angular/router/testing';
 
 
 describe('SharedPage', () => {
@@ -17,7 +18,7 @@ describe('SharedPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SharedPage, FilterMenuComponent, FilterButtonComponent ],
-      imports: [IonicModule.forRoot()],
+      imports: [IonicModule.forRoot(),RouterTestingModule.withRoutes([])],
       providers: [ { provide: AngularFirestore, useValue: MockAngularFirestore }]
     }).compileComponents();
 
