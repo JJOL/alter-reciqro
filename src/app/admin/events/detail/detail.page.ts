@@ -131,7 +131,7 @@ export class DetailPage implements OnInit {
   });
 
   placeId: string;
-
+  place: any;
   event: EventModel;
   // eslint-disable-next-line require-jsdoc
   ngOnInit() {
@@ -143,6 +143,7 @@ export class DetailPage implements OnInit {
       if (this.placeId) {
 
         this.eventService.getEventByID(this.placeId).then( event =>{
+          this.place = {location: {lat: event.location.lat, lng: event.location.lng}} 
           this.editEventForm.controls.name.setValue(event.name);
           this.editEventForm.controls.description.setValue(event.description);
           this.editEventForm.controls.latitude.setValue(event.location.lat);
