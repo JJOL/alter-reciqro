@@ -49,7 +49,7 @@
             <ion-grid>
               <ion-row class="ion-justify-content-center">
                 <ion-col size-md = "6" size-sm = "12"  >
-                  <ion-button  color="primary"  *ngIf="eventLoad" href="https://www.google.com/maps/dir//{{eventLoad.location.lat}},{{eventLoad.location.lng}}/@{{eventLoad.location.lat}},{{eventLoad.location.lng}},17z" >Ver en Mapa </ion-button> 
+                  <ion-button  color="primary"  *ngIf="eventLoad" href="https://www.google.com/maps/dir//{{eventLoad.location.lat}},{{eventLoad.location.lng}}/@{{eventLoad.location.lat}},{{eventLoad.location.lng}},17z" target="_blank">Ver en Mapa </ion-button> 
                   <ion-item class="ion-no-padding">
                      
                     <ion-checkbox [(ngModel)]="interested" (click) = "addValue($event)"></ion-checkbox>
