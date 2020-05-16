@@ -10,8 +10,7 @@
         <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
           <ion-list>
             <ion-item 
-              *ngFor="let event of events"
-              
+              *ngFor="let event of events" 
             >
               <ion-thumbnail slot="start">
                 <ion-img [src]="event.icon"></ion-img>
@@ -20,8 +19,8 @@
                 <h2>{{ event.name }}</h2>
                 <p>{{ event.description }}</p>
               </ion-label>
-               <ion-button [routerLink]="['/admin/events/detail', event.id]" ><ion-icon name="create-outline"></ion-icon></ion-button>
-               <ion-button (click)="delete(event.id)"><ion-icon name="trash-outline"></ion-icon></ion-button>
+               <ion-button fill="clear" class="bold"  [routerLink]="['/admin/events/detail', event.id]" ><ion-icon slot="icon-only" name="create-outline"></ion-icon></ion-button>
+               <ion-button fill="clear" class="bold"  (click)="delete(event.id)"><ion-icon slot="icon-only" name="trash-outline"></ion-icon></ion-button>
             </ion-item>
           </ion-list>
         </ion-col>
