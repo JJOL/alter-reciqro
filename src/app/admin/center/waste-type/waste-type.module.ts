@@ -26,3 +26,4 @@ import { NgxPaginationModule } from 'ngx-pagination';
    * @returns 
    */
 export class WasteTypePageModule {}
+
