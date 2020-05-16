@@ -77,7 +77,7 @@ export class InfoPage implements OnInit {
           let size = this.banners.length;
           // eslint-disable-next-line @typescript-eslint/no-magic-numbers
           let random = Math.floor(Math.random() * 10) % size;
-          if(this.banners[random] != undefined){
+          if(this.banners[random] !== undefined){
             const modal = await this.modalController.create({
               component: BannerPopUpPage,
               swipeToClose: true,
