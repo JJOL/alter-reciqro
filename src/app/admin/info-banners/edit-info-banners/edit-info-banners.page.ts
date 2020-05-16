@@ -82,11 +82,11 @@ export class EditInfoBannersPage implements OnInit {
     this.infoBannersService.editInfoBanner(this.infoBannersForm.value, this.infoBannerId)
         .then(() => {
           // use id
-          this.showToast('Ficha informativa se ha actualizado de manera exitosa');
+          this.showToast('Banner se ha actualizado de manera exitosa');
           this.infoBannersForm.reset();
           this.navCtrl.navigateBack(['/admin/info-banners']);
         }).catch(() => {
-          this.showToastWrong('Error al actualizar la ficha informativa');
+          this.showToastWrong('Error al actualizar el banner');
           this.infoBannersForm.reset();
         });
   }

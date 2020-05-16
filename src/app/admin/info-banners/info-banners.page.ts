@@ -33,7 +33,7 @@ export class InfoBannersPage implements OnInit {
   onDeleteInfoBanner(infoBannerId,title){
     this.alertCtrl.create ({
       header: 'Mensaje de Confirmación',
-      message: '¿De verdad quieres eliminar la ficha "' + title + '"?"',
+      message: '¿De verdad quieres eliminar el banner "' + title + '"?"',
       buttons: [{
         text: 'Cancelar',
         role: 'cancel'},
@@ -49,7 +49,7 @@ export class InfoBannersPage implements OnInit {
                     });
               }
           ).catch( () => {
-            this.showToastWrong('Error al crear la ficha informativa');
+            this.showToastWrong('Error al crear el banner');
           });
         }
       }]
