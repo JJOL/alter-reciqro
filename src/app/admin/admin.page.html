@@ -8,26 +8,26 @@
     </ion-fab-button>
   </ion-fab>
   <ion-grid>
-    <ion-row>
-      <ion-col>
+    <ion-row  class="ion-justify-content-center">
+      <ion-col size-md = "4" size-sm = "12" class="ion-text-center">
         <ion-list *ngIf="admins">
           <ion-list-header text-center>
             Usuarios
           </ion-list-header>
-          <ng-container *ngFor="let admin of admins">
-            <ion-item *ngIf="admin.roles.indexOf('user') !== -1 && admin.roles.indexOf('staff') == -1">
+          <ng-container *ngFor="let user of users | paginate: {id: 'versionPagination', itemsPerPage: 8, currentPage: actualPage }">
+            <ion-item >
               <ion-avatar slot="start">
                 <img src="../../assets/img/avatarAdmin.png">
               </ion-avatar>
               <ion-buttons slot="end">
-                <ion-button fill="clear" class="bold" (click)="onAddAdmin(admin.id)">
+                <ion-button fill="clear" class="bold" (click)="onAddAdmin(user.id)">
                   <ion-icon name="person-add-outline"></ion-icon> &nbsp; Promover
                 </ion-button>
               </ion-buttons>
               <ion-label>
-                <h2>{{admin.alias}}</h2>
+                <h2>{{user.alias}}</h2>
                 <ul>
-                  <ng-container *ngFor="let role of admin.roles">
+                  <ng-container *ngFor="let role of user.roles">
                     <li *ngIf="role == 'admin'">Administrador</li>
                     <li *ngIf="role == 'user'">Usuario</li>
                     <li *ngIf="role == 'staff'">Staff</li>
@@ -37,26 +37,35 @@
             </ion-item>
           </ng-container>
         </ion-list>
+        <pagination-controls 
+          id="versionPagination" 
+          (pageChange)="actualPage = $event"
+          directionLinks="true"
+          responsive="true"
+          previousLabel="Anterior"
+          nextLabel="Siguiente"
+          screenReaderPaginationLabel="Pagination">
+        </pagination-controls>
       </ion-col>
-      <ion-col>    
+      <ion-col size-md = "4" size-sm = "12" class="ion-text-center">    
         <ion-list *ngIf="admins">
           <ion-list-header text-center>
             Staff
           </ion-list-header>
-          <ng-container *ngFor="let admin of admins">
-            <ion-item *ngIf="admin.roles.indexOf('staff') !== -1 && admin.roles.indexOf('admin') == -1">
+          <ng-container *ngFor="let staff of staffs | paginate: {  id: 'versionPagination2', itemsPerPage: 8, currentPage: actualPage2 }">
+            <ion-item>
               <ion-avatar slot="start">
                 <img src="../../assets/img/avatarStaff.png">
               </ion-avatar>
               <ion-buttons slot="end">
-                <ion-button fill="clear" class="bold" (click)="onDeleteAdmin(admin.id)">
+                <ion-button fill="clear" class="bold" (click)="onDeleteAdmin(staff.id)">
                   <ion-icon name="person-remove-outline"></ion-icon>&nbsp; Degradar
                 </ion-button>
               </ion-buttons>
               <ion-label>
-                <h2>{{admin.alias}}</h2>
+                <h2>{{staff.alias}}</h2>
                 <ul>
-                  <ng-container *ngFor="let role of admin.roles">
+                  <ng-container *ngFor="let role of staff.roles">
                     <li *ngIf="role == 'admin'">Administrador</li>
                     <li *ngIf="role == 'user'">Usuario</li>
                     <li *ngIf="role == 'staff'">Staff</li>
@@ -66,7 +75,15 @@
             </ion-item>
           </ng-container>
         </ion-list>
-        
+        <pagination-controls 
+          id="versionPagination2" 
+          (pageChange)="actualPage2 = $event"
+          directionLinks="true"
+          responsive="true"
+          previousLabel="Anterior"
+          nextLabel="Siguiente"
+          screenReaderPaginationLabel="Pagination">
+        </pagination-controls>        
       </ion-col>
     </ion-row>
   </ion-grid>

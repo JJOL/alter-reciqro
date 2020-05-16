@@ -25,7 +25,7 @@
       <ion-col size="12" size-sm size-md  *ngIf="loadedPlace">
 
         <ion-card *ngIf="loadedPlace">
-          <ion-img [src]="loadedPlace.photo"></ion-img>
+          <ion-img [src]="loadedPlace.photo" style='width: fit-content;height: fit-content;'></ion-img>
           <ion-card-header>
             <ion-card-subtitle>{{ loadedPlace.address }}</ion-card-subtitle>
             <ion-card-title>{{ loadedPlace.name }}</ion-card-title>
