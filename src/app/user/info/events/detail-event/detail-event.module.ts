@@ -20,4 +20,7 @@ import { DetailEventPage } from './detail-event.page';
   ],
   declarations: [DetailEventPage]
 })
+/**
+ * Exporting class so it is externally accesible.
+ */
 export class DetailEventPageModule {}
