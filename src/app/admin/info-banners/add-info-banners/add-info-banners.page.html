@@ -7,7 +7,7 @@
             <ion-list>
               <ion-item>
                 <ion-label position="floating">Foto</ion-label>
-                <ion-input formControlName="mainPicture" inputmode="url"></ion-input>
+                <ion-input  placeholder = "Ejemplo: http://ejemplo.com/ejemplo.jpg" formControlName="mainPicture" inputmode="url"></ion-input>
               </ion-item>
               <div *ngFor="let error of errorMessages.mainPicture">
                 <ng-container *ngIf="mainPicture.hasError(error.type) && (mainPicture.dirty || mainPicture.touched)">
@@ -16,8 +16,8 @@
               </div>
     
               <ion-item>
-                <ion-label position="floating">Título</ion-label>
-                <ion-input formControlName="title"></ion-input>
+                <ion-label  position="floating">Título *</ion-label>
+                <ion-input  placeholder = "Ejemplo: Día de la Tierra" formControlName="title"></ion-input>
               </ion-item>
               <div *ngFor="let error of errorMessages.title">
                 <ng-container *ngIf="title.hasError(error.type) && (title.dirty || title.touched)">
@@ -26,8 +26,8 @@
               </div>
               
               <ion-item>
-                <ion-label position="floating">Descripción</ion-label>
-                <ion-input formControlName="description"></ion-input>
+                <ion-label position="floating">Descripción *</ion-label>
+                <ion-input placeholder = "Ejemplo: Hoy es el día de la Tierra, cuídala y respetala" formControlName="description"></ion-input>
               </ion-item>
               <div *ngFor="let error of errorMessages.description">
                 <ng-container *ngIf="description.hasError(error.type) && (description.dirty || description.touched)">
