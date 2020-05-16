@@ -19,8 +19,8 @@ import { async } from '@angular/core/testing';
 })
 export class DetailEventPage implements OnInit {
   eventLoad: EventModel;
-  linkFB: String;
-  
+  linkFB: string;
+  email:string;
   startDate: string;
   endDate: string;
   startDay: string;
@@ -71,9 +71,9 @@ export class DetailEventPage implements OnInit {
             this.shareButtonFB.nativeElement.innerHTML = buttonFBShare;
           }, 100);
           this.eventId = paraMap.get('eventId');
-          let email = this.authService.getUserMail();
+          this.email = this.authService.getUserMail();
           this.eventLoad = res;
-          this.userEventService.getUserEventByID(this.eventId, email).then(interested => {
+          this.userEventService.getUserEventByID(this.eventId, this.email).then(interested => {
             if (interested) {
               this.interested = true;
             } else {
