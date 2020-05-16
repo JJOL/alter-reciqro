@@ -149,7 +149,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   async addMarker(place) {
     if (place!=null){
       let contentString = '';
-      contentString = 
+    if(place.name) contentString = 
     '<p align> <b>'+place.name+'</b> <br>Horario: '+place.schedule+'<br>'+place.description+'<br>'+place.address+'<br>'+
     '<ion-grid><ion-row><ion-col offset="4" ><img src="'+place.photo+'"  height="100" width="100"  ></ion-col></ion-row></ion-grid><br>'+
   

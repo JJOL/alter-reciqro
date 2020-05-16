@@ -133,6 +133,13 @@ export class UserPage implements OnInit {
     }).then(toast => toast.present());
   }
   /**
+   * Logout 
+   */
+  logout() {
+    this.authService.logoutUser();
+  }
+
+  /**
    * User Story ID: M4NG8
    * Function for showing the toast to the user.
    * @param  {} msg

@@ -113,7 +113,7 @@ export class CenterDetailPage implements OnInit {
    */
   onDeletePlace() {
     this.alertCtrl.create ({
-      header: '¿Estas segur@?',
+      header: '¿Estas seguro?',
       message: '¿De verdad quieres eliminar este lugar?',
       buttons: [{
         text: 'Cancelar',
