@@ -12,11 +12,9 @@ import { AlertController } from '@ionic/angular';
 })
 
 /**
-   * User Story Id: M2NG11, M2NG13
-   * Allows the WasteTypePage available for imports
-   * @param  
-   * @returns 
-   */
+ * User Story Id: M2NG11, M2NG13
+ * Allows the WasteTypePage available for imports
+ */
 export class WasteTypePage implements OnInit {
 
   wasteTypes: WasteType[];
@@ -42,8 +40,6 @@ export class WasteTypePage implements OnInit {
   /**
    * User Story Id: M2NG11, M2NG13
    * Method called when the page is instatiated
-   * @param  
-   * @returns 
    */
   ngOnInit() {
   }
@@ -51,8 +47,6 @@ export class WasteTypePage implements OnInit {
   /**
    * User Story Id: M2NG11, M2NG13
    * Method that gets all the wastes
-   * @param  
-   * @returns 
    */
   ionViewWillEnter() {
     this.wasteService.getWastes().then(data => {
@@ -63,8 +57,10 @@ export class WasteTypePage implements OnInit {
 
   /**
    * User Story Id: M2NG13
-   * Method that deletes a selected waste, verifying that it is nos associated with any place type, if true, it can be deleted, else it can't be deleted
-   * @param  
+   * Method that deletes a selected waste, verifying that it is nos associated with any place type, 
+   * if true, it can be deleted, else it can't be deleted
+   * @param {} wasteTypeId
+   * @param {} name
    * @returns 
    */
   onDeleteWateType(wasteTypeId: string, name: string){
@@ -74,7 +70,7 @@ export class WasteTypePage implements OnInit {
     this.placesService.getIDPlacesTypesByWaste(wastes).then(data => {
       let places: TipoInstalacion[] = data;
       // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-      if(places.length > 0){
+      if (places.length > 0) {
         this.alertCtrl.create ({
           header: 'Atención',
           message: 'No es posible eliminar el tipo de desecho "' + name + '" ya que está asociada a diversas categorías de centros.',
@@ -85,7 +81,7 @@ export class WasteTypePage implements OnInit {
         }).then(alertEl => {
           alertEl.present();
         });
-      }else{
+      } else {
         this.alertCtrl.create ({
           header: 'Mensaje de Confirmación',
           message: '¿De verdad quieres eliminar el tipo de residuo "'+ name + '"?',
@@ -107,8 +103,7 @@ export class WasteTypePage implements OnInit {
           alertEl.present();
         });
       }
-    }); 
-    
+    });
   }
 
 }

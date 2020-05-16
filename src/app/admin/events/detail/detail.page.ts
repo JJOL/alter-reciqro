@@ -37,7 +37,7 @@ export class DetailPage implements OnInit {
   get description() {
     return this.editEventForm.get('description');
   }
-  
+
   /**
    * User Story ID: M1NG2
    * Regresa la longitud de la coordenada
@@ -64,7 +64,7 @@ export class DetailPage implements OnInit {
   }
   /**
    * User Story ID: M1NG2
-   * Regresa la calle 
+   * Regresa la calle
    * @param  {string} {street}
    */
   get startDate() {
@@ -72,7 +72,7 @@ export class DetailPage implements OnInit {
   }
   /**
    * User Story ID: M1NG2
-   * Regresa la calle 
+   * Regresa la calle
    * @param  {string} {street}
    */
   get endDate() {
@@ -80,7 +80,7 @@ export class DetailPage implements OnInit {
   }
   /**
    * User Story ID: M1NG2
-   * Regresa la calle 
+   * Regresa la calle
    * @param  {string} {street}
    */
   get age() {
@@ -132,7 +132,7 @@ export class DetailPage implements OnInit {
 
   placeId: string;
 
-  event: EventModel;  
+  event: EventModel;
   // eslint-disable-next-line require-jsdoc
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
@@ -141,18 +141,18 @@ export class DetailPage implements OnInit {
       }
       this.placeId = paraMap.get('id');
       if (this.placeId) {
-       
-          this.eventService.getEventByID(this.placeId).then( event =>{
-            this.editEventForm.controls.name.setValue(event.name);
-            this.editEventForm.controls.description.setValue(event.description);
-            this.editEventForm.controls.latitude.setValue(event.location.lat);
-            this.editEventForm.controls.longitude.setValue(event.location.lng);
-            this.editEventForm.controls.icon.setValue(event.icon);
-            this.editEventForm.controls.age.setValue(event.age);
-            this.editEventForm.controls.endDate.setValue(event.end_date.toISOString().split('T')[0]);
-            this.editEventForm.controls.startDate.setValue(event.start_date.toISOString().split('T')[0]);
-          })
-      
+
+        this.eventService.getEventByID(this.placeId).then( event =>{
+          this.editEventForm.controls.name.setValue(event.name);
+          this.editEventForm.controls.description.setValue(event.description);
+          this.editEventForm.controls.latitude.setValue(event.location.lat);
+          this.editEventForm.controls.longitude.setValue(event.location.lng);
+          this.editEventForm.controls.icon.setValue(event.icon);
+          this.editEventForm.controls.age.setValue(event.age);
+          this.editEventForm.controls.endDate.setValue(event.end_date.toISOString().split('T')[0]);
+          this.editEventForm.controls.startDate.setValue(event.start_date.toISOString().split('T')[0]);
+        })
+
       }
     });
   }
@@ -161,12 +161,17 @@ export class DetailPage implements OnInit {
    * User Story ID: M1NG1
    * Function for updating the lat and long form fields when marker changes position.
    * @param  {} lugar
-   **/
+   */
   onChangeMarker(lugar) {
     this.editEventForm.controls.latitude.setValue(lugar.location.lat);
     this.editEventForm.controls.longitude.setValue(lugar.location.lng);
   }
-  showToast(msg) {
+  /**
+   * User Story ID: M4NG8
+   * Function for showing the toast to the user.
+   * @param  {} msg
+   */
+  public showToast(msg) {
     this.toastCtrl.create({
       message: msg,
       duration: 2000,
@@ -175,8 +180,9 @@ export class DetailPage implements OnInit {
     }).then(toast => toast.present());
   }
   /**
+   * User Story ID: M2NG5
    * 
-   **/
+   */
   submit(){
     this.eventService.editEvent(this.editEventForm.value,this.placeId).then(() => {
       // use id

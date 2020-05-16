@@ -20,7 +20,7 @@
             </ion-card-header>
             <ion-card-content>
               <ion-card-subtitle position="floating">Descripción del Tipo de Residuo</ion-card-subtitle>
-              <ion-textarea placeholder = "Ejemplo: El residuo consiste de ..." type = "text" required = "true" formControlName="description" ></ion-textarea>
+              <ion-textarea  placeholder = "Ejemplo: El residuo consiste de ..." type = "text" required = "true" formControlName="description" ></ion-textarea>
               <div *ngFor="let error of errorMessages.description">
                 <ng-container *ngIf="description.hasError(error.type) && (description.dirty || description.touched)">
                   <small class="error-message">{{error.message}}</small>
@@ -28,7 +28,7 @@
               </div>
               <br>
               <ion-card-subtitle position="floating">Url del Tipo de Residuo</ion-card-subtitle>
-              <ion-textarea placeholder = "Ejemplo: http://ejemplo.com/ejemplo.jpg" type = "url" required = "true"  formControlName="url" ></ion-textarea>
+              <ion-textarea  placeholder = "Ejemplo: http://ejemplo.com/ejemplo.jpg" type = "url" required = "true"  formControlName="url" ></ion-textarea>
               <div *ngFor="let error of errorMessages.url">
                 <ng-container *ngIf="url.hasError(error.type) && (url.dirty || url.touched)">
                   <small class="error-message">{{error.message}}</small>
@@ -40,13 +40,13 @@
               <ion-row class="ion-justify-content-center">
                 <ion-col class="ion-align-self-center" size-md = "4">
                   <ion-button [disabled]="!newWasteForm.valid" type="submit" expand="block">Registrar
-                    <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+                    <ion-icon name="checkmark-outline" ></ion-icon>
                   </ion-button>
                 </ion-col>
                 <ion-col class="ion-align-self-center" size-md = "4">
-                  <ion-button expand = "block" color="danger" (click) = "cancelUpdate()">Cancelar
-                    <ion-icon name="trash-bin-outline" slot="start"></ion-icon>
-                  </ion-button>
+                    <ion-button expand = "block" color="danger" (click) = "cancelUpdate()">Cancelar
+                      <ion-icon name="trash-outline"></ion-icon>
+                    </ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>

@@ -54,6 +54,7 @@ describe('EventsService', () => {
       providers: [
         EventsService,
         { provide: SystemService, useValue: firestoreMockSpy },
+        { provide: AngularFirestore, useValue: MockAngularFirestore }
       ]
     });
     eventService = TestBed.get(EventsService);

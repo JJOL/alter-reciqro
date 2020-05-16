@@ -1,16 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/admin/events"> </ion-back-button>
-    </ion-buttons>
-    <ion-title>Detalle evento</ion-title>
-    <ion-buttons slot="end" class="ion-padding">
-      <ion-button routerLink="/user/places-searcher-page">
-        <img class="smallImg" src="../../../../assets/img/blueQ.png">
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar  title='Editar Evento' [backButton]="true" routePath="/admin/events" [editPage]="true"></app-toolbar>
 <ion-content>
   <ion-grid>
     <ion-row class="ion-padding-horizontal">

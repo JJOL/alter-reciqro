@@ -3,8 +3,13 @@
     <ion-buttons *ngIf="!backButton" slot="start" >
         <ion-menu-button menu="menucontent"  ></ion-menu-button>
     </ion-buttons>
-    <ion-buttons *ngIf="backButton" slot="start">
+    <ion-buttons *ngIf="backButton && !editPage" slot="start">
       <ion-back-button defaultHref="{{routePath}}"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons *ngIf="backButton && editPage" slot="start">
+      <ion-button (click)="presentAlertConfirm()" >
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title>
       {{title}}
