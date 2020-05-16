@@ -13,13 +13,9 @@
           <div class="card-body">
             <div class="user-meta ion-text-center">
               <h3 class="playername">Ciudadano {{user?user.alias:""}}</h3>
-              <h5 class="country">Centro Histórico</h5>
-              <h6 class="ranking">Nivel actual: <ion-chip>
-                  <ion-label>2</ion-label>
-                </ion-chip>
-              </h6>
+              <h5 class="country">{{userDelegation}}</h5>
             </div>
-
+            <br>
             <ion-list>
               <ion-item *ngIf="delegations">
                 <ion-label>Delegación</ion-label>
@@ -36,10 +32,6 @@
                 <ion-spinner name="circles"></ion-spinner>
               </ion-item>
             </ion-list>
-            
-            <ion-button expand="full" color="primary">Mis datos</ion-button>
-            <ion-button expand="full" color="secondary">Logros</ion-button>
-            <ion-button expand="full" color="secondary">Objetivos</ion-button>
           </div>
         </div>
       </ion-col>
