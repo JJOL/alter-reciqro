@@ -14,5 +14,4 @@ export class CenterPage implements OnInit {
    *  Function not implemented but forced by angular.
    */
   ngOnInit() { }
-  
 }

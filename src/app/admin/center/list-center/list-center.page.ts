@@ -16,21 +16,21 @@ export class ListCenterPage implements OnInit {
 
   /**
    * User Story ID: M1NG4
-   * Description: This function retrieves all places from the service when page loads
+   * This function retrieves all places from the service when page loads
    */
   constructor(private placesService: PlacesService) {
   }
 
   /**
    * User Story ID: M1NG4
-   * Description: This function retrieves all places from the service when page loads
+   * This function retrieves all places from the service when page loads
    */
   ngOnInit() {
   }
 
   /**
    * User Story ID: M1NG4
-   * Description: This function retrieves all places from the service when page loads
+   * This function retrieves all places from the service when page loads
    */
   ionViewWillEnter() {
     this.placesService.getAllPlaces().then( data => { this.places = data; });

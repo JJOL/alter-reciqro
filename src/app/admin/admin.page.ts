@@ -18,8 +18,8 @@ export class AdminPage implements OnInit {
   constructor(private adminService: AdminService) { }
 
   /**
-  * Loads the users
-  */
+   * Loads the users
+   */
   ngOnInit() {
     this.adminService.getAllAdministrators().then(admin => {
       this.admins = admin;
@@ -28,7 +28,7 @@ export class AdminPage implements OnInit {
 
   /**
    * User Story Id: M4NG4
-   * Method that calles the addAdmin method form the service adminService to delete an existing Admin entry
+   * Method that calls the addAdmin method form the service adminService to delete an existing Admin entry
    */
   onAddAdmin(id: string) {
     this.adminService.addAdministratorUser(id).then( () => {
@@ -45,6 +45,5 @@ export class AdminPage implements OnInit {
       this.adminService.getAllAdministrators().then( admin => { this.admins = admin } );
     });
   }
-  
 }
 

@@ -1,12 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { PlacesService } from './places.service';
 import { from } from 'rxjs';
 import { GeoPoint } from '../models/geopoint.model';
-
-
 import { MockAngularFirestore } from './mocks/firestore.mock';
 import { SystemService } from './system.service';
+import { AngularFirestoreCollection } from '@angular/fire/firestore';
 
 /**
  * Internal function.
@@ -48,27 +46,7 @@ function makeFBCollectionFromDataSnapshotChanges(testData: any[]) {
   };
   return fbMockCollection;
 }
-/**
- * User Story ID: M1NCx
- * Mock function for firebase service and data.
- * @param  {any[]} testData
- */
-function makeFBCollectionFromDataValueChanges(testData: any[]) {
-  const fbMockCollection = {
-    doc: (id) => {
-      testData = testData.filter(obj => {
-        return obj.id === id;
-      } );
-      return {
-        valueChanges: () => {
-          return from( testData );
-        }
-      };
-    },
 
-  };
-  return fbMockCollection;
-}
 /**
  * User Story ID: M1NCx
  * Mock function for firebase service and data.
@@ -174,7 +152,6 @@ describe('PlacesService', () => {
     const testData = [place1, place2];
     let fsMock = new MockAngularFirestore();
     fsMock.setTestData(testData);
-    //mockFirestoreSpy.collection.and.returnValue(makeFBCollectionFromDataValueChanges(testData) as unknown as AngularFirestoreCollection);
     mockFirestoreSpy.collection.and.returnValue(fsMock.collection('test') as unknown as AngularFirestoreCollection);
     // Execute Function
     placesService.getPlaceByID('2')

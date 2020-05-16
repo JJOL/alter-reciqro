@@ -19,6 +19,7 @@ import { SharedPageModule } from 'src/app/shared/shared.module';
   ],
   declarations: [ListCenterPage]
 })
+
 /**
  * Exporting ListCenterPageModule class so it is externally accessible.
  */

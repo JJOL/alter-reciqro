@@ -12,11 +12,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 
 /**
-   * User Story Id: M2NG12
-   * Allows the UpdateWasteTypePage available for imports
-   * @param  
-   * @returns 
-   */
+ * User Story Id: M2NG12
+ * Allows the UpdateWasteTypePage available for imports
+ */
 export class UpdateWasteTypePage implements OnInit {
 
   loadedWasteType: WasteType;
@@ -25,8 +23,6 @@ export class UpdateWasteTypePage implements OnInit {
   /**
    * User Story Id: M2NG12
    * Allows to get the title of the waste of the form
-   * @param  
-   * @returns 
    */
   get title() {
     return this.newWasteForm.get('title');
@@ -36,8 +32,6 @@ export class UpdateWasteTypePage implements OnInit {
   /**
    * User Story Id: M2NG12
    * Allows to get the description of the waste of the form
-   * @param  
-   * @returns 
    */
   get description() {
     return this.newWasteForm.get('description');
@@ -46,8 +40,6 @@ export class UpdateWasteTypePage implements OnInit {
   /**
    * User Story Id: M2NG12
    * Allows to get the url of the waste of the form
-   * @param  
-   * @returns 
    */
   get url() {
     return this.newWasteForm.get('url');
@@ -128,7 +120,10 @@ export class UpdateWasteTypePage implements OnInit {
    * @returns 
    */
   updateWasteType(){
-    this.wasteService.updateWasteType(this.wasteId, this.newWasteForm.get('title').value, this.newWasteForm.get('url').value, this.newWasteForm.get('description').value).then(() => {
+    this.wasteService.updateWasteType(this.wasteId,
+        this.newWasteForm.get('title').value,
+        this.newWasteForm.get('url').value,
+        this.newWasteForm.get('description').value).then(() => {
       this.alertCtrl.create ({
         header: 'Mensaje de Confirmación',
         message: 'El tipo de residuo "' + this.newWasteForm.get('title').value + '" se ha modificado',
@@ -147,10 +142,8 @@ export class UpdateWasteTypePage implements OnInit {
   /**
    * User Story Id: M2NG12
    * Method called  when the update of the waste type is cancelled to get user confirmation
-   * @param  
-   * @returns 
    */
-  cancelUpdate(){
+  cancelUpdate() {
     this.alertCtrl.create ({
       header: 'Mensaje de Confirmación',
       message: 'Los cambios generados no se guardarán.',

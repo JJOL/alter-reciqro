@@ -26,7 +26,7 @@ export class EditInfoBannersPage implements OnInit {
               private toastCtrl: ToastController,
               private infoBannersService: InfoBannerService,
               private formBuilder: FormBuilder,
-              private cdRef:ChangeDetectorRef,
+              private cdRef: ChangeDetectorRef,
               private navCtrl: NavController) { }
   /**
    * User Story ID: M2NG8
@@ -74,9 +74,6 @@ export class EditInfoBannersPage implements OnInit {
       { type: 'pattern', message: 'El URL no es correcto'}
     ]
   };
-
-  
-
   /**
    * User Story ID: M4NG8
    * Function for submiting the form of the new place.
@@ -121,7 +118,8 @@ export class EditInfoBannersPage implements OnInit {
     }).then(toast => toast.present());
   }
   /**
-   * Method to know checkbox state
+   * User Story ID: M4NG8
+   * Method to know checkbox state and set validations depending on the state
    * @param  {} e
    */
   addValue(e): void {
@@ -137,6 +135,8 @@ export class EditInfoBannersPage implements OnInit {
   }
 
   /**
+   * User Story ID: M4NG8
+   * Method in charge of setting up the form, validators and getting id of the banner
    */
   ngOnInit() {
     this.infoBannersForm = this.formBuilder.group({
@@ -165,6 +165,8 @@ export class EditInfoBannersPage implements OnInit {
     });
   }
   /**
+   * User Story ID: M4NG8
+   * Method that enables changes into ion-checkbox using change detector reference
    */
   ngAfterViewChecked(): void {
     this.cdRef.detectChanges();
