@@ -28,7 +28,7 @@
               </div>
               <ion-grid>
                 <ion-row class="ion-justify-content-left">
-                  <ion-col class="ion-align-self-center" size-md = "4">
+                  <ion-col class="ion-align-self-center" size-md = "12">
                     <ion-list >
                       <ion-card-subtitle position="floating">Tipos de Desechos que Recibe</ion-card-subtitle>
                       <ion-item *ngFor="let waste of wasteTypes">
@@ -50,7 +50,7 @@
               <ion-row class="ion-justify-content-center">
                 <ion-col class="ion-align-self-center" size-md = "4">
                   <!--borre esto [disabled]="!newWasteForm.valid" -->
-                  <ion-button type="submit" expand = "block">Registrar
+                  <ion-button [disabled]="!newWasteForm.valid" type="submit" expand = "block">Registrar
                     <ion-icon name="checkmark-outline" slot="start"></ion-icon>
                   </ion-button>
                 </ion-col>
