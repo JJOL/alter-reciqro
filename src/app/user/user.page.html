@@ -1,16 +1,5 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/user/places-searcher-page"> </ion-back-button>
-    </ion-buttons>
-    <ion-title>Bienvenido</ion-title>
-    <ion-buttons slot="end" class="ion-padding">
-      <ion-button  slot="end" (click)="logout()">
-        Salir<ion-icon  name="log-out-outline"></ion-icon></ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
+<app-toolbar title="Salir" [backButton]="false" [login]="false" [logout]="true" ></app-toolbar>
+ 
 <ion-content fullscreen="true" slot="fixed">
   <ion-grid>
     <ion-row>

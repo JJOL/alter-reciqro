@@ -20,7 +20,7 @@ ion-toolbar{
     }
     .smallImg{
       display: block;
-      height: 35px;
+      height: 40px !important;
       padding: 2px;
     }
 }
@@ -39,7 +39,7 @@ ion-toolbar{
     }
     .smallImg{
       display: block;
-      height: 10px;
+      height: 30px !important;
       padding: 2px;
     }
 }
@@ -55,9 +55,16 @@ ion-icon{
 }
 .smallImg{
 	display: block;
+  height: 50px;
+  padding: 2px;
+}
+
+.myprofile{
+  display: block;
   height: 35px;
   padding: 2px;
 }
+
 .center{
     margin: auto;
 }
