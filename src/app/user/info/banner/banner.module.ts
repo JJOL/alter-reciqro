@@ -7,6 +7,7 @@ import { BannerPage } from './banner.page';
 import { SharedPageModule } from '../../../shared/shared.module';
 import { ModalBannerPage } from './modal-banner/modal-banner.page';
 import { ModalBannerPageModule } from './modal-banner/modal-banner.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ModalBannerPageModule } from './modal-banner/modal-banner.module';
     IonicModule,
     BannerPageRoutingModule,
     SharedPageModule,
-    ModalBannerPageModule
+    ModalBannerPageModule,
+    NgxPaginationModule
   ],
   declarations: [BannerPage],
   entryComponents: [ModalBannerPage]

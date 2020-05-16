@@ -2,17 +2,17 @@
   <ion-content>
     <ion-grid>
       <ion-row>
-        <ion-col size = "12" size-sm = "8" offset-sm="2" text-center>
+        <ion-col size = "12" size-sm = "8" offset-sm="2" class="ion-text-center">
           <ion-list *ngIf="infoBanners" >
               <ion-item 
-              *ngFor="let infoBanner of infoBanners" >
+              *ngFor="let infoBanner of infoBanners | paginate: { itemsPerPage: 9, currentPage: actualPage }" >
                 <ion-thumbnail slot="start">
                   <ion-img [src]="infoBanner.image_url"></ion-img>
                 </ion-thumbnail>
                 <ion-label>
                   <h2> {{ infoBanner.title }} </h2>
                   <br>
-                  <h5>{{infoBanner.date | date:'dd/MMMM/yyyy '}}</h5>
+                  <h5>{{infoBanner.date | date:'dd/MM/yyyy '}}</h5>
                 </ion-label>
                 <ion-button fill="clear" class="bold"  [routerLink]="['/admin/info-banners/edit', infoBanner.id]">
                   <ion-icon slot="icon-only" name="create-outline"></ion-icon>
@@ -22,6 +22,13 @@
                 </ion-button>
               </ion-item>
           </ion-list>
+          <pagination-controls (pageChange)="actualPage = $event"
+            directionLinks="true"
+            responsive="true"
+            previousLabel="Anterior"
+            nextLabel="Siguiente"
+            screenReaderPaginationLabel="Pagination">
+          </pagination-controls>
         </ion-col>
       </ion-row>
       <ion-fab>

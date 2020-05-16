@@ -10,7 +10,7 @@
         <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
           <ion-list>
             <ion-item 
-              *ngFor="let event of events"
+              *ngFor="let event of events | paginate: { itemsPerPage: 9, currentPage: actualPage }"
               
             >
               <ion-thumbnail slot="start">
@@ -24,6 +24,13 @@
                <ion-button (click)="delete(event.id)"><ion-icon name="trash-outline"></ion-icon></ion-button>
             </ion-item>
           </ion-list>
+          <pagination-controls (pageChange)="actualPage = $event"
+            directionLinks="true"
+            responsive="true"
+            previousLabel="Anterior"
+            nextLabel="Siguiente"
+            screenReaderPaginationLabel="Pagination">
+          </pagination-controls>
         </ion-col>
       </ion-row>
     </ng-container>

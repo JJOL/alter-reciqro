@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../core/services/admin.service';
+import { AdminModel } from '../core/models/admin.model';
 
 @Component({
   selector: 'app-admin',
@@ -10,7 +11,14 @@ import { AdminService } from '../core/services/admin.service';
  * This component loads all the current user data
  */
 export class AdminPage implements OnInit {
-  admins: any[];
+  admins: AdminModel[];
+  users: AdminModel[];
+  staffs: AdminModel[];
+
+  actualPage = 1;
+  actualPage2 = 1;
+
+
   /**
    * Constructor for the class, the external services required are the Admin Service 
    * @param  {AdminService} privateadminService
@@ -22,8 +30,17 @@ export class AdminPage implements OnInit {
    * Loads the users
    */
   ngOnInit() {
+    const arr: Array<{id: number, text: string}> = [];
     this.adminService.getAllAdministrators().then(admin => {
       this.admins = admin;
+      if( this.admins != undefined){
+        this.users = this.admins.filter( user => {
+          return user.roles.indexOf('user') !== -1 && user.roles.indexOf('staff') == -1;
+        });
+        this.staffs = this.admins.filter( staff => {
+          return staff.roles.indexOf('staff') !== -1 && staff.roles.indexOf('admin') == -1;
+        });
+      }
     });
   }
 
