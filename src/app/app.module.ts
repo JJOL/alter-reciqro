@@ -3,7 +3,7 @@ import { SharedPageModule } from 'src/app/shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule,Title } from '@angular/platform-browser';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -37,6 +37,7 @@ import { SplashscreenPage } from './user/splashscreen/splashscreen.page';
     NgxPaginationModule
   ],
   providers: [
+    Title,
     StatusBar,
     SplashScreen,
     AngularFireAuth,
