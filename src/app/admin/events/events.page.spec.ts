@@ -69,14 +69,14 @@ const mockAuthentication ={
 };
 
 const mockService = jasmine.createSpyObj('eventService',
-{
-  'getAllEvents': new Promise<any>((res) => {
-    res([]);
-  }),
-  'erasePastEvents': new Promise<any>((res) => {
-    res([]);
-  }),
-}
+    {
+      getAllEvents: new Promise<any>((res) => {
+        res([]);
+      }),
+      erasePastEvents: new Promise<any>((res) => {
+        res([]);
+      }),
+    }
 );
 
 

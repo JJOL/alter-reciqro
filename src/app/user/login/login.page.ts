@@ -152,7 +152,7 @@ export class LoginPage implements OnInit {
    * @param  {} event
    */
   keyDownFunction(event) {
-    if (event.keyCode === 13) {
+    if (13 === event.keyCode) {
       this.submit()
       // rest of your code
     }

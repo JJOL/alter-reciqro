@@ -21,7 +21,7 @@ export class PlaceTypePage implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   placeTypes: any [];
   placeWasteTypeToDelete: PlacesWasteTypes[];
-  actualPage: number = 1;
+  actualPage = 1;
 
   /**
    * User Story Id: M1NG8, M1NG10
