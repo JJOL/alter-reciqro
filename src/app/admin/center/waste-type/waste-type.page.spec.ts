@@ -9,6 +9,7 @@ import { PlacesService } from 'src/app/core/services/places.service';
 import { SharedPageModule } from '../../../shared/shared.module';
 import { AuthService } from '../../../core/services/auth.service';
 import { empty, BehaviorSubject } from 'rxjs'
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const mockAuthentication ={
   registerUser: () => {
@@ -93,7 +94,7 @@ describe('WasteTypePage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ WasteTypePage ],
-      imports: [IonicModule.forRoot(), RouterTestingModule, SharedPageModule],
+      imports: [IonicModule.forRoot(), RouterTestingModule, SharedPageModule, NgxPaginationModule],
       providers: [
         { provide: WasteService, useValue: mockWasteService },
         { provide: PlacesService, useValue: mockPlaceService },

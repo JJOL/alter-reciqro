@@ -17,26 +17,25 @@ export class EventsPage implements OnInit {
   todayDate = new Date();
   lengthEvents=-1
   /**
-   * User Story ID: M2NC2
+   * User Story ID: M2NC1, M2NC2
    * Constructor only uses as an external service the Event Service, so that reading operations can be performed.
    * @param  {EventsService} eventService
    */
   constructor(private eventService: EventsService) { }
   /**
-   * User Story ID: M2NC2
+   * User Story ID: M2NC1, M2NC2
    * On ngOnInit all events are loaded.
    */
   ngOnInit() {
     this.eventService.getAllEvents().then(event => {
       this.events = event;
-      console.log(this.events)
       this.events = event.filter(event => event.start_date >= this.todayDate);
       this.lengthEvents=this.events.length
     });
   }
   /**
-   * User Story Id: M2NC2
-   * Fuction that is executed for autoplaying the slider
+   * User Story I: M2NC1, M2NC2
+   * Fuction that is executed for autoplaying the slider when the assets are already loaded
    * @param  
    * @returns 
    */

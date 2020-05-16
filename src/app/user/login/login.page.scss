@@ -42,7 +42,7 @@
     }
     .smallImg{
       display: block;
-      height: 35px;
+      height: 50px;
       padding: 2px;
     }
 }
@@ -132,4 +132,8 @@ ion-card{
   content: "";
   clear: both;
   display: table;
+}
+
+.privacidad{
+text-align: center;
 }

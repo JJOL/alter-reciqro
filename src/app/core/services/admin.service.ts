@@ -66,11 +66,11 @@ export class AdminService {
 
   /**
    * User Story Id: M4NG5
-   * Function that removes privileges from a user and leaves them only with user privileges
+   * Removes  staff privilege from a user and leaves them only with user privileges
    * @param  {string} id
    * @returns void
    */
-  removeAdministratorUser(id: string){
+  removeStaffUser(id: string){
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(USER_KEY).doc(id).set({
         roles: ['user'],

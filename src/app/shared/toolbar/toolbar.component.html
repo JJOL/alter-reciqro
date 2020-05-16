@@ -18,8 +18,11 @@
       <ion-button  *ngIf="!isLogged" slot="end" routerLink="/user/login">
         Regístrate<ion-icon name="person-add-outline"></ion-icon>
       </ion-button> 
-      <ion-button  *ngIf="isLogged" slot="end" routerLink="/user/">
-        Mi Perfil<img class="smallImg" src="../../../../assets/img/blueQ.png">
+      <ion-button  *ngIf="isLogged && !logout" slot="end" routerLink="/user/">
+        Mi Perfil<img class="myprofile" src="../../../../assets/img/blueQ.png">
+      </ion-button>
+      <ion-button *ngIf="isLogged && logout" slot="end" (click)="logoutUser()">
+        Salir<ion-icon  name="log-out-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
     <div *ngIf="login"  class="row" style="padding-left: 10px">

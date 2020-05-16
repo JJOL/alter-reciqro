@@ -5,7 +5,7 @@
       <ion-row class="ion-justify-content-center">
         <ion-col size-md = "8" size-sm = "12" >
           <ion-list >
-            <ion-item *ngFor="let wasteType of wasteTypes">
+            <ion-item *ngFor="let wasteType of wasteTypes | paginate: { itemsPerPage: 10, currentPage: actualPage }">
               <ion-thumbnail slot="start">
                 <ion-img [src]="wasteType.icon"></ion-img>
               </ion-thumbnail>
@@ -22,6 +22,13 @@
 
             </ion-item>
           </ion-list>
+          <pagination-controls (pageChange)="actualPage = $event"
+          directionLinks="true"
+          responsive="true"
+          previousLabel="Anterior"
+          nextLabel="Siguiente"
+          screenReaderPaginationLabel="Pagination">
+          </pagination-controls>
         </ion-col>
       </ion-row>
     </ion-grid>

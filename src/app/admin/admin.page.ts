@@ -18,6 +18,7 @@ export class AdminPage implements OnInit {
   constructor(private adminService: AdminService) { }
 
   /**
+   * User Story ID: M4NG6
    * Loads the users
    */
   ngOnInit() {
@@ -27,7 +28,7 @@ export class AdminPage implements OnInit {
   }
 
   /**
-   * User Story Id: M4NG4
+   * User Story ID: M4NG4
    * Method that calls the addAdmin method form the service adminService to delete an existing Admin entry
    */
   onAddAdmin(id: string) {
@@ -37,11 +38,11 @@ export class AdminPage implements OnInit {
   }
 
   /**
-   * User Story Id: M4NG5
-   * Method that calles the deleteAdmin method form the service adminService to delete an existing Admin entry
+   * User Story ID: M4NG5
+   * Deletes staff privilege from the user roles array
    */
   onDeleteAdmin(id: string) {
-    this.adminService.removeAdministratorUser(id).then( () => {
+    this.adminService.removeStaffUser(id).then( () => {
       this.adminService.getAllAdministrators().then( admin => { this.admins = admin } );
     });
   }

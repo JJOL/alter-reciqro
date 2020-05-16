@@ -29,7 +29,7 @@ export class BannerPopUpPage implements OnInit {
   }
 
   /**
-   * User Story Id: M2NC5
+   * User Story ID: M2NC4,M2NC5
    * Fuction that is executed when the page instantiated
    * @param  
    * @returns 
@@ -38,7 +38,7 @@ export class BannerPopUpPage implements OnInit {
   }
 
   /**
-   * User Story Id: M2NC5
+   * User Story Id: M2NC4,M2NC5
    * Fuction that is executed for dismissing the modal
    * @param  
    * @returns 

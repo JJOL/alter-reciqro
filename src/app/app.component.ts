@@ -15,9 +15,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
  */
 export class AppComponent implements OnInit{
   isLogged: boolean;
-  admin: boolean;
-  staff: boolean;
-  user: boolean;
+
+  roles: { [key: string]: boolean } = {};
+  
 
   // eslint-disable-next-line require-jsdoc
   constructor(
@@ -29,10 +29,12 @@ export class AppComponent implements OnInit{
     this.authService.isUserLoggedIn.asObservable().subscribe(value => {
       this.isLogged = value;
     });
-    this.authService.userRoles.asObservable().subscribe(roles => {
-      this.admin = roles [1];
-      this.staff = roles [2];
-      this.user = roles[3];
+    this.authService.userRoles.asObservable().subscribe((roles: string[]) => {
+
+      Array.from(roles).forEach(role => {
+        this.roles[role] = true;
+      });
+      
     });
     this.initializeApp();
   }
@@ -52,7 +54,8 @@ export class AppComponent implements OnInit{
   }
 
   /**
-   * Required by Angular.
+   * User Story ID: M4NC4,M4NG3
+   * Logouts the current users
    */
   onLogout() {
     this.authService.logoutUser();

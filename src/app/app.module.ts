@@ -19,6 +19,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
 import { SplashscreenPageModule } from './user/splashscreen/splashscreen.module';
+import {NgxPaginationModule} from 'ngx-pagination'; 
 import { SplashscreenPage } from './user/splashscreen/splashscreen.page';
 
 @NgModule({
@@ -32,7 +33,8 @@ import { SplashscreenPage } from './user/splashscreen/splashscreen.page';
     AngularFirestoreModule,
     AngularFireAuthModule,
     SharedPageModule,
-    SplashscreenPageModule
+    SplashscreenPageModule,
+    NgxPaginationModule
   ],
   providers: [
     StatusBar,

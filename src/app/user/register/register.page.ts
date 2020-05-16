@@ -8,33 +8,36 @@ import { DelegationService } from 'src/app/core/services/delegation.service';
 const MIN_LENGTH_PASSWORD = 8
 const MAX_LENGTH_ALIAS = 100
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
 /**
- * USID: M4NC1
- * RegisterPage class
+ * User Story ID: M4NC1
+ * RegisterPage page component
  */
 export class RegisterPage implements OnInit {
   delegations:any[];
 
+  public acceptedPrivacyPolicy = false
+
   /**
-   * USID: M4NC1
+   * User Story ID: M4NC1
    * Get controls of the form
    */
   get f() { return this.newCenterForm.controls; }
   
   /**
-   * USID: M4NC1
+   * User Story ID: M4NC1
    * Get password
    */
   get email() {
     return this.newCenterForm.get('email');
   }
   /**
-   * USID: M4NC1
+   * User Story ID: M4NC1
    * Get password
    */
   get password() {
@@ -42,7 +45,7 @@ export class RegisterPage implements OnInit {
   }
 
   /**
-   * USID: M4NC1
+   * User Story ID: M4NC1
    * Get confirmpassword
    */
   get confirmPassword() {
@@ -50,7 +53,7 @@ export class RegisterPage implements OnInit {
   }
   
   /**
-   * USID: M4NC1
+   * User Story ID: M4NC1
    * Get alias
    */
   get alias() {
@@ -58,7 +61,7 @@ export class RegisterPage implements OnInit {
   }
 
   /**
-   * USID: M4NC1
+   * User Story ID: M4NC1
    * Get delegation id 
    */
   get delegation_id() {
@@ -88,6 +91,10 @@ export class RegisterPage implements OnInit {
     delegation_id: [
       { type: 'required', message: 'Es necesario elegir una delegación'}
     ],
+
+    privacy_policy: [
+      { type: 'required', message: 'Es necesario leer y aceptar la política de privacidad'}
+    ]
     
   };
 
@@ -97,9 +104,11 @@ export class RegisterPage implements OnInit {
     password: ['', [Validators.required, Validators.minLength(MIN_LENGTH_PASSWORD)]],
     confirmPassword: ['', Validators.required],
     delegation_id: ['', Validators.required], 
+    privacy_policy: ['', Validators.required]
   },{
     validator: this.mustMatch('password', 'confirmPassword')
   });
+
   /**
    * @param  {AuthService} privateauthService
    * @param  {NavController} privatenavCtrl
@@ -107,7 +116,7 @@ export class RegisterPage implements OnInit {
    * @param  {ToastController} privatetoastCtrl
    * @param  {DelegationService} privatedelegationService
    * Constructor for register page ts
-   * USID: M4NC1
+   * User Story ID: M4NC1
    */
   constructor(
     private authService: AuthService,
@@ -118,8 +127,8 @@ export class RegisterPage implements OnInit {
   ) { }
 
   /**
-   * USID: M4NC1
-   * When the page initiates it will run
+   * User Story ID: M4NC1
+   * Loads the delegation catalog 
    */
   ngOnInit() {
     this.delegationService.getDelegations().then(delegation => {
@@ -128,7 +137,19 @@ export class RegisterPage implements OnInit {
   }
 
   /**
-   * USID: M4NC1
+   * User Story ID: 
+   * validates privacy policy is accepted
+   */
+  hasReadPrivacyPolicy () {
+    if (true === this.acceptedPrivacyPolicy) {
+      this.acceptedPrivacyPolicy = false;
+    } else {
+      this.acceptedPrivacyPolicy = true;
+    }
+  }
+
+  /**
+   * User Story ID: M4NC1
    * Submit the information from the form to register the user using auth service methods
    */
   public submit() {
@@ -148,7 +169,8 @@ export class RegisterPage implements OnInit {
   }
   
   /**
-   * USID: M4NC1
+   * User Story ID: M4NC1
+   * Creates and shows a custom toast 
    * @param  {string} msg
    */
   showToast(msg: string) {
@@ -160,10 +182,10 @@ export class RegisterPage implements OnInit {
     }).then(toast => toast.present());
   }
   /**
-   * USID: M4NC1
+   * User Story ID: M4NC1
    * @param  {string} controlName
    * @param  {string} matchingControlName
-   * Match of the password and the confirm password
+   * Validates if the password and the confirm password are the same
    */
   mustMatch(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {

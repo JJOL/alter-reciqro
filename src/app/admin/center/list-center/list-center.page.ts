@@ -13,6 +13,7 @@ import { PlacesService } from 'src/app/core/services/places.service';
 export class ListCenterPage implements OnInit {
 
   places: any [];
+  actualPage = 1;
 
   /**
    * User Story ID: M1NG4

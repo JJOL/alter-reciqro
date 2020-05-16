@@ -1,5 +1,3 @@
-import { map } from 'rxjs/operators';
-
 import { AuthService } from './../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -14,21 +12,30 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./login.page.scss'],
 })
 
-/** Login Class  */
+/** 
+ *  User Story ID: M4NC2
+ * Login Page Component
+ * */
 export class LoginPage implements OnInit {
   
   rolesaux: string[];
   isLogged= false;
   /**
+   * User Story ID: M4NC2
+   * Getter for the whole form
    */
   get f() { return this.newCenterForm.controls; }
   /**
+   * User Story ID: M4NC2
+   * Getter for the email
    */
   get email() {
     return this.newCenterForm.get('email');
-  }
+  }  
   /**
-   */
+  * User Story ID: M4NC2
+  * Getter for the password
+  */
   get password() {
     return this.newCenterForm.get('password');
   }
@@ -65,7 +72,8 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
   /**
-   * Method that calls auth service so that the user can login to the app with email and password
+   * User Story ID: M4NC2,M4NG1
+   * Calls auth service so that the user can login to the app with email and password
    * @returns void
    */
   public submit() {
@@ -81,6 +89,7 @@ export class LoginPage implements OnInit {
         });
   }
   /**
+   *  User Story Id: M2NC4
    * Method that calls auth service so that the user can login to the app with google
    * @returns void
    */
@@ -88,9 +97,7 @@ export class LoginPage implements OnInit {
     this.authService.loginGoogleUser()
         .then(() => {
           this.router.navigate(['user/places-searcher-page']);
-        // eslint-disable-next-line no-console
         }).catch (err => {
-          console.log(err)
           this.isAnError(err)
         });
   }
@@ -101,7 +108,8 @@ export class LoginPage implements OnInit {
     this.authService.logoutUser();
   }
   /**
-   * Method used for handling errors
+   *  User Story Id: M2NC4
+   * Method used for handling auth errors
    * @param  {} error
    */
   isAnError(error) {
@@ -111,7 +119,8 @@ export class LoginPage implements OnInit {
     }
   }
   /**
-   * Crear mensaje en forma de Toast
+   *  User Story Id: M2NC4
+   * Create a Toast based on an message
    * @param  {string} msg
    *
    */
@@ -124,6 +133,8 @@ export class LoginPage implements OnInit {
     }).then(toast => toast.present());
   }
   /**
+   *  User Story Id: M2NC4
+   *  Checks if there is a previous session in order to redirect to main page
    */
   ionViewDidEnter(){
     this.authService.getCurrentUser()
@@ -136,16 +147,19 @@ export class LoginPage implements OnInit {
         });
   }
   /**
-   * When enter is pressed
+   * User Story Id: M2NC4
+   * Submits the form when enter is pressed
    * @param  {} event
    */
   keyDownFunction(event) {
-    if (event.keyCode === 13) {
+    if (13 === event.keyCode) {
       this.submit()
       // rest of your code
     }
   }
   /**
+   *  User Story Id: M2NC4
+   *  Redirects admin to the admin module otherwise to the main page
    */
   adminRedirection(){
     this.authService.isUserLoggedIn.asObservable().subscribe(value => {
@@ -158,8 +172,6 @@ export class LoginPage implements OnInit {
     });
 
     if(this.isLogged){
-      console.log(this.rolesaux)
-      console.log(this.rolesaux.includes('admin'));
       if(this.rolesaux.includes('admin') || this.rolesaux.includes('staff')){
         this.router.navigate(['admin/center']);
       }else if(this.rolesaux.includes('user')){

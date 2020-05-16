@@ -44,7 +44,8 @@ export class InfoPage implements OnInit {
 
   /**
    * User Story Id: M2NC4
-   * Fuction that is executed for presenting the modal, searching for the modal usign the BannerService
+   * Presents the modal, searching data for the modal consuming the BannerService
+   * checks if there is some banner with the current date otherwise shows a random one
    * @param  
    * @returns 
    */
@@ -76,7 +77,7 @@ export class InfoPage implements OnInit {
           let size = this.banners.length;
           // eslint-disable-next-line @typescript-eslint/no-magic-numbers
           let random = Math.floor(Math.random() * 10) % size;
-          if(this.banners[random] != undefined){
+          if(this.banners[random] !== undefined){
             const modal = await this.modalController.create({
               component: BannerPopUpPage,
               swipeToClose: true,

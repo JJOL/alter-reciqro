@@ -8,6 +8,7 @@ import {MockAngularFirestore} from 'src/app/core/services/mocks/firestore.mock';
 import { BehaviorSubject,empty } from 'rxjs';
 import { SharedPageModule } from 'src/app/shared/shared.module';
 import { AuthService } from '../../../core/services/auth.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const mockAuthentication ={
   registerUser: () => {
@@ -74,7 +75,7 @@ describe('ListCenterPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ListCenterPage ],
-      imports: [IonicModule.forRoot(), RouterTestingModule,SharedPageModule],
+      imports: [IonicModule.forRoot(), RouterTestingModule, SharedPageModule, NgxPaginationModule],
       providers: [
         { provide: AngularFirestore, useValue: MockAngularFirestore },
         { provide: AuthService, useValue: mockAuthentication }
