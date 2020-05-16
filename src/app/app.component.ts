@@ -18,6 +18,7 @@ export class AppComponent implements OnInit{
   admin: boolean;
   staff: boolean;
   user: boolean;
+  
 
   // eslint-disable-next-line require-jsdoc
   constructor(
