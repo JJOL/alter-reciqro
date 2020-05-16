@@ -1,6 +1,6 @@
 <app-toolbar title="Eventos" ></app-toolbar>
 
-<ion-content>
+<ion-content  tooltip="Presione el evento que le interesa para apartar su lugar"  duration="5000" hideOthers>
   <div *ngIf="lengthEvents>0">
     <ion-slides pager="true" #EventSlider (ionSlidesDidLoad)="slidesDidLoad(EventSlider)">
         <ion-slide *ngFor="let event of events">
