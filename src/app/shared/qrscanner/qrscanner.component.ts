@@ -39,9 +39,14 @@ export class QrscannerComponent implements OnInit, OnDestroy {
 
   deviceMediaInfo: any;
 
+
+  reader: FileReader;
+
   // Video Element and Canvas Element
   @ViewChild('previewEl', { static: true }) videoEl;
   @ViewChild('canvasEl', { static: true }) canvasEl;
+  @ViewChild('photoInEl', { static: true}) photoInEl;
+  @ViewChild('photoDisplayEl', { static: true}) photoDisplayEl;
 
   @Output() readCode: EventEmitter<QRCodeEvent>;
   constructor() {
@@ -58,6 +63,10 @@ export class QrscannerComponent implements OnInit, OnDestroy {
     await this.gatherDeviceMediaInfo();
 
     this.loadCameraStream(this.makeVideoConstraints(this.selectedCamera));
+
+    // Create File Reader for photos
+    this.reader = new FileReader();
+    this.reader.addEventListener('load', this.onPhotoRead.bind(this))
   }
   /**
    * Description: Load once device media stream information
@@ -165,26 +174,30 @@ export class QrscannerComponent implements OnInit, OnDestroy {
    * Description: Gets the current live image and attems to process its qr code
    */
   processVideoImage() {
-    let canvas = this.canvasEl.nativeElement;
     let video  = this.videoEl.nativeElement;
-    canvas.hidden = true;
     
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      this.ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      let imageData = this.ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-      let code = jsQR(imageData.data, imageData.width, imageData.height, {
-        inversionAttempts: 'dontInvert',
-      });
-      if (code) {
-        // Codigo QR Valid
-        let url = code.data;
-        // Mandar evento
-        this.readCode.next({ url: url });
-      }
+      this.processImage(video, video.videoWidth, video.videoHeight);
     } 
+  }
+
+  processImage(src: any, width: number, height: number) {
+    let canvas = this.canvasEl.nativeElement;
+    canvas.hidden = true;
+    canvas.width = width;
+    canvas.height = height;
+    this.ctx.drawImage(src, 0, 0, canvas.width, canvas.height);
+    let imageData = this.ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+    let code = jsQR(imageData.data, width, height, {
+      inversionAttempts: 'dontInvert',
+    });
+    if (code) {
+      // Codigo QR Valid
+      let url = code.data;
+      // Mandar evento
+      this.readCode.next({ url: url });
+    }
   }
 
   /**
@@ -199,4 +212,30 @@ export class QrscannerComponent implements OnInit, OnDestroy {
     this.loadCameraStream(this.makeVideoConstraints(this.selectedCamera));
   }
 
+  /**
+   * Description: Called when the file reader has read input content
+   * @param  {any} ev
+   */
+  onPhotoRead(fileReaderEvent: any) {
+    this.photoDisplayEl.nativeElement.src = fileReaderEvent.target.result;
+    requestAnimationFrame(this.onPhotoImgLoaded.bind(this));
+  }
+
+  /**
+   * Description: Called when an image file input has new content
+   */
+  onPhotoInputChange() {
+    let inputEl = this.photoInEl.nativeElement;
+    if (inputEl.files && inputEl.files[0]) {
+      this.reader.readAsDataURL(inputEl.files[0]);
+    }
+  }
+
+
+  /**
+   * Description: Called when img.src has loaded
+   */
+  onPhotoImgLoaded() {
+    this.processImage(this.photoDisplayEl.nativeElement, 400, 400);
+  }
 }
