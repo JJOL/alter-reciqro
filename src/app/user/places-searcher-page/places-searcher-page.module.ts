@@ -19,7 +19,7 @@ import { TooltipsModule } from 'ionic-tooltips';
     IonicModule,
     PlacesSearcherPagePageRoutingModule,
     SharedPageModule,
-    SplashscreenPageModule
+    SplashscreenPageModule,
   ],
   declarations: [PlacesSearcherPagePage, MarkerCardComponent],
   providers: [

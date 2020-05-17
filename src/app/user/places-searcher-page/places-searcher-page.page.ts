@@ -82,20 +82,23 @@ export class PlacesSearcherPagePage  {
         filters: this.filters,
         activeFilters: this.activeFilters,
       },
-      backdropDismiss: false
+      backdropDismiss: true
 
     });
     this.modal.present();
     this.modal.onDidDismiss().then( (event) => {
-      this.activeFilters = event.data;
-      // eslint-disable-next-line no-console
-      console.log('activos', this.activeFilters);
-
-      this.filterByType(event.data).then(places => {
+      console.log(event);
+      if (event.data) {
+        this.activeFilters = event.data;
         // eslint-disable-next-line no-console
-        console.log(places);
-        this.places = places;
-      });
+        console.log('activos', this.activeFilters);
+
+        this.filterByType(event.data).then(places => {
+          // eslint-disable-next-line no-console
+          console.log(places);
+          this.places = places;
+        });
+      }
     });
     return true;
   }
