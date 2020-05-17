@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, OnDestroy } from '@angular/core';
 
-import { requestAnimationFrame } from '../../core/platform/requestAnimationFrame.platform';
+import { requestAnimationFrame, cancelAnimationFrame } from '../../core/platform/requestAnimationFrame.platform';
 
 declare const jsQR: any;
 
@@ -8,6 +8,15 @@ const CAMERA_OPTIONS = {
   FACING_CAMERA: 'user',
   BACK_CAMERA: 'environment'
 };
+
+/**
+ * Number of miliseconds in a period of timeout
+ */
+const MS_SEC = 1000;
+/**
+ * Frequency of image processing invocations per second.
+ */
+const PROCESS_FPS = 30;
 
 /**
  * QRCodeEvent
@@ -35,6 +44,9 @@ export class QrscannerComponent implements OnInit, OnDestroy {
   stream: MediaStream;
   platformOnTickFn: (cbFn: () => void) => void;
 
+  isActive: boolean;
+  nextReqAnimationFrame: number;
+
   selectedCamera: string;
 
   deviceMediaInfo: any;
@@ -51,6 +63,7 @@ export class QrscannerComponent implements OnInit, OnDestroy {
   @Output() readCode: EventEmitter<QRCodeEvent>;
   constructor() {
     this.readCode = new EventEmitter<QRCodeEvent>();
+    this.isActive = false;
   }
   
   /**
@@ -58,6 +71,7 @@ export class QrscannerComponent implements OnInit, OnDestroy {
    * Description: Selects default camera and loads stream
    */
   async ngOnInit() {
+    this.isActive = false;
     // Activate Input Stream from default camera
     this.selectedCamera = CAMERA_OPTIONS.BACK_CAMERA;
     await this.gatherDeviceMediaInfo();
@@ -136,7 +150,9 @@ export class QrscannerComponent implements OnInit, OnDestroy {
           video.load();
           video.play();
 
-          requestAnimationFrame(() => this.tick());
+          this.isActive = true;
+
+          this.nextReqAnimationFrame = requestAnimationFrame(() => this.tick());
         })
         .catch(err => {
           //TODO: Handle User Doesnt Give Permission or no camera available.
@@ -150,6 +166,9 @@ export class QrscannerComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy() {
     this.shutdownCamera();
+    // Turn Off Tick
+    cancelAnimationFrame(this.nextReqAnimationFrame);
+    this.isActive = false;
   }
   /**
    * Description: Stops the stream of the camera
@@ -167,8 +186,14 @@ export class QrscannerComponent implements OnInit, OnDestroy {
    * Description: Clocked tick to process live image when possible
    */
   tick() {
+    console.log('Processing video stream. You know the deal.');
     this.processVideoImage();
-    requestAnimationFrame(() => this.tick());
+    if (this.isActive) {
+      setTimeout(() => {
+        this.nextReqAnimationFrame = requestAnimationFrame(() => this.tick());
+      }, MS_SEC / PROCESS_FPS);
+      
+    }
   }
   /**
    * Description: Gets the current live image and attems to process its qr code
