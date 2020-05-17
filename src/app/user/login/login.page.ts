@@ -96,7 +96,9 @@ export class LoginPage implements OnInit {
   onLoginGoogle(): void{
     this.authService.loginGoogleUser()
         .then(() => {
-          this.router.navigate(['user/places-searcher-page']);
+          setTimeout(()=>{
+            this.adminRedirection()
+          },1000)
         }).catch (err => {
           this.isAnError(err)
         });
