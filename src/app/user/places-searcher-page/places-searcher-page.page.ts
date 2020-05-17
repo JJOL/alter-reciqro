@@ -32,7 +32,7 @@ export class PlacesSearcherPagePage  {
   placeSelected: Place;
   filters: WasteType[] = [];
   activeFilters: WasteType[] = [];
-  modal: any;
+  modal: HTMLIonPopoverElement;
   authproof: string ;
   @ViewChild ('mapElement', {static: true}) map;
 
@@ -71,6 +71,12 @@ export class PlacesSearcherPagePage  {
     }
   }
 
+  ionViewWillLeave() {
+    if (this.modal) {
+      this.modal.dismiss();
+    }
+  }
+
   /**
    * User Story ID:  M1NC2
    * Show the filter menu popover 
@@ -82,20 +88,23 @@ export class PlacesSearcherPagePage  {
         filters: this.filters,
         activeFilters: this.activeFilters,
       },
-      backdropDismiss: false
+      backdropDismiss: true
 
     });
     this.modal.present();
     this.modal.onDidDismiss().then( (event) => {
-      this.activeFilters = event.data;
-      // eslint-disable-next-line no-console
-      console.log('activos', this.activeFilters);
-
-      this.filterByType(event.data).then(places => {
+      console.log(event);
+      if (event.data) {
+        this.activeFilters = event.data;
         // eslint-disable-next-line no-console
-        console.log(places);
-        this.places = places;
-      });
+        console.log('activos', this.activeFilters);
+
+        this.filterByType(event.data).then(places => {
+          // eslint-disable-next-line no-console
+          console.log(places);
+          this.places = places;
+        });
+      }
     });
     return true;
   }

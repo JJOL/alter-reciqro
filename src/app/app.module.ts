@@ -20,6 +20,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { SplashscreenPageModule } from './user/splashscreen/splashscreen.module';
 import {NgxPaginationModule} from 'ngx-pagination'; 
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [AppComponent],
