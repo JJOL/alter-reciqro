@@ -20,7 +20,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { SplashscreenPageModule } from './user/splashscreen/splashscreen.module';
 import {NgxPaginationModule} from 'ngx-pagination'; 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -35,8 +35,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AngularFireAuthModule,
     SharedPageModule,
     SplashscreenPageModule,
-    NgxPaginationModule,
-    BrowserAnimationsModule
+    NgxPaginationModule
   ],
   providers: [
     Title,

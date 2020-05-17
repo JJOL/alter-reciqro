@@ -10,10 +10,10 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
 import { SplashscreenPageModule } from '../splashscreen/splashscreen.module';
 import { SplashscreenPage } from '../splashscreen/splashscreen.page';
-import { TooltipsModule } from 'ionic-tooltips';
+// import { TooltipsModule } from 'ionic-tooltips';
 @NgModule({
   imports: [
-    TooltipsModule.forRoot(),
+    // TooltipsModule.forRoot(),
     CommonModule,
     FormsModule,
     IonicModule,
