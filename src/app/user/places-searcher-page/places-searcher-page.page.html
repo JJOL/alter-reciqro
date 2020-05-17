@@ -1,5 +1,5 @@
-<app-toolbar title="Buscador de Centros" [backButton]="false" [login]="false" ></app-toolbar>
-<ion-content>
+<app-toolbar  title="Buscador de Centros"  [backButton]="false" [login]="false" ></app-toolbar>
+<ion-content tooltip="Use el boton de filtros para buscar los centros de acopio para su basura"  duration="5000" hideOthers  >
   <ion-grid [ngClass]="classname" >
     <ion-row [ngClass]="classname">
       <ion-col size="12">
@@ -12,7 +12,7 @@
               <ion-icon  slot="start" name="close-sharp"></ion-icon>
             </button>
           </div>
-        <ion-button  shape="round" class="filters" (click)="presentFilterModal()" >Filtros</ion-button>
+        <ion-button   shape="round" class="filters" (click)="presentFilterModal()" >Filtros</ion-button>
         <ion-button  shape="round" class="qro" (click)="viewQro()" >Vista Qro</ion-button>
        </ion-col>
     </ion-row>

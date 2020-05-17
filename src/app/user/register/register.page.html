@@ -11,11 +11,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content >
   <hr>
   <hr>
   <hr>
-  <ion-grid>
+  <ion-grid >
     <ion-row class="ion-padding-horizontal">
       <ion-col size="2" size-s></ion-col>
     <ion-col size="12" size-sm size-md>
@@ -29,7 +29,7 @@
   
   <ion-list>
 
-    <ion-item>
+    <ion-item >
       <ion-label position="floating">Alias</ion-label>
       <ion-input formControlName="alias" inputmode="text" ></ion-input>
     </ion-item>
@@ -82,19 +82,19 @@
       </ion-select>
     </ion-item>
     
-    <ion-item>
-      <ion-checkbox color="primary" slot="start" (click) = "hasReadPrivacyPolicy()"></ion-checkbox>
-      <ion-label>He leído y acepto la Política de Privacidad</ion-label>
-      <ion-input ></ion-input>
-    </ion-item>
 
     <div *ngFor="let error of errorMessages.delegation_id">
       <ng-container *ngIf="delegation_id.hasError(error.type) && (delegation_id.dirty || delegation_id.touched)">
         <small class="error-message">{{error.message}}</small>
       </ng-container>
     </div>
+    
+    <ion-item>
+      <ion-checkbox color="primary" slot="start" (click) = "hasReadPrivacyPolicy()"></ion-checkbox>
+      <ion-label>He leído y acepto la Política de Privacidad</ion-label>
+    </ion-item>
     <br>
-    <ion-button [disabled]="!newCenterForm.valid && !acceptedPrivacyPolicy.valueOf()" type="submit" expand="block">
+    <ion-button [disabled]="!newCenterForm.valid.valueOf() && !acceptedPrivacyPolicy.valueOf()" type="submit" expand="block">
       Registrarme
       <ion-icon slot="end" name="send"></ion-icon>
     </ion-button>

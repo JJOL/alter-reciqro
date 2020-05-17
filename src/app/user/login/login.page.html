@@ -2,13 +2,13 @@
 <app-toolbar [backButton]="false" [login]="true"></app-toolbar>
 <ion-content>
   <ion-grid >
-    <ion-row>
+    <ion-row tooltip="Si no tiene cuenta haga click en ¿No tiene cuenta aún?" positionV="bottom" duration="5000" arrow hideOthers>
       <ion-col size="12" size-lg="6" size-md="6" offset-lg="3" offset-md="3">
         <h1 class='welcome'>Bienvenido/a</h1>
         <h1 class='login'>Inicio de sesión</h1>
         <br>
-        <ion-card>
-        <form [formGroup]= "newCenterForm" (ngSubmit)="submit()" (keydown)="keyDownFunction($event)">
+        <ion-card   >
+        <form [formGroup]= "newCenterForm" (ngSubmit)="submit()" (keydown)="keyDownFunction($event)" >
           <ion-list>
             <ion-item>
               <ion-label position="floating">Correo</ion-label>

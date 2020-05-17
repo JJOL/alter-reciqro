@@ -20,7 +20,6 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { SplashscreenPageModule } from './user/splashscreen/splashscreen.module';
 import {NgxPaginationModule} from 'ngx-pagination'; 
-import { SplashscreenPage } from './user/splashscreen/splashscreen.page';
 
 @NgModule({
   declarations: [AppComponent],
