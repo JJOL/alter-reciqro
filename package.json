@@ -15,7 +15,7 @@
   "private": true,
   "dependencies": {
     "@angular-eslint/schematics": "0.0.1-alpha.28",
-    "@angular/animations": "5.2.11",
+    "@angular/animations": "~8.2.14",
     "@angular/common": "~8.2.14",
     "@angular/core": "~8.2.14",
     "@angular/fire": "^5.4.2",
