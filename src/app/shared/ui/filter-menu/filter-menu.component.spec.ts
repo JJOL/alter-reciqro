@@ -5,7 +5,6 @@ import {FilterButtonComponent} from '../filter-button/filter-button.component';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from } from 'rxjs';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { Router, RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 

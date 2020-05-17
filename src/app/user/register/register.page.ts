@@ -21,8 +21,6 @@ const MAX_LENGTH_ALIAS = 100
 export class RegisterPage implements OnInit {
   delegations:any[];
 
-  public acceptedPrivacyPolicy = false
-
   /**
    * User Story ID: M4NC1
    * Get controls of the form
@@ -68,6 +66,14 @@ export class RegisterPage implements OnInit {
     return this.newCenterForm.get('delegation_id');
   }
 
+/**
+   * User Story ID: M4NC1
+   * Get privicy policy
+   */
+  get privacy_policy(){
+    return this.newCenterForm.get('privacy_policy');
+  }
+
   public errorMessages = {
     alias: [
       { type: 'required', message: 'Alias es requerido' },
@@ -87,15 +93,12 @@ export class RegisterPage implements OnInit {
       { type: 'mustMatch', message: 'La contraseña de confirmacion debe coincidir con la contraseña' }
 
     ],
-    
     delegation_id: [
       { type: 'required', message: 'Es necesario elegir una delegación'}
     ],
-
     privacy_policy: [
-      { type: 'required', message: 'Es necesario leer y aceptar la política de privacidad'}
+      { type: 'required', message: 'Es necesario aceptar la política de privacidad'}
     ]
-    
   };
 
   newCenterForm = this.formBuilder.group({
@@ -137,15 +140,29 @@ export class RegisterPage implements OnInit {
   }
 
   /**
-   * User Story ID: 
+   * User Story ID: M4NC1
    * validates privacy policy is accepted
    */
   hasReadPrivacyPolicy () {
-    if (true === this.acceptedPrivacyPolicy) {
-      this.acceptedPrivacyPolicy = false;
-    } else {
-      this.acceptedPrivacyPolicy = true;
-    }
+    if(this.newCenterForm.get('privacy_policy').value.length > 0){
+      this.newCenterForm.setValue({
+        alias: this.newCenterForm.get('alias').value,
+        email: this.newCenterForm.get('email').value,
+        password: this.newCenterForm.get('password').value,
+        confirmPassword: this.newCenterForm.get('confirmPassword').value,
+        delegation_id: this.newCenterForm.get('delegation_id').value,
+        privacy_policy: ''
+      });
+    }else{
+      this.newCenterForm.setValue({
+        alias: this.newCenterForm.get('alias').value,
+        email: this.newCenterForm.get('email').value,
+        password: this.newCenterForm.get('password').value,
+        confirmPassword: this.newCenterForm.get('confirmPassword').value,
+        delegation_id: this.newCenterForm.get('delegation_id').value,
+        privacy_policy: 'true'
+      });
+    }  
   }
 
   /**
