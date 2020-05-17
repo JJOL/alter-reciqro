@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { UserPage } from './user.page';
+import { AuthGuard } from '../core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -31,7 +32,9 @@ const routes: Routes = [
   },
   {
     path: 'visits',
-    loadChildren: () => import('./visits/visits.module').then( m => m.VisitsPageModule)
+    loadChildren: () => import('./visits/visits.module').then( m => m.VisitsPageModule),
+    canActivate: [ AuthGuard ],
+    data: { roles: ['user'] }
   },
   {
     path: 'splashscreen',
