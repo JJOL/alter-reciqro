@@ -32,7 +32,7 @@ export class PlacesSearcherPagePage  {
   placeSelected: Place;
   filters: WasteType[] = [];
   activeFilters: WasteType[] = [];
-  modal: any;
+  modal: HTMLIonPopoverElement;
   authproof: string ;
   @ViewChild ('mapElement', {static: true}) map;
 
@@ -68,6 +68,12 @@ export class PlacesSearcherPagePage  {
       };
       this.map.setCenter(this.position);
     } catch (err) {
+    }
+  }
+
+  ionViewWillLeave() {
+    if (this.modal) {
+      this.modal.dismiss();
     }
   }
 
