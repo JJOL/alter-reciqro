@@ -67,9 +67,15 @@ export class DetailEventPage implements OnInit {
 
         this.eventService.getEventByID(this.eventId).then(res => {
           this.eventLoad = res;
-          this.meta.addTag({ propery: 'og:title', content: this.eventLoad.name}); 
-          this.meta.addTag({ propery: 'og:description', content: this.eventLoad.description}); 
-          this.meta.addTag({ propery: 'og:image', content: this.eventLoad.icon}); 
+          this.titleService.setTitle(this.eventLoad.name)
+          this.meta.updateTag({ propery: 'og:title', content: this.eventLoad.name}); 
+          this.meta.updateTag({ propery: 'og:description', content: this.eventLoad.description}); 
+          this.meta.updateTag({ propery: 'og:image', content: this.eventLoad.icon}); 
+          this.meta.updateTag({ propery: 'og:url', content: `https://itesm-ca2020.web.app/user/info/events/detail-event/${this.eventLoad.id}`}); 
+          this.meta.updateTag({ propery: 'og:type', content: 'article'}); 
+          this.meta.updateTag({ propery: 'fb:app_id', content: '725418228231566'}); 
+
+          
           
           this.titleService.setTitle (this.eventLoad.name); 
           // this.linkFB = `https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fitesm-ca2020.web.app%2Fuser%2Finfo%2Fevents%2F${this.eventLoad.id}&layout=button_count&size=large&appId=725418228231566&width=88&height=28`

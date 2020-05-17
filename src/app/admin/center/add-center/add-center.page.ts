@@ -295,11 +295,11 @@ export class AddCenterPage implements OnInit {
     this.placeTypeService.createPlace(inputPlaceObj)
         .then(() => {
           // use id
-          this.showToast('Lugar creado de manera exitosa');
+          this.showToast('Evento creado de manera exitosa');
           this.newCenterForm.reset();
           // this.navCtrl.navigateBack(['/admin/center']);
         }).catch(() => {
-          this.showToast('Error al cargar el lugar');
+          this.showToast('Error al cargar el evento');
           this.newCenterForm.reset();
         });
   }
