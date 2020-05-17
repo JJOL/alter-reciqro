@@ -1,6 +1,12 @@
-<video #previewEl width="400" height="400"></video>
 <canvas #canvasEl></canvas>
+<div id="displayContainer">
+    <video #previewEl width="100%" ></video>
+    <img alt="" #photoDisplayEl width="100%">
+</div>
+
 <ion-button fill="clear" class="bold" (click)="onSwitchCamera()">
     <label>Cambia cámara</label>
     <ion-icon name="camera-reverse-outline"></ion-icon>
 </ion-button >
+<label for="photoInput" id="photoInputLbl">Utilizar una foto</label>
+<input type="file" accept="image/*" name="photoInput" id="photoInput" #photoInEl (change)="onPhotoInputChange()">
