@@ -6,6 +6,7 @@ import { ToastController } from '@ionic/angular';
 
 import { parseGoogleGeoPointToDegrees, parseDegreesToGoogleGeoPoint } from '../../../core/utils/geopoint.util';
 import { Place } from 'src/app/core/models/place.model';
+import { Router } from '@angular/router';
 
 const MAX_LEN = 300;
 
@@ -174,7 +175,7 @@ export class AddCenterPage implements OnInit {
     // eslint-disable-next-line max-len
     latlngdegrees: ['', [Validators.required, Validators.pattern('^(-?\\d+)°(\\d+)\'(\\d+\.?\\d*)\"N\\s(-?\\d+)°(\\d+)\'(\\d+\.?\\d*)\"W$')]],
     qrCode: [' '],
-    mainPicture: ['NA'],
+    mainPicture: ['https://cdn0.iconfinder.com/data/icons/set-app-incredibles/24/Image-01-512.png'],
     address: this.formBuilder.group({
       street: ['', [Validators.required, Validators.maxLength(MAX_LEN)]],
       zip: [' ']
@@ -189,11 +190,13 @@ export class AddCenterPage implements OnInit {
    * @param  {FormBuilder} privateformBuilder
    * @param  {PlacesService} privateplaceTypeService
    * @param  {ToastController} privatetoastCtrl
+   * @param  {Router} router
    */
   constructor(
     private formBuilder: FormBuilder,
     private placeTypeService: PlacesService,
-    private toastCtrl: ToastController) { }
+    private toastCtrl: ToastController,
+    private router: Router) { }
   /**
    * User Story ID: M1NG1
    * On ngOnInit all places are loaded.
@@ -295,9 +298,9 @@ export class AddCenterPage implements OnInit {
     this.placeTypeService.createPlace(inputPlaceObj)
         .then(() => {
           // use id
-          this.showToast('Evento creado de manera exitosa');
+          this.showToast('Lugar creado de manera exitosa');
           this.newCenterForm.reset();
-          // this.navCtrl.navigateBack(['/admin/center']);
+          this.router.navigate(['/admin/center/list-center']);
         }).catch(() => {
           this.showToast('Error al cargar el evento');
           this.newCenterForm.reset();

@@ -30,7 +30,7 @@ export class EventsPage implements OnInit {
   ngOnInit() {
     this.eventService.getAllEvents().then(event => {
       this.events = event;
-      this.events = event.filter(event => event.start_date >= this.todayDate);
+      this.events = event.filter(event => event.end_date >= this.todayDate);
       this.lengthEvents=this.events.length
     });
   }
