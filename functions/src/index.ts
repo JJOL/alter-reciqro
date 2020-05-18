@@ -9,6 +9,7 @@ import * as express from 'express';
 const eApp = express();
 
 eApp.get('/user/info/events/detail-event/:detailEventId', (req, res) => {
+    
     res.sendFile(__dirname+'/index.html');
 //   console.log('/user/info/events/detail-event');
 //   https.get('https://itesm2020-ca.web.app', (resp) => {
