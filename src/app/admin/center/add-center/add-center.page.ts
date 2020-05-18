@@ -208,9 +208,9 @@ export class AddCenterPage implements OnInit {
     this.newCenterForm.get('latlngdecimal').valueChanges.subscribe(this.onChangeLatLng.bind(this));
 
 
-    setTimeout(() => {
+  /*  setTimeout(() => {
       this.markedPlace = [DEFAULT_MARKER_PLACER];
-    }, 100);
+    }, 100);*/
   }
   
   /**
