@@ -68,12 +68,12 @@ export class DetailEventPage implements OnInit {
         this.eventService.getEventByID(this.eventId).then(res => {
           this.eventLoad = res;
           this.titleService.setTitle(this.eventLoad.name)
-          this.meta.updateTag({ propery: 'og:title', content: this.eventLoad.name}); 
-          this.meta.updateTag({ propery: 'og:description', content: this.eventLoad.description }); 
-          this.meta.updateTag({ propery: 'og:image', content: this.eventLoad.icon}); 
-          this.meta.updateTag({ propery: 'og:url', content: `https://itesm-ca2020.web.app/user/info/events/detail-event/${this.eventLoad.id}`}); 
-          this.meta.updateTag({ propery: 'og:type', content: 'website'}); 
-          this.meta.updateTag({ propery: 'fb:app_id', content: '725418228231566'}); 
+          this.meta.updateTag({ property: 'og:title', content: this.eventLoad.name}); 
+          this.meta.updateTag({ property: 'og:description', content: this.eventLoad.description }); 
+          this.meta.updateTag({ property: 'og:image', content: this.eventLoad.icon}); 
+          this.meta.updateTag({ property: 'og:url', content: `https://itesm-ca2020.web.app/user/info/events/detail-event/${this.eventLoad.id}`}); 
+          this.meta.updateTag({ property: 'og:type', content: 'website'}); 
+          this.meta.updateTag({ property: 'fb:app_id', content: '725418228231566'}); 
 
           
           
