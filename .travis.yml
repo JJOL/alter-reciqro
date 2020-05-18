@@ -47,6 +47,7 @@ jobs:
     - cd functions/
     - tsc
     - cd ..
+    - cp www/index.html functions/lib/index.html
   - stage: deploy
     before_script: skip
     install: skip

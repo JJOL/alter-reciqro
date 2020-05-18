@@ -8,6 +8,10 @@
     ],
     "rewrites": [
       {
+        "source": "/user/info/events/detail-event/**",
+        "function": "serverPageRenderer"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
