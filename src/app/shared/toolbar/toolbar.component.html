@@ -16,7 +16,7 @@
       {{title}}
     </ion-title>
     <ion-buttons  slot="primary" >
-      <ion-button  *ngIf="!isLogged" slot="end" routerLink="/user/login">
+      <ion-button  *ngIf="!isLogged && !login" slot="end" routerLink="/user/login">
         Regístrate<ion-icon name="person-add-outline"></ion-icon>
       </ion-button> 
       <ion-button  *ngIf="isLogged && !logout" slot="end" routerLink="/user/">

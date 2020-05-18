@@ -31,8 +31,8 @@ export class AuthGuard implements CanActivate {
     if(user && data){
       userRoles = user.roles;
       routeRoles=data.roles;
-      console.log('User Roles:');
-      console.log(userRoles);
+      //console.log('User Roles:');
+      //console.log(userRoles);
       hasPrivilege = routeRoles.some(r=> userRoles.includes(r))
     }
 
