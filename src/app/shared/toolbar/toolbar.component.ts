@@ -62,7 +62,7 @@ export class ToolbarComponent implements OnInit {
             //console.log(blah);
           }
         }, {
-          text: 'Confirmar',
+          text: 'Aceptar',
           handler: () => {
             this.router.navigate([this.routePath]);
           }
