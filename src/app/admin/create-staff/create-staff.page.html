@@ -31,7 +31,7 @@
   <ion-list>
 
     <ion-item>
-      <ion-label position="floating">Alias</ion-label>
+      <ion-label position="floating">Alias*</ion-label>
       <ion-input formControlName="alias" inputmode="text" ></ion-input>
     </ion-item>
     <div *ngFor="let error of errorMessages.alias">
@@ -41,7 +41,7 @@
     </div>
 
     <ion-item>
-      <ion-label position="floating">Correo</ion-label>
+      <ion-label position="floating">Correo*</ion-label>
       <ion-input formControlName="email" inputmode="email" ></ion-input>
     </ion-item>
     <div *ngFor="let error of errorMessages.email">
@@ -51,7 +51,7 @@
     </div>
 
     <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
+      <ion-label position="floating">Contraseña*</ion-label>
       <ion-input formControlName="password" inputmode="password" type="password"></ion-input>
     </ion-item>
     <div *ngFor="let error of errorMessages.password">
@@ -61,7 +61,7 @@
     </div>
 
     <ion-item>
-      <ion-label position="floating">Confirmación de Contraseña</ion-label>
+      <ion-label position="floating">Confirmación de Contraseña*</ion-label>
       <ion-input formControlName="confirmPassword" inputmode="password" type="password" ></ion-input>
     </ion-item>
     <div *ngFor="let error of errorMessages.confirmPassword">
@@ -75,7 +75,7 @@
 
 
     <ion-item *ngIf="delegations" >
-      <ion-label position="floating">Delegación</ion-label>
+      <ion-label position="floating">Delegación*</ion-label>
       <ion-select class="myCustomSelect" formControlName="delegationId" placeholder="Elegir" multiple="false">
         
         <ion-select-option 
