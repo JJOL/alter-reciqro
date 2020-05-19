@@ -16,6 +16,7 @@
   "dependencies": {
     "@sendgrid/mail": "^7.1.0",
     "@types/request-promise": "^4.1.46",
+    "es6-crawler-detect": "^3.1.1",
     "express": "^4.17.1",
     "firebase-admin": "^8.10.0",
     "firebase-functions": "^3.6.1",
