@@ -1,0 +1,75 @@
+#msg-card {
+    background-color: #1c2d65;
+    color: white;
+    position: relative;
+}
+
+#msg-title h1 {
+    color: white;
+    font-weight: 900;
+    text-align: center;
+}
+
+#msg-error h2 {
+    color: #3880ff;
+    font-weight: 700;
+}
+
+ul {
+    list-style: none;
+}
+
+ul li::before {
+    content: "\2022";
+    color: #3880ff;
+    font-size: 1.3em;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#carita-div {
+    position: absolute;
+    font-size: 8em;
+    font-weight: 900;
+    bottom: 30%;
+    right: 10%;
+    transform: rotate(90deg);
+}
+#msg-title #carita-div-2 {
+    color: white;
+    display: none;
+    font-size: 6em;
+    transform: rotate(90deg) translateX(40%);        
+}
+
+@media screen and (max-width: 1229px) {
+
+    #carita-div {
+        display: none;
+    }
+
+    #msg-title #carita-div-2 {
+        display: block;
+    }
+
+    #msg-error {
+        margin-top: -50px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    #msg-title #carita-div-2 {
+        margin-top: -37px;
+    }
+
+    #msg-error {
+        margin-top: -40px;
+    }
+}

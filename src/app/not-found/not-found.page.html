@@ -4,12 +4,14 @@
     <ion-grid>
         <ion-row>
             <ion-col size-md="6" offset-md="3">
-                <ion-card>
+                <ion-card id="msg-card">
                     <ion-card-header>
-                        <ion-card-title>
-                            <h1>¡No encontramos lo que estabas buscando! :(</h1>
+                        <ion-card-title id="msg-title">
+                            <h1>No encontramos lo que estabas buscando</h1>
+                            <div id="carita-div-2">:(</div>
                         </ion-card-title>
-                        <ion-card-subtitle>
+                        
+                        <ion-card-subtitle id="msg-error">
                             <h2>Error 404</h2>
                         </ion-card-subtitle>
                     </ion-card-header>
@@ -22,7 +24,9 @@
                         </ul>
                         <p>Si tienes dudas porfavor contacta a <a href="">ayuda@correo.com</a></p>
                         <ion-button expand="block" [routerLink]="['/user/places-searcher-page']" routerLinkActive="router-link-active" >Regresar a sección principal.</ion-button>
+                        <div id="carita-div">:(</div>
                     </ion-card-content>
+                    
                 </ion-card>
             </ion-col>
         </ion-row>
