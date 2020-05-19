@@ -86,6 +86,13 @@ export class DetailPage implements OnInit {
   get age() {
     return this.editEventForm.get('age');
   }
+  /**
+   *  User Story ID: M1NG2
+   */
+  get link() {
+    return this.editEventForm.get('link');
+  }
+
   public errorMessages = {
     name: [
       { type: 'required', message: 'Nombre es requerido' },
@@ -116,6 +123,9 @@ export class DetailPage implements OnInit {
     ],
     age: [
       { type: 'required', message: 'Longitud es requerida' },
+    ],
+    link: [
+      { type: 'pattern', message: 'El URL no es correcto'}
     ]
   };
   eventos: any;
@@ -128,6 +138,9 @@ export class DetailPage implements OnInit {
     startDate: ['', [Validators.required, Validators.maxLength(100)]],
     endDate: ['', [Validators.required, Validators.maxLength(100)]],
     age: ['', [Validators.required, Validators.maxLength(20)]],
+    link: [
+      { type: 'pattern', message: 'El URL no es correcto'}
+    ],
   });
 
   placeId: string;
@@ -150,6 +163,7 @@ export class DetailPage implements OnInit {
           this.editEventForm.controls.longitude.setValue(event.location.lng);
           this.editEventForm.controls.icon.setValue(event.icon);
           this.editEventForm.controls.age.setValue(event.age);
+          this.editEventForm.controls.link.setValue(event.link);
           this.editEventForm.controls.endDate.setValue(event.end_date.toISOString().split('T')[0]);
           this.editEventForm.controls.startDate.setValue(event.start_date.toISOString().split('T')[0]);
         })

@@ -27,6 +27,7 @@ export function parseFBEventToEvent(fbEvent: any): EventModel {
       data.age,
       data.name,
       data.description,
+      data.link,
       data.start_date.toDate(),
       data.end_date.toDate(),
       data.icon,
@@ -53,6 +54,7 @@ export function parseFBEventDocToEvent(fbEvent: any): EventModel {
       data.age,
       data.name,
       data.description,
+      data.link,
       data.start_date.toDate(),
       data.end_date.toDate(),
       data.icon,
@@ -161,6 +163,7 @@ export class EventsService {
         start_date: start_dateO,
         end_date: end_dateO ,
         age: event.age,
+        link: event.link,
       }, {merge: true} )
           .then(
               (res) => {
@@ -188,6 +191,7 @@ export class EventsService {
         start_date: start_dateO,
         end_date: end_dateO ,
         age: event.age,
+        link: event.link,
       } )
           .then(
               (res) => {

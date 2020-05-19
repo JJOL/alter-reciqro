@@ -25,6 +25,16 @@
                 <small class="error-message">{{error.message}}</small>
               </ng-container>
             </div>
+
+            <ion-item>
+              <ion-label position="floating">Más información</ion-label>
+              <ion-input formControlName="link" inputmode="text"></ion-input>
+            </ion-item>
+            <div *ngFor="let error of errorMessages.link">
+              <ng-container *ngIf="link.hasError(error.type) && (link.dirty || link.touched)">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
   
             <ion-item>
               <ion-label position="floating">Latitud *</ion-label>

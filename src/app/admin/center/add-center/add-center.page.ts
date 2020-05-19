@@ -32,7 +32,8 @@ export class AddCenterPage implements OnInit {
   loadedPlacetypes: TipoInstalacion[];
 
   markedPlace: Place[] = [DEFAULT_MARKER_PLACER];
-
+  picker_format:string = "D:M:YYYY:h:mm A";
+  display_format: string = "D/M/YYYY h:mm A";
   /**
    * User Story ID: M1NG1
    * Function that returns the name field on the add center form.

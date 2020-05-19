@@ -23,6 +23,7 @@ export class EventModel {
         public readonly age: string[],
         public readonly name: string,
         public readonly description: string,
+        public readonly link: string,
         public readonly start_date: Date,
         public readonly end_date: Date,
         public readonly icon: string,

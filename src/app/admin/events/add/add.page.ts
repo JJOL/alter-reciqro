@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import {  NavController, ToastController } from '@ionic/angular';
 import { EventModel } from '../../../core/models/event.model';
 import { EventsService } from 'src/app/core/services/events.service';
@@ -87,6 +87,13 @@ export class AddPage implements OnInit {
   get age() {
     return this.editEventForm.get('age');
   }
+  /**
+   *  User Story ID: M1NG2
+   */
+  get link() {
+    return this.editEventForm.get('link');
+  }
+
   public errorMessages = {
     name: [
       { type: 'required', message: 'Nombre es requerido' },
@@ -117,7 +124,10 @@ export class AddPage implements OnInit {
     ],
     age: [
       { type: 'required', message: 'Rango de edad es requerida' },
-    ]
+    ],
+    link: [
+      { type: 'pattern', message: 'El URL no es correcto'}
+    ],
   };
 
   editEventForm = this.formBuilder.group({
@@ -129,6 +139,7 @@ export class AddPage implements OnInit {
     startDate: ['', [Validators.required, Validators.maxLength(100)]],
     endDate: ['', [Validators.required, Validators.maxLength(100)]],
     age: ['', [Validators.required, Validators.maxLength(20)]],
+    link: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
   });
 
   placeId: string;
