@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PlacesService } from 'src/app/core/services/places.service';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class ListCenterPage implements OnInit {
    * User Story ID: M1NG4
    * This function retrieves all places from the service when page loads
    */
-  constructor(private placesService: PlacesService) {
+  constructor(private placesService: PlacesService,  private alertCtrl: AlertController) {
   }
 
   /**
@@ -35,5 +36,31 @@ export class ListCenterPage implements OnInit {
    */
   ionViewWillEnter() {
     this.placesService.getAllPlaces().then( data => { this.places = data; });
+  }
+
+  /**
+   * User Story ID: M1NG3
+   * This function warns the user before deleting a place with an alert
+   */
+  onDeletePlace(placeId: string, name: string) {
+    this.alertCtrl.create ({
+      header: '¿Estas seguro?',
+      message: '¿De verdad quieres eliminar este lugar?',
+      buttons: [{
+        text: 'Cancelar',
+        role: 'cancel'
+      }, {
+        text: 'Borrar',
+        handler: () => {
+          this.placesService.deletePlaceByID(placeId).then(() => {
+            //this.navCtrl.navigateBack(['/admin/center/list-center']);
+            this.placesService.getAllPlaces().then( data => { this.places = data; });
+          })
+              .catch(() => {});
+        }
+      }]
+    }).then(alertEl => {
+      alertEl.present();
+    });
   }
 }

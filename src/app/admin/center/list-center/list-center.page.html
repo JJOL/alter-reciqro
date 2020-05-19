@@ -13,10 +13,8 @@
     <ion-row>
       <ion-col size = "12" size-sm = "8" offset-sm="2" class="ion-text-center">
         <ion-list *ngIf="places" >
-          <ion-item button
-          [routerLink]="['/','admin','center','list-center' ,place.id]"
-            *ngFor="let place of places.slice(1) | paginate: { itemsPerPage: 9, currentPage: actualPage }" 
-            detail
+          <ion-item 
+            *ngFor="let place of places | paginate: { itemsPerPage: 9, currentPage: actualPage }"   
           >
             <ion-thumbnail slot="start">
               <ion-img [src]="place.photo"></ion-img>
@@ -26,7 +24,16 @@
               <p> {{ place.description }} </p>
             </ion-label>
 
-           
+            <ion-button fill="clear" class="bold"  [routerLink]="['/','admin','center','list-center' ,place.id]">
+              <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" class="bold"  [routerLink]="['/admin/center/list-center/edit-center', place.id]">
+              <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" class="bold"  (click) =  "onDeletePlace(place.id, place.name)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+
           </ion-item>
         </ion-list>
         <pagination-controls (pageChange)="actualPage = $event"
