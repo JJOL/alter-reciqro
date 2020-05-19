@@ -131,6 +131,10 @@ import * as crawler from 'es6-crawler-detect/src';
 
 const eApp = express();
 
+/**
+ * User Story ID: M2NC5 
+ * Description: Create a meta tag html for social and seo website crawlers for page events.
+ */
 eApp.get('/user/info/events/detail-event/:detailEventId', (req, res) => {
     
   const crawlerDetector = new crawler.Crawler(req);
@@ -223,6 +227,10 @@ eApp.get('/user/info/events/detail-event/:detailEventId', (req, res) => {
 //       });   
 });
 
+/**
+ * User Story ID: M2NC5 
+ * Description: Send error if wrong
+ */
 function sendCrawlingError(res: any, errMsg: string): any {
   console.log(`On Error()`);
   console.log(errMsg);
@@ -240,7 +248,10 @@ function sendCrawlingError(res: any, errMsg: string): any {
   res.send(htmlResp);
 }
   
-
+/**
+ * User Story ID: M2NC5 
+ * Description: process server rendered pages.
+ */
 export const serverPageRenderer = functions.https.onRequest((req, res) => {
   if (!req.path) {
     req.url = `/${req.url}`;
