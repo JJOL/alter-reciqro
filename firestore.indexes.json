@@ -1,0 +1,33 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "visited_places_users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "place_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "date",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "visited_places_users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "user_delegation_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "date",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

@@ -1,0 +1,114 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  	     
+  	//Function to determine if the user is signed into the system
+    function isSignedIn(){
+      return request.auth.uid != null;
+    }
+    
+    //Function to determine the roles asigned to the user
+    function verifyRoles(rolesToVerify){
+      return rolesToVerify[0] in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.roles
+      || rolesToVerify[1] in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.roles
+      || rolesToVerify[2] in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.roles;
+    }
+
+    //Function to determine if the user is registered in the system
+    function isRegisteredUser(){
+       return exists(/databases/$(database)/documents/users/$(request.auth.uid));
+    }  	
+  
+  
+    //Collection Delegation
+    match /delegation/{documentID}{
+  		allow read: if true;
+      allow write: if false;
+  	}
+    
+    //Collection Events
+    match /events/{eventID}{
+      allow read: if true;
+      allow create: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      allow delete: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      allow update: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      
+    }
+    
+    //Collection Info_Banner
+    match /info_banners/{bannerID}{
+      allow read: if true;
+      allow create: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      allow delete: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      allow update: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      
+    }
+    
+    //Collection Place_Type
+    match /place_type/{place_typeID}{
+      allow read: if true;
+      allow create: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      allow delete: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      allow update: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      
+    }
+    
+    //Collection Place_Type_Waste_Type
+    match /place_type_waste_type/{place_type_waste_typeID}{
+      allow read: if true;
+      allow create: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      allow delete: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      allow update: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      
+    }
+    
+    //Collection Places
+    match /places/{placeID}{
+      allow read: if true;
+      allow create: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      allow delete: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      allow update: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      
+    }
+    
+    //Collection Waste_Type
+    match /waste_type/{wasteID}{
+      allow read: if true;
+      allow create: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      allow delete: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      allow update: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      
+    }
+    
+    //Collection Messages
+    match /messages/{messageID}{
+      allow read, write: if true;
+    }
+    
+    //Collection User_Interested_Event
+    match /user_interested_event/{user_ieID}{
+      allow read:  if isSignedIn() && verifyRoles(["admin", "staff", "user"]) && isRegisteredUser();
+      allow create: if isSignedIn() && verifyRoles(["admin", "staff", "user"]) && isRegisteredUser();
+      allow delete: if isSignedIn() && verifyRoles(["admin", "staff", "user"]) && isRegisteredUser();
+      allow update: if isSignedIn() && verifyRoles(["admin", "staff", "user"]) && isRegisteredUser();
+    }
+    
+    //Collection Users
+    match /users/{userID}{
+      allow read:  if isSignedIn() && verifyRoles(["admin", "staff", "user"]) && isRegisteredUser();
+      allow create: if true;
+      allow delete: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      allow update: if isSignedIn() && verifyRoles(["admin", "staff", "user"]) && isRegisteredUser();
+    }
+    
+    //Collection Visited_Places_Users
+    match /visited_places_users/{visited_puID}{
+      allow read:  if isSignedIn() && verifyRoles(["admin", "staff", "user"]) && isRegisteredUser();
+      allow create: if isSignedIn() && verifyRoles(["admin", "staff", "user"]) && isRegisteredUser();
+      allow delete: if false;
+      allow update: if false;
+    }
+    
+  }
+  
+}

@@ -53,43 +53,43 @@ export const onDeleteEvent = functions.firestore.document('/events/{eventId}').o
     
   });
   
-  /**
-   * User Story ID: M2NC6, M2NC7
-   * Description: On a 'Event' model delete event send a email to a list of interested users of the 'Event'.
-   */
-  export const onModifyEvent = functions.firestore.document('/events/{eventId}').onUpdate(async (eventSnap, ctx) => {
-    try {
-      const afterData  = eventSnap.after.data();
-      const beforeData = eventSnap.after.data();
-      if (!afterData || !beforeData) {
-        throw new Error(`NoEventDataError: For update event ${eventSnap.after.id}!`);
-      }
-  
-      const triggerProps = ['start_date', 'end_date', 'location'];
-      for (let prop of triggerProps) {
-        if (afterData[prop] != beforeData[prop]) {
-          // Property has changed! Emit Email
-          let eventName = afterData.name;
-          console.log(`Event ${eventName} has changed its ${prop}`);
-  
-          let interestedEmails = await getInterestedUserEmailsForEvent(eventSnap.after.id);        
-          let abrirAppHtml = `<a href="${URL}/user/info/events/detail-event/${eventSnap.after.id}s">Abrir evento</a>`;
-          
-          console.log('Emails to process:');
-          console.log(interestedEmails);
-          await broadcastEmail(
-            interestedEmails,
-            `ReciQro | Un evento al que estabas interesado a cambiado fecha o lugar!`,
-            `<p>Te avisamos que el evento "${eventName}" ha cambiado sus datos de fecha o lugar. Por favor revisa nuevamente la información del evento en la aplicación. <br>${abrirAppHtml}`);
-          break;
-        }
+/**
+ * User Story ID: M2NC6, M2NC7
+ * Description: On a 'Event' model delete event send a email to a list of interested users of the 'Event'.
+ */
+export const onModifyEvent = functions.firestore.document('/events/{eventId}').onUpdate(async (eventSnap, ctx) => {
+  try {
+    const afterData  = eventSnap.after.data();
+    const beforeData = eventSnap.after.data();
+    if (!afterData || !beforeData) {
+      throw new Error(`NoEventDataError: For update event ${eventSnap.after.id}!`);
+    }
+
+    const triggerProps = ['start_date', 'end_date', 'location'];
+    for (let prop of triggerProps) {
+      if (afterData[prop] != beforeData[prop]) {
+        // Property has changed! Emit Email
+        let eventName = afterData.name;
+        console.log(`Event ${eventName} has changed its ${prop}`);
+
+        let interestedEmails = await getInterestedUserEmailsForEvent(eventSnap.after.id);        
+        let abrirAppHtml = `<a href="${URL}/user/info/events/detail-event/${eventSnap.after.id}s">Abrir evento</a>`;
+        
+        console.log('Emails to process:');
+        console.log(interestedEmails);
+        await broadcastEmail(
+          interestedEmails,
+          `ReciQro | Un evento al que estabas interesado a cambiado fecha o lugar!`,
+          `<p>Te avisamos que el evento "${eventName}" ha cambiado sus datos de fecha o lugar. Por favor revisa nuevamente la información del evento en la aplicación. <br>${abrirAppHtml}`);
+        break;
       }
     }
-    catch(err) {
-      console.log(err);
-    }
-  
-  });
+  }
+  catch(err) {
+    console.log(err);
+  }
+
+});
   
   /**
    * User Story ID: M2NC6, M2NC7
