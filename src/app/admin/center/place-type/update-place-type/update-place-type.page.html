@@ -9,7 +9,7 @@
           <form [formGroup]="newPlaceForm" (ngSubmit)="updatePlaceType()"> 
             <ion-card-header>
               <ion-card-title>
-                <ion-card-subtitle position="floating">Tipo de Centro de Residuo*</ion-card-subtitle>
+                <ion-card-subtitle position="floating">Tipo de Centro de Residuo *</ion-card-subtitle>
                 <ion-input placeholder = "Ejemplo: Libros" type = "text" required = "true" maxlength = "30" formControlName="name" inputmode="text"></ion-input>
               </ion-card-title>
               <div *ngFor="let error of errorMessages.name">
@@ -19,7 +19,7 @@
               </div>
             </ion-card-header>
             <ion-card-content>
-              <ion-card-subtitle position="floating">Url de Foto*</ion-card-subtitle>
+              <ion-card-subtitle position="floating">Url de Foto *</ion-card-subtitle>
               <ion-input placeholder = "Ejemplo: http://ejemplo.com/ejemplo.jpg" type = "url" required = "true" formControlName="mainPicture"></ion-input>
               <div *ngFor="let error of errorMessages.mainPicture">
                 <ng-container *ngIf="mainPicture.hasError(error.type) && (mainPicture.dirty || mainPicture.touched)">
@@ -30,7 +30,7 @@
                 <ion-row class="ion-justify-content-left">
                   <ion-col class="ion-align-self-center" size-md = "4">
                     <ion-list >
-                      <ion-card-subtitle position="floating">Tipos de Desechos que Recibe*</ion-card-subtitle>
+                      <ion-card-subtitle position="floating">Tipos de Desechos que Recibe *</ion-card-subtitle>
                       <ion-item *ngFor="let waste of checkedwasteTypes">
                         <ion-checkbox slot = "start" checked="true" (click) = "changeChecked(waste.id)"></ion-checkbox>
                         <ion-label>{{ waste.name }}</ion-label>

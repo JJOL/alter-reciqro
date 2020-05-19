@@ -8,7 +8,7 @@
       <form [formGroup]="newCenterForm" (ngSubmit)="submit()">
         <ion-list>
           <ion-item>
-            <ion-label position="floating">Nombre*</ion-label>
+            <ion-label position="floating">Nombre *</ion-label>
             <ion-input formControlName="name" inputmode="text"></ion-input>
           </ion-item>
           <div *ngFor="let error of errorMessages.name">
@@ -18,7 +18,7 @@
           </div>
 
           <ion-item>
-            <ion-label position="floating">Descripción*</ion-label>
+            <ion-label position="floating">Descripción *</ion-label>
             <ion-input formControlName="description" inputmode="text"></ion-input>
           </ion-item>
           <div *ngFor="let error of errorMessages.description">
@@ -28,7 +28,7 @@
           </div>
 
           <ion-item>
-            <ion-label position="floating">Horario*</ion-label>
+            <ion-label position="floating">Horario *</ion-label>
             <ion-input formControlName="schedule" inputmode="text"></ion-input>
           </ion-item>
           <div *ngFor="let error of errorMessages.schedule">
@@ -38,7 +38,7 @@
           </div>
           <div formGroupName="latlngdecimal">
           <ion-item>
-            <ion-label position="floating">Latitud*</ion-label>
+            <ion-label position="floating">Latitud *</ion-label>
             <ion-input formControlName="latitude" inputmode="decimal"></ion-input>
           </ion-item>
           <div *ngFor="let error of errorMessages.latitude">
@@ -48,7 +48,7 @@
           </div>
 
           <ion-item>
-            <ion-label position="floating">Longitud*</ion-label>
+            <ion-label position="floating">Longitud *</ion-label>
             <ion-input formControlName="longitude" inputmode="decimal"></ion-input>
           </ion-item>
           <div *ngFor="let error of errorMessages.longitude">
@@ -58,7 +58,7 @@
           </div>
         </div>
           <ion-item>
-            <ion-label position="floating">LatLng Grados*</ion-label>
+            <ion-label position="floating">LatLng Grados *</ion-label>
             <ion-input formControlName="latlngdegrees" inputmode="text"></ion-input>
           </ion-item>
           <div *ngFor="let error of errorMessages.latlngdegrees">
@@ -78,7 +78,7 @@
           </div>
 
           <ion-item>
-            <ion-label position="floating">Tipo de Instalación*</ion-label>
+            <ion-label position="floating">Tipo de Instalación *</ion-label>
             <ion-select class="myCustomSelect" formControlName="instalationType" placeholder="Elegir" multiple="false">
               <ion-select-option 
               *ngFor="let placeType of loadedPlacetypes" 
@@ -100,7 +100,7 @@
           </ion-list-header>
 
           <ion-item>
-            <ion-label position="floating">Calle*</ion-label>
+            <ion-label position="floating">Calle *</ion-label>
             <ion-input formControlName="street"></ion-input>
           </ion-item>
           <div *ngFor="let error of errorMessages.street">

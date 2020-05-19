@@ -7,7 +7,7 @@
         <form [formGroup]="editEventForm" (ngSubmit)="submit()">
           <ion-list>
             <ion-item>
-              <ion-label position="floating">Nombre*</ion-label>
+              <ion-label position="floating">Nombre *</ion-label>
               <ion-input formControlName="name" inputmode="text" ></ion-input>
             </ion-item>
             <div *ngFor="let error of errorMessages.name">
@@ -17,7 +17,7 @@
             </div>
   
             <ion-item>
-              <ion-label position="floating">Descripción*</ion-label>
+              <ion-label position="floating">Descripción *</ion-label>
               <ion-input formControlName="description" inputmode="text"></ion-input>
             </ion-item>
             <div *ngFor="let error of errorMessages.description">
@@ -27,7 +27,7 @@
             </div>
   
             <ion-item>
-              <ion-label position="floating">Latitud*</ion-label>
+              <ion-label position="floating">Latitud *</ion-label>
               <ion-input formControlName="latitude" inputmode="decimal"></ion-input>
             </ion-item>
             <div *ngFor="let error of errorMessages.latitude">
@@ -37,7 +37,7 @@
             </div>
   
             <ion-item>
-              <ion-label position="floating">Longitud*</ion-label>
+              <ion-label position="floating">Longitud *</ion-label>
               <ion-input formControlName="longitude" inputmode="decimal"></ion-input>
             </ion-item>
             <div *ngFor="let error of errorMessages.longitude">
@@ -58,7 +58,7 @@
   
           
             <ion-item>
-              <ion-label position="floating">Edades*</ion-label>
+              <ion-label position="floating">Edades *</ion-label>
               <ion-select class="myCustomSelect" formControlName="age" placeholder="Elegir" multiple="true">
                 <ion-select-option value="Adultos"> Adultos </ion-select-option>
                 <ion-select-option value="Público en General"> Público en General </ion-select-option>
@@ -74,7 +74,7 @@
   
   
             <ion-item>
-              <ion-label position="floating">Fecha de inicio*</ion-label>
+              <ion-label position="floating">Fecha de inicio *</ion-label>
               <ion-datetime picker-format="D:M:YYYY:h:mm A" displayFormat="D/M/YYYY h:mm A" formControlName="startDate" type="datetime" inputmode="text"></ion-datetime>
             </ion-item>
             <div *ngFor="let error of errorMessages.startDate">
@@ -84,7 +84,7 @@
             </div>
 
             <ion-item>
-              <ion-label position="floating">Fecha de fin*</ion-label>
+              <ion-label position="floating">Fecha de fin *</ion-label>
               <ion-datetime  picker-format="D:M:YYYY:h:mm A" displayFormat="D/M/YYYY h:mm A" formControlName="endDate" type="datetime" inputmode="text"></ion-datetime>
             </ion-item>
             <div *ngFor="let error of errorMessages.endDate">

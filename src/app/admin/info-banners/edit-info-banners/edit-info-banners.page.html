@@ -16,7 +16,7 @@
               </div>
     
               <ion-item>
-                <ion-label position="floating">Título</ion-label>
+                <ion-label position="floating">Título *</ion-label>
                 <ion-input placeholder = "Ejemplo: Un mundo responsable" formControlName="title" [(ngModel)] = "infoBannertitle"></ion-input>
               </ion-item>
               <div *ngFor="let error of errorMessages.title">
@@ -26,7 +26,7 @@
               </div>
               
               <ion-item>
-                <ion-label position="floating">Descripción</ion-label>
+                <ion-label position="floating">Descripción *</ion-label>
                 <ion-input placeholder = "Ejemplo: Adopta una actitud diferente" formControlName="description" [(ngModel)] = "infoBannerDescription"></ion-input>
               </ion-item>
               <div *ngFor="let error of errorMessages.description">
