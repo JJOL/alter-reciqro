@@ -145,6 +145,28 @@ export class PlacesService {
           });
     });
   }
+
+  /** 
+   * User Story ID: M1NC1
+   * Function that returns all places on the database, ordered by its name.
+   * @returns Promise
+   */
+  getAllPlacesOrderedBYName(): Promise<Place[]> {
+    return new Promise((resolve) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<any>(PLACE_KEY, ref => ref.orderBy('name')).snapshotChanges()
+          .pipe(map(snapshot => {
+            return snapshot.map(parseFBPlaceToPlace);
+          }))
+          .subscribe(places => {
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+            resolve(places);
+          });
+    });
+  }
+
   /**
    * User Story ID: M1NG7
    * Function that returns a specific place on the database, filtered by its id, with all its associated data.
