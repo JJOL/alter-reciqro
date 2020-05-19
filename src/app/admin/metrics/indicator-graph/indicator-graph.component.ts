@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
 import { IndicatorInstance } from '../services/DualIndicatorProvider';
+import { NavController, AlertController } from '@ionic/angular';
 
 
 declare const Chart: any;
@@ -43,20 +44,21 @@ export class IndicatorGraphComponent implements OnChanges {
   inLowerDateStr: string;
   inUpperDateStr: string;
 
-  constructor() {}
+  constructor(
+    private navCtrl: NavController,
+    private alertCtrl: AlertController
+  ) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     if (this.inputPropHasChanged(changes, 'indicatorDisplayData')) {
-      console.log('Data has changed');
       this.onShowGraphFromData();
     }
 
-    if (this.inputPropHasChanged(changes, 'instances')) {
+    /*if (this.inputPropHasChanged(changes, 'instances')) {
       // this.selectedInstance = this.instances[0];
       console.log(this.instances);
       console.log('READY TO MAKE TEST');
-    }
+    }*/
   }
   /**
    * Helper Function for checking if a property is within the changed properties of ngOnChanges()
@@ -73,7 +75,6 @@ export class IndicatorGraphComponent implements OnChanges {
    */
   onShowGraphFromData() {
     if (this.indicatorDisplayData && this.indicatorDisplayData.length > 0 && this.lowerDate && this.selectedInstance) {
-      console.log('Displaying data');
       this.showGraphFromData(this.indicatorDisplayData, this.lowerDate, this.selectedInstance.name)
     }
   }
@@ -130,13 +131,26 @@ export class IndicatorGraphComponent implements OnChanges {
     /* TODO: Validar los parametros */
     this.lowerDate = new Date(this.inLowerDateStr);
     this.upperDate = new Date(this.inUpperDateStr);
-    let changeEvent: IGCParametersEvent = {
-      selectedInstance: this.selectedInstance,
-      lowerDate: this.lowerDate,
-      upperDate: this.upperDate
-    };
+    if(this.lowerDate  != undefined && this.upperDate != undefined && this.selectedInstance != undefined){
+      let changeEvent: IGCParametersEvent = {
+        selectedInstance: this.selectedInstance,
+        lowerDate: this.lowerDate,
+        upperDate: this.upperDate
+      };
+      this.dataParametersChange.emit(changeEvent);
+    }else{
+      this.alertCtrl.create ({
+        header: 'Atención',
+        message: 'Es necesario completar los campos para generar la gráfica.',
+        buttons: [{
+          text: 'Aceptar',
+          role: 'cancel'
+        }]
+      }).then(alertEl => {
+        alertEl.present();
+      });
+    }
     
-    this.dataParametersChange.emit(changeEvent);
   }
 
 }

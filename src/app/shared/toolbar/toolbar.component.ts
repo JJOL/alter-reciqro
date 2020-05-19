@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { AuthService } from './../../core/services/auth.service';
 import { Component, OnInit, Input, ViewChild} from '@angular/core';
-import { AlertController,IonBackButtonDelegate } from '@ionic/angular';
+import { AlertController, IonBackButtonDelegate } from '@ionic/angular';
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
@@ -18,8 +18,9 @@ export class ToolbarComponent implements OnInit {
   @Input() backButton: boolean;
   @Input() routePath: string;
   @Input() login: boolean;
-  @Input() editPage: boolean
-  @Input() logout: boolean
+  @Input() editPage: boolean;
+  @Input() logout: boolean;
+  @Input() register: boolean;
   @ViewChild(IonBackButtonDelegate, { static: false }) backButtonA: IonBackButtonDelegate;
   isLogged: boolean;
   admin: boolean;
@@ -29,7 +30,7 @@ export class ToolbarComponent implements OnInit {
   pages = [];
   // eslint-disable-next-line require-jsdoc
   constructor(private authService: AuthService, private menu: MenuController,
-    private router: Router,public alertController: AlertController) {
+              private router: Router, public alertController: AlertController) {
   }
   /**
    * NgOnInit
@@ -58,7 +59,7 @@ export class ToolbarComponent implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log(blah);
+            //console.log(blah);
           }
         }, {
           text: 'Confirmar',

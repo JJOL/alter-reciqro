@@ -52,7 +52,7 @@ export class AdminPage implements OnInit {
     this.adminService.addAdministratorUser(id).then( () => {
       this.adminService.getAllAdministrators().then( admin => { 
         this.admins = admin;
-        if( this.admins != undefined){
+        if( this.admins !== undefined){
           this.users = this.admins.filter( user => {
             return user.roles.indexOf('user') !== -1 && user.roles.indexOf('staff') == -1;
           });
@@ -72,7 +72,7 @@ export class AdminPage implements OnInit {
     this.adminService.removeStaffUser(id).then( () => {
       this.adminService.getAllAdministrators().then( admin => { 
         this.admins = admin;
-        if( this.admins != undefined){
+        if( this.admins !== undefined){
           this.users = this.admins.filter( user => {
             return user.roles.indexOf('user') !== -1 && user.roles.indexOf('staff') == -1;
           });
