@@ -89,14 +89,8 @@ export class ListCenterPage implements OnInit {
     this.placesService.getAllPlaces().then( data => { 
       this.places = data; 
       this.places = this.places.filter( place => {
-        //console.log(place.name.toLowerCase);
         return place.name.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
       });
     });
-    
-    
-    console.log( event.detail.value.length);
-    console.log(event.detail.value);
-
   }
 }
