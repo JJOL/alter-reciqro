@@ -165,11 +165,11 @@ eApp.get('/user/info/events/detail-event/:detailEventId', (req, res) => {
           `<!DOCTYPE html>` +
           `<html lang="en" xmlns:og="http://opengraphprotocol.org/schema/">`+
           `<head>`+
-          `<meta property= 'og:title' content= 'ReciQro | ${eventInfo.name}' />`+
+          `<meta property= 'og:title' content= 'AQropio | ${eventInfo.name}' />`+
           `<meta property= 'og:image' content= '${eventInfo.icon}' />`+
           `<meta property= 'og:description' content= '${eventInfo.description}'/>`+
           `<meta property= 'og:type' content= 'website' />`+
-          `<meta property= 'og:url' content= 'https://itesm-ca2020.web.app/user/info/events/detail-event/${eventId}' />`+
+          `<meta property= 'og:url' content= 'https://aqropio.municipiodequeretaro.gob.mx/user/info/events/detail-event/${eventId}' />`+
           `<meta property= 'fb:app_id', content= '725418228231566' />`+
           `</head>`+
           `</html>`;
@@ -241,7 +241,7 @@ function sendCrawlingError(res: any, errMsg: string): any {
   `<meta property= 'og:title' content= 'ReciQro/>`+
   `<meta property= 'og:description' content= '${errMsg}'/>`+
   `<meta property= 'og:type' content= 'website' />`+
-  `<meta property= 'og:url' content= 'https://itesm-ca2020.web.app/' />`+
+  `<meta property= 'og:url' content= 'https://aqropio.municipiodequeretaro.gob.mx/' />`+
   `<meta property= 'fb:app_id', content= '725418228231566' />`+
   `</html>`;
 
