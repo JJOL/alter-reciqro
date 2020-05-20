@@ -14,9 +14,11 @@ export class EventModel {
      * @param  {string} publicreadonlydescription
      * @param  {Date} publicreadonlystart_date
      * @param  {Date} publicreadonlyend_date
+     * @param  {Date} publicreadonlystart_hour
+     * @param  {Date} publicreadonlyend_hour
      * @param  {string} publicreadonlyicon
-     * @param  {{lat:number} publicreadonlylocation
-     * @param  {number}} lng
+     * @param  {lat:number} publicreadonlylocation
+     * @param  {number} lng
      */
   constructor(
         public readonly id: string,
@@ -26,6 +28,8 @@ export class EventModel {
         public readonly link: string,
         public readonly start_date: Date,
         public readonly end_date: Date,
+        public readonly start_hour: string,
+        public readonly end_hour: string,
         public readonly icon: string,
         public readonly location: {
             lat: number,

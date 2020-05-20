@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {  NavController, ToastController } from '@ionic/angular';
@@ -15,11 +15,16 @@ const MAXLENGTH = 100;
  * Se obtine
  */
 export class DetailPage implements OnInit {
+
+  startHourFlag: boolean = false;
+  endHourFlag: boolean = false;
+
 // eslint-disable-next-line require-jsdoc, max-params
   constructor(private eventService: EventsService,  private activatedRoute: ActivatedRoute,
     private navCtrl: NavController,
     public formBuilder: FormBuilder,
-    private toastCtrl: ToastController) { }
+    private toastCtrl: ToastController,
+    private cdRef: ChangeDetectorRef) { }
 
   /**
    * User Story ID: M1NG2
@@ -92,6 +97,21 @@ export class DetailPage implements OnInit {
   get link() {
     return this.editEventForm.get('link');
   }
+  /**
+   * User Story ID: M1NG2
+   * Function that returns the start hour field of the event
+   */
+  get startHour() {
+    return this.editEventForm.get('startHour');
+  }
+
+  /**
+   * User Story ID: M1NG2
+   * Function that returns the end hour field of the event
+   */
+  get endHour() {
+    return this.editEventForm.get('endHour');
+  }
 
   public errorMessages = {
     name: [
@@ -126,6 +146,12 @@ export class DetailPage implements OnInit {
     ],
     link: [
       { type: 'pattern', message: 'El URL no es correcto'}
+    ],
+    startHour: [
+      { type: 'required', message: 'Hora de inicio del evento requerida'}
+    ],
+    endHour: [
+      { type: 'required', message: 'Hora fin del evento requerida'}
     ]
   };
   eventos: any;
@@ -141,6 +167,8 @@ export class DetailPage implements OnInit {
     link: [
       { type: 'pattern', message: 'El URL no es correcto'}
     ],
+    startHour: [''],
+    endHour: ['']
   });
 
   placeId: string;
@@ -156,6 +184,8 @@ export class DetailPage implements OnInit {
       if (this.placeId) {
 
         this.eventService.getEventByID(this.placeId).then( event =>{
+          event.start_hour ? this.startHourFlag = true : this.startHourFlag = false;
+          event.end_hour ? this.endHourFlag = true : this.endHourFlag = false;
           this.place = {location: {lat: event.location.lat, lng: event.location.lng}} 
           this.editEventForm.controls.name.setValue(event.name);
           this.editEventForm.controls.description.setValue(event.description);
@@ -166,6 +196,8 @@ export class DetailPage implements OnInit {
           this.editEventForm.controls.link.setValue(event.link);
           this.editEventForm.controls.endDate.setValue(event.end_date.toISOString().split('T')[0]);
           this.editEventForm.controls.startDate.setValue(event.start_date.toISOString().split('T')[0]);
+          this.editEventForm.controls.startHour.setValue(event.start_hour);
+          this.editEventForm.controls.endHour.setValue(event.end_hour);
         })
 
       }
@@ -207,6 +239,49 @@ export class DetailPage implements OnInit {
         .catch(() => {
           this.showToast('Error al cargar el lugar');
         });
+  }
+
+   /**
+   * User Story ID:M1NG1
+   * Method to know checkbox state for the start hour
+   * @param  {} e
+   */
+  startHourFunction(e) {
+    if (true == e.currentTarget.checked){
+      this.startHourFlag = true;
+      this.editEventForm.get('startHour').setValidators(Validators.required);
+    }
+    else {
+      this.startHourFlag = false;
+      this.editEventForm.get('startHour').clearValidators();
+      this.editEventForm.get('startHour').setValue('');
+    }
+    
+  }
+
+  /**
+   * User Story ID: M1NG1
+   * Method to know checkbox state for the start hour
+   * @param  {} e
+   */
+  endHourFunction(e) {
+    if (true == e.currentTarget.checked){
+      this.endHourFlag = true;
+      this.editEventForm.get('endHour').setValidators(Validators.required);
+    }
+    else {
+      this.endHourFlag = false;
+      this.editEventForm.get('endHour').clearValidators();
+      this.editEventForm.get('endHour').setValue('');
+    }
+  }
+
+  /**
+   * User Story ID: M1NG1
+   * Method that enables changes into ion-checkbox using change detector reference
+   */
+  ngAfterViewChecked(): void {
+    this.cdRef.detectChanges();
   }
 
 
