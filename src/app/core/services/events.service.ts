@@ -11,7 +11,8 @@ import * as firebase from 'firebase/app';
 const EVENTS_KEY = '/events';
 const GeoPoint = firebase.firestore.GeoPoint;
 const Timestamp = firebase.firestore.Timestamp;
-const currentDate = new Date();
+let  currentDate = new Date();
+currentDate.setDate(currentDate.getDate() + 1);
 /**
  * User Story ID: M2NC2
  * User Story ID M2NC3
@@ -30,6 +31,8 @@ export function parseFBEventToEvent(fbEvent: any): EventModel {
       data.link,
       data.start_date.toDate(),
       data.end_date.toDate(),
+      data.start_hour,
+      data.end_hour,
       data.icon,
       {
         lat: data.location.latitude,
@@ -57,6 +60,8 @@ export function parseFBEventDocToEvent(fbEvent: any): EventModel {
       data.link,
       data.start_date.toDate(),
       data.end_date.toDate(),
+      data.start_hour,
+      data.end_hour,
       data.icon,
       {
         lat: data.location.latitude,
@@ -162,6 +167,8 @@ export class EventsService {
         location: geoPoint,
         start_date: start_dateO,
         end_date: end_dateO ,
+        start_hour: event.startHour,
+        end_hour: event.endHour,
         age: event.age,
         link: event.link,
       }, {merge: true} )
@@ -179,7 +186,7 @@ export class EventsService {
    * @param  {} event
    */
   createEvent(event) {
-    const geoPoint = new GeoPoint(event.latitude, event.longitude);
+    const geoPoint = new GeoPoint(+event.latitude, +event.longitude);
     const end_dateO = new Timestamp(Date.parse(event.endDate) / 1000, 0);
     const start_dateO =  new Timestamp(Date.parse(event.startDate) / 1000, 0);
     return new Promise<any>((resolve, reject) => {
@@ -190,6 +197,8 @@ export class EventsService {
         location: geoPoint,
         start_date: start_dateO,
         end_date: end_dateO ,
+        start_hour: event.startHour,
+        end_hour: event.endHour,
         age: event.age,
         link: event.link,
       } )

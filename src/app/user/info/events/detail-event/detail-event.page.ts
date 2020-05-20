@@ -26,6 +26,10 @@ export class DetailEventPage implements OnInit {
   startDate: string;
   endDate: string;
   startDay: string;
+  startHour: string;
+  endHour: string;
+  startHourFlag: boolean;
+  endHourFlag:  boolean;
   // @ViewChild('map', { static: true }) mapElement;
   @ViewChild('iframeFB', {static: false}) shareButtonFB;
   interested: boolean;
@@ -79,9 +83,21 @@ export class DetailEventPage implements OnInit {
           
           this.titleService.setTitle (this.eventLoad.name); 
           // this.linkFB = `https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fitesm-ca2020.web.app%2Fuser%2Finfo%2Fevents%2F${this.eventLoad.id}&layout=button_count&size=large&appId=725418228231566&width=88&height=28`
-          this.startDate = this.dateFormat(this.eventLoad.start_date, true);
-          this.endDate = this.dateFormat(this.eventLoad.end_date, true);
+          this.startDate = this.dateFormat(this.eventLoad.start_date, false);
+          this.endDate = this.dateFormat(this.eventLoad.end_date, false);
           this.startDay = this.dateFormat(this.eventLoad.start_date, false);
+          if(this.eventLoad.start_hour){
+            this.startHourFlag = true;
+            this.startHour = this.eventLoad.start_hour.split('T')[1].split('.')[0].split(':')[0] + ':' + this.eventLoad.start_hour.split('T')[1].split('.')[0].split(':')[1] + ' hrs';
+          }else{
+            this.startHourFlag = false;
+          }
+          if(this.eventLoad.end_hour){
+            this.endHourFlag = true;
+            this.endHour = this.eventLoad.end_hour.split('T')[1].split('.')[0].split(':')[0] + ':' + this.eventLoad.end_hour.split('T')[1].split('.')[0].split(':')[1] + ' hrs';
+          }else{
+            this.endHourFlag = false;
+          }
           setTimeout(() => {
             const buttonFBShare = `<iframe src='https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fitesm-ca2020.web.app%2Fuser%2Finfo%2Fevents%2Fdetail-event%2F${this.eventId}&layout=button_count&size=large&appId=725418228231566&width=114&height=28' width='114' height='28' style='border:none;overflow:hidden' scrolling='no' frameborder='0' allowTransparency='true' allow='encrypted-medi''></iframe>`;
             this.shareButtonFB.nativeElement.innerHTML = buttonFBShare;
