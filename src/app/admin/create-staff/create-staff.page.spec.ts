@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 
 import { AngularFirestore } from '@angular/fire/firestore';
 import { SharedPageModule } from 'src/app/shared/shared.module'
-import { empty } from 'rxjs';
+import { empty, BehaviorSubject } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 
@@ -54,7 +54,38 @@ const mockAuthentication ={
   updateUserData: () => {
     return [];
   },
+  getCurrentUser : () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  updateCurrentUser: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  sendPasswordResetEmail: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  updateUserByUID: () => {
+    return [];
+  },
+  getUserByUID: () => {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  createUser: ()=> {
+    return new Promise((resolve) => {
+      resolve([]);
+    });
+  },
+  isUserLoggedIn: new BehaviorSubject(false),
+  userRoles: new BehaviorSubject([]),
 };
+
 
 const authStub: any = {
   authState: {},
