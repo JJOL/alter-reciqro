@@ -72,7 +72,7 @@ export class EventsPage implements OnInit {
   ionViewWillEnter() {
     this.eventService.getAllEvents().then(events => {
       this.events = events;
-      this.events = this.events.filter(event => event.start_date >= this.todayDate);
+      this.events = this.events.filter(event => event.end_date >= this.todayDate);
     });
   }
 

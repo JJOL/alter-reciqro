@@ -14,12 +14,20 @@ import { Router } from '@angular/router';
  */
 export class FilterMenuComponent implements OnInit {
   
-  // eslint-disable-next-line require-jsdoc, max-params
+  /**
+   * Constructor for the class we just need the PopoverController for managing popovers, 
+   * and the router controller for navigation.
+   * @param  {popoverController} PopoverController
+   * @param  {Router} router
+   */
   constructor(public popoverController: PopoverController, private router: Router) {}
   @Input() filters: WasteType [] = [];
   @Input() activeFilters: WasteType [] = [];
 
-  // eslint-disable-next-line require-jsdoc
+  /**
+   * User Story ID: M1NC2
+   * Method required by Angular.
+   */
   ngOnInit() {
   }
   /**

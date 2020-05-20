@@ -20,4 +20,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
   ],
   declarations: [EventsPage]
 })
+/**
+ * Exporting class so it is externally accessible.
+ */
 export class EventsPageModule {}
