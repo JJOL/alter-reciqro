@@ -13,7 +13,9 @@ import { AdminModel } from '../core/models/admin.model';
 export class AdminPage implements OnInit {
   admins: AdminModel[];
   users: AdminModel[];
+  listusers: AdminModel[];
   staffs: AdminModel[];
+  liststaff: AdminModel[];
 
   actualPage = 1;
   actualPage2 = 1;
@@ -37,9 +39,11 @@ export class AdminPage implements OnInit {
         this.users = this.admins.filter( user => {
           return user.roles.indexOf('user') !== -1 && user.roles.indexOf('staff') == -1;
         });
+        this.listusers = this.users;
         this.staffs = this.admins.filter( staff => {
           return staff.roles.indexOf('staff') !== -1 && staff.roles.indexOf('admin') == -1;
         });
+        this.liststaff = this.staffs;
       }
     });
   }
@@ -82,6 +86,28 @@ export class AdminPage implements OnInit {
         }
        } );
     });
+  }
+
+  /**
+   * User Story ID: M4NG5
+   * This function retrieves all users that have the name searched
+   */
+  searchByNameUser(event){
+    event.detail.value.length == 0 ? this.listusers = this.users:
+    this.listusers = this.users.filter( user => {
+      return user.alias.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
+    })
+  }
+
+  /**
+   * User Story ID: M4NG5
+   * This function retrieves all staff users that have the name searched
+   */
+  searchByNameStaff(event){
+    event.detail.value.length == 0 ? this.liststaff = this.staffs:
+    this.liststaff = this.staffs.filter( staff => {
+      return staff.alias.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
+    })
   }
 }
 

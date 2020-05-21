@@ -54,11 +54,6 @@ export class IndicatorGraphComponent implements OnChanges {
       this.onShowGraphFromData();
     }
 
-    /*if (this.inputPropHasChanged(changes, 'instances')) {
-      // this.selectedInstance = this.instances[0];
-      console.log(this.instances);
-      console.log('READY TO MAKE TEST');
-    }*/
   }
   /**
    * Helper Function for checking if a property is within the changed properties of ngOnChanges()

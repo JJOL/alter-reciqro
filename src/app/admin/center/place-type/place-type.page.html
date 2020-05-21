@@ -1,11 +1,11 @@
 <app-toolbar title="Categorías de Centros" [backButton]="true" routePath="/admin/center"></app-toolbar>
 
 <ion-content>
-  <br><br>
+  <br>
   <ion-grid>
     <ion-row>
-      <ion-col size="4" offset-sm="4" class="ion-text-center">
-        <ion-searchbar size="4" showCancelButton="focus"  placeholder="Buscar" animated debounce="500" inputmode="text" (ionChange)="searchByName( $event )"></ion-searchbar>
+      <ion-col size-md="4" size-xs="12" offset-sm="4"class="ion-text-center">
+        <ion-searchbar  showCancelButton="focus"  placeholder="Buscar" animated debounce="500" inputmode="text" (ionChange)="searchByName( $event )"></ion-searchbar>
       </ion-col>
     </ion-row>
   </ion-grid>
