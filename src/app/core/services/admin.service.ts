@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Subscription } from 'rxjs';
+import { Subscription, from } from 'rxjs';
 import { AdminModel } from '../models/admin.model';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { SystemService } from './system.service';
 
 
@@ -113,18 +113,20 @@ export class AdminService {
    */
   searchUsersByAlias(alias: string): Promise<AdminModel[]> {
 
-    let nextStringVal = "";
-    nextStringVal += alias;
-    for (let i = 0; i < 20; i++) {
-      nextStringVal += 'z';
-    }
+    let nextStringVal = getStringSuccessor(alias, 20);
 
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
       subscription = this.firedb.collection(USER_KEY, ref => ref.where('alias', '>=', alias).where('alias', '<=', nextStringVal)).snapshotChanges()
-        .pipe(map(snapshot => {
-          return snapshot.map(parseFBPUserToUser);
-        }))
+        .pipe(
+          catchError(err => {
+            //TODO: Handle Error err
+            return from([]);
+          }),
+          map(snapshot => {
+            return snapshot.map(parseFBPUserToUser);
+          })
+        )
         .subscribe(users => {
           if (subscription) {
             subscription.unsubscribe();
@@ -132,5 +134,21 @@ export class AdminService {
           resolve(users);
         });
     });
+
+
+    /**
+     * Description: Calculates a string's long successor
+     * @param {string} str 
+     * @param {number} resolution 
+     * @returns {string}
+     */
+    function getStringSuccessor(str: string, resolution: number): string {
+      let successorString = "";
+      successorString += str;
+      for (let i = 0; i < resolution; i++) {
+        successorString += 'z';
+      }
+      return successorString;
+    }
   }
 }
