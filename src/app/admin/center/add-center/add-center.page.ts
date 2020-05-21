@@ -127,7 +127,7 @@ export class AddCenterPage implements OnInit {
   public errorMessages = {
     name: [
       { type: 'required', message: 'Nombre es requerido' },
-      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 100 caracteres'}
+      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 300 caracteres'}
     ],
     description: [
       { type: 'required', message: 'Descripción es requerida' },
@@ -153,7 +153,7 @@ export class AddCenterPage implements OnInit {
     ],
     street: [
       { type: 'required', message: 'Calle es requerida' },
-      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 100 caracteres'}
+      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 300 caracteres'}
     ],
     instalationType: [
       { type: 'required', message: 'Tipo de Instalación es requerido' },
