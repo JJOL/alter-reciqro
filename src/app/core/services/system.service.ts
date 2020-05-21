@@ -16,6 +16,7 @@ export class SystemService {
 
     constructor(private firedb: AngularFirestore, private router: Router) {
       this.calls = this.loadCalls();
+      this.clearCache();
     }
     /**
      * Description: Proxy Firestore.collection
