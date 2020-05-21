@@ -24,12 +24,20 @@
             <p> {{ eventLoad.description }} </p>
             <br>
             <a [href]="eventLoad.link" target="_blank">Más información</a>
-            <br>
+            <br><br>
             <h4> <strong> Fecha de inicio del evento: </strong> </h4>
             <p> {{ startDate }} </p>
             <br>
+            <h4> <strong> Hora de inicio del evento: </strong> </h4>
+            <p  *ngIf="startHourFlag"> {{ startHour }} </p>
+            <p  *ngIf="!startHourFlag"> No aplica </p>
+            <br>
             <h4> <strong> Fecha de finalización del evento: </strong> </h4>
             <p> {{ endDate }} </p>
+            <br>
+            <h4> <strong> Hora de fin del evento: </strong> </h4>
+            <p  *ngIf="endHourFlag"> {{ endHour }} </p>
+            <p  *ngIf="!endHourFlag"> No aplica </p>
             <br>
             <div id="age">
               <h4> <strong>Dirigido a:</strong></h4>

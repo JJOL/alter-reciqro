@@ -85,7 +85,7 @@
   
             <ion-item>
               <ion-label position="floating">Fecha de inicio *</ion-label>
-              <ion-datetime picker-format="D:M:YYYY:h:mm A" displayFormat="D/M/YYYY h:mm A" formControlName="startDate" type="datetime" inputmode="text"></ion-datetime>
+              <ion-datetime picker-format="D:M:YYYY" displayFormat="D/M/YYYY" formControlName="startDate" inputmode="text"></ion-datetime>
             </ion-item>
             <div *ngFor="let error of errorMessages.startDate">
               <ng-container *ngIf="startDate.hasError(error.type) && (startDate.dirty || startDate.touched)">
@@ -94,11 +94,39 @@
             </div>
 
             <ion-item>
+              <ion-checkbox  slot = "start" (ionChange) = "startHourFunction($event)" color="primary"></ion-checkbox>
+              <ion-label>Hora de Inicio de Evento</ion-label> 
+            </ion-item>
+            <ion-item *ngIf="startHourFlag" >
+              <ion-label>Hora de Inicio</ion-label>
+              <ion-datetime formControlName="startHour" display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
+            </ion-item>
+            <div *ngFor="let error of errorMessages.startHour">
+              <ng-container *ngIf="startHour.hasError(error.type) && (startHour.dirty || startHour.touched)">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
+            
+            <ion-item>
               <ion-label position="floating">Fecha de fin *</ion-label>
-              <ion-datetime  picker-format="D:M:YYYY:h:mm A" displayFormat="D/M/YYYY h:mm A" formControlName="endDate" type="datetime" inputmode="text"></ion-datetime>
+              <ion-datetime  picker-format="D:M:YYYY" displayFormat="D/M/YYYY" formControlName="endDate"  inputmode="text"></ion-datetime>
             </ion-item>
             <div *ngFor="let error of errorMessages.endDate">
               <ng-container *ngIf="endDate.hasError(error.type) && (endDate.dirty || endDate.touched)">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
+
+            <ion-item>
+              <ion-checkbox  slot = "start" (ionChange) = "endHourFunction($event)" color="primary"></ion-checkbox>
+              <ion-label>Hora de Fin de Evento</ion-label> 
+            </ion-item>
+            <ion-item *ngIf="endHourFlag" >
+              <ion-label>Hora Fin</ion-label>
+              <ion-datetime formControlName="endHour" display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
+            </ion-item>
+            <div *ngFor="let error of errorMessages.endHour">
+              <ng-container *ngIf="endHour.hasError(error.type) && (endHour.dirty || endHour.touched)">
                 <small class="error-message">{{error.message}}</small>
               </ng-container>
             </div>
@@ -112,7 +140,7 @@
         </form>
       </ion-col>
       <ion-col size="12" size-sm size-md class="gMap">
-        <app-shared-google-map (placeChange)="onChangeMarker($event)" [editable]="true" [max]="1" ></app-shared-google-map>
+        <app-shared-google-map (placeChange)="onChangeMarker($event)" [editable]="true"  ></app-shared-google-map>
       </ion-col>
     </ion-row>
   </ion-grid>

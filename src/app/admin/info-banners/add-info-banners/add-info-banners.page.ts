@@ -75,7 +75,6 @@ export class AddInfoBannersPage implements OnInit {
   public submit() {
     this.infoBannersService.createInfoBanner(this.infoBannersForm.value)
         .then(() => {
-          // use id
           this.showToast('Banner creado de manera exitosa');
           this.infoBannersForm.reset();
           this.navCtrl.navigateBack(['/admin/info-banners']);
