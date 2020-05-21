@@ -3,7 +3,6 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { BehaviorSubject, empty } from 'rxjs';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
 import { EventsPage } from './events.page';
 import { RouterModule } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -102,7 +101,7 @@ describe('EventsPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [EventsPage],
-      imports: [IonicModule.forRoot(), RouterModule.forRoot([]),SharedPageModule,RouterTestingModule, NgxPaginationModule],
+      imports: [IonicModule.forRoot(), RouterModule.forRoot([]), SharedPageModule, RouterTestingModule, NgxPaginationModule],
       providers: [
         FormBuilder,
         {provide: AngularFirestore, useValue: angularFirestoreStub},

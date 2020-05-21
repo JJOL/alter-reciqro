@@ -5,7 +5,7 @@
         <ion-menu-button menu="menucontent"  ></ion-menu-button>
     </ion-buttons>
     <ion-buttons *ngIf="backButton && !editPage" slot="start">
-      <ion-back-button defaultHref="{{routePath}}"></ion-back-button>
+      <ion-back-button defaultHref="{{routePath}}" [text]="''"></ion-back-button>
     </ion-buttons>
     <ion-buttons *ngIf="backButton && editPage" slot="start">
       <ion-button (click)="presentAlertConfirm()" >

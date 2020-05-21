@@ -1,5 +1,4 @@
-<app-toolbar title="Eventos" [login]="false" ></app-toolbar>
-<!-- <ion-content  tooltip="Presione el evento que le interesa para apartar su lugar"  duration="5000" hideOthers> -->
+<app-toolbar title="Eventos" [backButton]="true" routePath="/user/info"></app-toolbar>
 <ion-content>
   <div *ngIf="lengthEvents>0">
     <ion-slides pager="true" #EventSlider (ionSlidesDidLoad)="slidesDidLoad(EventSlider)">
@@ -43,7 +42,7 @@
         <ion-grid *ngIf="lengthEvents==0">
           <ion-row>
             <ion-col>
-              <h4>No hay eventos disponibles actualmente. Te recomendamos volver nuevamente.</h4>
+              <h4>No hay eventos disponibles actualmente. Te recomendamos volver más tarde.</h4>
             </ion-col>
           </ion-row>
         </ion-grid>
