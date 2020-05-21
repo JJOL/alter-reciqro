@@ -11,9 +11,9 @@ import { AdminModel } from '../core/models/admin.model';
  * This component loads all the current user data
  */
 export class AdminPage implements OnInit {
-  admins: AdminModel[];
-  users: AdminModel[];
-  staffs: AdminModel[];
+  admins: AdminModel[] = [];
+  users: AdminModel[] = [];
+  staffs: AdminModel[] = [];
 
   actualPage = 1;
   actualPage2 = 1;
@@ -82,6 +82,29 @@ export class AdminPage implements OnInit {
         }
        } );
     });
+  }
+
+
+  /**
+   * User Story ID: M4NG4
+   * Description: Query Users by Email to potentially promote one of them
+   * @param event
+   */
+  searchUsersByAlias(event) {
+    let searchVal: string = event.detail.value.trim();
+    if (searchVal.length > 0) {
+      console.log(searchVal);
+      
+      this.adminService.searchUsersByAlias(searchVal)
+      .then(users => {
+        this.users = users;
+      })
+      .catch(err => {
+        this.users = [];
+      });
+    } else {
+      this.users = [];
+    }
   }
 }
 

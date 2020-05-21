@@ -10,10 +10,11 @@
   <ion-grid>
     <ion-row  class="ion-justify-content-center">
       <ion-col size-md = "4" size-sm = "12" class="ion-text-center">
-        <ion-list *ngIf="admins">
+        <ion-list>
           <ion-list-header text-center>
             Usuarios
           </ion-list-header>
+          <ion-searchbar size="4" showCancelButton="focus"  placeholder="Buscar" animated debounce="500" inputmode="text" (ionChange)="searchUsersByAlias( $event )"></ion-searchbar>
           <ng-container *ngFor="let user of users | paginate: {id: 'versionPagination', itemsPerPage: 8, currentPage: actualPage }">
             <ion-item >
               <ion-avatar slot="start">
@@ -48,7 +49,7 @@
         </pagination-controls>
       </ion-col>
       <ion-col size-md = "4" size-sm = "12" class="ion-text-center">    
-        <ion-list *ngIf="admins">
+        <ion-list>
           <ion-list-header text-center>
             Staff
           </ion-list-header>

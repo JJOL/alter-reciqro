@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import {MockAngularFirestore} from 'src/app/core/services/mocks/firestore.mock';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
+import { SystemService } from './system.service';
 
 
 describe('AdminService', () => {
@@ -14,7 +15,7 @@ describe('AdminService', () => {
       imports: [IonicModule.forRoot(), RouterModule.forRoot([])],
       providers: [
         AdminService,
-        { provide: AngularFirestore, useValue: firestoreMockSpy },
+        { provide: SystemService, useValue: firestoreMockSpy },
       ]
     });
   }));

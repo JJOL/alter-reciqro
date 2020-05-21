@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { AdminModel } from '../models/admin.model';
 import { map } from 'rxjs/operators';
+import { SystemService } from './system.service';
 
 
 const USER_KEY = '/users';
@@ -41,7 +42,7 @@ export class AdminService {
    * Constructor for the class, only external service used will be the Firestore one.
    * @param  {AngularFirestore} publicfiredb
    */
-  constructor(public firedb: AngularFirestore) { }
+  constructor(public firedb: SystemService) { }
 
   /**
    * User Story ID: M4NG6
@@ -51,7 +52,7 @@ export class AdminService {
   getAllAdministrators(): Promise<AdminModel[]> {
     return new Promise((resolve) => {
       let subscription: Subscription;
-      subscription = this.firedb.collection<any>(USER_KEY).snapshotChanges()
+      subscription = this.firedb.collection<any>(USER_KEY, ref => ref.where('roles', 'array-contains', 'staff')).snapshotChanges()
           .pipe(map(snapshot => {
             return snapshot.map(parseFBPUserToUser);
           }))
@@ -70,7 +71,7 @@ export class AdminService {
    * @param  {string} id
    * @returns void
    */
-  removeStaffUser(id: string){
+  removeStaffUser(id: string): Promise<void> {
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(USER_KEY).doc(id).set({
         roles: ['user'],
@@ -101,6 +102,35 @@ export class AdminService {
               },
               err => reject(err)
           );
+    });
+  }
+
+  /**
+   * User Story Id: M4NG4
+   * Description: Returns a list of users of the system queried by alias
+   * @param  {string} alias
+   * @returns Promise<AdminModel[]>
+   */
+  searchUsersByAlias(alias: string): Promise<AdminModel[]> {
+
+    let nextStringVal = "";
+    nextStringVal += alias;
+    for (let i = 0; i < 20; i++) {
+      nextStringVal += 'z';
+    }
+
+    return new Promise((resolve, reject) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection(USER_KEY, ref => ref.where('alias', '>=', alias).where('alias', '<=', nextStringVal)).snapshotChanges()
+        .pipe(map(snapshot => {
+          return snapshot.map(parseFBPUserToUser);
+        }))
+        .subscribe(users => {
+          if (subscription) {
+            subscription.unsubscribe();
+          }
+          resolve(users);
+        });
     });
   }
 }
