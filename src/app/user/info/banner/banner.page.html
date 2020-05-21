@@ -18,7 +18,7 @@
         <ion-row class="ion-justify-content-center">
           <ion-col size-md = "6" size-sm = "12" class="ion-text-center">
             <ion-list >
-              <ion-item button *ngFor="let banner of banners | paginate: { itemsPerPage: 9, currentPage: actualPage }" detail (click)="seeDetail(banner.title, banner.description, banner.image_url, banner.date)">
+              <ion-item button *ngFor="let banner of banners | paginate: { itemsPerPage: 7, currentPage: actualPage }" detail (click)="seeDetail(banner.title, banner.description, banner.image_url, banner.date)">
                 <ion-thumbnail slot="start">
                   <ion-img [src]="banner.image_url"></ion-img>
                 </ion-thumbnail>

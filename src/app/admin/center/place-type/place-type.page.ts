@@ -20,6 +20,7 @@ export class PlaceTypePage implements OnInit {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   placeTypes: any [];
+  listplaceTypes: any[];
   placeWasteTypeToDelete: PlacesWasteTypes[];
   actualPage = 1;
 
@@ -51,14 +52,18 @@ export class PlaceTypePage implements OnInit {
    * @returns 
    */
   ionViewWillEnter() {
-    this.placesService.allPlaceTypes().then( data => { this.placeTypes = data; });
+    this.placesService.allPlaceTypes().then( data => { 
+      this.placeTypes = data; 
+      this.listplaceTypes = this.placeTypes;
+    });
   }
 
   /**
    * User Story Id: M1NG10
    * Method that calles the deletePlaceTypeByID method form the service PlacesService to delete
    * gitan existing Place Type and its relations to the waste types
-   * @param 
+   * @param {string} placeTypeId
+   * @param {string} name
    * @returns 
    */
   onDeletePlaceType(placeTypeId: string, name: string) {
@@ -108,5 +113,16 @@ export class PlaceTypePage implements OnInit {
         });
       }
     }); 
+  }
+
+  /**
+   * User Story ID: M1NG10
+   * This function retrieves all place types that have the name searched
+   */
+  searchByName(event){
+    event.detail.value.length == 0 ? this.listplaceTypes = this.placeTypes:
+    this.listplaceTypes = this.placeTypes.filter( placeType => {
+      return placeType.name.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
+    })
   }
 }

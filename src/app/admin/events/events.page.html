@@ -1,7 +1,15 @@
 <app-toolbar title="Administrar Eventos" [backButton]="true" [login]="false" routePath="/admin/center" ></app-toolbar>
  
 <ion-content>
+  <br><br>
   <ion-grid>
+    <ion-row>
+      <ion-col size="4" offset-sm="4" class="ion-text-center">
+        <ion-searchbar size="4" showCancelButton="focus"  placeholder="Buscar" animated debounce="500" inputmode="text" (ionChange)="searchByName( $event )"></ion-searchbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="listEvents" >
     <ng-container *ngIf="!events">
       <ion-spinner name="bubbles"></ion-spinner>
     </ng-container>
@@ -10,7 +18,7 @@
         <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
           <ion-list>
             <ion-item 
-              *ngFor="let event of events | paginate: { itemsPerPage: 9, currentPage: actualPage }">
+              *ngFor="let event of listEvents | paginate: { itemsPerPage: 7, currentPage: actualPage }">
               <ion-thumbnail slot="start">
                 <ion-img [src]="event.icon"></ion-img>
               </ion-thumbnail>
@@ -20,6 +28,12 @@
               </ion-label>
                <ion-button fill="clear" class="bold"  [routerLink]="['/admin/events/detail', event.id]" ><ion-icon slot="icon-only" name="create-outline"></ion-icon></ion-button>
                <ion-button fill="clear" class="bold"  (click)="delete(event.id)"><ion-icon slot="icon-only" name="trash-outline"></ion-icon></ion-button>
+            </ion-item>
+
+            <ion-item *ngIf="listEvents.length == 0"  class="ion-text-center">
+              <ion-label>
+                <h2> No se encontraron resultados. </h2>
+              </ion-label>
             </ion-item>
           </ion-list>
           <pagination-controls (pageChange)="actualPage = $event"

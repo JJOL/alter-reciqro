@@ -18,6 +18,7 @@ import { AlertController } from '@ionic/angular';
 export class WasteTypePage implements OnInit {
 
   wasteTypes: WasteType[];
+  listWasteTypes: WasteType[];
   actualPage = 1;
 
   /**
@@ -35,6 +36,7 @@ export class WasteTypePage implements OnInit {
   ) {
     this.wasteService.getWastes().then(data => {
       this.wasteTypes = data;
+      this.listWasteTypes = this.wasteTypes;
     });
   }
 
@@ -105,6 +107,17 @@ export class WasteTypePage implements OnInit {
         });
       }
     });
+  }
+
+  /**
+   * User Story ID: M2NG13
+   * This function retrieves all waste types that have the name searched
+   */
+  searchByName(event){
+    event.detail.value.length == 0 ? this.listWasteTypes = this.wasteTypes:
+    this.listWasteTypes = this.wasteTypes.filter( wasteType => {
+      return wasteType.name.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
+    })
   }
 
 }

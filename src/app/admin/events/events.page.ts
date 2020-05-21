@@ -15,6 +15,7 @@ import { DatePipe } from '@angular/common';
  */
 export class EventsPage implements OnInit {
   events: EventModel[];
+  listEvents: EventModel[];
   todayDate = new Date();
   actualPage = 1;
   /**
@@ -73,6 +74,7 @@ export class EventsPage implements OnInit {
     this.eventService.getAllEvents().then(events => {
       this.events = events;
       this.events = this.events.filter(event => event.end_date >= this.todayDate);
+      this.listEvents = this.events;
     });
   }
 
@@ -101,6 +103,17 @@ export class EventsPage implements OnInit {
       position: 'middle',
       color: 'danger'
     }).then(toast => toast.present());
+  }
+
+  /**
+   * User Story ID: M4NG8
+   * This function retrieves all waste types that have the name searched
+   */
+  searchByName(event){
+    event.detail.value.length == 0 ? this.listEvents = this.events:
+    this.listEvents = this.events.filter( infoBanner => {
+      return infoBanner.name.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
+    })
   }
 
 }

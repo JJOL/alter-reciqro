@@ -14,6 +14,7 @@ import { InfoBanner } from 'src/app/core/models/info-banner.model';
 export class InfoBannersPage implements OnInit {
 
   infoBanners: InfoBanner[];
+  listInfoBanners: InfoBanner[];
   actualPage = 1;
 
   // eslint-disable-next-line require-jsdoc
@@ -90,6 +91,18 @@ export class InfoBannersPage implements OnInit {
     this.infoBannerService.getAllInfoBanners()
         .then(infoBanners => {
           this.infoBanners = infoBanners;
+          this.listInfoBanners = this.infoBanners
         });
+  }
+
+  /**
+   * User Story ID: M4NG8
+   * This function retrieves all waste types that have the name searched
+   */
+  searchByName(event){
+    event.detail.value.length == 0 ? this.listInfoBanners = this.infoBanners:
+    this.listInfoBanners = this.infoBanners.filter( infoBanner => {
+      return infoBanner.title.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
+    })
   }
 }

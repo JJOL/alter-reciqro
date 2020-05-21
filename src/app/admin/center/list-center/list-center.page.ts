@@ -14,6 +14,7 @@ import { AlertController } from '@ionic/angular';
 export class ListCenterPage implements OnInit {
 
   places: any [];
+  listPlaces: any[];
   actualPage = 1;
   ordered: boolean = false;
 
@@ -36,7 +37,10 @@ export class ListCenterPage implements OnInit {
    * This function retrieves all places from the service when page loads
    */
   ionViewWillEnter() {
-    this.placesService.getAllPlaces().then( data => { this.places = data; });
+    this.placesService.getAllPlaces().then( data => { 
+      this.places = data;
+      this.listPlaces = this.places;
+     });
   }
 
   /**
@@ -64,19 +68,35 @@ export class ListCenterPage implements OnInit {
     });
   }
 
+  /**
+   * User Story ID: M1NG4
+   * This function retrieves a shuffled array of places
+   */
+  shuffle(list) {
+    return list.reduce((p, n) => {
+      const size = p.length;
+      const index = Math.trunc(Math.random() * (size - 1));
+      p.splice(index, 0, n);
+      return p;
+    }, []);
+  };
+
    /**
    * User Story ID: M1NG4
    * This function retrieves all places from the service ordered by name
    */
   filterByName(){
-    this.ordered ? this.placesService.getAllPlaces().then( data => { 
-      this.places = data; 
+    if(this.ordered == true){
+      this.listPlaces = this.shuffle(this.listPlaces);
       this.ordered = false;
-    }) : 
-    this.placesService.getAllPlacesOrderedBYName().then( 
-      data => { this.places = data;
+    }else{
+      this.listPlaces = this.listPlaces.sort(function(a, b) {
+        var textA = a.name.toUpperCase();
+        var textB = b.name.toUpperCase();
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+    });
       this.ordered = true;
-      });
+    }
   }
 
   /**
@@ -84,13 +104,9 @@ export class ListCenterPage implements OnInit {
    * This function retrieves all places that have the name searched
    */
   searchByName(event){
-    event.detail.value.length == 0 ?
-    this.placesService.getAllPlaces().then( data => { this.places = data; }) : 
-    this.placesService.getAllPlaces().then( data => { 
-      this.places = data; 
-      this.places = this.places.filter( place => {
-        return place.name.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
-      });
-    });
+    event.detail.value.length == 0 ? this.listPlaces = this.places:
+    this.listPlaces = this.places.filter( place => {
+      return place.name.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
+    })
   }
 }

@@ -20,7 +20,7 @@
         <ion-row class="ion-justify-content-center" >
           <ion-col size-md = "6" size-sm = "12" class="ion-text-center">
             <ion-list >
-              <ion-item *ngFor="let event of events | paginate: { itemsPerPage: 10, currentPage: actualPage }" detail [routerLink]="['/user/info/events/detail-event', event.id]">
+              <ion-item *ngFor="let event of events | paginate: { itemsPerPage: 7, currentPage: actualPage }" detail [routerLink]="['/user/info/events/detail-event', event.id]">
                 <ion-thumbnail slot="start">
                   <ion-img [src]="event.icon"></ion-img>
                 </ion-thumbnail>
