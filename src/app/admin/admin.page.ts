@@ -15,6 +15,8 @@ export class AdminPage implements OnInit {
   users: AdminModel[] = [];
   staffs: AdminModel[] = [];
 
+  liststaff: AdminModel[];
+
   actualPage = 1;
   actualPage2 = 1;
 
@@ -34,12 +36,10 @@ export class AdminPage implements OnInit {
     this.adminService.getAllAdministrators().then(admin => {
       this.admins = admin;
       if( this.admins != undefined){
-        this.users = this.admins.filter( user => {
-          return user.roles.indexOf('user') !== -1 && user.roles.indexOf('staff') == -1;
-        });
         this.staffs = this.admins.filter( staff => {
           return staff.roles.indexOf('staff') !== -1 && staff.roles.indexOf('admin') == -1;
         });
+        this.liststaff = this.staffs;
       }
     });
   }
@@ -53,12 +53,13 @@ export class AdminPage implements OnInit {
       this.adminService.getAllAdministrators().then( admin => { 
         this.admins = admin;
         if( this.admins !== undefined){
-          this.users = this.admins.filter( user => {
-            return user.roles.indexOf('user') !== -1 && user.roles.indexOf('staff') == -1;
+          this.users = this.users.filter( user => {
+            return user.id != id;
           });
           this.staffs = this.admins.filter( staff => {
             return staff.roles.indexOf('staff') !== -1 && staff.roles.indexOf('admin') == -1;
           });
+          this.liststaff = this.staffs;
         }
       } );
     });
@@ -73,12 +74,10 @@ export class AdminPage implements OnInit {
       this.adminService.getAllAdministrators().then( admin => { 
         this.admins = admin;
         if( this.admins !== undefined){
-          this.users = this.admins.filter( user => {
-            return user.roles.indexOf('user') !== -1 && user.roles.indexOf('staff') == -1;
-          });
           this.staffs = this.admins.filter( staff => {
             return staff.roles.indexOf('staff') !== -1 && staff.roles.indexOf('admin') == -1;
           });
+          this.liststaff = this.staffs;
         }
        } );
     });
@@ -96,8 +95,11 @@ export class AdminPage implements OnInit {
       console.log(searchVal);
       
       this.adminService.searchUsersByAlias(searchVal)
-      .then(users => {
-        this.users = users;
+      .then(data => {
+        this.users = data;
+        this.users = this.users.filter( user => {
+          return user.roles.indexOf('user') !== -1 && user.roles.indexOf('staff') == -1;
+        });
       })
       .catch(err => {
         this.users = [];
@@ -105,6 +107,17 @@ export class AdminPage implements OnInit {
     } else {
       this.users = [];
     }
+  }
+
+  /**
+   * User Story ID: M4NG5
+   * This function retrieves all staff users that have the name searched
+   */
+  searchByNameStaff(event){
+    event.detail.value.length == 0 ? this.liststaff = this.staffs:
+    this.liststaff = this.staffs.filter( staff => {
+      return staff.alias.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
+    })
   }
 }
 
