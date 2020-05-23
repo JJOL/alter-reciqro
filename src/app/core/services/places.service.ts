@@ -591,7 +591,8 @@ export class PlacesService {
 
 
     updatedCenters.forEach(place => {
-      const serialized = this.serializeCenter(place);
+      //TODO: Serializar valores solo esenciales
+      const serialized = JSON.stringify(place);
       localStorage.setItem(CENTER_CACHE_PREFIX+place.id, serialized);
 
       if (!centerList[place.id]) {
