@@ -1,3 +1,11 @@
+import * as geohashutils from './geohash.utils';
+
+export const geohash = {
+  encode: (lat:number, lng: number, precision: number): string => {
+    return geohashutils.encode(lat, lng, precision);
+  }
+}
+
 /**
  * Equivalence of seconds to minutes and minutes to hours
  */

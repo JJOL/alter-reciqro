@@ -8,6 +8,8 @@ import { TipoInstalacion } from '../models/tipo-instalacion.model';
 import { WasteType, PlacesWasteTypes } from '../models/waste-type';
 import { SystemService } from './system.service';
 
+import { geohash } from '../utils/geopoint.util';
+
 const PLACE_KEY = '/places';
 const PLACE_TYPE_KEY = '/place_type';
 const WASTE_TYPE_KEY = '/waste_type';
@@ -91,6 +93,7 @@ export class PlacesService {
    */
   createPlace(placeObject) {
     const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
+    const geoHash  = geohash.encode(placeObject.latitude, placeObject.longitude, 11);
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(PLACE_KEY).add({
         address: placeObject.address.street,
@@ -101,7 +104,8 @@ export class PlacesService {
         places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
         postal_code: placeObject.address.zip,
         qr_code: placeObject.qrCode,
-        schedule: placeObject.schedule
+        schedule: placeObject.schedule,
+        geohash: geoHash
       })
           .then(
               (res) => {
@@ -272,6 +276,7 @@ export class PlacesService {
    */
   editPlace(placeObject, id: string) {
     const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
+    const geoHash  = geohash.encode(placeObject.latitude, placeObject.longitude, 11);
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(PLACE_KEY).doc(id).set({
         address: placeObject.address.street,
@@ -281,7 +286,8 @@ export class PlacesService {
         name: placeObject.name,
         photo: placeObject.mainPicture,
         places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
-        postal_code: placeObject.address.zip
+        postal_code: placeObject.address.zip,
+        geohash: geoHash
       }, {merge: true} )
           .then(
               (res) => {
