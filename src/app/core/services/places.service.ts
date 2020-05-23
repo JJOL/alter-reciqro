@@ -15,6 +15,7 @@ const PLACE_TYPE_WASTE_TYPE = '/place_type_waste_type';
 
 
 const GeoPoint = firebase.firestore.GeoPoint;
+const CENTER_CACHE_PREFIX = 'CACHE_CENTER_';
 
 /**
  * User Story ID: M1NCx
@@ -532,9 +533,112 @@ export class PlacesService {
 
 
   
+  /**
+   * Description: Returns last local storage centers update date if saved,
+   * otherwise return minimum date lower bound.
+   * @returns Date
+   */
+  loadLocalCenterLastUpdate(): Date {
+    let lastUpdateDate: Date;
+    const lastUpdateStr = parseInt(localStorage.getItem('last-update'));
+    if (lastUpdateStr) {
+      lastUpdateDate = new Date(lastUpdateStr);
+    } else {
+      lastUpdateDate = new Date(0); // Year 0, 1970
+    }
 
+    return lastUpdateDate;
+  }
+  /**
+   * Description: Update last local storage centers update date
+   * @param  {Date} date
+   */
+  updateLocalCenterLastUpdate(date: Date) {
+    localStorage.setItem('last-update', `${date.getTime()}`);
+  }
+  /**
+   * Description: Retrieves centers that have been updated after the local update date
+   * @param  {Date} lowerDate
+   * @returns Promise
+   */
+  getUpdatedCentersAfterDate(lowerDate: Date): Promise<Place[]> {
+    return new Promise((resolve, reject) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection(PLACE_KEY, ref => ref.where('last_update_date', '>', lowerDate))
+      .snapshotChanges()
+      .pipe(
+        map(snap => {
+          return snap.map(parseFBPlaceToPlace)
+        })
+      )
+      .subscribe(places => {
+        resolve(places);
+        if (subscription) {
+          subscription.unsubscribe();
+        }
+      });
+    });
+  }
+
+  
+  /**
+   * Description: Registers modified centers in local storage
+   * @param  {Place[]} updatedCenters
+   */
+  applyUpdatedCenterChanges(updatedCenters: Place[]) {
+    
+    let centerList = this.loadCacheCenterList();
+
+
+    updatedCenters.forEach(place => {
+      const serialized = this.serializeCenter(place);
+      localStorage.setItem(CENTER_CACHE_PREFIX+place.id, serialized);
+
+      if (!centerList[place.id]) {
+        centerList[place.id] = place.last_update_date.getTime();
+      }
+    });
+
+    localStorage.setItem(CENTER_CACHE_PREFIX+'LIST', JSON.stringify(centerList));
+    this.updateLocalCenterLastUpdate(new Date());
+  }
+
+  /**
+   * Description: Loads cached places
+   * @returns Place
+   */
+  loadPlaces(): Place[] {
+    let centerList = this.loadCacheCenterList();
+    return Object.keys(centerList).map(centerId => {
+      let place: Place = JSON.parse(localStorage.getItem(CENTER_CACHE_PREFIX+centerId));
+      return place;
+    });
+  }
+  /**
+   * Description: Loads cached centers list.
+   * @returns {{ [key: string]: number }}
+   */
+  loadCacheCenterList(): { [key: string]: number } {
+    let centerList: { [key: string]: number } = {};
+    const cacheCenterListStr = localStorage.getItem(CENTER_CACHE_PREFIX+'LIST');
+    if (cacheCenterListStr) {
+      centerList = JSON.parse(cacheCenterListStr);
+    }
+
+    return centerList;
+  }
   
   
 
+  /**
+   * Load CenterPage Algorithm
+   * 1. Abrir CenterPage
+   * 2. Presentar Loading Animation
+   * 3. Load Local Last Update Date
+   * 4. Query modified places after local last update
+   * 5. Apply changes from places to saved places
+   * 6. Load saved local places
+   * 7. Quit Loading Animation
+   */
 
 }
