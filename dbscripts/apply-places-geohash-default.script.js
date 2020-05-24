@@ -1,21 +1,20 @@
 const applyChanges = require('./apply-change');
-const geohash = require('../src/app/core/utils/geohash.utils');
-
+// const geohash = require('../src/app/core/utils/geohash.utils');
+const admin = require('firebase-admin');
+const geo = require('geofirex').init(admin);
 
 console.log('Going to Apply Change: Places-GeoHash-Default');
 applyChanges.mapRecords('/places', (placeDoc, batch) => {
     let placeData = placeDoc.data();
-    if (!placeData.geohash) {
+    if (!placeData.point) {
         let pos = {
             lat: placeData.location.latitude,
             lng: placeData.location.longitude
         };
 
-        let calcGeohash = geohash.encode(pos.lat, pos.lng, 11);
-
-
+        let point = geo.point(pos.lat, pos.lng);
         batch.update(placeDoc.ref, {
-            geohash: calcGeohash
+            point: point
         });
     }
 });

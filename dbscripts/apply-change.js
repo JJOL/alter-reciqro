@@ -1,9 +1,10 @@
 const admin = require('firebase-admin');
 const accountCred = require('./itesm-ca2020-firebase-adminsdk-eqczu-f2234474ce.json');
-admin.initializeApp({
+const firebaseApp = admin.initializeApp({
     credential: admin.credential.cert(accountCred),
     databaseURL: 'https://itesm-ca2020.firebaseio.com'
 });
+
 
 const db = admin.firestore();
 async function mapRecords(collectionName, updateFn) {
@@ -29,7 +30,9 @@ async function mapRecords(collectionName, updateFn) {
 }
 
 
+
 module.exports.db = db;
+module.exports.firebaseApp = firebaseApp;
 module.exports.mapRecords = mapRecords;
 
 // mapRecords('/quesos', (doc, batch) => {

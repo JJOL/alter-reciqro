@@ -341,7 +341,7 @@ export class PlacesService {
    * It is here because it is used on the getIDPlacesTypesByWaste function.
    * @returns Promise
    */
-  async getAllWasteTypes(): Promise<any[]> {
+  getAllWasteTypes(): Promise<any[]> {
     return new Promise((resolve) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<WasteType>(WASTE_TYPE_KEY).snapshotChanges()
