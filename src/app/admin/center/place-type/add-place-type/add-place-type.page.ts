@@ -1,6 +1,6 @@
 /* eslint-disable max-params */
 import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { PlacesService } from 'src/app/core/services/places.service';
 import { WasteService } from 'src/app/core/services/waste.service';
 import { WasteType } from 'src/app/core/models/waste-type';
@@ -106,7 +106,8 @@ export class AddPlaceTypePage implements OnInit {
     private navCtrl: NavController,
     private alertCtrl: AlertController,
     private wasteService: WasteService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastCtrl: ToastController
   ) { }
 
   /**
@@ -182,23 +183,17 @@ export class AddPlaceTypePage implements OnInit {
           this.placeService.insertPlaceWasteType(result[0], item);
         }
       });
-      this.alertCtrl.create ({
-        header: 'Mensaje de Confirmación',
-        message: 'El tipo de lugar se ha registrado correctamente.',
-        buttons: [{
-          text: 'Aceptar',
-          role: 'accept'
-        }]
-      }).then(alertEl => {
-        alertEl.present();
-      });
+      this.showToast('Categoría de residuos creada de manera exitosa');
+      this.newWasteForm.reset();
       this.navCtrl.navigateBack(['/admin/center/place-type']);
-    })
-        .catch(() => {});
+    }).catch(() => {
+      this.showToast('Error al guardar la nueva categoría de residuos');
+      this.navCtrl.navigateBack(['/admin/center/place-type']);
+    });
   }
 
   /**
-   * User Story Id: M1NG11
+   * User Story Id: M1NG9
    * Method that is called when the update is cancel to get the user's confirmation
    * @param 
    * @returns 
@@ -219,6 +214,20 @@ export class AddPlaceTypePage implements OnInit {
     }).then(alertEl => {
       alertEl.present();
     });
+  }
+
+  /**
+   * User Story ID: M1NG9
+   * Function for showing the toast to the user.
+   * @param  {} msg
+   */
+  public showToast(msg) {
+    this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      position: 'middle',
+      color: 'success'
+    }).then(toast => toast.present());
   }
 
 }

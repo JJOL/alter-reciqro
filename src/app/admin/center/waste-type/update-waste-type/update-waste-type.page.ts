@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { WasteService } from 'src/app/core/services/waste.service';
 import { WasteType } from 'src/app/core/models/waste-type';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, ToastController } from '@ionic/angular';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { MAX_TITLE_FIELD_LENGTH, MAX_DESCRIPTION_FIELD_LENGTH } from 'src/app/core/constants';
@@ -86,7 +86,8 @@ export class UpdateWasteTypePage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private wasteService: WasteService,
     private navCtrl: NavController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController
   ) { }
 
   /**
@@ -126,19 +127,13 @@ export class UpdateWasteTypePage implements OnInit {
         this.newWasteForm.get('title').value,
         this.newWasteForm.get('url').value,
         this.newWasteForm.get('description').value).then(() => {
-      this.alertCtrl.create ({
-        header: 'Mensaje de Confirmación',
-        message: 'El tipo de residuo "' + this.newWasteForm.get('title').value + '" se ha modificado',
-        buttons: [{
-          text: 'Aceptar',
-          role: 'accept'
-        }]
-      }).then(alertEl => {
-        alertEl.present();
-      });
+      this.showToast('Tipo de residuo actualizado de manera exitosa');
+      this.newWasteForm.reset();
       this.navCtrl.navigateBack(['/admin/center/waste-type']);
-    })
-        .catch(() => {});
+    }).catch(() => {
+      this.showToast('Error al guardar los cambios del tipo de residuo');
+      this.navCtrl.navigateBack(['/admin/center/waste-type']);
+    });
   }
 
   /**
@@ -161,6 +156,20 @@ export class UpdateWasteTypePage implements OnInit {
     }).then(alertEl => {
       alertEl.present();
     });
+  }
+
+  /**
+   * User Story ID: M2NG12
+   * Function for showing the toast to the user.
+   * @param  {} msg
+   */
+  public showToast(msg) {
+    this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      position: 'middle',
+      color: 'success'
+    }).then(toast => toast.present());
   }
 
 }
