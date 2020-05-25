@@ -74,7 +74,8 @@ describe('MetricsPage', () => {
   let fixture: ComponentFixture<MetricsPage>;
 
   beforeEach(async(() => {
-    let metricsServiceMock = jasmine.createSpyObj('MetricsPageService', ['getPlacesMetricsProvider', 'getDelegationsMetricsProvider', 'getSystemMetricsProvider']);
+    let metricsServiceMock = jasmine.createSpyObj('MetricsPageService',
+        ['getPlacesMetricsProvider', 'getDelegationsMetricsProvider', 'getSystemMetricsProvider']);
     TestBed.configureTestingModule({
       declarations: [ MetricsPage, IndicatorMetricsComponent, IndicatorGraphComponent, IndicatorTableComponent],
       imports: [IonicModule.forRoot(), FormsModule, SharedPageModule, RouterTestingModule],

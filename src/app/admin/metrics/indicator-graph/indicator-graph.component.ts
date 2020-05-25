@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
 import { IndicatorInstance } from '../services/DualIndicatorProvider';
 import { NavController, AlertController } from '@ionic/angular';
@@ -44,11 +44,16 @@ export class IndicatorGraphComponent implements OnChanges {
   inLowerDateStr: string;
   inUpperDateStr: string;
 
+  // eslint-disable-next-line require-jsdoc
   constructor(
     private navCtrl: NavController,
     private alertCtrl: AlertController
   ) {}
-
+  /**
+   * User Story ID: M1NG6
+   * Change the grpah
+   * @param  {SimpleChanges} changes
+   */
   ngOnChanges(changes: SimpleChanges) {
     if (this.inputPropHasChanged(changes, 'indicatorDisplayData')) {
       this.onShowGraphFromData();
@@ -56,16 +61,18 @@ export class IndicatorGraphComponent implements OnChanges {
 
   }
   /**
+   * User Story ID: M1NG6
    * Helper Function for checking if a property is within the changed properties of ngOnChanges()
    * @param  {SimpleChanges} changes
    * @param  {string} propName
    * @returns boolean
    */
   inputPropHasChanged(changes: SimpleChanges, propName: string): boolean {
-    return changes[propName] && changes[propName].previousValue != changes[propName].currentValue;
+    return changes[propName] && changes[propName].previousValue !== changes[propName].currentValue;
   }
 
   /**
+   * User Story ID: M1NG6
    * Function to execute to attemp to show data.
    */
   onShowGraphFromData() {
@@ -75,6 +82,7 @@ export class IndicatorGraphComponent implements OnChanges {
   }
 
   /**
+   * User Story ID: M1NG6
    * From metric data and a starting time show data.
    * @param  {number[]} dataArr
    * @param  {Date} startDate
@@ -84,7 +92,7 @@ export class IndicatorGraphComponent implements OnChanges {
     let labelsArr = this.getMonthLabels(startDate, dataArr.length);
 
     let ctx = this.chartEl.nativeElement.getContext('2d');
-    let chart = new Chart(ctx, {
+    new Chart(ctx, {
       type: 'line',
       data: {
         labels: labelsArr,
@@ -101,13 +109,15 @@ export class IndicatorGraphComponent implements OnChanges {
   
   }
   /**
+   * User Story ID: M1NG6
    * Returns an array of n month names starting from the month of startDate
    * @param  {Date} startDate
    * @param  {number} nMonths
    * @returns string[]
    */
   getMonthLabels(startDate: Date, nMonths: number): string[] {
-    const MONTH_FULLNAMES_MAP = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    const MONTH_FULLNAMES_MAP = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 
+      'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
 
     let zeroMonth = startDate.getMonth();
 
@@ -120,13 +130,14 @@ export class IndicatorGraphComponent implements OnChanges {
   }
 
   /**
+   * User Story ID: M1NG6
    * Sends a valid ParametersChangeEvent to handler to furtherly calculate data.
    */
   sendParametersChangeEvent() {
     /* TODO: Validar los parametros */
     this.lowerDate = new Date(this.inLowerDateStr);
     this.upperDate = new Date(this.inUpperDateStr);
-    if(this.lowerDate  != undefined && this.upperDate != undefined && this.selectedInstance != undefined){
+    if(this.lowerDate  !== undefined && this.upperDate !== undefined && this.selectedInstance !== undefined){
       let changeEvent: IGCParametersEvent = {
         selectedInstance: this.selectedInstance,
         lowerDate: this.lowerDate,

@@ -21,4 +21,5 @@ import { NgxPaginationModule } from 'ngx-pagination';
   ],
   declarations: [MetricsPage, IndicatorMetricsComponent, IndicatorGraphComponent, IndicatorTableComponent]
 })
+// eslint-disable-next-line require-jsdoc
 export class MetricsPageModule {}
