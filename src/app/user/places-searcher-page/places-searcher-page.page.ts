@@ -35,7 +35,7 @@ export class PlacesSearcherPagePage  {
   position: { lat: number, lng: number};
   mapBounds: any = {};
   placeSelected: Place;
-
+  userLoaction:any;
   lastSearchedPos: { lat: number, lng: number};
   hasMovedAway: boolean = false;
 
@@ -94,14 +94,32 @@ export class PlacesSearcherPagePage  {
         lat: geoPosition.coords.latitude,
         lng: geoPosition.coords.longitude
       }; 
+      this.userLoaction=this.position
     } catch (err) {
       this.position = DEFAULT_CENTER_COORD;
+      console.log("Try catch")
     }    
+    console.log(this.position)
     this.map.setCenter(this.position);
 
     
     
   }
+  /**
+   */
+  // async ngOnChanges(){
+  //   try {
+  //     const geoPosition = await this.geolocationCont.getCurrentPosition();
+  //     this.position = {
+  //       lat: geoPosition.coords.latitude,
+  //       lng: geoPosition.coords.longitude
+  //     }; 
+  //     this.userLoaction=this.position
+  //   } catch (err) {
+  //     this.position = DEFAULT_CENTER_COORD;
+  //   }    
+  //   this.map.setCenter(this.position);
+  // }
 
   ionViewWillLeave() {
     if (this.modal) {
@@ -226,6 +244,24 @@ export class PlacesSearcherPagePage  {
    */
   onSearchHereClick() {
     this.searchPlaces();
+  }
+  /**
+   * Triggered when the user location is clicked
+   */
+  async onUserLocationClick(){
+    try {
+      const geoPosition = await this.geolocationCont.getCurrentPosition();
+      this.position = {
+        lat: geoPosition.coords.latitude,
+        lng: geoPosition.coords.longitude
+      }; 
+      this.userLoaction=this.position
+    } catch (err) {
+      console.log("Catchtry")
+      this.position = DEFAULT_CENTER_COORD;
+    }    
+    this.map.setCenter(this.position);
+    console.log(this.position)
   }
   
 }

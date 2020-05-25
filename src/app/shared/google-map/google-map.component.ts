@@ -27,6 +27,8 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   @Input() editable: boolean;
   @Input() max: number;
   @Input() center: any;
+  @Input() userLocation: any;
+  userLocationMarker:any;
   currentInfoWindow: any ;
   markers: any[] = [];
   @Output() placeChange = new EventEmitter();
@@ -68,6 +70,10 @@ export class GoogleMapComponent implements OnInit, OnChanges {
       for ( const place of this.places) {
         this.addMarker(place);
       }}
+    
+    if(this.userLocation){
+      this.addUserLocation(this.userLocation)
+    }
   }
   /**
    * User Story ID:  M1NC1
@@ -119,7 +125,9 @@ export class GoogleMapComponent implements OnInit, OnChanges {
       });
     }
 
-
+    if(this.userLocation){
+      this.addUserLocation(this.userLocation)
+    }
 
   }
 
@@ -213,4 +221,23 @@ export class GoogleMapComponent implements OnInit, OnChanges {
       return this.markers.push(marker);
 
     }}
+
+  /**
+     * @param  {} location
+     */
+  addUserLocation(location){
+    if(location){
+      
+      const marker: google.maps.Marker = new google.maps.Marker({
+        map: this.map,
+        position:  new google.maps.LatLng(location.lat, location.lng),
+        icon: {url: 'https://i.ibb.co/S3Mv54X/3162622-128.png',
+          scaledSize: new google.maps.Size(64, 64) },
+        
+        draggable: this.editable ? true : false,
+      // animation: google.maps.Animation.DROP
+      });
+      return this.userLocationMarker = marker
+    }
+  }
 }
