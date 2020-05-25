@@ -109,7 +109,8 @@ export class PlacesService {
         postal_code: placeObject.address.zip,
         qr_code: placeObject.qrCode,
         schedule: placeObject.schedule,
-        point: point
+        point: point,
+        last_updated_date: new Date()
       })
           .then(
               (res) => {
@@ -291,7 +292,8 @@ export class PlacesService {
         photo: placeObject.mainPicture,
         places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
         postal_code: placeObject.address.zip,
-        point: point
+        point: point,
+        last_updated_date: new Date()
       }, {merge: true} )
           .then(
               (res) => {
