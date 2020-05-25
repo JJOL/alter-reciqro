@@ -7,14 +7,21 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <ion-grid>
+  <ion-grid >
     <ion-row  class="ion-justify-content-center">
       <ion-col size-md = "4" size-sm = "12" class="ion-text-center">
-        <ion-list *ngIf="admins">
+        <ion-grid>
+          <ion-row>
+            <ion-col size-md="6" size-xs="12" offset-sm="4" class="ion-text-center">
+              <ion-searchbar showCancelButton="focus"  placeholder="Buscar" animated debounce="500" inputmode="text" (ionChange)="searchUsersByAlias( $event )"></ion-searchbar>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-list *ngIf="users">
           <ion-list-header text-center>
             Usuarios
           </ion-list-header>
-          <ng-container *ngFor="let user of users | paginate: {id: 'versionPagination', itemsPerPage: 8, currentPage: actualPage }">
+          <ng-container *ngFor="let user of users | paginate: {id: 'versionPagination', itemsPerPage: 9, currentPage: actualPage }">
             <ion-item >
               <ion-avatar slot="start">
                 <img src="../../assets/img/avatarAdmin.png">
@@ -36,6 +43,11 @@
               </ion-label>
             </ion-item>
           </ng-container>
+          <ion-item *ngIf="users.length == 0"  class="ion-text-center">
+            <ion-label>
+              <h2> No se encontraron resultados. </h2>
+            </ion-label>
+          </ion-item>
         </ion-list>
         <pagination-controls 
           id="versionPagination" 
@@ -47,12 +59,19 @@
           screenReaderPaginationLabel="Pagination">
         </pagination-controls>
       </ion-col>
-      <ion-col size-md = "4" size-sm = "12" class="ion-text-center">    
-        <ion-list *ngIf="admins">
+      <ion-col size-md = "4" size-sm = "12" class="ion-text-center">  
+        <ion-grid>
+          <ion-row>
+            <ion-col size-md="6" size-xs="12" offset-sm="4" class="ion-text-center">
+              <ion-searchbar size="4" showCancelButton="focus"  placeholder="Buscar" animated debounce="500" inputmode="text" (ionChange)="searchByNameStaff( $event )"></ion-searchbar>
+            </ion-col>
+          </ion-row>
+        </ion-grid>  
+        <ion-list *ngIf="liststaff">
           <ion-list-header text-center>
             Staff
           </ion-list-header>
-          <ng-container *ngFor="let staff of staffs | paginate: {  id: 'versionPagination2', itemsPerPage: 8, currentPage: actualPage2 }">
+          <ng-container *ngFor="let staff of liststaff | paginate: {  id: 'versionPagination2', itemsPerPage: 7, currentPage: actualPage2 }">
             <ion-item>
               <ion-avatar slot="start">
                 <img src="../../assets/img/avatarStaff.png">
@@ -74,6 +93,11 @@
               </ion-label>
             </ion-item>
           </ng-container>
+          <ion-item *ngIf="liststaff.length == 0"  class="ion-text-center">
+            <ion-label>
+              <h2> No se encontraron resultados. </h2>
+            </ion-label>
+          </ion-item>
         </ion-list>
         <pagination-controls 
           id="versionPagination2" 

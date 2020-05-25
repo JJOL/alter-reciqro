@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Subscription } from 'rxjs';
+import { Subscription, from } from 'rxjs';
 import { AdminModel } from '../models/admin.model';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { SystemService } from './system.service';
 
 
 const USER_KEY = '/users';
@@ -41,7 +42,7 @@ export class AdminService {
    * Constructor for the class, only external service used will be the Firestore one.
    * @param  {AngularFirestore} publicfiredb
    */
-  constructor(public firedb: AngularFirestore) { }
+  constructor(public firedb: SystemService) { }
 
   /**
    * User Story ID: M4NG6
@@ -51,7 +52,7 @@ export class AdminService {
   getAllAdministrators(): Promise<AdminModel[]> {
     return new Promise((resolve) => {
       let subscription: Subscription;
-      subscription = this.firedb.collection<any>(USER_KEY).snapshotChanges()
+      subscription = this.firedb.collection<any>(USER_KEY, ref => ref.where('roles', 'array-contains', 'staff')).snapshotChanges()
           .pipe(map(snapshot => {
             return snapshot.map(parseFBPUserToUser);
           }))
@@ -70,7 +71,7 @@ export class AdminService {
    * @param  {string} id
    * @returns void
    */
-  removeStaffUser(id: string){
+  removeStaffUser(id: string): Promise<void> {
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(USER_KEY).doc(id).set({
         roles: ['user'],
@@ -102,5 +103,52 @@ export class AdminService {
               err => reject(err)
           );
     });
+  }
+
+  /**
+   * User Story Id: M4NG4
+   * Description: Returns a list of users of the system queried by alias
+   * @param  {string} alias
+   * @returns Promise<AdminModel[]>
+   */
+  searchUsersByAlias(alias: string): Promise<AdminModel[]> {
+
+    let nextStringVal = getStringSuccessor(alias, 20);
+
+    return new Promise((resolve, reject) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection(USER_KEY, ref => ref.where('alias', '>=', alias).where('alias', '<=', nextStringVal)).snapshotChanges()
+        .pipe(
+          catchError(err => {
+            //TODO: Handle Error err
+            return from([]);
+          }),
+          map(snapshot => {
+            return snapshot.map(parseFBPUserToUser);
+          })
+        )
+        .subscribe(users => {
+          if (subscription) {
+            subscription.unsubscribe();
+          }
+          resolve(users);
+        });
+    });
+
+
+    /**
+     * Description: Calculates a string's long successor
+     * @param {string} str 
+     * @param {number} resolution 
+     * @returns {string}
+     */
+    function getStringSuccessor(str: string, resolution: number): string {
+      let successorString = "";
+      successorString += str;
+      for (let i = 0; i < resolution; i++) {
+        successorString += 'z';
+      }
+      return successorString;
+    }
   }
 }

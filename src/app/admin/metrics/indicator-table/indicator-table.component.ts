@@ -15,6 +15,7 @@ export class IndicatorTableComponent implements OnChanges {
 
   @Input() keyValueData: { [key: string]: number };
   dataArr: { key: string, val: number }[];
+  actualPage = 1;
 
   constructor() { }
 
@@ -28,6 +29,4 @@ export class IndicatorTableComponent implements OnChanges {
           }));
     }
   }
-
-
 }

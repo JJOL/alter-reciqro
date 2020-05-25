@@ -11,9 +11,11 @@ import { AdminModel } from '../core/models/admin.model';
  * This component loads all the current user data
  */
 export class AdminPage implements OnInit {
-  admins: AdminModel[];
-  users: AdminModel[];
-  staffs: AdminModel[];
+  admins: AdminModel[] = [];
+  users: AdminModel[] = [];
+  staffs: AdminModel[] = [];
+
+  liststaff: AdminModel[];
 
   actualPage = 1;
   actualPage2 = 1;
@@ -34,12 +36,10 @@ export class AdminPage implements OnInit {
     this.adminService.getAllAdministrators().then(admin => {
       this.admins = admin;
       if( this.admins != undefined){
-        this.users = this.admins.filter( user => {
-          return user.roles.indexOf('user') !== -1 && user.roles.indexOf('staff') == -1;
-        });
         this.staffs = this.admins.filter( staff => {
           return staff.roles.indexOf('staff') !== -1 && staff.roles.indexOf('admin') == -1;
         });
+        this.liststaff = this.staffs;
       }
     });
   }
@@ -53,12 +53,13 @@ export class AdminPage implements OnInit {
       this.adminService.getAllAdministrators().then( admin => { 
         this.admins = admin;
         if( this.admins !== undefined){
-          this.users = this.admins.filter( user => {
-            return user.roles.indexOf('user') !== -1 && user.roles.indexOf('staff') == -1;
+          this.users = this.users.filter( user => {
+            return user.id != id;
           });
           this.staffs = this.admins.filter( staff => {
             return staff.roles.indexOf('staff') !== -1 && staff.roles.indexOf('admin') == -1;
           });
+          this.liststaff = this.staffs;
         }
       } );
     });
@@ -73,15 +74,50 @@ export class AdminPage implements OnInit {
       this.adminService.getAllAdministrators().then( admin => { 
         this.admins = admin;
         if( this.admins !== undefined){
-          this.users = this.admins.filter( user => {
-            return user.roles.indexOf('user') !== -1 && user.roles.indexOf('staff') == -1;
-          });
           this.staffs = this.admins.filter( staff => {
             return staff.roles.indexOf('staff') !== -1 && staff.roles.indexOf('admin') == -1;
           });
+          this.liststaff = this.staffs;
         }
        } );
     });
+  }
+
+
+  /**
+   * User Story ID: M4NG4
+   * Description: Query Users by Email to potentially promote one of them
+   * @param event
+   */
+  searchUsersByAlias(event) {
+    let searchVal: string = event.detail.value.trim();
+    if (searchVal.length > 0) {
+      console.log(searchVal);
+      
+      this.adminService.searchUsersByAlias(searchVal)
+      .then(data => {
+        this.users = data;
+        this.users = this.users.filter( user => {
+          return user.roles.indexOf('user') !== -1 && user.roles.indexOf('staff') == -1;
+        });
+      })
+      .catch(err => {
+        this.users = [];
+      });
+    } else {
+      this.users = [];
+    }
+  }
+
+  /**
+   * User Story ID: M4NG5
+   * This function retrieves all staff users that have the name searched
+   */
+  searchByNameStaff(event){
+    event.detail.value.length == 0 ? this.liststaff = this.staffs:
+    this.liststaff = this.staffs.filter( staff => {
+      return staff.alias.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
+    })
   }
 }
 

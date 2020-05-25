@@ -5,22 +5,24 @@
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col size-md = "10" size-sm = "12" >
-        <ion-list *ngIf="dataArr">
-          <ion-item *ngFor="let keyval of dataArr">
-            <ion-grid>
-              <ion-row  class="ion-justify-content-left">
-                <ion-col size-md = "10" size-sm = "12">
-                  {{ keyval.key }}
-                </ion-col>
-              </ion-row  >
-              <ion-row class="ion-justify-content-left">
-                <ion-col size-md = "10" size-sm = "12">
-                  <strong>Depósitos Realizados:</strong> {{ keyval.val }}
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-item>
-        </ion-list>
+        <div class="scrolling-box">
+          <ion-list *ngIf="dataArr">
+            <ion-item *ngFor="let keyval of dataArr">
+              <ion-grid>
+                <ion-row  class="ion-justify-content-left">
+                  <ion-col size-md = "10" size-sm = "12">
+                    {{ keyval.key }}
+                  </ion-col>
+                </ion-row  >
+                <ion-row class="ion-justify-content-left">
+                  <ion-col size-md = "10" size-sm = "12">
+                    <strong>Depósitos Realizados:</strong> {{ keyval.val }}
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+          </ion-list>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>
