@@ -226,7 +226,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
      * @param  {} location
      */
   addUserLocation(location){
-    if(location){
+    if(location && !this.userLocationMarker){
       
       const marker: google.maps.Marker = new google.maps.Marker({
         map: this.map,
@@ -238,6 +238,9 @@ export class GoogleMapComponent implements OnInit, OnChanges {
       // animation: google.maps.Animation.DROP
       });
       return this.userLocationMarker = marker
+    }else if(location && this.userLocationMarker){
+      let positionC =  new google.maps.LatLng(location.lat, location.lng)
+      this.userLocationMarker.setPosition(positionC)
     }
   }
 }
