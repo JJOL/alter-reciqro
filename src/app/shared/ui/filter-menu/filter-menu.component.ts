@@ -37,6 +37,8 @@ export class FilterMenuComponent implements OnInit {
    */
   add(filter) {
     this.activeFilters.push(filter);
+    console.log(this.activeFilters);
+    
   }
   /**
    *  US ID: M1NC2

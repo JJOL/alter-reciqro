@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-indicator-table',
@@ -17,9 +17,17 @@ export class IndicatorTableComponent implements OnChanges {
   dataArr: { key: string, val: number }[];
   actualPage = 1;
 
+  // eslint-disable-next-line require-jsdoc
   constructor() { }
 
-
+  /**
+   *
+   * User Story ID: M1NG6
+   * Changes the map
+   * @param  {SimpleChanges} changes
+   * @returns void
+   * eslint-disable-next-line @typescript-eslint/no-unused-vars
+   */
   ngOnChanges(changes: SimpleChanges): void {
     if (this.keyValueData) {
       this.dataArr = Object.keys(this.keyValueData)

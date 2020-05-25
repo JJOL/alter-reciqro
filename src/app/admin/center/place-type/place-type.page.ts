@@ -89,7 +89,7 @@ export class PlaceTypePage implements OnInit {
       }else{
         this.alertCtrl.create ({
           header: 'Mensaje de Confirmación',
-          message: '¿De verdad quieres eliminar el tipo de residuo "'+ name + '"?',
+          message: '¿De verdad quieres eliminar la categoría de residuos "'+ name + '"?',
           buttons: [{
             text: 'Cancelar',
             role: 'cancel'

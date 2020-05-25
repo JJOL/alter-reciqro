@@ -19,6 +19,7 @@ export class MetricsPage implements OnInit {
   delegationMetricsService: DualIndicatorProvider;
   systemMetricsService: DualIndicatorProvider;
 
+  // eslint-disable-next-line require-jsdoc
   constructor(
       private metricsPageService: MetricsPageService
   ) { }

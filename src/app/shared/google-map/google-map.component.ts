@@ -4,7 +4,6 @@ import { PlacesService } from 'src/app/core/services/places.service';
 declare const google: any;
 
 
-// const DEFAULT_CENTER_COORD = new google.maps.LatLng(20.588772, -100.390292);
 const DEFAULT_CENTER_COORD = { 
   lat: 20.588772, 
   lng: -100.390292
@@ -169,13 +168,15 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   async addMarker(place) {
     if (place!=null){
       let contentString = '';
-    if(place.name) contentString = 
+      if(place.name) {
+        contentString = 
     '<p align> <b>'+place.name+'</b> <br>Horario: '+place.schedule+'<br>'+place.description+'<br>'+place.address+'<br>'+
     '<ion-grid><ion-row><ion-col offset="4" ><img src="'+place.photo+'"  height="100" width="100"  ></ion-col></ion-row></ion-grid><br>'+
   
     '<a style="text-decoration:none" target="_blank" '+
-    'href="https://www.google.com/maps/dir//'+place.location.lat+','+place.location.lng+'/@'+place.location.lat+','+place.location.lng+',17z">'+
-    'Ver en Google Maps</a></p>';
+    'href="https://www.google.com/maps/dir//'+place.location.lat+','+place.location.lng+'/@'+place.location.lat+','+place.location.lng+
+    ',17z">'+'Ver en Google Maps</a></p>';
+      }
       var infowindow = new google.maps.InfoWindow({
         content: contentString
       });
@@ -186,8 +187,6 @@ export class GoogleMapComponent implements OnInit, OnChanges {
         };
       }
       else if( null != place.places_type) {
-        console.log('Querying Type!');
-        
         icon = await this.placesServices.getPlaceTypeByID(place.places_type.id)
       }
       const marker: google.maps.Marker = new google.maps.Marker({
@@ -199,7 +198,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
         } : 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
         
         draggable: this.editable ? true : false,
-      // animation: google.maps.Animation.DROP
+     
       });
 
       marker.addListener('dragend', event => {
@@ -211,7 +210,6 @@ export class GoogleMapComponent implements OnInit, OnChanges {
         this.placeChange.emit(place);
       });
       marker.addListener('click', () => {
-      //this.seletedMarker.emit(place);
         if(this.currentInfoWindow!=null) this.currentInfoWindow.close();
         this.currentInfoWindow = infowindow;
         this.currentInfoWindow.open(this.map, marker);
@@ -223,6 +221,8 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     }}
 
   /**
+    * User Story ID:  M1NC1
+    * Add or update pin of current user location
      * @param  {} location
      */
   addUserLocation(location){

@@ -1,12 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
-
 import { PlacesService } from 'src/app/core/services/places.service';
 import { Place } from 'src/app/core/models/place.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 
-//import { GeoPoint } from 'src/app/core/models/geopoint.model';
 
 declare const QRCode: any;
 const QR_RENDER_DELAY = 1000;
@@ -48,7 +46,7 @@ export class CenterDetailPage implements OnInit {
   /**
    * User Story ID: M1NG5
    * Loads the current center
-   * Whenever the pages gets called, we load the detail of the place.
+   * Whenever the pages gets called, it loads the detail of the place.
    */
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
@@ -109,7 +107,7 @@ export class CenterDetailPage implements OnInit {
 
   /**
    * User Story ID: M1NG3
-   * This function warns the user before deleting a place with an alert
+   * Warns the user before deleting a place with an alert
    */
   onDeletePlace() {
     this.alertCtrl.create ({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PlacesService } from 'src/app/core/services/places.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -16,44 +16,40 @@ export class ListCenterPage implements OnInit {
   places: any [];
   listPlaces: any[];
   actualPage = 1;
-  ordered: boolean = false;
+  ordered = false;
 
   /**
    * User Story ID: M1NG4
-   * This function retrieves all places from the service when page loads
+   * Retrieves all places from the service when page loads
    */
-  constructor(private placesService: PlacesService,  private alertCtrl: AlertController) {
+  constructor(private placesService: PlacesService,  private alertCtrl: AlertController, private toastCtrl: ToastController) {
   }
 
   /**
    * User Story ID: M1NG4
-   * This function retrieves all places from the service when page loads
+   * Retrieves all places from the service when page loads
    */
   ngOnInit() {
   }
 
   /**
    * User Story ID: M1NG4
-   * This function retrieves all places from the service when page loads
+   * Retrieves all places from the service when page loads
    */
   ionViewWillEnter() {
-    // this.placesService.getAllPlaces().then( data => { 
-    //   this.places = data;
-    //   this.listPlaces = this.places;
-    //  });
 
-     this.placesService.loadAdminPlaces()
-     .then(places => {
-      this.places = places;
-      this.listPlaces = this.places;
-     });
+    this.placesService.loadAdminPlaces()
+        .then(places => {
+          this.places = places;
+          this.listPlaces = this.places;
+        });
   }
 
   /**
    * User Story ID: M1NG3
-   * This function warns the user before deleting a place with an alert
+   * Warns the user before deleting a place with an alert
    */
-  onDeletePlace(placeId: string, name: string) {
+  onDeletePlace(placeId: string) {
     this.alertCtrl.create ({
       header: '¿Estas seguro?',
       message: '¿De verdad quieres eliminar este lugar?',
@@ -65,21 +61,24 @@ export class ListCenterPage implements OnInit {
         handler: () => {
           this.placesService.deletePlaceByID(placeId).then(() => {
             this.placesService.loadAdminPlaces()
-            .then(places => {
-              this.places = places;
-            });
+                .then(places => {
+                  this.places = places;
+                  this.listPlaces = this.listPlaces.filter( place => { return place.id!==placeId});
+                  this.showToast('Lugar eliminado de manera exitosa');
+                });
           })
               .catch(() => {});
         }
       }]
     }).then(alertEl => {
+
       alertEl.present();
     });
   }
 
   /**
    * User Story ID: M1NG4
-   * This function retrieves a shuffled array of places
+   * Retrieves a shuffled array of places
    */
   shuffle(list) {
     return list.reduce((p, n) => {
@@ -90,12 +89,12 @@ export class ListCenterPage implements OnInit {
     }, []);
   };
 
-   /**
+  /**
    * User Story ID: M1NG4
-   * This function retrieves all places from the service ordered by name
+   * Retrieves all places from the service ordered by name
    */
   filterByName(){
-    if(this.ordered == true){
+    if(true === this.ordered){
       this.listPlaces = this.shuffle(this.listPlaces);
       this.ordered = false;
     }else{
@@ -103,19 +102,32 @@ export class ListCenterPage implements OnInit {
         var textA = a.name.toUpperCase();
         var textB = b.name.toUpperCase();
         return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-    });
+      });
       this.ordered = true;
     }
   }
 
   /**
    * User Story ID: M1NG4
-   * This function retrieves all places that have the name searched
+   * Retrieves all places that have the name searched
    */
   searchByName(event){
-    event.detail.value.length == 0 ? this.listPlaces = this.places:
+    0 === event.detail.value.length  ? this.listPlaces = this.places:
     this.listPlaces = this.places.filter( place => {
       return place.name.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
     })
+  }
+  /**
+   * User Story ID: M1NG3
+   * Function for showing the toast to the user.
+   * @param  {} msg
+   */
+  public showToast(msg) {
+    this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      position: 'middle',
+      color: 'success'
+    }).then(toast => toast.present());
   }
 }

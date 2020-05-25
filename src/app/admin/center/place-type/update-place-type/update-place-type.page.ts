@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { PlacesService } from 'src/app/core/services/places.service';
 import { ActivatedRoute } from '@angular/router';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, ToastController } from '@ionic/angular';
 import { WasteService } from 'src/app/core/services/waste.service';
 import { WasteType, PlacesWasteTypes } from 'src/app/core/models/waste-type';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -103,7 +103,8 @@ export class UpdatePlaceTypePage implements OnInit {
     private navCtrl: NavController,
     private alertCtrl: AlertController,
     private wasteService: WasteService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastCtrl: ToastController
   ) { }
 
   /**
@@ -179,29 +180,21 @@ export class UpdatePlaceTypePage implements OnInit {
    * @returns 
    */
   updatePlaceType(){
+        this.placeService.updatePlaceType(this.loadedPlaceType.id, this.newPlaceForm.get('name').value, 
+        this.newPlaceForm.get('mainPicture').value).then(() => {
     for (const item of this.placeWasteTypeToDelete){
       this.placeService.deletePlaceWasteType(item.id);
     }
-
     for (const wasteid of this.placeWasteTypeToUpdate){
       this.placeService.insertPlaceWasteType(this.placeId, wasteid);
     }
-
-    this.placeService.updatePlaceType(this.loadedPlaceType.id, this.newPlaceForm.get('name').value, 
-        this.newPlaceForm.get('mainPicture').value).then(() => {
-      this.alertCtrl.create ({
-        header: 'Mensaje de Confirmación',
-        message: 'El tipo de lugar de residuo "' + this.name_waste_type + '" se ha modificado',
-        buttons: [{
-          text: 'Aceptar',
-          role: 'accept'
-        }]
-      }).then(alertEl => {
-        alertEl.present();
-      });
+      this.showToast('Categoría de residuos actualizada de manera exitosa');
+      this.newPlaceForm.reset();
       this.navCtrl.navigateBack(['/admin/center/place-type']);
-    })
-        .catch(() => {});
+    }).catch(() => {
+      this.showToast('Error al guardar los cambios a la categoría de residuos');
+      this.navCtrl.navigateBack(['/admin/center/place-type']);
+    });
   }
 
   /**
@@ -213,7 +206,7 @@ export class UpdatePlaceTypePage implements OnInit {
   cancelUpdate(){
     this.alertCtrl.create ({
       header: 'Mensaje de Confirmación',
-      message: 'La modificaciones realizadas a la categoría de residuo no se guardarán.',
+      message: 'La modificaciones realizadas a la categoría de residuos no se guardarán.',
       buttons: [{
         text: 'Aceptar',
         handler: () => {
@@ -226,6 +219,20 @@ export class UpdatePlaceTypePage implements OnInit {
     }).then(alertEl => {
       alertEl.present();
     });
+  }
+
+  /**
+   * User Story ID: M1NG11
+   * Function for showing the toast to the user.
+   * @param  {} msg
+   */
+  public showToast(msg) {
+    this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      position: 'middle',
+      color: 'success'
+    }).then(toast => toast.present());
   }
 
 }
