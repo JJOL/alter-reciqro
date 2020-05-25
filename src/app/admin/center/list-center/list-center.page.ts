@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PlacesService } from 'src/app/core/services/places.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class ListCenterPage implements OnInit {
    * User Story ID: M1NG4
    * This function retrieves all places from the service when page loads
    */
-  constructor(private placesService: PlacesService,  private alertCtrl: AlertController) {
+  constructor(private placesService: PlacesService,  private alertCtrl: AlertController, private toastCtrl: ToastController) {
   }
 
   /**
@@ -67,6 +67,7 @@ export class ListCenterPage implements OnInit {
             this.placesService.loadAdminPlaces()
             .then(places => {
               this.places = places;
+              this.showToast('Lugar eliminado de manera exitosa');
             });
           })
               .catch(() => {});
@@ -117,5 +118,19 @@ export class ListCenterPage implements OnInit {
     this.listPlaces = this.places.filter( place => {
       return place.name.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
     })
+  }
+
+  /**
+   * User Story ID: M1NG3
+   * Function for showing the toast to the user.
+   * @param  {} msg
+   */
+  public showToast(msg) {
+    this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      position: 'middle',
+      color: 'success'
+    }).then(toast => toast.present());
   }
 }
