@@ -55,6 +55,7 @@ export function parseFBPlaceDocToPlace(fbPlaceDoc: DocumentSnapshot<any>): Place
       data.photo,
       data.qr_code,
       data.schedule,
+      data.last_updated_date ? data.last_updated_date.toDate() : new Date()
   );
 
   return place;
@@ -576,7 +577,9 @@ export class PlacesService {
   getUpdatedCentersAfterDate(lowerDate: Date): Promise<Place[]> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
-      subscription = this.firedb.collection(PLACE_KEY, ref => ref.where('last_update_date', '>', lowerDate))
+      console.log('Loding centers after ', lowerDate);
+      
+      subscription = this.firedb.collection(PLACE_KEY, ref => ref.where('last_updated_date', '>', lowerDate))
       .snapshotChanges()
       .pipe(
         map(snap => {
@@ -584,6 +587,8 @@ export class PlacesService {
         })
       )
       .subscribe(places => {
+        console.log(places.length+' Centers Loaded');
+        
         resolve(places);
         if (subscription) {
           subscription.unsubscribe();
@@ -604,11 +609,18 @@ export class PlacesService {
 
     updatedCenters.forEach(place => {
       //TODO: Serializar valores solo esenciales
-      const serialized = JSON.stringify(place);
+      let simplifiedPlace = {
+        id: place.id,
+        name: place.name,
+        description: place.description,
+        photo: place.photo
+      };
+      
+      const serialized = JSON.stringify(simplifiedPlace);
       localStorage.setItem(CENTER_CACHE_PREFIX+place.id, serialized);
 
       if (!centerList[place.id]) {
-        centerList[place.id] = place.last_update_date.getTime();
+        centerList[place.id] = place.last_updated_date.getTime();
       }
     });
 
@@ -653,5 +665,15 @@ export class PlacesService {
    * 6. Load saved local places
    * 7. Quit Loading Animation
    */
+
+   async loadAdminPlaces(): Promise<Place[]> {
+    let lastUpdate = this.loadLocalCenterLastUpdate();
+    console.log(lastUpdate);
+    let newPlaces = await this.getUpdatedCentersAfterDate(lastUpdate);
+    console.log('Changed Places Saving...');
+    console.log(newPlaces);
+    this.applyUpdatedCenterChanges(newPlaces);
+    return this.loadPlaces();
+   }
 
 }

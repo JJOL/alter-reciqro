@@ -37,8 +37,14 @@ export class ListCenterPage implements OnInit {
    * This function retrieves all places from the service when page loads
    */
   ionViewWillEnter() {
-    this.placesService.getAllPlaces().then( data => { 
-      this.places = data;
+    // this.placesService.getAllPlaces().then( data => { 
+    //   this.places = data;
+    //   this.listPlaces = this.places;
+    //  });
+
+     this.placesService.loadAdminPlaces()
+     .then(places => {
+      this.places = places;
       this.listPlaces = this.places;
      });
   }
