@@ -3,7 +3,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { PlacesService } from 'src/app/core/services/places.service';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { ToastController } from '@ionic/angular';
-
 import { parseGoogleGeoPointToDegrees, parseDegreesToGoogleGeoPoint } from '../../../core/utils/geopoint.util';
 import { Place } from 'src/app/core/models/place.model';
 import { Router } from '@angular/router';
@@ -32,8 +31,6 @@ export class AddCenterPage implements OnInit {
   loadedPlacetypes: TipoInstalacion[];
 
   markedPlace: Place[] = [DEFAULT_MARKER_PLACER];
-  picker_format:string = "D:M:YYYY:h:mm A";
-  display_format: string = "D/M/YYYY h:mm A";
   /**
    * User Story ID: M1NG1
    * Function that returns the name field on the add center form.
@@ -211,10 +208,6 @@ export class AddCenterPage implements OnInit {
     this.newCenterForm.get('latlngdegrees').valueChanges.subscribe(this.onChangeDegree.bind(this));
     this.newCenterForm.get('latlngdecimal').valueChanges.subscribe(this.onChangeLatLng.bind(this));
 
-
-  /*  setTimeout(() => {
-      this.markedPlace = [DEFAULT_MARKER_PLACER];
-    }, 100);*/
   }
   
   /**
