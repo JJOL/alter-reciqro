@@ -8,19 +8,21 @@
           <img [src]="loadedPlaceType.icon_url" />
           <form [formGroup]="newPlaceForm" (ngSubmit)="updatePlaceType()"> 
             <ion-card-header>
-              <ion-card-title>
-                <ion-card-subtitle position="floating">Tipo de Centro de Residuo *</ion-card-subtitle>
-                <ion-input placeholder = "Ejemplo: Libros" type = "text" required = "true" maxlength = "30" formControlName="name" inputmode="text"></ion-input>
-              </ion-card-title>
+              <ion-item>
+                <ion-label position="floating">Tipo de Centro de Residuo *</ion-label>
+                <ion-input type = "text" required = "true" maxlength = "30" formControlName="name" inputmode="text"></ion-input>
+              </ion-item>
               <div *ngFor="let error of errorMessages.name">
                 <ng-container *ngIf="name.hasError(error.type) && (name.dirty || name.touched)">
                   <small class="error-message">{{error.message}}</small>
                 </ng-container>
-              </div>
+              </div>              
             </ion-card-header>
             <ion-card-content>
-              <ion-card-subtitle position="floating">Url de Foto *</ion-card-subtitle>
-              <ion-input placeholder = "Ejemplo: http://ejemplo.com/ejemplo.jpg" type = "url" required = "true" formControlName="mainPicture"></ion-input>
+              <ion-item>
+                <ion-label position="floating">Url de Foto *</ion-label>
+                <ion-input type = "url" required = "true" formControlName="mainPicture"></ion-input>
+              </ion-item>
               <div *ngFor="let error of errorMessages.mainPicture">
                 <ng-container *ngIf="mainPicture.hasError(error.type) && (mainPicture.dirty || mainPicture.touched)">
                   <small class="error-message">{{error.message}}</small>

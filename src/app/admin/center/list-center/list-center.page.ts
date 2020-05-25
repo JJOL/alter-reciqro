@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PlacesService } from 'src/app/core/services/places.service';
-import { AlertController } from '@ionic/angular';
-import {ToastController} from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-list-center',
@@ -22,7 +22,7 @@ export class ListCenterPage implements OnInit {
    * User Story ID: M1NG4
    * Retrieves all places from the service when page loads
    */
-  constructor(private placesService: PlacesService,  private alertCtrl: AlertController,  private toastCtrl: ToastController) {
+  constructor(private placesService: PlacesService,  private alertCtrl: AlertController, private toastCtrl: ToastController) {
   }
 
   /**

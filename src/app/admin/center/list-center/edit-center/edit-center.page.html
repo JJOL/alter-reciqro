@@ -4,7 +4,9 @@
 <ion-content>
   <ion-grid>
   <ion-row class="ion-padding-horizontal">
-    
+    <ion-col size="12" size-sm size-md class="gMap">
+      <app-shared-google-map #mapElement (placeChange)="onChangeMarker($event)" [editable]="true" [max]="1" [places]="[place]" ></app-shared-google-map>
+    </ion-col>
     <ion-col size="12" size-sm size-md>
       <form [formGroup]="newCenterForm" (ngSubmit)="submit()">
         <ion-list>
@@ -118,11 +120,6 @@
           </ion-button>
         </ion-list>
       </form>
-    </ion-col>
-    <ion-col size="12" size-sm size-md class="gMap">
-      
-      <app-shared-google-map #mapElement (placeChange)="onChangeMarker($event)" [editable]="true" [max]="1" [places]="[place]" ></app-shared-google-map>
-
     </ion-col>
   </ion-row>
 </ion-grid>
