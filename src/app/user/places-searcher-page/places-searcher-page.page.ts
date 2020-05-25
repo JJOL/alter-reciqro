@@ -257,11 +257,9 @@ export class PlacesSearcherPagePage  {
       }; 
       this.userLoaction=this.position
     } catch (err) {
-      console.log("Catchtry")
       this.position = DEFAULT_CENTER_COORD;
     }    
     this.map.setCenter(this.position);
-    console.log(this.position)
   }
   
 }
