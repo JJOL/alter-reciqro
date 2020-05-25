@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { PlacesService } from 'src/app/core/services/places.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { SystemService } from 'src/app/core/services/system.service';
 
 
 const VISITS_KEY = 'visited_places_users';
@@ -15,7 +16,7 @@ export class VisitsService {
   constructor(
     private auth: AuthService,
     private placesService: PlacesService,
-    private firedb: AngularFirestore
+    private firedb: SystemService
   ) { }
 
   /**

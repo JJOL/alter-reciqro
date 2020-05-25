@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MockAngularFirestore } from 'src/app/core/services/mocks/firestore.mock';
 import { Place } from 'src/app/core/models/place.model';
+import { SystemService } from 'src/app/core/services/system.service';
 
 
 
@@ -24,7 +25,7 @@ describe('VisitsService', () => {
       providers: [
         { provide: PlacesService, useValue: placesMock },
         { provide: AuthService, useValue: authMock },
-        { provide: AngularFirestore, useValue: fireMock }
+        { provide: SystemService, useValue: fireMock }
       ]
     });
   });

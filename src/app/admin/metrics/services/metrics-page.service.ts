@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { DualIndicatorProvider, IndicatorInstance } from './DualIndicatorProvider';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { parseFBPlaceToPlace } from 'src/app/core/services/places.service';
 import { FBDualIndicatorProvider } from './FBDualIndicatorProvider';
 import { parseFBPDelegationToDelegation } from 'src/app/core/services/delegation.service';
 import { FBSystemDualIndicatorProvider } from './FBSystemDualIndicatorProvider';
+import { SystemService } from 'src/app/core/services/system.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ import { FBSystemDualIndicatorProvider } from './FBSystemDualIndicatorProvider';
 export class MetricsPageService {
 
   constructor(
-    private firedb: AngularFirestore
+    private firedb: SystemService
   ) {}
 
   /**
