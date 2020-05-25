@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, ToastController } from '@ionic/angular';
 import { WasteService } from 'src/app/core/services/waste.service';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -66,7 +66,7 @@ export class AddWasteTypePage implements OnInit {
   newWasteForm = this.formBuilder.group({
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     title: ['', [Validators.required, Validators.maxLength(100)]],
-    url: ['',[Validators.required]],
+    url: ['',[Validators.required, Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')]],
     description: ['',[Validators.required, Validators.maxLength(300)]]
   });
 
@@ -84,7 +84,8 @@ export class AddWasteTypePage implements OnInit {
     private formBuilder: FormBuilder,
     private wasteService: WasteService,
     private navCtrl: NavController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController
   ) { }
 
   /**
@@ -105,19 +106,13 @@ export class AddWasteTypePage implements OnInit {
    */
   addWasteType(){
     this.wasteService.addWasteType(this.newWasteForm.get('title').value, this.newWasteForm.get('url').value, this.newWasteForm.get('description').value).then(() => {
-      this.alertCtrl.create ({
-        header: 'Mensaje de Confirmación',
-        message: 'El tipo de residuo "' + this.newWasteForm.get('title').value + '" se ha registrado correctamente',
-        buttons: [{
-          text: 'Aceptar',
-          role: 'accept'
-        }]
-      }).then(alertEl => {
-        alertEl.present();
-      });
+      this.showToast('Residuo creado de manera exitosa');
+      this.newWasteForm.reset();
       this.navCtrl.navigateBack(['/admin/center/waste-type']);
-    })
-        .catch(() => {});
+    }).catch(() => {
+      this.showToast('Error al guardar el nuevo residuos');
+      this.navCtrl.navigateBack(['/admin/center/waste-type']);
+    });
   }
 
   /**
@@ -142,5 +137,19 @@ export class AddWasteTypePage implements OnInit {
     }).then(alertEl => {
       alertEl.present();
     });
+  }
+
+  /**
+   * User Story ID: M2NG14
+   * Function for showing the toast to the user.
+   * @param  {} msg
+   */
+  public showToast(msg) {
+    this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      position: 'middle',
+      color: 'success'
+    }).then(toast => toast.present());
   }
 }
