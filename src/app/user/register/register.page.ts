@@ -4,8 +4,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DelegationService } from 'src/app/core/services/delegation.service';
 
+import { MIN_LENGTH_PASSWORD } from 'src/app/core/constants';
 
-const MIN_LENGTH_PASSWORD = 8
 const MAX_LENGTH_ALIAS = 100
 
 
