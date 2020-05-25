@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 import { GoogleMapComponent } from './google-map.component';
 import { PlacesService } from '../../core/services/places.service';
 import {MockAngularFirestore} from 'src/app/core/services/mocks/firestore.mock';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { SystemService } from 'src/app/core/services/system.service';
 
 const mockPlacesService = {
   getAllPlaces: () => {
@@ -40,7 +40,7 @@ describe('GoogleMapComponent', () => {
       imports: [IonicModule.forRoot()],
       providers: [
         { provide: PlacesService, useValue: mockPlacesService },
-        { provide: AngularFirestore, useValue: MockAngularFirestore },
+        { provide: SystemService, useValue: MockAngularFirestore },
       ],
     }).compileComponents();
 

@@ -2,6 +2,7 @@ import { DualIndicatorProvider, IndicatorInstance } from './DualIndicatorProvide
 import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { SystemService } from 'src/app/core/services/system.service';
 
 const PLACES_VISITS_KEY = 'visited_places_users';
 
@@ -28,7 +29,7 @@ export class FBDualIndicatorProvider implements DualIndicatorProvider{
       private className: string,
       private metricName: string,
       private dataConfig: IndicatorDataBridgeConfig,
-      private firedb: AngularFirestore
+      private firedb: SystemService
   ) {}
   
   loadMetaData(onMetadaLoadedCb: () => void) {
@@ -117,7 +118,7 @@ export class FBDualIndicatorProvider implements DualIndicatorProvider{
 
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
-      subscription = this.firedb.collection(PLACES_VISITS_KEY)
+      subscription = this.firedb.collection<any>(PLACES_VISITS_KEY)
           .snapshotChanges()
           .pipe(map(snapshot => {
             return snapshot.map(fbsnap => fbsnap.payload.doc.data())
