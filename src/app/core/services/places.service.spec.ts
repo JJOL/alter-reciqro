@@ -79,6 +79,9 @@ function makeFBCollectionFromDataDelete(testData: any[]) {
         }
       };
     },
+    add: (data) => {
+      return Promise.resolve();
+    }
   };
   return fbMockCollection;
 }
