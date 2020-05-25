@@ -2,7 +2,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { InfoBannerService } from 'src/app/core/services/info-banner.service';
 import { ToastController, NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+
+import { MAX_DESCRIPTION_FIELD_LENGTH, MAX_TITLE_FIELD_LENGTH} from 'src/app/core/constants';
 
 @Component({
   selector: 'app-edit-info-banners',
@@ -12,7 +14,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 /**
  * Edit Information banners
  */
-export class EditInfoBannersPage implements OnInit {
+export class EditInfoBannersPage implements OnInit, AfterViewChecked {
   dateFlag;
   infoBannersForm;
 
@@ -74,65 +76,6 @@ export class EditInfoBannersPage implements OnInit {
       { type: 'pattern', message: 'El URL no es correcto'}
     ]
   };
-  /**
-   * User Story ID: M4NG8
-   * Function for submiting the form of the new place.
-   */
-  public submit() {
-    this.infoBannersService.editInfoBanner(this.infoBannersForm.value, this.infoBannerId)
-        .then(() => {
-          // use id
-          this.showToast('Banner se ha actualizado de manera exitosa');
-          this.infoBannersForm.reset();
-          this.navCtrl.navigateBack(['/admin/info-banners']);
-        }).catch(() => {
-          this.showToastWrong('Error al actualizar el banner');
-          this.infoBannersForm.reset();
-        });
-  }
-
-  /**
-   * User Story ID: M4NG8
-   * Function for showing the toast to the user.
-   * @param  {} msg
-   */
-  public showToast(msg) {
-    this.toastCtrl.create({
-      message: msg,
-      duration: 2000,
-      position: 'middle',
-      color: 'success'
-    }).then(toast => toast.present());
-  }
-  /**
-   * User Story ID: M4NG8
-   * Function for showing the toast to the user.
-   * @param  {} msg
-   */
-  public showToastWrong(msg) {
-    this.toastCtrl.create({
-      message: msg,
-      duration: 2000,
-      position: 'middle',
-      color: 'danger'
-    }).then(toast => toast.present());
-  }
-  /**
-   * User Story ID: M4NG8
-   * Method to know checkbox state and set validations depending on the state
-   * @param  {} e
-   */
-  addValue(e): void {
-    if (true == e.currentTarget.checked){
-      this.dateFlag = true;
-      this.infoBannersForm.get('date').setValidators(Validators.required);
-    }
-    else {
-      this.dateFlag = false;
-      this.infoBannersForm.get('date').clearValidators();
-      this.infoBannersForm.get('date').setValue('');
-    }
-  }
 
   /**
    * User Story ID: M4NG8
@@ -140,12 +83,10 @@ export class EditInfoBannersPage implements OnInit {
    */
   ngOnInit() {
     this.infoBannersForm = this.formBuilder.group({
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-      title: ['', [Validators.required, Validators.maxLength(100)]],
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-      description: ['', [Validators.required, Validators.maxLength(250)]],
+      title: ['', [Validators.required, Validators.maxLength(MAX_TITLE_FIELD_LENGTH)]],
+      description: ['', [Validators.required, Validators.maxLength(MAX_DESCRIPTION_FIELD_LENGTH)]],
       date: [''],
-      mainPicture: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')] /*This should be a picture*/
+      mainPicture: [''] /*This should be a picture*/
     });
 
     this.activatedRoute.paramMap.subscribe(paraMap => {
@@ -164,6 +105,68 @@ export class EditInfoBannersPage implements OnInit {
       }
     });
   }
+  
+  /**
+   * User Story ID: M4NG8
+   * Function for submitting the form of the new banner.
+   */
+  public submit() {
+    this.infoBannersService.editInfoBanner(this.infoBannersForm.value, this.infoBannerId)
+        .then(() => {
+          // use id
+          this.showToast('Banner se ha actualizado de manera exitosa');
+          this.infoBannersForm.reset();
+          this.navCtrl.navigateBack(['/admin/info-banners']);
+        }).catch(() => {
+          this.showToastWrong('Error al actualizar el banner');
+          this.infoBannersForm.reset();
+        });
+  }
+
+  /**
+   * User Story ID: M4NG8
+   * Function for showing the success message toast to the user.
+   * @param  {} msg
+   */
+  public showToast(msg) {
+    this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      position: 'middle',
+      color: 'success'
+    }).then(toast => toast.present());
+  }
+  /**
+   * User Story ID: M4NG8
+   * Function for showing the error message toast to the user.
+   * @param  {} msg
+   */
+  public showToastWrong(msg) {
+    this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      position: 'middle',
+      color: 'danger'
+    }).then(toast => toast.present());
+  }
+  /**
+   * User Story ID: M4NG8
+   * Method to know checkbox state and set validations depending on the state
+   * @param  {} e
+   */
+  onChangeCheckbox(e): void {
+    if (true === e.currentTarget.checked){
+      this.dateFlag = true;
+      this.infoBannersForm.get('date').setValidators(Validators.required);
+    }
+    else {
+      this.dateFlag = false;
+      this.infoBannersForm.get('date').clearValidators();
+      this.infoBannersForm.get('date').setValue('');
+    }
+  }
+
+  
   /**
    * User Story ID: M4NG8
    * Method that enables changes into ion-checkbox using change detector reference

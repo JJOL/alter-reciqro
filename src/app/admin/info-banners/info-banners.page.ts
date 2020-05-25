@@ -47,6 +47,9 @@ export class InfoBannersPage implements OnInit {
                 this.infoBannerService.getAllInfoBanners()
                     .then(infoBanners => {
                       this.infoBanners = infoBanners;
+                      this.listInfoBanners = this.listInfoBanners.filter( infoBanner => {
+                        return infoBanner.id !== infoBannerId;
+                      });
                     });
               }
           ).catch( () => {
@@ -60,7 +63,7 @@ export class InfoBannersPage implements OnInit {
   }
   /**
    * User Story ID: M4NG8
-   * Function for showing the toast to the user.
+   * Function for showing the success message toast to the user.
    * @param  {} msg
    */
   public showToast(msg) {
@@ -73,7 +76,7 @@ export class InfoBannersPage implements OnInit {
   }
   /**
    * User Story ID: M4NG8
-   * Function for showing the toast to the user.
+   * Function for showing the error message toast to the user.
    * @param  {} msg
    */
   public showToastWrong(msg) {
@@ -100,9 +103,9 @@ export class InfoBannersPage implements OnInit {
    * This function retrieves all waste types that have the name searched
    */
   searchByName(event){
-    event.detail.value.length == 0 ? this.listInfoBanners = this.infoBanners:
+    0 === event.detail.value.length ? this.listInfoBanners = this.infoBanners:
     this.listInfoBanners = this.infoBanners.filter( infoBanner => {
       return infoBanner.title.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
-    })
+    });
   }
 }

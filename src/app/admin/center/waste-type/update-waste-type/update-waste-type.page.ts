@@ -5,6 +5,8 @@ import { WasteType } from 'src/app/core/models/waste-type';
 import { NavController, AlertController } from '@ionic/angular';
 import { FormBuilder, Validators } from '@angular/forms';
 
+import { MAX_TITLE_FIELD_LENGTH, MAX_DESCRIPTION_FIELD_LENGTH } from 'src/app/core/constants';
+
 @Component({
   selector: 'app-update-waste-type',
   templateUrl: './update-waste-type.page.html',
@@ -62,9 +64,9 @@ export class UpdateWasteTypePage implements OnInit {
 
   newWasteForm = this.formBuilder.group({
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    title: ['', [Validators.required, Validators.maxLength(100)]],
+    title: ['', [Validators.required, Validators.maxLength(MAX_TITLE_FIELD_LENGTH)]],
     url: ['',[Validators.required]],
-    description: ['',[Validators.required, Validators.maxLength(300)]]
+    description: ['',[Validators.required, Validators.maxLength(MAX_DESCRIPTION_FIELD_LENGTH)]]
   });
 
 

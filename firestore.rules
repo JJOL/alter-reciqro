@@ -103,7 +103,7 @@ service cloud.firestore {
     
     //Collection Users
     match /users/{userID}{
-      allow read:  if isSignedIn() && verifyRoles(["admin", "staff", "user"]) && isRegisteredUser();
+      allow read:  if true;
       allow create: if true;
       allow delete: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
       allow update: if isSignedIn() && verifyRoles(["admin", "staff", "user"]) && isRegisteredUser();

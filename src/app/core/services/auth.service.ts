@@ -140,13 +140,13 @@ export class AuthService {
    *  Firebase function that ends user session and redirect to principal view
    */
   logoutUser() {
-    window.location.reload();
     this.userRoles.next([]);
-    return this.afAuth.auth.signOut().then(() => {
+    return this.afAuth.auth.signOut().then(async () => {
       this.isUserLoggedIn.next(false);
       //console.log('lel',this.userRoles.value,'lol',this.isUserLoggedIn.value)
-      this.router.navigate(['user/login']);
+      await this.router.navigate(['user/login']);
       this.showToast('Hasta luego, has cerrado sesión');
+      window.location.reload();
     });
   }
   /**

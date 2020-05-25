@@ -9,7 +9,7 @@
             <img [src]="loadedWasteType.icon" />
             <ion-card-header>
               <ion-card-title>
-                <ion-card-subtitle position="floating">Tipo de Residuo *</ion-card-subtitle>
+                <ion-card-subtitle position="floating">Nombre del Tipo de Residuo *</ion-card-subtitle>
                 <ion-input placeholder = "Ejemplo: Vidrio" type = "text" required = "true" maxlength = "30" required = "true" formControlName="title" ></ion-input><!--[(ngModel)] = "nameWasteType"-->
               </ion-card-title>
               <div *ngFor="let error of errorMessages.title">

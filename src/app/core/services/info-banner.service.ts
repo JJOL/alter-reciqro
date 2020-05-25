@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, DocumentSnapshot } from '@angular/fire/firestore';
 import { InfoBanner } from '../models/info-banner.model';
 import { map, take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -66,8 +65,9 @@ export class InfoBannerService {
   /**
    * Delete info banners
    * @param  {string} id
+   * @returns Promise<void>
    */
-  async deleteInfoBannersByID(id: string): Promise<void> {
+  deleteInfoBannersByID(id: string): Promise<void> {
     return new Promise((resolve) => {
       this.firedb.collection<InfoBanner>(INFO_BANNERS_KEY).doc<InfoBanner>(id).delete().then(() => {
         resolve();
@@ -79,8 +79,9 @@ export class InfoBannerService {
    * User Story ID: M2NG8
    * Description: This function creates an info banner in firebase
    * @param  {} infoBanner
+   * @return Promise<any>
    */
-  createInfoBanner(infoBanner) {
+  createInfoBanner(infoBanner): Promise<any> {
     let arg: string[] = infoBanner.date.split('T');
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(INFO_BANNERS_KEY).add({
@@ -102,7 +103,7 @@ export class InfoBannerService {
    * User Story ID: M4NG10
    * Function that returns a specific info banner on the database, filtered by its id, with all its associated data.
    * @param  {string} id
-   * @returns Promise
+   * @returns Promise<InfoBanner>
    */
   getInfoBannerByID(id: string): Promise<InfoBanner> {
     return new Promise((resolve) => {
@@ -125,9 +126,9 @@ export class InfoBannerService {
    * User Story ID: M2NG10
    * This function edits a info banner
    * @param  {string} id
-   * @returns Promise
+   * @returns Promise<any>
    */
-  editInfoBanner(infoBanner, id: string) {
+  editInfoBanner(infoBanner, id: string): Promise<any> {
     let arg: string[] = infoBanner.date.split('T');
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(INFO_BANNERS_KEY).doc(id).set({
@@ -150,7 +151,7 @@ export class InfoBannerService {
    * User Story ID: M2NC4
    * This function retrives all the banner of an specific date
    * @param  {string} id
-   * @returns Promise
+   * @returns Promise<InfoBanner[]>
    */
   getBannerofDay(date: string): Promise<InfoBanner[]> {
     return new Promise((resolve) => {

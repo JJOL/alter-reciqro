@@ -1,6 +1,5 @@
 /* eslint-disable max-params */
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { WasteType, PlacesWasteTypes } from '../models/waste-type';
 import { Subscription } from 'rxjs';
 import { map, take} from 'rxjs/operators';
@@ -41,7 +40,7 @@ export class WasteService {
   /**
    * User Story ID: M1NC3
    * Function that returns all wastes on the database, unfiltered, with all its associated data.
-   * @returns Promise
+   * @returns Promise<WasteType[]>
    */
   getWastes(): Promise<WasteType[]> {
     return new Promise((resolve) => {
@@ -175,8 +174,8 @@ export class WasteService {
   /**
    * User Story Id: M2NG13
    * Method that deletes a selected waste
-   * @param  
-   * @returns 
+   * @param {string} wasteTypeId
+   * @returns Promise<any>
    */
   deleteWasteTypeByID(wasteTypeId: string): Promise<any>{
     return new Promise((resolve) => {

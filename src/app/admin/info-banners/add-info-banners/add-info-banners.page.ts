@@ -1,7 +1,9 @@
 import { InfoBannerService } from 'src/app/core/services/info-banner.service';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ToastController, NavController } from '@ionic/angular';
+
+import { MAX_DESCRIPTION_FIELD_LENGTH, MAX_TITLE_FIELD_LENGTH } from 'src/app/core/constants';
 
 @Component({
   selector: 'app-add-info-banners',
@@ -11,9 +13,10 @@ import { ToastController, NavController } from '@ionic/angular';
 /**
  * Page that is in charge to add new info banners
  */
-export class AddInfoBannersPage implements OnInit {
+export class AddInfoBannersPage implements OnInit, AfterViewChecked {
   dateFlag;
   infoBannersForm;
+  
   // eslint-disable-next-line require-jsdoc
   constructor(
     private formBuilder: FormBuilder,
@@ -114,8 +117,8 @@ export class AddInfoBannersPage implements OnInit {
    * Method to know checkbox state
    * @param  {} e
    */
-  addValue(e): void {
-    if (true == e.currentTarget.checked){
+  onChangeCheckbox(e): void {
+    if (true === e.currentTarget.checked){
       this.dateFlag = true;
       this.infoBannersForm.get('date').setValidators(Validators.required);
     }
@@ -132,12 +135,10 @@ export class AddInfoBannersPage implements OnInit {
    */
   ngOnInit() {
     this.infoBannersForm = this.formBuilder.group({
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-      title: ['', [Validators.required, Validators.maxLength(100)]],
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-      description: ['', [Validators.required, Validators.maxLength(250)]],
+      title: ['', [Validators.required, Validators.maxLength(MAX_TITLE_FIELD_LENGTH)]],
+      description: ['', [Validators.required, Validators.maxLength(MAX_DESCRIPTION_FIELD_LENGTH)]],
       date: [''],
-      mainPicture: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')] /*This should be a picture*/
+      mainPicture: [''] /*This should be a picture*/
     });
   }
   /**

@@ -54,6 +54,7 @@ export class WasteTypePage implements OnInit {
   ionViewWillEnter() {
     this.wasteService.getWastes().then(data => {
       this.wasteTypes = data;
+      this.listWasteTypes = this.wasteTypes;
     });
   }
 
@@ -72,7 +73,6 @@ export class WasteTypePage implements OnInit {
     }];
     this.placesService.getIDPlacesTypesByWaste(wastes).then(data => {
       let places: TipoInstalacion[] = data;
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       if (places.length > 0) {
         this.alertCtrl.create ({
           header: 'Atención',
@@ -96,7 +96,10 @@ export class WasteTypePage implements OnInit {
             handler: () => {
               this.wasteService.deleteWasteTypeByID(wasteTypeId).then(() => {
                 this.wasteService.getWastes().then( data => { 
-                  this.wasteTypes = data; 
+                  this.wasteTypes = data;
+                  this.listWasteTypes = this.listWasteTypes.filter( infoBanner => {
+                    return infoBanner.id !== wasteTypeId;
+                  });
                 });
               })
                   .catch(() => {});
@@ -114,7 +117,7 @@ export class WasteTypePage implements OnInit {
    * This function retrieves all waste types that have the name searched
    */
   searchByName(event){
-    event.detail.value.length == 0 ? this.listWasteTypes = this.wasteTypes:
+    0 === event.detail.value.length ? this.listWasteTypes = this.wasteTypes:
     this.listWasteTypes = this.wasteTypes.filter( wasteType => {
       return wasteType.name.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
     })

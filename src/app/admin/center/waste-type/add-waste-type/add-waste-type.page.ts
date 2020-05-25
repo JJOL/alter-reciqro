@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 import { WasteService } from 'src/app/core/services/waste.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MAX_DESCRIPTION_FIELD_LENGTH, MAX_TITLE_FIELD_LENGTH} from 'src/app/core/constants';
 
 @Component({
   selector: 'app-add-waste-type',
@@ -15,7 +16,7 @@ import { FormBuilder, Validators } from '@angular/forms';
    * @param  
    * @returns 
    */
-export class AddWasteTypePage implements OnInit {
+export class AddWasteTypePage {
 
   /**
    * User Story Id: M2NG14
@@ -64,10 +65,9 @@ export class AddWasteTypePage implements OnInit {
   };
 
   newWasteForm = this.formBuilder.group({
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    title: ['', [Validators.required, Validators.maxLength(100)]],
+    title: ['', [Validators.required, Validators.maxLength(MAX_TITLE_FIELD_LENGTH)]],
     url: ['',[Validators.required]],
-    description: ['',[Validators.required, Validators.maxLength(300)]]
+    description: ['',[Validators.required, Validators.maxLength(MAX_DESCRIPTION_FIELD_LENGTH)]]
   });
 
 
@@ -87,15 +87,6 @@ export class AddWasteTypePage implements OnInit {
     private alertCtrl: AlertController
   ) { }
 
-  /**
-   * User Story Id: M2NG14
-   * Method called when the page is instatiated
-   * @param  
-   * @returns 
-   */
-  ngOnInit() {
-  }
-
   
   /**
    * User Story Id: M2NG14
@@ -104,7 +95,11 @@ export class AddWasteTypePage implements OnInit {
    * @returns 
    */
   addWasteType(){
-    this.wasteService.addWasteType(this.newWasteForm.get('title').value, this.newWasteForm.get('url').value, this.newWasteForm.get('description').value).then(() => {
+    this.wasteService.addWasteType(
+        this.newWasteForm.get('title').value,
+        this.newWasteForm.get('url').value,
+        this.newWasteForm.get('description').value
+    ).then(() => {
       this.alertCtrl.create ({
         header: 'Mensaje de Confirmación',
         message: 'El tipo de residuo "' + this.newWasteForm.get('title').value + '" se ha registrado correctamente',

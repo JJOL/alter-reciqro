@@ -35,7 +35,7 @@
                 </ng-container>
               </div>
               <ion-item>
-                <ion-checkbox  slot = "start" (ionChange) = "addValue($event)" color="primary"></ion-checkbox>
+                <ion-checkbox  slot = "start" (ionChange) = "onChangeCheckbox($event)" color="primary"></ion-checkbox>
                 <ion-label>Habilitar fecha</ion-label> 
               </ion-item>
               <ion-item *ngIf="dateFlag" >
