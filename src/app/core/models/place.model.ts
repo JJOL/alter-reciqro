@@ -20,6 +20,7 @@ export class Place {
    * @param  {TipoInstalacion} publicreadonlyplaces_type
    * @param  {string} publicreadonlyphoto
    * @param  {string} publicreadonlyqr_code
+   * @param  {Date} last_update_date
    */
   constructor(
         public readonly id?: string,
@@ -35,5 +36,6 @@ export class Place {
         public readonly photo?: string,
         public readonly qr_code?: string,
         public readonly schedule?: string,
+        public readonly last_update_date?: Date
   ) {}
 }

@@ -1,14 +1,18 @@
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AuthService } from './../../core/services/auth.service';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { Component, ViewChild, EventEmitter, Output } from '@angular/core';
-import { PlacesService } from 'src/app/core/services/places.service';
 import { Place } from '../../core/models/place.model';
 import {WasteType} from '../../core/models/waste-type';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
 import { PopoverController, ModalController } from '@ionic/angular';
 import { SplashscreenPage } from '../splashscreen/splashscreen.page';
+import { PlacesSearchService } from 'src/app/core/services/places-search.service';
+
+
+const DEFAULT_CENTER_COORD = { 
+  lat: 20.588772, 
+  lng: -100.390292
+};
 
 @Component({
   selector: 'app-places-searcher-page',
@@ -29,24 +33,48 @@ export class PlacesSearcherPagePage  {
   loadedPlaceType: TipoInstalacion;
   places: Place[];
   position: { lat: number, lng: number};
+  mapBounds: any = {};
   placeSelected: Place;
+
+  lastSearchedPos: { lat: number, lng: number};
+  hasMovedAway: boolean = false;
+
   filters: WasteType[] = [];
   activeFilters: WasteType[] = [];
   modal: HTMLIonPopoverElement;
   authproof: string ;
+
+
+
   @ViewChild ('mapElement', {static: true}) map;
 
   @Output() changeView = new EventEmitter();
 
   // eslint-disable-next-line max-params, require-jsdoc
   constructor(
-    private placesService: PlacesService,
     private geolocationCont: Geolocation,
     public popoverController: PopoverController,
-    private authService: AuthService,
-    private afsAuth: AngularFireAuth,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private searcherService: PlacesSearchService
   ) { }
+
+  /**
+   * Description: Retrieve Places based on viewed portion of the screen and activated waste filters.
+   */
+  searchPlaces() {
+    if (this.activeFilters && this.mapBounds && this.mapBounds.northEast && this.mapBounds.southWest) {
+      this.searcherService.searchPlaces(this.mapBounds, this.activeFilters)
+      .then(places => {
+        this.places = places;
+      });
+
+      this.lastSearchedPos = this.mapBounds.center;
+      this.hasMovedAway = false;
+    }
+  }
+
+
+
   /**
    *  User Story ID: M1NC1
    * Loads the preset filters and places
@@ -57,18 +85,22 @@ export class PlacesSearcherPagePage  {
       this.modalController.dismiss();
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     }, 2000);
-    this.filters = await  this.placesService.getAllWasteTypes();
-    this.activeFilters = this.filters;
-    this.places = await this.filterByType(this.activeFilters);
+    this.filters = await this.searcherService.getAllWasteTypes();
+    this.activeFilters = [];
+    // this.places = await this.filterByType(this.activeFilters);
     try {
       const geoPosition = await this.geolocationCont.getCurrentPosition();
       this.position = {
         lat: geoPosition.coords.latitude,
         lng: geoPosition.coords.longitude
-      };
-      this.map.setCenter(this.position);
+      }; 
     } catch (err) {
-    }
+      this.position = DEFAULT_CENTER_COORD;
+    }    
+    this.map.setCenter(this.position);
+
+    
+    
   }
 
   ionViewWillLeave() {
@@ -92,20 +124,15 @@ export class PlacesSearcherPagePage  {
 
     });
     this.modal.present();
+
+
     this.modal.onDidDismiss().then( (event) => {
-      console.log(event);
       if (event.data) {
         this.activeFilters = event.data;
-        // eslint-disable-next-line no-console
-        console.log('activos', this.activeFilters);
-
-        this.filterByType(event.data).then(places => {
-          // eslint-disable-next-line no-console
-          console.log(places);
-          this.places = places;
-        });
+        this.searchPlaces();
       }
     });
+
     return true;
   }
 
@@ -117,10 +144,7 @@ export class PlacesSearcherPagePage  {
     console.log(this.placeSelected);
     // get placeType
     if (this.placeSelected.places_type.id) {
-      this.placesService.getPlaceTypeByID('' + this.placeSelected.places_type.id).then(placeType => {
-        this.loadedPlaceType = placeType;
-        // this.presentModal();
-      });
+      this.loadedPlaceType =  this.searcherService.getPlaceTypeById(this.placeSelected.places_type.id);
     } else {
       this.loadedPlaceType = {
         id: '',
@@ -130,19 +154,19 @@ export class PlacesSearcherPagePage  {
     }
   }
 
-  /**
+  /** @deprecated Replaced by searchPlaces()
    * User Story ID: M1NC2
    * Consumes places services with the filters
    * @param  {WasteType[]} filters
    */
-  async filterByType(filters: WasteType[]) {
-    if (filters.length !== 0) {
-      return this.placesService.getIDPlacesTypesByWaste(filters).then(dataplacetype => {
-        return this.placesService.getIDPlacesByPlacesType(dataplacetype).then( place => place);
-      });
-    }
+  // async filterByType(filters: WasteType[]) {
+  //   if (filters.length !== 0) {
+  //     return this.placesService.getIDPlacesTypesByWaste(filters).then(dataplacetype => {
+  //       return this.placesService.getIDPlacesByPlacesType(dataplacetype).then( place => place);
+  //     });
+  //   }
 
-  }
+  // }
   /**
    * Sets a Queretaro state viewport 
    */
@@ -175,5 +199,33 @@ export class PlacesSearcherPagePage  {
     });
     return modal.present();
   }
- 
+
+  /**
+   * Description: Callback to update view mapBounds
+   * @param  {} mapBounds
+   */
+  onMapCenterChange(mapBounds) {
+    console.log(mapBounds);
+    this.mapBounds = mapBounds;
+    
+    if(this.mapBounds.center && this.lastSearchedPos) {
+      let dist = this.dist(this.mapBounds.center, this.lastSearchedPos);
+      console.log(dist);
+      if (dist > 0.005) {
+        this.hasMovedAway = true;
+      }
+    }
+    
+  }
+  private dist(p1: {lat:number, lng:number}, p2: {lat:number, lng:number}): number {
+    return Math.sqrt(Math.pow((p1.lat-p2.lat),2) + Math.pow((p1.lng-p2.lng),2))
+  }
+
+  /**
+   * Description: Handle for manually searching button
+   */
+  onSearchHereClick() {
+    this.searchPlaces();
+  }
+  
 }
