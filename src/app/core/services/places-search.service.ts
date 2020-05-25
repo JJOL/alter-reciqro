@@ -3,7 +3,7 @@ import { SystemService } from './system.service';
 import { Place } from '../models/place.model';
 
 import * as firebaseApp from 'firebase/app';
-import * as geofirex from 'geofirex';
+import * as geofirex from 'libs/geox';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { WasteType } from '../models/waste-type';
@@ -17,11 +17,15 @@ const PLACE_TYPE_KEY = '/place_type';
 const WASTE_TYPE_KEY = '/waste_type';
 const PLACE_TYPE_WASTE_TYPE = '/place_type_waste_type';
 
-
+const GEO_FIELD = 'point';
 
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Class PlacesSearchService
+ * Description: Service for PlacesSearchPage
+ */
 export class PlacesSearchService {
 
   private geo = geofirex.init(firebaseApp);
@@ -35,8 +39,14 @@ export class PlacesSearchService {
   ) {}
 
   
+  /**
+   * User Story ID: M1NC1, M1NC2
+   * Description: Queries database for places within a bounding box and corresponding waste types
+   * @param  {any} boundBox
+   * @param  {WasteType[]} filters
+   * @returns Promise<Place[]>
+   */
   public async searchPlaces(boundBox: any, filters: WasteType[]): Promise<Place[]> {
-
     await this.preparePlaceTypes();
 
     let maxLat = boundBox.northEast.lat,
@@ -44,11 +54,12 @@ export class PlacesSearchService {
         minLat = boundBox.southWest.lat,
         minLng = boundBox.southWest.lng;
         
-    let places = await this.searchPlacesWithinBox(minLat, minLng, maxLat, maxLng);
-    let acceptedTypes = this.getPlaceTypesForWastes(filters);
+      let acceptedTypesIds = this.getPlaceTypesForWastes(filters);
+      let filterTypes = Object.keys(acceptedTypesIds).map(placeType => firebaseApp.firestore().doc(`place_type/${placeType}`));
+      let places = await this.searchPlacesWithinBox(minLat, minLng, maxLat, maxLng, filterTypes);
 
     places = places.filter(place => {
-      return place.places_type.id in acceptedTypes;
+      return place.places_type.id in acceptedTypesIds;
     })
     .map(place => {
       (place as any).type_icon_url = this.allPlaceTypes[place.places_type.id].icon_url;
@@ -57,7 +68,10 @@ export class PlacesSearchService {
 
     return places;
   }
-
+  /**
+   * Description: Loads places types if they haven't been loaded
+   * @returns Promise
+   */
   async preparePlaceTypes(): Promise<boolean> {
     if (!this.loadedPlaceTypes) {
       await this.loadPlaceTypes();
@@ -79,23 +93,25 @@ export class PlacesSearchService {
    * @param  {number} maxLng
    * @returns Promise<Place[]>
    */
-  searchPlacesWithinBox(minLat: number, minLng: number, maxLat: number, maxLng: number): Promise<Place[]> {
+  searchPlacesWithinBox(minLat: number, minLng: number, maxLat: number, maxLng: number, placeTypeIds: any[]): Promise<Place[]> {
     let cornerPoint = this.geo.point(minLat, minLng);
     let centerPoint = this.geo.point((minLat+maxLat)/2, (minLng+maxLng)/2);
 
 
     let radius = this.geo.distance(centerPoint, cornerPoint);
-    console.log(`Radius: ${radius}`);
+    // console.log(`Proposed Radius: ${radius}`);
     
     if (radius > MAX_RADIUS_SEARCH) {
       radius = RECOMENDED_RADIUS_SEARCH;
     }
+    // console.log(`Used Radius: ${radius}`);
 
     let subscription: Subscription;
     return new Promise((resolve, reject) => {
-      // let places = this.firedb.collection('/places');
+
+
       let places = firebaseApp.firestore().collection(PLACE_KEY);
-      subscription = this.geo.query(places).within(centerPoint, radius, 'point')
+      subscription = this.geo.query(places).within(centerPoint, radius, GEO_FIELD, placeTypeIds, { log: true })
       .pipe(
         map(snap => {
           return snap.map((placeData: any) => {
@@ -167,8 +183,19 @@ export class PlacesSearchService {
           });
     });
   }
+  /**
+   * Description: Returns a PlaceType by its id
+   * @param  {string} placeTypeId
+   * @returns TipoInstalacion
+   */
+  public getPlaceTypeById(placeTypeId: string): TipoInstalacion {
+    return this.allPlaceTypes[placeTypeId];
+  }
 
-
+  /**
+   * Description: Loads places types from db
+   * @returns Promise
+   */
   private loadPlaceTypes(): Promise<void> {
     return new Promise((resolve, reject) => {
 
@@ -199,6 +226,10 @@ export class PlacesSearchService {
     
   }
 
+  /**
+   * Description: Loads places types accepted wastes
+   * @returns Promise
+   */
   private populatePlaceTypesWithAcceptedWastes(): Promise<void> {
     return new Promise((resolve, reject) => {
       const subscription = this.firedb.collection<any>(PLACE_TYPE_WASTE_TYPE).snapshotChanges()

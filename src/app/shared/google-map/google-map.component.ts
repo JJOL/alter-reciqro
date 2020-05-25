@@ -178,6 +178,8 @@ export class GoogleMapComponent implements OnInit, OnChanges {
         };
       }
       else if( null != place.places_type) {
+        console.log('Querying Type!');
+        
         icon = await this.placesServices.getPlaceTypeByID(place.places_type.id)
       }
       const marker: google.maps.Marker = new google.maps.Marker({

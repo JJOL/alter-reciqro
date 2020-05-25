@@ -1,8 +1,5 @@
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AuthService } from './../../core/services/auth.service';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { Component, ViewChild, EventEmitter, Output } from '@angular/core';
-import { PlacesService } from 'src/app/core/services/places.service';
 import { Place } from '../../core/models/place.model';
 import {WasteType} from '../../core/models/waste-type';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
@@ -54,11 +51,8 @@ export class PlacesSearcherPagePage  {
 
   // eslint-disable-next-line max-params, require-jsdoc
   constructor(
-    private placesService: PlacesService,
     private geolocationCont: Geolocation,
     public popoverController: PopoverController,
-    private authService: AuthService,
-    private afsAuth: AngularFireAuth,
     private modalController: ModalController,
     private searcherService: PlacesSearchService
   ) { }
@@ -146,10 +140,7 @@ export class PlacesSearcherPagePage  {
     console.log(this.placeSelected);
     // get placeType
     if (this.placeSelected.places_type.id) {
-      this.placesService.getPlaceTypeByID('' + this.placeSelected.places_type.id).then(placeType => {
-        this.loadedPlaceType = placeType;
-        // this.presentModal();
-      });
+      this.loadedPlaceType =  this.searcherService.getPlaceTypeById(this.placeSelected.places_type.id);
     } else {
       this.loadedPlaceType = {
         id: '',
@@ -159,19 +150,19 @@ export class PlacesSearcherPagePage  {
     }
   }
 
-  /**
+  /** @deprecated Replaced by searchPlaces()
    * User Story ID: M1NC2
    * Consumes places services with the filters
    * @param  {WasteType[]} filters
    */
-  async filterByType(filters: WasteType[]) {
-    if (filters.length !== 0) {
-      return this.placesService.getIDPlacesTypesByWaste(filters).then(dataplacetype => {
-        return this.placesService.getIDPlacesByPlacesType(dataplacetype).then( place => place);
-      });
-    }
+  // async filterByType(filters: WasteType[]) {
+  //   if (filters.length !== 0) {
+  //     return this.placesService.getIDPlacesTypesByWaste(filters).then(dataplacetype => {
+  //       return this.placesService.getIDPlacesByPlacesType(dataplacetype).then( place => place);
+  //     });
+  //   }
 
-  }
+  // }
   /**
    * Sets a Queretaro state viewport 
    */

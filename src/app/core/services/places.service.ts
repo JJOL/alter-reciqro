@@ -10,6 +10,8 @@ import { SystemService } from './system.service';
 
 import { geohash } from '../utils/geopoint.util';
 
+import * as geofirex from 'libs/geox';
+
 const PLACE_KEY = '/places';
 const PLACE_TYPE_KEY = '/place_type';
 const WASTE_TYPE_KEY = '/waste_type';
@@ -19,6 +21,8 @@ const PLACE_TYPE_WASTE_TYPE = '/place_type_waste_type';
 const GeoPoint = firebase.firestore.GeoPoint;
 const CENTER_CACHE_PREFIX = 'CACHE_CENTER_';
 
+
+const geo = geofirex.init(firebase);
 /**
  * User Story ID: M1NCx
  * Function that casts a firebase payload snapshot to our place model.
@@ -93,7 +97,7 @@ export class PlacesService {
    */
   createPlace(placeObject) {
     const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
-    const geoHash  = geohash.encode(placeObject.latitude, placeObject.longitude, 11);
+    const point = geo.point(placeObject.latitude, placeObject.longitude)
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(PLACE_KEY).add({
         address: placeObject.address.street,
@@ -105,7 +109,7 @@ export class PlacesService {
         postal_code: placeObject.address.zip,
         qr_code: placeObject.qrCode,
         schedule: placeObject.schedule,
-        geohash: geoHash
+        point: point
       })
           .then(
               (res) => {
@@ -276,7 +280,7 @@ export class PlacesService {
    */
   editPlace(placeObject, id: string) {
     const geoPoint = new GeoPoint(placeObject.latitude, placeObject.longitude);
-    const geoHash  = geohash.encode(placeObject.latitude, placeObject.longitude, 11);
+    const point = geo.point(placeObject.latitude, placeObject.longitude)
     return new Promise<any>((resolve, reject) => {
       this.firedb.collection(PLACE_KEY).doc(id).set({
         address: placeObject.address.street,
@@ -287,7 +291,7 @@ export class PlacesService {
         photo: placeObject.mainPicture,
         places_type: this.firedb.doc('place_type/' + placeObject.instalationType).ref,
         postal_code: placeObject.address.zip,
-        geohash: geoHash
+        point: point
       }, {merge: true} )
           .then(
               (res) => {
