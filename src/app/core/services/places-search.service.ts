@@ -54,17 +54,14 @@ export class PlacesSearchService {
         minLat = boundBox.southWest.lat,
         minLng = boundBox.southWest.lng;
         
-      let acceptedTypesIds = this.getPlaceTypesForWastes(filters);
-      let filterTypes = Object.keys(acceptedTypesIds).map(placeType => firebaseApp.firestore().doc(`place_type/${placeType}`));
-      let places = await this.searchPlacesWithinBox(minLat, minLng, maxLat, maxLng, filterTypes);
-
-    places = places.filter(place => {
-      return place.places_type.id in acceptedTypesIds;
-    })
-    .map(place => {
-      (place as any).type_icon_url = this.allPlaceTypes[place.places_type.id].icon_url;
-      return place;
-    });
+    let acceptedTypesIds = this.getPlaceTypesForWastes(filters);
+    let filterTypes = Object.keys(acceptedTypesIds).map(placeType => firebaseApp.firestore().doc(`place_type/${placeType}`));
+    let places = await this.searchPlacesWithinBox(minLat, minLng, maxLat, maxLng, filterTypes);
+    places = places
+      .map(place => {
+        (place as any).type_icon_url = this.allPlaceTypes[place.places_type.id].icon_url;
+        return place;
+      });
 
     return places;
   }

@@ -36,6 +36,7 @@ export class PlacesSearcherPagePage  {
   mapBounds: any = {};
   placeSelected: Place;
 
+  lastSearchedPos: { lat: number, lng: number};
   hasMovedAway: boolean = false;
 
   filters: WasteType[] = [];
@@ -66,6 +67,9 @@ export class PlacesSearcherPagePage  {
       .then(places => {
         this.places = places;
       });
+
+      this.lastSearchedPos = this.mapBounds.center;
+      this.hasMovedAway = false;
     }
   }
 
@@ -202,15 +206,16 @@ export class PlacesSearcherPagePage  {
    */
   onMapCenterChange(mapBounds) {
     console.log(mapBounds);
+    this.mapBounds = mapBounds;
     
-    if(this.mapBounds.center) {
-      let dist = this.dist(this.mapBounds.center, mapBounds.center);
+    if(this.mapBounds.center && this.lastSearchedPos) {
+      let dist = this.dist(this.mapBounds.center, this.lastSearchedPos);
       console.log(dist);
       if (dist > 0.005) {
         this.hasMovedAway = true;
       }
     }
-    this.mapBounds = mapBounds;
+    
   }
   private dist(p1: {lat:number, lng:number}, p2: {lat:number, lng:number}): number {
     return Math.sqrt(Math.pow((p1.lat-p2.lat),2) + Math.pow((p1.lng-p2.lng),2))
@@ -220,7 +225,6 @@ export class PlacesSearcherPagePage  {
    * Description: Handle for manually searching button
    */
   onSearchHereClick() {
-    this.hasMovedAway = false;
     this.searchPlaces();
   }
   
