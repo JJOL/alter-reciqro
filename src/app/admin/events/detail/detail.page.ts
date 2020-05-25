@@ -36,7 +36,7 @@ export class DetailPage implements OnInit {
   }
   /**
    * User Story ID: M1NG2
-   * Regresa la descripción del lugar
+   * Regresa la descripción del evento
    * @param  {string} {description}
    */
   get description() {
@@ -233,11 +233,11 @@ export class DetailPage implements OnInit {
   submit(){
     this.eventService.editEvent(this.editEventForm.value,this.placeId).then(() => {
       // use id
-      this.showToast('Lugar editado de manera exitosa');
+      this.showToast('Evento editado de manera exitosa');
       this.navCtrl.navigateBack(['/admin/events']);
     })
         .catch(() => {
-          this.showToast('Error al cargar el lugar');
+          this.showToast('Error al cargar el evento');
         });
   }
 

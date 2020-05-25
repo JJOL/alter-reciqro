@@ -37,7 +37,7 @@ export class AddPage implements OnInit {
   }
   /**
    * User Story ID: M1NG2
-   * Regresa la descripción del lugar
+   * Regresa la descripción del evento
    * @param  {string} {description}
    */
   get description() {
@@ -186,8 +186,15 @@ export class AddPage implements OnInit {
    * @param  {} lugar
    */
   onChangeMarker(lugar) {
+    (window as any).lugar = lugar;
+   
+
+    // Update LatLng
     this.editEventForm.controls.latitude.setValue(lugar.location.lat);
     this.editEventForm.controls.longitude.setValue(lugar.location.lng);
+    // Update Degree Value
+    this.editEventForm.controls.latlngdegrees.setValue((lugar.location));
+
   }
 
   /**
@@ -210,11 +217,11 @@ export class AddPage implements OnInit {
   submit() {
     this.eventService.createEvent(this.editEventForm.value).then(() => {
       // use id
-      this.showToast('Lugar creado de manera exitosa');
+      this.showToast('Evento creado de manera exitosa');
       this.navCtrl.navigateBack(['/admin/events']);
     })
         .catch(() => {
-          this.showToast('Error al cargar el lugar');
+          this.showToast('Error al cargar el evento');
         })
   }
 
