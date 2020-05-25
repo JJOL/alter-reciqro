@@ -70,6 +70,14 @@ service cloud.firestore {
       allow update: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
       
     }
+
+    //Collection Place Deletion Records
+    match /deleted_places/{deleteRecordId}{
+    	allow read: if true;
+      allow create: if isSignedIn() && verifyRoles(["admin", "staff", "no_permission"]) && isRegisteredUser();
+      allow delete: if false;
+      allow update: if false;
+    }
     
     //Collection Waste_Type
     match /waste_type/{wasteID}{

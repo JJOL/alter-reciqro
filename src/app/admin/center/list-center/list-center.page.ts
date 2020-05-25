@@ -64,7 +64,10 @@ export class ListCenterPage implements OnInit {
         text: 'Borrar',
         handler: () => {
           this.placesService.deletePlaceByID(placeId).then(() => {
-            this.placesService.getAllPlaces().then( data => { this.places = data; });
+            this.placesService.loadAdminPlaces()
+            .then(places => {
+              this.places = places;
+            });
           })
               .catch(() => {});
         }

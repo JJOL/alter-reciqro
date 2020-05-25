@@ -17,6 +17,8 @@ const PLACE_TYPE_KEY = '/place_type';
 const WASTE_TYPE_KEY = '/waste_type';
 const PLACE_TYPE_WASTE_TYPE = '/place_type_waste_type';
 
+const DELETE_PLACE_RECORDS = '/deleted_places';
+
 
 const GeoPoint = firebase.firestore.GeoPoint;
 const CENTER_CACHE_PREFIX = 'CACHE_CENTER_';
@@ -131,7 +133,12 @@ export class PlacesService {
   async deletePlaceByID(id: string): Promise<void> {
     return new Promise((resolve) => {
       this.firedb.collection<Place>(PLACE_KEY).doc<Place>(id).delete().then(() => {
-        resolve();
+        this.firedb.collection(DELETE_PLACE_RECORDS).add({
+          last_updated_date: new Date(),
+          place_id: id
+        }).then(() => {
+          resolve();
+        });
       });
     });
   }
@@ -624,8 +631,54 @@ export class PlacesService {
       }
     });
 
-    localStorage.setItem(CENTER_CACHE_PREFIX+'LIST', JSON.stringify(centerList));
+    this.saveCacheCenterList(centerList);
     this.updateLocalCenterLastUpdate(new Date());
+  }
+
+  /**
+   * Description: Returns a list of deleted places after a lowDate
+   * @param  {Date} lowerDate
+   * @returns Promise<string[]>
+   */
+  getPlaceDeletionsAfterDate(lowerDate: Date): Promise<string[]> {
+    return new Promise((resolve, reject) => {
+      let subscription: Subscription;
+      
+      subscription = this.firedb.collection<any>(DELETE_PLACE_RECORDS, ref => ref.where('last_updated_date', '>', lowerDate))
+      .snapshotChanges()
+      .pipe(
+        map(snap => {
+          return snap.map(fbSnap => {
+            return fbSnap.payload.doc.data().place_id;
+          });
+        })
+      )
+      .subscribe(deletedIds => {
+        console.log(deletedIds.length+' Centers Deleted');
+        resolve(deletedIds);
+        if (subscription) {
+          subscription.unsubscribe();
+        }
+      });
+    });
+  }
+
+  /**
+   * Description: Deletes from saved places the deleted ids
+   * @param  {string[]} deletedIds
+   */
+  applyPlaceDeletions(deletedIds: string[]) {
+    let centerList = this.loadCacheCenterList();
+    Object.keys(centerList).forEach(placeId => {
+      if (deletedIds.indexOf(placeId) !== -1) {
+        delete centerList[placeId];
+      }
+    });
+    this.saveCacheCenterList(centerList);
+
+    deletedIds.forEach(deletedPlaceId => {
+      localStorage.removeItem(CENTER_CACHE_PREFIX+deletedPlaceId);
+    })
   }
 
   /**
@@ -652,6 +705,14 @@ export class PlacesService {
 
     return centerList;
   }
+
+  /**
+   * Description: Saves cached centers list.
+   * @param  {{[key:string]:number}} centerList
+   */
+  saveCacheCenterList(centerList: { [key: string]: number }) {
+    localStorage.setItem(CENTER_CACHE_PREFIX+'LIST', JSON.stringify(centerList));
+  }
   
   
 
@@ -662,17 +723,22 @@ export class PlacesService {
    * 3. Load Local Last Update Date
    * 4. Query modified places after local last update
    * 5. Apply changes from places to saved places
-   * 6. Load saved local places
-   * 7. Quit Loading Animation
+   * 6. Check Deletion Updates
+   * 7. Apply Deletion Updates
+   * 8. Load saved local places
+   * 9. Quit Loading Animation
    */
 
    async loadAdminPlaces(): Promise<Place[]> {
     let lastUpdate = this.loadLocalCenterLastUpdate();
     console.log(lastUpdate);
     let newPlaces = await this.getUpdatedCentersAfterDate(lastUpdate);
+    let deletedPlaceIds = await this.getPlaceDeletionsAfterDate(lastUpdate);
     console.log('Changed Places Saving...');
     console.log(newPlaces);
     this.applyUpdatedCenterChanges(newPlaces);
+    this.applyPlaceDeletions(deletedPlaceIds);
+    
     return this.loadPlaces();
    }
 
