@@ -3,20 +3,24 @@
   <ion-grid [ngClass]="classname" >
     <ion-row [ngClass]="classname">
       <ion-col size="12">
-        <app-shared-google-map  #mapElement (seletedMarker)="emitPlace($event)"  [editable]="false" [max]="30" [places]="places" [center]="position">
+        <app-shared-google-map  #mapElement (seletedMarker)="emitPlace($event)" (change)="onMapCenterChange($event)" [editable]="false" [max]="300" [places]="places">
         </app-shared-google-map>
           <app-marker-card [class.active]="placeSelected" [loadedPlaceType]="loadedPlaceType" [placeSelected]="placeSelected">
           </app-marker-card>
-          <div [class.active]="placeSelected">
+          <div [class.active]="placeSelected" id="details-container">
             <button (click)="close()">
               <ion-icon  slot="start" name="close-sharp"></ion-icon>
             </button>
           </div>
-        <ion-button   shape="round" class="filters" (click)="presentFilterModal()" >Filtros</ion-button>
-        <ion-button  shape="round" class="qro" (click)="viewQro()" >Vista Qro</ion-button>
+        
        </ion-col>
     </ion-row>
   </ion-grid>
+  <div id="search-here-container" [class.active]="hasMovedAway">
+    <ion-button  shape="round" class="search-here" (click)="onSearchHereClick()">Buscar aquí de nuevo</ion-button>
+  </div>
+  <ion-button  shape="round" class="filters" (click)="presentFilterModal()">Filtros</ion-button>
+  <ion-button  shape="round" class="qro" (click)="viewQro()" >Vista Qro</ion-button>
 </ion-content>
 
 

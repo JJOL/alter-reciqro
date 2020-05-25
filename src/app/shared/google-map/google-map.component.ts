@@ -26,10 +26,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   @Input() places: Place[] = [] ;
   @Input() editable: boolean;
   @Input() max: number;
-  @Input() center: any  = {
-    lat: 20.610381,
-    lng: -100.382063
-  };
+  @Input() center: any;
   currentInfoWindow: any ;
   markers: any[] = [];
   @Output() placeChange = new EventEmitter();
@@ -54,6 +51,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
    * Initial checks and cleanup of previous markers
    */
   ngOnChanges() {
+    
     if (this.center && this.toloaded && this) {
       this.toloaded = false;
     }
@@ -88,7 +86,21 @@ export class GoogleMapComponent implements OnInit, OnChanges {
         mapOptions);
 
     google.maps.event.addListener(this.map, 'idle', () => {
-      this.change.emit(this.map.getBounds());
+      let bounds = this.map.getBounds();
+      this.change.emit({
+        northEast: {
+          lat: bounds.getNorthEast().lat(),
+          lng: bounds.getNorthEast().lng()
+        },
+        southWest: {
+          lat: bounds.getSouthWest().lat(),
+          lng: bounds.getSouthWest().lng()
+        },
+        center: {
+          lat: bounds.getCenter().lat(),
+          lng: bounds.getCenter().lng()
+        }
+      })
     } );
 
     if (this.editable) {
@@ -160,12 +172,23 @@ export class GoogleMapComponent implements OnInit, OnChanges {
         content: contentString
       });
       let icon;
-      if(null!=place.places_type)
-      {   icon = await this.placesServices.getPlaceTypeByID(place.places_type.id)}
+      if (place.type_icon_url) {
+        icon = {
+          icon_url: place.type_icon_url
+        };
+      }
+      else if( null != place.places_type) {
+        console.log('Querying Type!');
+        
+        icon = await this.placesServices.getPlaceTypeByID(place.places_type.id)
+      }
       const marker: google.maps.Marker = new google.maps.Marker({
         map: this.map,
         position:  new google.maps.LatLng(place.location.lat, place.location.lng),
-        icon: icon? {url:icon.icon_url,scaledSize: new google.maps.Size(64, 67)}:'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+        icon: icon? {
+          url: icon.icon_url,
+          scaledSize: new google.maps.Size(64, 67)
+        } : 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
         
         draggable: this.editable ? true : false,
       // animation: google.maps.Animation.DROP
