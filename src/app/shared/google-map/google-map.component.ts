@@ -234,8 +234,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
         icon: {url: 'https://i.ibb.co/S3Mv54X/3162622-128.png',
           scaledSize: new google.maps.Size(50, 50) },
         
-        draggable: this.editable ? true : false,
-      // animation: google.maps.Animation.DROP
+        draggable: false,
       });
       return this.userLocationMarker = marker
     }else if(location && this.userLocationMarker){
