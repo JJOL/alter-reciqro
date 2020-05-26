@@ -39,6 +39,10 @@ const routes: Routes = [
   {
     path: 'splashscreen',
     loadChildren: () => import('./splashscreen/splashscreen.module').then( m => m.SplashscreenPageModule)
+  },
+  {
+    path: 'help',
+    loadChildren: () => import('./help/help.module').then( m => m.HelpPageModule)
   }
 ];
 

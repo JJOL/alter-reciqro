@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 // import { firestore } from './interfaces';
 
 import { Observable, combineLatest, Subject } from 'rxjs';
@@ -35,13 +36,17 @@ export interface GeoQueryDocument {
   hitMetadata: HitMetadata;
 }
 
+/**
+ * GeoFireQuery
+ */
 export class GeoFireQuery<T = any> {
   private opts: GeoQueryOptions;
+  
   constructor(
     private app: FirebaseSDK,
     private ref?: fb.firestore.CollectionReference | fb.firestore.Query | string
   ) {
-    if (typeof ref === 'string') {
+    if ('string' === typeof ref) {
       this.ref = this.app.firestore().collection(ref);
     }
   }
@@ -55,16 +60,20 @@ export class GeoFireQuery<T = any> {
    * @returns {Observable<GeoQueryDocument>} sorted by nearest to farthest
    */
   within(
-    center: FirePoint,
-    radius: number,
-    field: string,
-    placeTypeFilters?: any[],
-    opts?: GeoQueryOptions
+      center: FirePoint,
+      radius: number,
+      field: string,
+      placeTypeFilters?: any[],
+      opts?: GeoQueryOptions,
+      sizeOffset?: number
   ): Observable<(GeoQueryDocument & T)[]> {
     opts = { ...defaultOpts, ...opts };
     this.opts = opts;
     const tick = Date.now();
-    const precision = setPrecision(radius);
+    let precision = setPrecision(radius) - sizeOffset;
+    if (precision < 4) {
+      precision = 4;
+    } 
     const radiusBuffer = radius * 1.02; // buffer for edge distances
     const centerHash = center.geohash.substr(0, precision);
     const area = neighbors(centerHash).concat(centerHash);
@@ -78,56 +87,57 @@ export class GeoFireQuery<T = any> {
     const queries = area.map(hash => {
       const query = this.queryPoint(hash, field, placeTypeFilters);
       return createStream(query).pipe(
-        snapToData(),
-        takeUntil(complete)
+          snapToData(),
+          takeUntil(complete)
       );
     });
 
     // Combine all queries concurrently
     const combo = combineLatest(...queries).pipe(
-      map(arr => {
+        map(arr => {
         // Combine results into a single array
-        const reduced = arr.reduce((acc, cur) => acc.concat(cur));
+          const reduced = arr.reduce((acc, cur) => acc.concat(cur));
 
-        // Filter by radius
-        const filtered = reduced.filter(val => {
-          const { latitude, longitude } = val[field].geopoint;
+          // Filter by radius
+          const filtered = reduced;
+          // const filtered = reduced.filter(val => {
+          //   const { latitude, longitude } = val[field].geopoint;
 
-          return (
-            distance([centerLat, centerLng], [latitude, longitude]) <=
-            radiusBuffer
-          );
-        });
+          //   return (
+          //     distance([centerLat, centerLng], [latitude, longitude]) <=
+          //   radiusBuffer
+          //   );
+          // });
 
-        // Optional logging
-        if (opts.log) {
-          console.group('GeoFireX Query');
-          console.log(`🌐 Center ${[centerLat, centerLng]}. Radius ${radius}`);
-          console.log(`📍 Hits: ${reduced.length}`);
-          console.log(`⌚ Elapsed time: ${Date.now() - tick}ms`);
-          console.log(`🟢 Within Radius: ${filtered.length}`);
-          console.groupEnd();
-        }
+          // Optional logging
+          if (opts.log) {
+            console.group('GeoFireX Query');
+            console.log(`🌐 Center ${[centerLat, centerLng]}. Radius ${radius}`);
+            console.log(`📍 Hits: ${reduced.length}`);
+            console.log(`⌚ Elapsed time: ${Date.now() - tick}ms`);
+            console.log(`🟢 Within Radius: ${filtered.length}`);
+            console.groupEnd();
+          }
 
-        // Map and sort to final output
-        return filtered
-          .map(val => {
-            const { latitude, longitude } = val[field].geopoint;
+          // Map and sort to final output
+          return filtered
+              .map(val => {
+                const { latitude, longitude } = val[field].geopoint;
 
-            const hitMetadata = {
-              distance: distance([centerLat, centerLng], [latitude, longitude]),
-              bearing: bearing([centerLat, centerLng], [latitude, longitude])
-            };
-            return { ...val, hitMetadata } as (GeoQueryDocument & T);
-          })
+                const hitMetadata = {
+                  distance: distance([centerLat, centerLng], [latitude, longitude]),
+                  bearing: bearing([centerLat, centerLng], [latitude, longitude])
+                };
+                return { ...val, hitMetadata } as (GeoQueryDocument & T);
+              })
 
-          .sort((a, b) => a.hitMetadata.distance - b.hitMetadata.distance);
-      }),
-      shareReplay(1),
-      finalize(() => {
-        opts.log && console.log('✋ Query complete');
-        complete.next(true);
-      })
+              .sort((a, b) => a.hitMetadata.distance - b.hitMetadata.distance);
+        }),
+        shareReplay(1),
+        finalize(() => {
+          opts.log && console.log('✋ Query complete');
+          complete.next(true);
+        })
     );
 
     return combo;
@@ -141,19 +151,19 @@ export class GeoFireQuery<T = any> {
     }
     
     const end = geohash + '~';
-    if (!placeTypeFilters || placeTypeFilters.length == 0) {
+    if (!placeTypeFilters || 0 == placeTypeFilters.length) {
       return (this.ref as fb.firestore.CollectionReference)
-      .orderBy(`${field}.geohash`)
-      .startAt(geohash)
-      .endAt(end)
-      .limit(20);
+          .orderBy(`${field}.geohash`)
+          .startAt(geohash)
+          .endAt(end)
+          .limit(20);
     } else {
       return (this.ref as fb.firestore.CollectionReference)
-      .where('places_type', 'in', placeTypeFilters)
-      .orderBy(`${field}.geohash`)
-      .startAt(geohash)
-      .endAt(end)
-      .limit(20);
+          .where('places_type', 'in', placeTypeFilters)
+          .orderBy(`${field}.geohash`)
+          .startAt(geohash)
+          .endAt(end)
+          .limit(20);
     }
     
   }
@@ -190,8 +200,8 @@ internal, do not use. Converts callback to Observable.
 function createStream(input): Observable<any> {
   return new Observable(observer => {
     const unsubscribe = input.onSnapshot(
-      val => observer.next(val),
-      err => observer.error(err)
+        val => observer.next(val),
+        err => observer.error(err)
     );
     return { unsubscribe };
   });
@@ -207,7 +217,7 @@ export function toGeoJSON(field: string, includeProps: boolean = false) {
       type: 'FeatureCollection',
       features: data.map(v =>
         toGeoJSONFeature(
-          [v[field].geopoint.latitude, v[field].geopoint.longitude],
+            [v[field].geopoint.latitude, v[field].geopoint.longitude],
           includeProps ? { ...v } : {}
         )
       )

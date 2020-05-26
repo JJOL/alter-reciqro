@@ -21,10 +21,12 @@ export class IndicatorTableComponent implements OnChanges {
   constructor() { }
 
   /**
+   *
    * User Story ID: M1NG6
    * Changes the map
    * @param  {SimpleChanges} changes
    * @returns void
+   * eslint-disable-next-line @typescript-eslint/no-unused-vars
    */
   ngOnChanges(changes: SimpleChanges): void {
     if (this.keyValueData) {

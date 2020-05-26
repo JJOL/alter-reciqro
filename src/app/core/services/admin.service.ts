@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Subscription, from } from 'rxjs';
 import { AdminModel } from '../models/admin.model';
 import { map, catchError } from 'rxjs/operators';
@@ -115,24 +114,24 @@ export class AdminService {
 
     let nextStringVal = getStringSuccessor(alias, 20);
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       let subscription: Subscription;
-      subscription = this.firedb.collection(USER_KEY, ref => ref.where('alias', '>=', alias).where('alias', '<=', nextStringVal)).snapshotChanges()
-        .pipe(
-          catchError(err => {
-            //TODO: Handle Error err
-            return from([]);
-          }),
-          map(snapshot => {
-            return snapshot.map(parseFBPUserToUser);
-          })
-        )
-        .subscribe(users => {
-          if (subscription) {
-            subscription.unsubscribe();
-          }
-          resolve(users);
-        });
+      subscription = this.firedb.collection(USER_KEY, ref => ref.where('alias', '>=', alias).where('alias', '<=', nextStringVal))
+          .snapshotChanges()
+          .pipe(
+              catchError(() => {
+                return from([]);
+              }),
+              map(snapshot => {
+                return snapshot.map(parseFBPUserToUser);
+              })
+          )
+          .subscribe(users => {
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+            resolve(users);
+          });
     });
 
 
@@ -143,7 +142,7 @@ export class AdminService {
      * @returns {string}
      */
     function getStringSuccessor(str: string, resolution: number): string {
-      let successorString = "";
+      let successorString = '';
       successorString += str;
       for (let i = 0; i < resolution; i++) {
         successorString += 'z';

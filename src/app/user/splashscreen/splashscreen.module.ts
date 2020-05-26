@@ -14,4 +14,7 @@ import { SplashscreenPage } from './splashscreen.page';
   ],
   declarations: [SplashscreenPage]
 })
+/**
+ * Export class so it is externally accessible.
+ */
 export class SplashscreenPageModule {}

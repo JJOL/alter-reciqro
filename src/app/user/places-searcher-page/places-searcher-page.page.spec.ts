@@ -12,6 +12,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { MockAngularFirestore } from 'src/app/core/services/mocks/firestore.mock';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SplashscreenPageModule } from '../splashscreen/splashscreen.module';
+import { HelpPageModule } from '../help/help.module';
 
 
 const mockPlacesService = {
@@ -125,7 +126,7 @@ describe('PlacesSearcherPagePage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ PlacesSearcherPagePage, MarkerCardComponent ],
-      imports: [IonicModule.forRoot(), SharedPageModule, RouterTestingModule, SplashscreenPageModule],
+      imports: [IonicModule.forRoot(), SharedPageModule, RouterTestingModule, SplashscreenPageModule, HelpPageModule],
       providers: [
         { provide: PlacesService, useValue: mockPlacesService },
         { provide: Geolocation, useValue: mockGeolocation },

@@ -7,7 +7,8 @@ import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.com
 import { PopoverController, ModalController } from '@ionic/angular';
 import { SplashscreenPage } from '../splashscreen/splashscreen.page';
 import { PlacesSearchService } from 'src/app/core/services/places-search.service';
-
+import { HelpPage } from '../help/help.page';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 const DEFAULT_CENTER_COORD = { 
   lat: 20.588772, 
@@ -19,6 +20,8 @@ const DEFAULT_CENTER_COORD = {
   templateUrl: './places-searcher-page.page.html',
   styleUrls: ['./places-searcher-page.page.scss'],
 })
+
+
 
 /**
  * Place Searcher Page is in charge of handling filters,map view and map markers, so that the user
@@ -37,7 +40,7 @@ export class PlacesSearcherPagePage  {
   placeSelected: Place;
   userLoaction:any;
   lastSearchedPos: { lat: number, lng: number};
-  hasMovedAway: boolean = false;
+  hasMovedAway = false;
 
   filters: WasteType[] = [];
   activeFilters: WasteType[] = [];
@@ -50,12 +53,16 @@ export class PlacesSearcherPagePage  {
 
   @Output() changeView = new EventEmitter();
 
+  trustedVideoUrl: SafeResourceUrl;
+  arrayOfVideos = [{vid_link:'https://www.youtube.com/watch?v=668nUCeBHyY'}]
+
   // eslint-disable-next-line max-params, require-jsdoc
   constructor(
     private geolocationCont: Geolocation,
     public popoverController: PopoverController,
     private modalController: ModalController,
-    private searcherService: PlacesSearchService
+    private searcherService: PlacesSearchService,
+    private domSanitizer: DomSanitizer 
   ) { }
 
   /**
@@ -65,8 +72,13 @@ export class PlacesSearcherPagePage  {
   searchPlaces() {
     if (this.activeFilters && this.mapBounds && this.mapBounds.northEast && this.mapBounds.southWest) {
       this.searcherService.searchPlaces(this.mapBounds, this.activeFilters)
-          .then(places => {
-            this.places = places;
+          .then(results => {
+            this.places = results[0];            
+            let zoomLevel = results[1];
+            
+            if (zoomLevel > 0) {
+              this.map.setZoom(15-zoomLevel);
+            }
           });
 
       this.lastSearchedPos = this.mapBounds.center;
@@ -74,20 +86,22 @@ export class PlacesSearcherPagePage  {
     }
   }
 
-
-
   /**
    *  User Story ID: M1NC1
    * Loads the preset filters and places
    */
   async ionViewWillEnter() {
+    for(let i of this.arrayOfVideos){
+      this.trustedVideoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(i.vid_link);
+    }
     this.presentModal();
     setTimeout(() => {
       this.modalController.dismiss();
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     }, 2000);
     this.filters = await this.searcherService.getAllWasteTypes();
-    this.activeFilters = [];
+    // this.activeFilters = [];
+    this.activeFilters =  this.filters;
     // this.places = await this.filterByType(this.activeFilters);
     try {
       const geoPosition = await this.geolocationCont.getCurrentPosition();
@@ -201,6 +215,20 @@ export class PlacesSearcherPagePage  {
   }
 
   /**
+   * User Story ID: M1NC1
+   * Presents the modal of help
+   * @param  
+   * @returns 
+   */
+  async presentHelpModal() {
+    const modal = await this.modalController.create({
+      component: HelpPage,
+      swipeToClose: true,
+    });
+    return modal.present();
+  }
+
+  /**
    * User Story ID: M1NC1, M1NC2 y M1NC4
    * Description: Callback to update view mapBounds
    * @param  {} mapBounds
@@ -251,6 +279,13 @@ export class PlacesSearcherPagePage  {
       this.position = DEFAULT_CENTER_COORD;
     }    
     this.map.setCenter(this.position);
+  }
+
+  /**
+   * Triggered when the help button is clicked
+   */
+  onHelpClick(){
+    this.presentHelpModal();
   }
   
 }
