@@ -11,9 +11,9 @@
        
         
         
-        <ion-card *ngIf="eventLoad">
+        <ion-card >
           
-          <ion-img [src]="eventLoad.icon"></ion-img>
+          <ion-img *ngIf="eventLoad.icon" [src]="eventLoad.icon"></ion-img>
           
           
             <ion-card-header>
