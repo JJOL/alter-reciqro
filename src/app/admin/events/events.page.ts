@@ -55,7 +55,7 @@ export class EventsPage implements OnInit {
             this.eventService.getAllEvents().then(events => {
               this.showToast('Se eliminó de manera correcta');
               this.events = events;
-              this.events = this.events.filter(event => event.end_date >= this.todayDate);
+              this.listEvents = this.events.filter(event => event.end_date >= this.todayDate);
             });
           }).catch( () => {
             this.showToastWrong('Error al crear el evento');
