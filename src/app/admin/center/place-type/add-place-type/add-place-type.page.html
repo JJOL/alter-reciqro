@@ -1,11 +1,10 @@
 <app-toolbar title="Agregar Categoría" [backButton]="true" routePath="/admin/center/place-type"></app-toolbar>
 
-<ion-content fullscreen >
+<ion-content fullscreen>
   <ion-grid>
     <ion-row class="ion-justify-content-center">
-      <ion-col size-md = "6" size-sm = "12" >
+      <ion-col size="12" size-sm size-md>
         <ion-card class="ion-justify-content-center" *ngIf="wasteTypes">
-
           <form [formGroup]="newWasteForm" (ngSubmit)="addPlaceType()">
             <ion-card-header>
               <ion-item>
