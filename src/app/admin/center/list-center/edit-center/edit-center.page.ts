@@ -252,7 +252,6 @@ export class EditCenterPage implements OnInit {
   public submit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
       if (!paraMap.has('centerId')) {
-        // redirect
         return;
       }
       const placeId = paraMap.get('centerId');
@@ -260,7 +259,6 @@ export class EditCenterPage implements OnInit {
 
       this.placeService.editPlace(this.newCenterForm.value, placeId)
           .then(() => {
-            // use id
             this.showToast('Lugar editado de manera exitosa');
             this.newCenterForm.reset();
             this.navCtrl.navigateBack(['/admin/center/list-center']);

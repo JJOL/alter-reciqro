@@ -1,5 +1,5 @@
 import { DualIndicatorProvider, IndicatorInstance } from './DualIndicatorProvider';
-import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
+import {  DocumentChangeAction } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as DateUtil from '../../../core/utils/date.util';
@@ -8,6 +8,7 @@ import { SystemService } from 'src/app/core/services/system.service';
 const PLACES_VISITS_KEY = 'visited_places_users';
 
 /**
+ * User Story ID: M1NG6
  * Interface: IndicatorDataBridgeConfig
  * Description: Data configuration parameters for FBDualIndicatorProvider.
  */
@@ -18,11 +19,13 @@ export interface IndicatorDataBridgeConfig {
   };
 
 /**
+ * User Story ID: M1NG6
  * Class: FBDualIndicatorProvider
  * Description: A concrete implementation of a DualIndicatorProvider that works with FireStore
  */
 export class FBSystemDualIndicatorProvider implements DualIndicatorProvider{
 
+  // eslint-disable-next-line require-jsdoc
   constructor(
       private className: string,
       private metricName: string,
@@ -30,7 +33,10 @@ export class FBSystemDualIndicatorProvider implements DualIndicatorProvider{
   ) {}
   
     instances: IndicatorInstance[];
-
+    /**
+     * User Story ID: M1NG6
+     * @param  {()=>void} onMetadaLoadedCb
+     */
     loadMetaData(onMetadaLoadedCb: () => void) {
       this.instances = [{
         name: 'Total',
@@ -38,25 +44,42 @@ export class FBSystemDualIndicatorProvider implements DualIndicatorProvider{
       }];
       onMetadaLoadedCb();
     }
-
+    /**
+     * User Story ID: M1NG6
+     * @returns string
+     */
     getClassName(): string {
       return this.className;
     }
+    /**
+     * User Story ID: M1NG6
+     * @returns string
+     */
     getMetricName(): string {
       return this.metricName;
     }
+    /**
+     * User Story ID: M1NG6
+     */
     getAvailableInstances() {
       return this.instances;
     }
+    /**
+     * User Story ID: M1NG6
+     * @param  {Date} lowerExclusiveDate
+     * @param  {Date} upperExclusiveDate
+     * @param  {IndicatorInstance} instance
+     * @returns Promise
+     */
     calculateGraphData(lowerExclusiveDate: Date, upperExclusiveDate: Date, instance: IndicatorInstance): Promise<number[]> {
-      console.log('GOING TO CALCULATE DATA FOR GIVEN PAREMENTERS:');
-      console.log(`Start: ${lowerExclusiveDate} - End: ${upperExclusiveDate}`);
+      //console.log('GOING TO CALCULATE DATA FOR GIVEN PAREMENTERS:');
+      //console.log(`Start: ${lowerExclusiveDate} - End: ${upperExclusiveDate}`);
 
       let arrNumberOfPoints = this.getDateMonthDistance(lowerExclusiveDate, upperExclusiveDate);
       let frequencyDataArr: number[] = new Array<number>(arrNumberOfPoints);
       for (let i = 0; i < arrNumberOfPoints; i++) frequencyDataArr[i] = 0;
  
-      return new Promise<number[]>((resolve, reject) => {
+      return new Promise<number[]>((resolve) => {
         this.firedb.collection<any>(PLACES_VISITS_KEY)
             .ref.where('date', '>', lowerExclusiveDate).where('date', '<', upperExclusiveDate)
             .get()
@@ -70,6 +93,7 @@ export class FBSystemDualIndicatorProvider implements DualIndicatorProvider{
       });
     }
     /**
+     * User Story ID: M1NG6
      * @param  {Date} date
      * @param  {Date} startDate
      * @returns number
@@ -94,7 +118,7 @@ export class FBSystemDualIndicatorProvider implements DualIndicatorProvider{
         dataArr[monthName] = 0;
       })
 
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         let subscription: Subscription;
         subscription = this.firedb.collection<any>(PLACES_VISITS_KEY)
             .snapshotChanges()

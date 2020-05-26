@@ -22,6 +22,7 @@ export class IndicatorMetricsComponent implements OnInit {
   tableDataArr: { [key: string]: number };
 
   @Input() classMetricsService: DualIndicatorProvider;
+  // eslint-disable-next-line require-jsdoc
   constructor() {}
   /**
    * Description: Performs component data init

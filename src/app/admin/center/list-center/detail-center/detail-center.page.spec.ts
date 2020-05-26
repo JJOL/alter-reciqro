@@ -5,10 +5,8 @@ import { CenterDetailPage } from './detail-center.page';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from, BehaviorSubject, empty } from 'rxjs';
-import { GoogleMapComponent } from 'src/app/shared/google-map/google-map.component';
 import { SharedPageModule } from 'src/app/shared/shared.module';
 import { AuthService } from '../../../../core/services/auth.service';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 const mockAuthentication ={
   registerUser: () => {

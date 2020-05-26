@@ -40,7 +40,7 @@ export class PlacesSearcherPagePage  {
   placeSelected: Place;
   userLoaction:any;
   lastSearchedPos: { lat: number, lng: number};
-  hasMovedAway: boolean = false;
+  hasMovedAway = false;
 
   filters: WasteType[] = [];
   activeFilters: WasteType[] = [];
@@ -66,14 +66,20 @@ export class PlacesSearcherPagePage  {
   ) { }
 
   /**
+   * User Story ID: M1NC1
    * Description: Retrieve Places based on viewed portion of the screen and activated waste filters.
    */
   searchPlaces() {
     if (this.activeFilters && this.mapBounds && this.mapBounds.northEast && this.mapBounds.southWest) {
       this.searcherService.searchPlaces(this.mapBounds, this.activeFilters)
-      .then(places => {
-        this.places = places;
-      });
+          .then(results => {
+            this.places = results[0];            
+            let zoomLevel = results[1];
+            
+            if (zoomLevel > 0) {
+              this.map.setZoom(15-zoomLevel);
+            }
+          });
 
       this.lastSearchedPos = this.mapBounds.center;
       this.hasMovedAway = false;
@@ -94,7 +100,8 @@ export class PlacesSearcherPagePage  {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     }, 2000);
     this.filters = await this.searcherService.getAllWasteTypes();
-    this.activeFilters = [];
+    // this.activeFilters = [];
+    this.activeFilters =  this.filters;
     // this.places = await this.filterByType(this.activeFilters);
     try {
       const geoPosition = await this.geolocationCont.getCurrentPosition();
@@ -105,30 +112,16 @@ export class PlacesSearcherPagePage  {
       this.userLoaction=this.position
     } catch (err) {
       this.position = DEFAULT_CENTER_COORD;
-      console.log("Try catch")
     }    
-    console.log(this.position)
-    this.map.setCenter(this.position);
 
-    
+    this.map.setCenter(this.position);
     
   }
+ 
   /**
+   * User Story ID: M1NC1, M1NC2 y M1NC4
+   * Close modal when it will leave the page
    */
-  // async ngOnChanges(){
-  //   try {
-  //     const geoPosition = await this.geolocationCont.getCurrentPosition();
-  //     this.position = {
-  //       lat: geoPosition.coords.latitude,
-  //       lng: geoPosition.coords.longitude
-  //     }; 
-  //     this.userLoaction=this.position
-  //   } catch (err) {
-  //     this.position = DEFAULT_CENTER_COORD;
-  //   }    
-  //   this.map.setCenter(this.position);
-  // }
-
   ionViewWillLeave() {
     if (this.modal) {
       this.modal.dismiss();
@@ -163,7 +156,11 @@ export class PlacesSearcherPagePage  {
   }
 
 
-  // eslint-disable-next-line require-jsdoc
+  /**
+   * User Story ID: M1NC1, M1NC2 y M1NC4
+   * Emit place when filter changes
+   * @param  {} place
+   */
   emitPlace(place) {
     this.placeSelected = place;
     // eslint-disable-next-line no-console
@@ -180,20 +177,9 @@ export class PlacesSearcherPagePage  {
     }
   }
 
-  /** @deprecated Replaced by searchPlaces()
-   * User Story ID: M1NC2
-   * Consumes places services with the filters
-   * @param  {WasteType[]} filters
-   */
-  // async filterByType(filters: WasteType[]) {
-  //   if (filters.length !== 0) {
-  //     return this.placesService.getIDPlacesTypesByWaste(filters).then(dataplacetype => {
-  //       return this.placesService.getIDPlacesByPlacesType(dataplacetype).then( place => place);
-  //     });
-  //   }
-
-  // }
+  
   /**
+   * User Story ID: M1NC1
    * Sets a Queretaro state viewport 
    */
   viewQro() {
@@ -207,6 +193,8 @@ export class PlacesSearcherPagePage  {
     return false;
   }
   /**
+   * User Story ID: M1NC4
+   * Close when cross is pressed
    */
   close() {
     this.placeSelected = null;
@@ -241,33 +229,42 @@ export class PlacesSearcherPagePage  {
   }
 
   /**
+   * User Story ID: M1NC1, M1NC2 y M1NC4
    * Description: Callback to update view mapBounds
    * @param  {} mapBounds
    */
   onMapCenterChange(mapBounds) {
-    console.log(mapBounds);
     this.mapBounds = mapBounds;
     
     if(this.mapBounds.center && this.lastSearchedPos) {
       let dist = this.dist(this.mapBounds.center, this.lastSearchedPos);
-      console.log(dist);
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       if (dist > 0.005) {
         this.hasMovedAway = true;
       }
     }
     
   }
+  /**
+   * @param  {{lat:number} p1
+   * @param  {number}} lng
+   * @param  {{lat:number} p2
+   * @param  {number}} lng
+   * User Story ID: M1NC1, M1NC2 
+   */
   private dist(p1: {lat:number, lng:number}, p2: {lat:number, lng:number}): number {
     return Math.sqrt(Math.pow((p1.lat-p2.lat),2) + Math.pow((p1.lng-p2.lng),2))
   }
 
   /**
+   * User Story ID: M1NC1
    * Description: Handle for manually searching button
    */
   onSearchHereClick() {
     this.searchPlaces();
   }
   /**
+   * User Story ID: M1NC1, M1NC2 y M1NC4
    * Triggered when the user location is clicked
    */
   async onUserLocationClick(){

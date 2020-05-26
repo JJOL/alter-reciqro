@@ -16,7 +16,6 @@ const DEFAULT_MARKER_PLACER: Place = {
   }
 };
 
-/*tut https://www.youtube.com/watch?v=Yza_59DrRY8*/
 
 @Component({
   selector: 'app-add-center',
@@ -25,12 +24,14 @@ const DEFAULT_MARKER_PLACER: Place = {
 })
 
 /**
+ * User Story ID: M1NG1
  * Class for Angular AddCenterPage module.
  */
 export class AddCenterPage implements OnInit {
   loadedPlacetypes: TipoInstalacion[];
 
   markedPlace: Place[] = [DEFAULT_MARKER_PLACER];
+
   /**
    * User Story ID: M1NG1
    * Function that returns the name field on the add center form.
@@ -170,8 +171,8 @@ export class AddCenterPage implements OnInit {
       latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
       longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
     }),
-    // eslint-disable-next-line max-len
-    latlngdegrees: ['', [Validators.required, Validators.pattern('^(-?\\d+)°(\\d+)\'(\\d+\.?\\d*)\"N\\s(-?\\d+)°(\\d+)\'(\\d+\.?\\d*)\"W$')]],
+    latlngdegrees: ['', [Validators.required, 
+      Validators.pattern('^(-?\\d+)°(\\d+)\'(\\d+\.?\\d*)\"N\\s(-?\\d+)°(\\d+)\'(\\d+\.?\\d*)\"W$')]],
     qrCode: [' '],
     mainPicture: ['https://cdn0.iconfinder.com/data/icons/set-app-incredibles/24/Image-01-512.png'],
     address: this.formBuilder.group({
@@ -200,14 +201,10 @@ export class AddCenterPage implements OnInit {
    * On ngOnInit all places are loaded.
    */
   ngOnInit() {
-
     this.alreadyEditing = false;
-
     this.placeTypeService.allPlaceTypes().then( data => { this.loadedPlacetypes=data });
-
     this.newCenterForm.get('latlngdegrees').valueChanges.subscribe(this.onChangeDegree.bind(this));
     this.newCenterForm.get('latlngdecimal').valueChanges.subscribe(this.onChangeLatLng.bind(this));
-
   }
   
   /**
@@ -291,7 +288,6 @@ export class AddCenterPage implements OnInit {
      
     this.placeTypeService.createPlace(inputPlaceObj)
         .then(() => {
-          // use id
           this.showToast('Lugar creado de manera exitosa');
           this.newCenterForm.reset();
           this.router.navigate(['/admin/center/list-center']);
@@ -312,7 +308,9 @@ export class AddCenterPage implements OnInit {
       duration: 2000,
       position: 'middle',
       color: 'success'
-    }).then(toast => toast.present());
+    }).then(toast => toast.present()).catch(() => {
+      this.showToast('Error al cargar el toast');
+    });
   }
 }
 

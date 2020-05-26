@@ -45,7 +45,7 @@ export class CenterDetailPage implements OnInit {
   /**
    * User Story ID: M1NG5
    * Loads the current center
-   * Whenever the pages gets called, we load the detail of the place.
+   * Whenever the pages gets called, it loads the detail of the place.
    */
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
@@ -106,7 +106,7 @@ export class CenterDetailPage implements OnInit {
 
   /**
    * User Story ID: M1NG3
-   * This function warns the user before deleting a place with an alert
+   * Warns the user before deleting a place with an alert
    */
   onDeletePlace() {
     this.alertCtrl.create ({

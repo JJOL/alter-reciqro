@@ -1,5 +1,5 @@
 import { DualIndicatorProvider, IndicatorInstance } from './DualIndicatorProvider';
-import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
+import {  DocumentChangeAction } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SystemService } from 'src/app/core/services/system.service';
@@ -7,6 +7,7 @@ import { SystemService } from 'src/app/core/services/system.service';
 const PLACES_VISITS_KEY = 'visited_places_users';
 
 /**
+ * User Story ID: M1NG6
  * Interface: IndicatorDataBridgeConfig
  * Description: Data configuration parameters for FBDualIndicatorProvider.
  */
@@ -17,6 +18,7 @@ export interface IndicatorDataBridgeConfig {
   };
 
 /**
+ * User Story ID: M1NG6
  * Class: FBDualIndicatorProvider
  * Description: A concrete implementation of a DualIndicatorProvider that works with FireStore
  */
@@ -25,6 +27,7 @@ export class FBDualIndicatorProvider implements DualIndicatorProvider{
   instances: IndicatorInstance[];
   instanceIdNameMap: { [key: string]: string };
 
+  // eslint-disable-next-line require-jsdoc
   constructor(
       private className: string,
       private metricName: string,
@@ -32,6 +35,10 @@ export class FBDualIndicatorProvider implements DualIndicatorProvider{
       private firedb: SystemService
   ) {}
   
+  /**
+   * User Story ID: M1NG6
+   * @param  {()=>void} onMetadaLoadedCb
+   */
   loadMetaData(onMetadaLoadedCb: () => void) {
     let subscription: Subscription;
     subscription = this.firedb.collection(this.dataConfig.collectionKey)
@@ -53,21 +60,38 @@ export class FBDualIndicatorProvider implements DualIndicatorProvider{
           onMetadaLoadedCb();
         });
   }
-
+  /**
+   * User Story ID: M1NG6
+   * @returns string
+   */
   getClassName(): string {
     return this.className;
   }
+  /**
+   * User Story ID: M1NG6
+   * @returns string
+   */
   getMetricName(): string {
     return this.metricName;
   }
+  /**
+   * User Story ID: M1NG6
+   */
   getAvailableInstances() {
     return this.instances;
   }
+  /**
+   * User Story ID: M1NG6
+   * @param  {Date} lowerExclusiveDate
+   * @param  {Date} upperExclusiveDate
+   * @param  {IndicatorInstance} instance
+   * @returns Promise
+   */
   calculateGraphData(lowerExclusiveDate: Date, upperExclusiveDate: Date, instance: IndicatorInstance): Promise<number[]> {
-    console.log('GOING TO CALCULATE DATA FOR GIVEN PAREMENTERS:');
-    console.log(`Instance Name: ${instance.name}`);
-    console.log(`Start: ${lowerExclusiveDate} - End: ${upperExclusiveDate}`);
-    console.log(`Lookup Id Attribute: ${this.dataConfig.idAttribute}`);
+  // console.log('GOING TO CALCULATE DATA FOR GIVEN PAREMENTERS:');
+  // console.log(`Instance Name: ${instance.name}`);
+  // console.log(`Start: ${lowerExclusiveDate} - End: ${upperExclusiveDate}`);
+  // console.log(`Lookup Id Attribute: ${this.dataConfig.idAttribute}`);
     let arrNumberOfPoints = this.getDateMonthDistance(lowerExclusiveDate, upperExclusiveDate);
     let frequencyDataArr: number[] = new Array<number>(arrNumberOfPoints);
     for (let i = 0; i < arrNumberOfPoints; i++) frequencyDataArr[i] = 0;
@@ -76,7 +100,7 @@ export class FBDualIndicatorProvider implements DualIndicatorProvider{
       
       
  
-    return new Promise<number[]>((resolve, reject) => {
+    return new Promise<number[]>((resolve) => {
       this.firedb.collection<any>(PLACES_VISITS_KEY)
           .ref.where(this.dataConfig.idAttribute, '==', instance.id)
           .where('date', '>', lowerExclusiveDate).where('date', '<', upperExclusiveDate)
@@ -86,19 +110,20 @@ export class FBDualIndicatorProvider implements DualIndicatorProvider{
               let visit = doc.data();
               frequencyDataArr[this.getDateMonthDistance(lowerExclusiveDate, visit.date.toDate())] += 1;
             });
-            console.log('Calculated Data:');
+            //console.log('Calculated Data:');
           
-            console.log(frequencyDataArr);
+            //console.log(frequencyDataArr);
           
             resolve(frequencyDataArr);
           });
     });
   }
   /**
-     * @param  {Date} date
-     * @param  {Date} startDate
-     * @returns number
-     */
+   * User Story ID: M1NG6
+   * @param  {Date} date
+   * @param  {Date} startDate
+   * @returns number
+   */
   getDateMonthDistance(startDate: Date, date: Date): number {
     let y0 = startDate.getFullYear(),
       m0 = startDate.getMonth(),
@@ -116,7 +141,7 @@ export class FBDualIndicatorProvider implements DualIndicatorProvider{
     let dataArr: { [key: string]: number } = {};
     this.instances.forEach( inst => { dataArr[inst.name] = 0; })
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       let subscription: Subscription;
       subscription = this.firedb.collection<any>(PLACES_VISITS_KEY)
           .snapshotChanges()
@@ -141,39 +166,3 @@ export class FBDualIndicatorProvider implements DualIndicatorProvider{
   }
   
 }
-
-//     // Implementation Using Firestore Queries
-//     let startDate = new Date(lowerExclusiveDate);
-//     let promisesArray: Promise<any>[] = [];
-//     for (let i = 0; i < arrNumberOfPoints; i++) {
-
-//         let nextDate = new Date(startDate);
-//         nextDate.setMonth(startDate.getMonth()+1);
-
-//         promisesArray.push(
-//         this.firedb.collection('visits_places_user').ref
-//             .where('place_id', '==', instance.id)      // TODO: Hacer chequeo dinamico dependiendo del tipo de instancia
-//             .where('date', '>', startDate).where('date', '<', nextDate)
-//             .get()
-//             .then(snapshot => {
-//                 frequencyDataArr[i] = snapshot.size;
-//             }));
-
-//         startDate = nextDate;
-//     } 
-//     return Promise.all(promisesArray).then(() => frequencyDataArr);
-        
-//     // Implementacion pura usando logica avida
-//     // return new Promise<number[]>((resolve, reject) => {
-//     //     this.firedb.collection<any>('visits_places_user').snapshotChanges()
-//     //     .subscribe(snapshot => {
-//     //         snapshot
-//     //         .map(el => el.payload.doc.data())
-//     //         .forEach(visit => {
-//     //             if (visit.place_id == instance.id && this.isExclusiveBetween(visit.date, lowerExclusiveDate, upperExclusiveDate)) {
-//     //                 frequencyDataArr[this.getDateMonthDistance(lowerExclusiveDate, visit.date)] += 1;
-//     //             }
-//     //         })
-//     //         resolve(frequencyDataArr);
-//     //     });
-//     // });

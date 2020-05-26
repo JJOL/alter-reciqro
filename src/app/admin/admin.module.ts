@@ -23,4 +23,5 @@ import { NgxPaginationModule } from 'ngx-pagination';
   ],
   declarations: [AdminPage]
 })
+// eslint-disable-next-line require-jsdoc
 export class AdminPageModule {}
