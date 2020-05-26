@@ -16,10 +16,10 @@ const MAXLENGTH = 100;
  */
 export class AddPage implements OnInit {
 
-  startHourFlag: boolean = false;
-  endHourFlag: boolean = false;
+  startHourFlag = false;
+  endHourFlag = false;
 
-// eslint-disable-next-line require-jsdoc, max-params
+  // eslint-disable-next-line require-jsdoc, max-params
   constructor(
     private eventService: EventsService,
     private activatedRoute: ActivatedRoute,
@@ -212,6 +212,7 @@ export class AddPage implements OnInit {
   }
 
   /**
+   * User Story ID: M4NG2
    * Method that is used by the form when all the information has benn entered
    */
   submit() {
@@ -226,11 +227,12 @@ export class AddPage implements OnInit {
   }
 
   /**
+   * User Story ID: M4NG2
    * Method to know checkbox state for the start hour
    * @param  {} e
    */
   startHourFunction(e) {
-    if (true == e.currentTarget.checked){
+    if (true === e.currentTarget.checked){
       this.startHourFlag = true;
       this.editEventForm.get('startHour').setValidators(Validators.required);
     }
@@ -243,11 +245,12 @@ export class AddPage implements OnInit {
   }
 
   /**
+   * User Story ID: M4NG2
    * Method to know checkbox state for the start hour
    * @param  {} e
    */
   endHourFunction(e) {
-    if (true == e.currentTarget.checked){
+    if (true === e.currentTarget.checked){
       this.endHourFlag = true;
       this.editEventForm.get('endHour').setValidators(Validators.required);
     }

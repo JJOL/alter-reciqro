@@ -60,8 +60,8 @@ export class PlaceTypePage implements OnInit {
 
   /**
    * User Story Id: M1NG10
-   * Method that calles the deletePlaceTypeByID method form the service PlacesService to delete
-   * gitan existing Place Type and its relations to the waste types
+   * Calls the deletePlaceTypeByID method from the service PlacesService to delete a
+   * existing Place Type and its relations to the waste types
    * @param {string} placeTypeId
    * @param {string} name
    * @returns 
@@ -103,7 +103,7 @@ export class PlaceTypePage implements OnInit {
                     this.placesService.deletePlaceWasteType(item.id);
                   }
                 });
-                this.placesService.allPlaceTypes().then( data => { this.placeTypes = data; });
+                this.placesService.allPlaceTypes().then( data => { this.listplaceTypes = data; });
               })
                   .catch(() => {});
             }
@@ -120,7 +120,7 @@ export class PlaceTypePage implements OnInit {
    * This function retrieves all place types that have the name searched
    */
   searchByName(event){
-    event.detail.value.length == 0 ? this.listplaceTypes = this.placeTypes:
+    0 === event.detail.value.length ? this.listplaceTypes = this.placeTypes:
     this.listplaceTypes = this.placeTypes.filter( placeType => {
       return placeType.name.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
     })
