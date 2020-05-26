@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
 import { MetricsPage } from './metrics.page';
 import { IndicatorMetricsComponent } from './indicator-metrics/indicator-metrics.component';
 import { IndicatorGraphComponent } from './indicator-graph/indicator-graph.component';
@@ -74,7 +73,8 @@ describe('MetricsPage', () => {
   let fixture: ComponentFixture<MetricsPage>;
 
   beforeEach(async(() => {
-    let metricsServiceMock = jasmine.createSpyObj('MetricsPageService', ['getPlacesMetricsProvider', 'getDelegationsMetricsProvider', 'getSystemMetricsProvider']);
+    let metricsServiceMock = jasmine.createSpyObj('MetricsPageService', 
+        ['getPlacesMetricsProvider', 'getDelegationsMetricsProvider', 'getSystemMetricsProvider']);
     TestBed.configureTestingModule({
       declarations: [ MetricsPage, IndicatorMetricsComponent, IndicatorGraphComponent, IndicatorTableComponent],
       imports: [IonicModule.forRoot(), FormsModule, SharedPageModule, RouterTestingModule],
@@ -92,6 +92,7 @@ describe('MetricsPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
   it('#ngInit() should call get metrics providers', () => {
     let pageService: jasmine.SpyObj<MetricsPageService> = TestBed.get(MetricsPageService);
     expect(pageService.getPlacesMetricsProvider.calls.count()).toBe(1);

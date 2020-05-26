@@ -7,7 +7,8 @@ import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.com
 import { PopoverController, ModalController } from '@ionic/angular';
 import { SplashscreenPage } from '../splashscreen/splashscreen.page';
 import { PlacesSearchService } from 'src/app/core/services/places-search.service';
-
+import { HelpPage } from '../help/help.page';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 const DEFAULT_CENTER_COORD = { 
   lat: 20.588772, 
@@ -19,6 +20,8 @@ const DEFAULT_CENTER_COORD = {
   templateUrl: './places-searcher-page.page.html',
   styleUrls: ['./places-searcher-page.page.scss'],
 })
+
+
 
 /**
  * Place Searcher Page is in charge of handling filters,map view and map markers, so that the user
@@ -50,12 +53,16 @@ export class PlacesSearcherPagePage  {
 
   @Output() changeView = new EventEmitter();
 
+  trustedVideoUrl: SafeResourceUrl;
+  arrayOfVideos = [{vid_link:'https://www.youtube.com/watch?v=668nUCeBHyY'}]
+
   // eslint-disable-next-line max-params, require-jsdoc
   constructor(
     private geolocationCont: Geolocation,
     public popoverController: PopoverController,
     private modalController: ModalController,
-    private searcherService: PlacesSearchService
+    private searcherService: PlacesSearchService,
+    private domSanitizer: DomSanitizer 
   ) { }
 
   /**
@@ -73,13 +80,14 @@ export class PlacesSearcherPagePage  {
     }
   }
 
-
-
   /**
    *  User Story ID: M1NC1
    * Loads the preset filters and places
    */
   async ionViewWillEnter() {
+    for(let i of this.arrayOfVideos){
+      this.trustedVideoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(i.vid_link);
+    }
     this.presentModal();
     setTimeout(() => {
       this.modalController.dismiss();
@@ -219,6 +227,20 @@ export class PlacesSearcherPagePage  {
   }
 
   /**
+   * User Story ID: M1NC1
+   * Presents the modal of help
+   * @param  
+   * @returns 
+   */
+  async presentHelpModal() {
+    const modal = await this.modalController.create({
+      component: HelpPage,
+      swipeToClose: true,
+    });
+    return modal.present();
+  }
+
+  /**
    * Description: Callback to update view mapBounds
    * @param  {} mapBounds
    */
@@ -260,6 +282,13 @@ export class PlacesSearcherPagePage  {
       this.position = DEFAULT_CENTER_COORD;
     }    
     this.map.setCenter(this.position);
+  }
+
+  /**
+   * Triggered when the help button is clicked
+   */
+  onHelpClick(){
+    this.presentHelpModal();
   }
   
 }

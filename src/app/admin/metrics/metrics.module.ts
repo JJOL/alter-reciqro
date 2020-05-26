@@ -21,4 +21,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
   ],
   declarations: [MetricsPage, IndicatorMetricsComponent, IndicatorGraphComponent, IndicatorTableComponent]
 })
+/**
+ * Exporting class so it is externally accessible.
+ */
 export class MetricsPageModule {}

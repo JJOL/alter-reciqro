@@ -18,7 +18,10 @@ export class MetricsPage implements OnInit {
   placesMetricsService: DualIndicatorProvider;
   delegationMetricsService: DualIndicatorProvider;
   systemMetricsService: DualIndicatorProvider;
-
+  /**
+   * Constructor for the metrics class.
+   * @param  {MetricsPageService} privatemetricsPageService
+   */
   constructor(
       private metricsPageService: MetricsPageService
   ) { }
