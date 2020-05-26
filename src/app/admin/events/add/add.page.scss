@@ -29,3 +29,19 @@ ion-title {
 ion-label{
 	color: #0f2252 !important;
 }
+
+.gMap{
+	min-height: 380px !important;
+}
+
+@media only screen and (max-device-width : 640px) {
+	.gMap{
+		min-height: 300px !important;
+	}
+}
+	
+@media only screen and (max-device-width: 768px) {
+	.gMap{
+		min-height: 300px !important;
+	}
+}
