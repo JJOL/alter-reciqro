@@ -10,6 +10,7 @@ import { EventModel } from 'src/app/core/models/event.model';
   providers: [DatePipe]
 })
 /**
+ * User Story ID: M2NC1
  * Event page class, provides methods for Angular loading.
 */
 export class EventsPage implements OnInit {

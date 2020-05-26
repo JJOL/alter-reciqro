@@ -23,17 +23,17 @@ const mockPlacesService = {
     return [];
   },
   getIDPlacesTypesByWaste : () => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       resolve([]);
     });
   },
   getIDPlacesByPlacesType: () => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       resolve([]);
     });
   },
   getAllWasteTypes: () => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       resolve([]);
     });
   },
@@ -41,7 +41,7 @@ const mockPlacesService = {
 
 const mockGeolocation = {
   getCurrentPosition: () => {
-    return new Promise((res, rej) => {
+    return new Promise((res) => {
       res({
         coords: {
           latitude: 4,

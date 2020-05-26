@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, IonRouterOutlet } from '@ionic/angular';
 import { ModalBannerPage } from './modal-banner/modal-banner.page'
 import { InfoBannerService } from '../../../core/services/info-banner.service';
 import { InfoBanner } from '../../../core/models/info-banner.model';
@@ -30,7 +30,7 @@ export class BannerPage implements OnInit {
    */
   constructor(
     private modalController: ModalController,
-    private bannerService: InfoBannerService,
+    private bannerService: InfoBannerService
   ) {
     this.bannerService.getAllInfoBanners().then( data => {
       this.banners = data;

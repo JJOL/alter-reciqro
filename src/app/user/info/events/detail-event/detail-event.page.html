@@ -23,8 +23,8 @@
             <ion-card-content>
             <p> {{ eventLoad.description }} </p>
             <br>
-            <a [href]="eventLoad.link" target="_blank">Más información</a>
-            <br><br>
+            <a *ngIf="eventLoad.link" [href]="eventLoad.link" target="_blank">Más información</a>
+            <br *ngIf="eventLoad.link"><br *ngIf="eventLoad.link">
             <h4> <strong> Fecha de inicio del evento: </strong> </h4>
             <p> {{ startDate }} </p>
             <br>

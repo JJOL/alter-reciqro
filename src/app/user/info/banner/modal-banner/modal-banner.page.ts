@@ -9,7 +9,7 @@ import { ModalController } from '@ionic/angular';
 })
 
 /**
-   * User Story Id: M2NC5
+   * User Story Id: M2NC4
    * Allows the ModalBannerPage to be available for imports
    * @param  
    * @returns 
@@ -34,7 +34,7 @@ export class ModalBannerPage implements OnInit {
   }
 
   /**
-   * User Story Id: M2NC5
+   * User Story Id: M2NC4
    * Fuction that is executed when the page instantiated
    * @param  
    * @returns 
@@ -43,7 +43,7 @@ export class ModalBannerPage implements OnInit {
   }
 
   /**
-   * User Story Id: M2NC5
+   * User Story Id: M2NC4
    * Fuction that is executed for dismissing the modal
    * @param  
    * @returns 

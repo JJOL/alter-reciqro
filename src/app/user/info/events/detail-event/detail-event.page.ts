@@ -49,7 +49,7 @@ export class DetailEventPage implements OnInit {
 
   
   /**
-   * User Story ID: M2NC3,M2NC5
+   * User Story ID: M2NC5
    * Gets the current event ID and loads such event
    */
   ngOnInit() {
@@ -124,6 +124,8 @@ export class DetailEventPage implements OnInit {
 
 
   /**
+   * User Story ID: M2NC7
+   * Method to get interested in an event
    * Method to know checkbox state
    * @param  {} e
    */

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, IonRouterOutlet } from '@ionic/angular';
 import { BannerPage } from './banner.page';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockAngularFirestore } from 'src/app/core/services/mocks/firestore.mock';
@@ -10,6 +10,8 @@ import { empty, BehaviorSubject } from 'rxjs';
 import { InfoBannerService } from 'src/app/core/services/info-banner.service';
 import { ModalBannerPageModule } from './modal-banner/modal-banner.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ViewContainerRef } from '@angular/core';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 const mockBannerService = jasmine.createSpyObj('bannerService', ['getAllInfoBanners']);
 
@@ -88,7 +90,7 @@ describe('BannerPage', () => {
       providers: [
         { provide: AngularFirestore, useValue: MockAngularFirestore },
         { provide: AuthService, useValue: mockAuthentication },
-        { provide: InfoBannerService, useValue: mockBannerService }
+        { provide: InfoBannerService, useValue: mockBannerService } 
       ]
     }).compileComponents();
 
