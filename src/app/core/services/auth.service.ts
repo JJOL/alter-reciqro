@@ -55,7 +55,9 @@ export class AuthService {
    */
   getUserMail() {
     let user = this.afAuth.auth.currentUser;
-    return user.email;
+    if (user) {
+      return user.email;
+    } else { return ''; }
   }
 
 

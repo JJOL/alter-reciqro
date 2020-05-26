@@ -15,6 +15,6 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 /**
- * Exporting the class so it is externally accessible.
+ * Exporting class so it is externally accesible.
  */
 export class DetailPageRoutingModule {}
