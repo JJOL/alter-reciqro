@@ -3,7 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { InfoBannerService } from 'src/app/core/services/info-banner.service';
 import { BannerPopUpPage } from './banner-pop-up/banner-pop-up.page'
 import { InfoBanner } from '../../core/models/info-banner.model';
-
+import { IonRouterOutlet } from '@ionic/angular';
 @Component({
   selector: 'app-info',
   templateUrl: './info.page.html',
@@ -26,7 +26,7 @@ export class InfoPage implements OnInit {
    */
   constructor(
     private modalController: ModalController,
-    private bannerService: InfoBannerService,
+    private bannerService: InfoBannerService
   ) {
     let date = new Date().toISOString();
     let argDate: string[];

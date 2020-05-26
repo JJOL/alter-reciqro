@@ -55,7 +55,9 @@ export class LoginPage {
 
   });
 
-  // eslint-disable-next-line require-jsdoc
+  /** 
+   *  User Story ID: M4NC2
+   * */
   constructor(public afAuth: AngularFireAuth,
               private router: Router,
               private authService: AuthService,
