@@ -96,14 +96,15 @@ export class DetailEventPage implements OnInit {
           this.eventId = paraMap.get('eventId');
           this.email = this.authService.getUserMail();
           this.eventLoad = res;
-          this.userEventService.getUserEventByID(this.eventId, this.email).then(interested => {
-            if (interested) {
-              this.interested = true;
-            } else {
-              this.interested = false;
-            }
-          });
-
+          if (this.email !== '') {
+            this.userEventService.getUserEventByID(this.eventId, this.email).then(interested => {
+              if (interested) {
+                this.interested = true;
+              } else {
+                this.interested = false;
+              }
+            });
+          }
         });
         this.eventService.getEventByID(this.eventId).then(res => {
 
@@ -138,7 +139,10 @@ export class DetailEventPage implements OnInit {
         message: 'Al hacer click, usted esta aceptando recibir información sobre el evento (en caso de que se cancelara o algún cambio) vía correo',
         buttons: [{
           text: 'Cancelar',
-          role: 'cancel'},
+          role: 'cancel',
+          handler: () => {
+            this.interested = !this.interested;
+          } },
         {
           text: 'Aceptar',
           handler: () => {
@@ -158,7 +162,10 @@ export class DetailEventPage implements OnInit {
         message: 'Al hacer click, usted esta aceptando YA NO recibirá información sobre el evento vía correo',
         buttons: [{
           text: 'Cancelar',
-          role: 'cancel'},
+          role: 'cancel',
+          handler: () => {
+            this.interested = !this.interested;
+          }},
         {
           text: 'Aceptar',
           handler: () => {

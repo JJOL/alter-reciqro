@@ -50,8 +50,8 @@
                 <ion-col  >
                   <ion-button color="primary" size="default" *ngIf="eventLoad" href="https://www.google.com/maps/dir//{{eventLoad.location.lat}},{{eventLoad.location.lng}}/@{{eventLoad.location.lat}},{{eventLoad.location.lng}},17z" target="_blank">Ver en Mapa </ion-button> 
                 </ion-col> 
-                  <ion-button fill="outline" size="default" *ngIf='email'>
-                    <ion-checkbox [(ngModel)]="interested" (click)="addValue($event)"></ion-checkbox>
+                  <ion-button  (click)="addValue($event)" fill="outline" size="default" *ngIf='email'>
+                    <ion-checkbox [(ngModel)]="interested" ></ion-checkbox>
                     <ion-label>Interesado</ion-label>
                   </ion-button>
               </ion-row>
