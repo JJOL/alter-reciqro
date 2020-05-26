@@ -5,7 +5,6 @@ import { PlacesService } from 'src/app/core/services/places.service';
 import { Place } from 'src/app/core/models/place.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 
-
 declare const QRCode: any;
 const QR_RENDER_DELAY = 1000;
 

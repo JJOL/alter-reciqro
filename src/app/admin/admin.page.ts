@@ -32,12 +32,11 @@ export class AdminPage implements OnInit {
    * Loads the users
    */
   ngOnInit() {
-    const arr: Array<{id: number, text: string}> = [];
-    this.adminService.getAllAdministrators().then(admin => {
-      this.admins = admin;
-      if( this.admins != undefined){
+    this.adminService.getAllAdministrators().then(admins => {
+      this.admins = admins;
+      if( this.admins !== undefined){
         this.staffs = this.admins.filter( staff => {
-          return staff.roles.indexOf('staff') !== -1 && staff.roles.indexOf('admin') == -1;
+          return staff.roles.indexOf('staff') !== -1 && -1 === staff.roles.indexOf('admin');
         });
         this.liststaff = this.staffs;
       }
@@ -50,14 +49,14 @@ export class AdminPage implements OnInit {
    */
   onAddAdmin(id: string) {
     this.adminService.addAdministratorUser(id).then( () => {
-      this.adminService.getAllAdministrators().then( admin => { 
-        this.admins = admin;
+      this.adminService.getAllAdministrators().then( admins => { 
+        this.admins = admins;
         if( this.admins !== undefined){
           this.users = this.users.filter( user => {
-            return user.id != id;
+            return user.id !== id;
           });
           this.staffs = this.admins.filter( staff => {
-            return staff.roles.indexOf('staff') !== -1 && staff.roles.indexOf('admin') == -1;
+            return staff.roles.indexOf('staff') !== -1 && -1 === staff.roles.indexOf('admin');
           });
           this.liststaff = this.staffs;
         }
@@ -75,35 +74,34 @@ export class AdminPage implements OnInit {
         this.admins = admin;
         if( this.admins !== undefined){
           this.staffs = this.admins.filter( staff => {
-            return staff.roles.indexOf('staff') !== -1 && staff.roles.indexOf('admin') == -1;
+            return staff.roles.indexOf('staff') !== -1 && -1 === staff.roles.indexOf('admin');
           });
           this.liststaff = this.staffs;
         }
-       } );
+      });
     });
   }
 
 
   /**
    * User Story ID: M4NG4
-   * Description: Query Users by Email to potentially promote one of them
+   * Description: Query Users by Name to potentially promote one of them
    * @param event
    */
   searchUsersByAlias(event) {
     let searchVal: string = event.detail.value.trim();
     if (searchVal.length > 0) {
-      console.log(searchVal);
       
       this.adminService.searchUsersByAlias(searchVal)
-      .then(data => {
-        this.users = data;
-        this.users = this.users.filter( user => {
-          return user.roles.indexOf('user') !== -1 && user.roles.indexOf('staff') == -1;
-        });
-      })
-      .catch(err => {
-        this.users = [];
-      });
+          .then(users => {
+            this.users = users;
+            this.users = this.users.filter( user => {
+              return user.roles.indexOf('user') !== -1 && -1 === user.roles.indexOf('staff');
+            });
+          })
+          .catch(() => {            
+            this.users = [];
+          });
     } else {
       this.users = [];
     }
@@ -114,7 +112,7 @@ export class AdminPage implements OnInit {
    * This function retrieves all staff users that have the name searched
    */
   searchByNameStaff(event){
-    event.detail.value.length == 0 ? this.liststaff = this.staffs:
+    0 === event.detail.value.length ? this.liststaff = this.staffs:
     this.liststaff = this.staffs.filter( staff => {
       return staff.alias.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
     })

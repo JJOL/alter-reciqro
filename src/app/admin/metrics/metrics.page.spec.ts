@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
 import { MetricsPage } from './metrics.page';
 import { IndicatorMetricsComponent } from './indicator-metrics/indicator-metrics.component';
 import { IndicatorGraphComponent } from './indicator-graph/indicator-graph.component';
@@ -93,6 +92,7 @@ describe('MetricsPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
   it('#ngInit() should call get metrics providers', () => {
     let pageService: jasmine.SpyObj<MetricsPageService> = TestBed.get(MetricsPageService);
     expect(pageService.getPlacesMetricsProvider.calls.count()).toBe(1);

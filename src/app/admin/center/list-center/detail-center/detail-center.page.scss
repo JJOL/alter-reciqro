@@ -12,6 +12,16 @@ ion-title {
 	text-align: center;
 }
 
+ion-card-title{
+	font-weight: bolder;
+}
+
+.class{
+	width: 90%;
+	display:block;
+    margin: 0 auto;
+}
+
 .error-message{
 	color: var(--ion-color-danger);
 }

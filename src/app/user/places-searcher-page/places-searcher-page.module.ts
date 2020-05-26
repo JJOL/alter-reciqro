@@ -10,7 +10,9 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
 import { SplashscreenPageModule } from '../splashscreen/splashscreen.module';
 import { SplashscreenPage } from '../splashscreen/splashscreen.page';
-// import { TooltipsModule } from 'ionic-tooltips';
+import { HelpPageModule } from '../help/help.module';
+import { HelpPage } from '../help/help.page';
+
 @NgModule({
   imports: [
     // TooltipsModule.forRoot(),
@@ -20,12 +22,13 @@ import { SplashscreenPage } from '../splashscreen/splashscreen.page';
     PlacesSearcherPagePageRoutingModule,
     SharedPageModule,
     SplashscreenPageModule,
+    HelpPageModule,
   ],
   declarations: [PlacesSearcherPagePage, MarkerCardComponent],
   providers: [
     Geolocation
   ],
-  entryComponents: [FilterMenuComponent, SplashscreenPage]
+  entryComponents: [FilterMenuComponent, SplashscreenPage, HelpPage]
 })
 // eslint-disable-next-line require-jsdoc
 export class PlacesSearcherPagePageModule {}

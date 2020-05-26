@@ -2,43 +2,37 @@
 <app-toolbar *ngIf='loadedPlace' title='{{ loadedPlace.name }}' [backButton]="true" routePath="/admin/center/list-center"></app-toolbar>
 <ion-content>
   <ion-grid>
-
     <ion-row>
-
       <ion-col size="12" size-sm size-md  *ngIf="loadedPlace">
-
+        <div class="class">
         <ion-card *ngIf="loadedPlace">
-          <ion-img [src]="loadedPlace.photo" style='width: fit-content;height: fit-content;'></ion-img>
+          <ion-img [src]="loadedPlace.photo" style="width:50%"></ion-img>
           <ion-card-header>
-            <ion-card-subtitle>{{ loadedPlace.address }}</ion-card-subtitle>
-            <ion-card-title>{{ loadedPlace.name }}</ion-card-title>
+            <ion-card-title class="class">{{ loadedPlace.name }}</ion-card-title>
           </ion-card-header>
-        
-          <ion-card-content>
-            
-            <p> {{ loadedPlace.description }} </p>
+
+          <ion-card-content class="class">
+            <p> 
+              <strong>Dirección:</strong> {{ loadedPlace.address }} CP: {{ loadedPlace.postal_code }}
+              <br><br>
+              <strong>Descripción:</strong> {{ loadedPlace.description }}
+              <br><br>
+              <strong>Horario:</strong> {{ loadedPlace.schedule }}
+              <br><br>
+              <strong>Tipo de Instalación:</strong> {{ loadedPlaceType.name }}
+            </p>
             <br>
-            <p> Horario: {{ loadedPlace.schedule }} </p>
-            <br>
-            <h4> <strong> Código QR: </strong> </h4>
-            <p> {{ loadedPlace.qr_code }} </p>
+            <strong>Código QR:</strong>
+            <br><br>
+            {{ loadedPlace.qr_code }}
             <div #qrCodeElement (ready)="renderQRImage()"></div>
-            <br>
-            <h4> <strong> Código Postal: </strong> </h4>
-            <p> {{ loadedPlace.postal_code }} </p>
-            <br>
-            <h4> <strong> Tipo de Instalación: </strong> </h4>
-            <p *ngIf="!loadedPlaceType"> ¡Error! No se pudo cargar el tipo de lugar, verificarlo</p>
-            <p *ngIf="loadedPlaceType"> {{ loadedPlaceType.name }} </p>
           </ion-card-content>
         </ion-card>
+        </div>
       </ion-col>
-
       <ion-col size="12" size-sm size-md class="gMap">
-        <app-shared-google-map #mapElement [center]="position" [editable]="false" [max]="1" [places]="[loadedPlace]"></app-shared-google-map>
+          <app-shared-google-map #mapElement [center]="position" [editable]="false" [max]="1" [places]="[loadedPlace]"></app-shared-google-map>
       </ion-col>
-      
     </ion-row>
-
   </ion-grid>
 </ion-content>
