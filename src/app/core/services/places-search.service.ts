@@ -121,7 +121,7 @@ export class PlacesSearchService {
     // console.log(`Used Radius: ${radius}`);
 
     let subscription: Subscription;
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
 
 
       let places = firebaseApp.firestore().collection(PLACE_KEY);
@@ -212,7 +212,7 @@ export class PlacesSearchService {
    * @returns Promise
    */
   private loadPlaceTypes(): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
 
       const subscription = this.firedb.collection<any>(PLACE_TYPE_KEY).snapshotChanges()
           .pipe(
@@ -246,7 +246,7 @@ export class PlacesSearchService {
    * @returns Promise
    */
   private populatePlaceTypesWithAcceptedWastes(): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const subscription = this.firedb.collection<any>(PLACE_TYPE_WASTE_TYPE).snapshotChanges()
           .pipe(
               map(fbsnap => {

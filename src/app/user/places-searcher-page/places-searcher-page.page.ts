@@ -68,7 +68,6 @@ export class PlacesSearcherPagePage  {
           .then(results => {
             this.places = results[0];            
             let zoomLevel = results[1];
-            console.log(`Zoom Level: ${zoomLevel}`);
             
             if (zoomLevel > 0) {
               this.map.setZoom(15-zoomLevel);
