@@ -15,8 +15,7 @@ import { BannerPopUpPageModule } from './banner-pop-up/banner-pop-up.module';
     IonicModule,
     InfoPageRoutingModule,
     SharedPageModule,
-    BannerPopUpPageModule,
-    IonRouterOutlet
+    BannerPopUpPageModule
   ],
   declarations: [InfoPage],
   entryComponents: [BannerPopUpPage]
