@@ -20,4 +20,7 @@ import {SharedPageModule} from '../../../shared/shared.module';
   ],
   declarations: [AddPage]
 })
+/**
+ * Exporting the class so it is externally accessible.
+ */
 export class AddPageModule {}

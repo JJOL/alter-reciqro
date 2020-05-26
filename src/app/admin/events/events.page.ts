@@ -110,7 +110,7 @@ export class EventsPage implements OnInit {
    * This function retrieves all waste types that have the name searched
    */
   searchByName(event){
-    event.detail.value.length == 0 ? this.listEvents = this.events:
+    0 === event.detail.value.length ? this.listEvents = this.events:
     this.listEvents = this.events.filter( infoBanner => {
       return infoBanner.name.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
     })
