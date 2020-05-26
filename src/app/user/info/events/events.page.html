@@ -9,7 +9,8 @@
                         <ion-img [src]="event.icon"></ion-img>
                         <h2>{{ event.name }}</h2>
                         <p>{{ event.description }}</p>
-                        <a [href]="event.link" target="_blank">Más información</a>
+
+                        <a [routerLink]="['/user/info/events/detail-event', event.id]" >Ver detalle</a>
                     </ion-col>
                 </ion-row>
             </ion-grid>
