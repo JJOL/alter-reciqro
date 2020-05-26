@@ -34,6 +34,7 @@ export class PlacesSearchService {
   private loadedPlaceTypes = false;
   private populdatedPlaceTypes = false;
   
+  // eslint-disable-next-line require-jsdoc
   constructor(
     private firedb: SystemService
   ) {}
@@ -46,24 +47,33 @@ export class PlacesSearchService {
    * @param  {WasteType[]} filters
    * @returns Promise<Place[]>
    */
-  public async searchPlaces(boundBox: any, filters: WasteType[]): Promise<Place[]> {
+  public async searchPlaces(boundBox: any, filters: WasteType[]): Promise<[Place[],number]> {
     await this.preparePlaceTypes();
 
     let maxLat = boundBox.northEast.lat,
-        maxLng = boundBox.northEast.lng,
-        minLat = boundBox.southWest.lat,
-        minLng = boundBox.southWest.lng;
+      maxLng = boundBox.northEast.lng,
+      minLat = boundBox.southWest.lat,
+      minLng = boundBox.southWest.lng;
         
     let acceptedTypesIds = this.getPlaceTypesForWastes(filters);
     let filterTypes = Object.keys(acceptedTypesIds).map(placeType => firebaseApp.firestore().doc(`place_type/${placeType}`));
-    let places = await this.searchPlacesWithinBox(minLat, minLng, maxLat, maxLng, filterTypes);
-    places = places
-      .map(place => {
-        (place as any).type_icon_url = this.allPlaceTypes[place.places_type.id].icon_url;
-        return place;
-      });
+    let places: Place[];
 
-    return places;
+    let zoomLevel;
+    for (zoomLevel = 0; zoomLevel < 3; zoomLevel++) {
+      places = await this.searchPlacesWithinBox(minLat, minLng, maxLat, maxLng, filterTypes, zoomLevel);
+      if (places.length > 0) {
+        break;
+      }
+    }
+    
+    places = places
+        .map(place => {
+          (place as any).type_icon_url = this.allPlaceTypes[place.places_type.id].icon_url;
+          return place;
+        });
+
+    return [places, zoomLevel];
   }
   /**
    * Description: Loads places types if they haven't been loaded
@@ -90,7 +100,14 @@ export class PlacesSearchService {
    * @param  {number} maxLng
    * @returns Promise<Place[]>
    */
-  searchPlacesWithinBox(minLat: number, minLng: number, maxLat: number, maxLng: number, placeTypeIds: any[]): Promise<Place[]> {
+  searchPlacesWithinBox(
+      minLat: number, 
+      minLng: number, 
+      maxLat: number, 
+      maxLng: number, 
+      placeTypeIds: any[], 
+      sizeOffset: number
+  ): Promise<Place[]> {
     let cornerPoint = this.geo.point(minLat, minLng);
     let centerPoint = this.geo.point((minLat+maxLat)/2, (minLng+maxLng)/2);
 
@@ -108,24 +125,25 @@ export class PlacesSearchService {
 
 
       let places = firebaseApp.firestore().collection(PLACE_KEY);
-      subscription = this.geo.query(places).within(centerPoint, radius, GEO_FIELD, placeTypeIds, { log: true })
-      .pipe(
-        map(snap => {
-          return snap.map((placeData: any) => {
-            placeData.location = {
-              lat: placeData.location.latitude,
-              lng: placeData.location.longitude
+
+      subscription = this.geo.query(places).within(centerPoint, radius, GEO_FIELD, placeTypeIds, { log: true }, sizeOffset)
+          .pipe(
+              map(snap => {
+                return snap.map((placeData: any) => {
+                  placeData.location = {
+                    lat: placeData.location.latitude,
+                    lng: placeData.location.longitude
+                  }
+                  return placeData;
+                });
+              })
+          )
+          .subscribe(docs => {
+            resolve(docs);
+            if (subscription) {
+              subscription.unsubscribe();
             }
-            return placeData;
           });
-        })
-      )
-      .subscribe(docs => {
-        resolve(docs);
-        if (subscription) {
-          subscription.unsubscribe();
-        }
-      });
     });
     
   }
@@ -139,7 +157,7 @@ export class PlacesSearchService {
     let validPlaces: {[plateTypeKey: string]: boolean} = {};
 
     let placeTypes = Object.keys(this.allPlaceTypes)
-      .map(placeTypeKey => this.allPlaceTypes[placeTypeKey]);
+        .map(placeTypeKey => this.allPlaceTypes[placeTypeKey]);
 
     for (let placeType of placeTypes) {
       for (let waste of wasteTypes) {
@@ -196,28 +214,28 @@ export class PlacesSearchService {
   private loadPlaceTypes(): Promise<void> {
     return new Promise((resolve, reject) => {
 
-        const subscription = this.firedb.collection<any>(PLACE_TYPE_KEY).snapshotChanges()
-        .pipe(
-          map(fbsnap => {
-            return fbsnap.map(placeType => {
-              const data  = placeType.payload.doc.data();
-              const id    = placeType.payload.doc.id;
-              return {id, ...data}; 
-            })
+      const subscription = this.firedb.collection<any>(PLACE_TYPE_KEY).snapshotChanges()
+          .pipe(
+              map(fbsnap => {
+                return fbsnap.map(placeType => {
+                  const data  = placeType.payload.doc.data();
+                  const id    = placeType.payload.doc.id;
+                  return {id, ...data}; 
+                })
+              })
+          )
+          .subscribe((placeTypes: TipoInstalacion[]) => {
+            placeTypes.forEach(placeType => {
+              placeType.acceptedWastes = [];
+              this.allPlaceTypes[placeType.id] = placeType;
+            });
+
+            resolve();
+
+            if (subscription) {
+              subscription.unsubscribe();
+            }
           })
-        )
-        .subscribe((placeTypes: TipoInstalacion[]) => {
-          placeTypes.forEach(placeType => {
-            placeType.acceptedWastes = [];
-            this.allPlaceTypes[placeType.id] = placeType;
-          });
-
-          resolve();
-
-          if (subscription) {
-            subscription.unsubscribe();
-          }
-        })
 
     });
     
@@ -230,25 +248,25 @@ export class PlacesSearchService {
   private populatePlaceTypesWithAcceptedWastes(): Promise<void> {
     return new Promise((resolve, reject) => {
       const subscription = this.firedb.collection<any>(PLACE_TYPE_WASTE_TYPE).snapshotChanges()
-      .pipe(
-        map(fbsnap => {
-          return fbsnap.map(snap => {
-            return snap.payload.doc.data();
-          });
-        })
-      )
-      .subscribe((relations: any[]) => {
+          .pipe(
+              map(fbsnap => {
+                return fbsnap.map(snap => {
+                  return snap.payload.doc.data();
+                });
+              })
+          )
+          .subscribe((relations: any[]) => {
 
-        relations.forEach(placeWasteRel => {
-          const placeTypeId = placeWasteRel.place_type;
-          const wasteTypeId = placeWasteRel.waste_type;
-          this.allPlaceTypes[placeTypeId].acceptedWastes.push(wasteTypeId);
-        })
-        resolve();
-        if (subscription) {
-          subscription.unsubscribe();
-        }
-      })
+            relations.forEach(placeWasteRel => {
+              const placeTypeId = placeWasteRel.place_type;
+              const wasteTypeId = placeWasteRel.waste_type;
+              this.allPlaceTypes[placeTypeId].acceptedWastes.push(wasteTypeId);
+            })
+            resolve();
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+          })
     });
     
   }

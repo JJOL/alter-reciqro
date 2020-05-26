@@ -37,7 +37,7 @@ export class PlacesSearcherPagePage  {
   placeSelected: Place;
   userLoaction:any;
   lastSearchedPos: { lat: number, lng: number};
-  hasMovedAway: boolean = false;
+  hasMovedAway = false;
 
   filters: WasteType[] = [];
   activeFilters: WasteType[] = [];
@@ -65,8 +65,14 @@ export class PlacesSearcherPagePage  {
   searchPlaces() {
     if (this.activeFilters && this.mapBounds && this.mapBounds.northEast && this.mapBounds.southWest) {
       this.searcherService.searchPlaces(this.mapBounds, this.activeFilters)
-          .then(places => {
-            this.places = places;
+          .then(results => {
+            this.places = results[0];            
+            let zoomLevel = results[1];
+            console.log(`Zoom Level: ${zoomLevel}`);
+            
+            if (zoomLevel > 0) {
+              this.map.setZoom(15-zoomLevel);
+            }
           });
 
       this.lastSearchedPos = this.mapBounds.center;
@@ -87,8 +93,8 @@ export class PlacesSearcherPagePage  {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     }, 2000);
     this.filters = await this.searcherService.getAllWasteTypes();
-   // this.activeFilters = [];
-     this.activeFilters =  this.filters;
+    // this.activeFilters = [];
+    this.activeFilters =  this.filters;
     // this.places = await this.filterByType(this.activeFilters);
     try {
       const geoPosition = await this.geolocationCont.getCurrentPosition();
