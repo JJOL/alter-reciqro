@@ -106,10 +106,5 @@ describe('EventsPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-/*
-  it('should call get events from service', () => {
-    const eventService = TestBed.get(EventsService);
-    component.ngOnInit();
-    expect(eventService.getAllEvents.calls.count()).toBeGreaterThanOrEqual(1);
-  });*/
+
 });

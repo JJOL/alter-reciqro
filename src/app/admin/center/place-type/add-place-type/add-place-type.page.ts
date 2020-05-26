@@ -7,12 +7,14 @@ import { WasteType } from 'src/app/core/models/waste-type';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { FormBuilder, Validators } from '@angular/forms';
 
-@Component({
-  selector: 'app-add-place-type',
-  templateUrl: './add-place-type.page.html',
-  styleUrls: ['./add-place-type.page.scss'],
-})
 
+
+const maxLength = 300;
+  @Component({
+    selector: 'app-add-place-type',
+    templateUrl: './add-place-type.page.html',
+    styleUrls: ['./add-place-type.page.scss'],
+  })
 /**
    * User Story Id: M1NG9
    * Allows the Add Place Type Page to be available for imports
@@ -28,12 +30,10 @@ export class AddPlaceTypePage implements OnInit {
   checkedWasteTypes = [];
 
   // Class variable to store the waste type name
-  // eslint-disable-next-line camelcase
-  name_waste_type: string;
+  nameWasteType: string;
 
   // Class variable to store the waste type url
-  // eslint-disable-next-line camelcase
-  url_waste_type: string;
+  urlWasteType: string;
   initialPlaceTypes: TipoInstalacion[];
   initialPlaceTypesId: string[];
   afterPlaceTypes: TipoInstalacion[];
@@ -73,10 +73,10 @@ export class AddPlaceTypePage implements OnInit {
   public errorMessages = {
     name: [
       { type: 'required', message: 'Tipo de centro es requerido.' },
-      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 100 caracteres.'}
+      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 300 caracteres.'}
     ],
     mainPicture: [
-      { type: 'required', message: 'La Url de la imagen es requerida.' },
+      { type: 'required', message: 'La URL de la imagen es requerida.' },
       { type: 'pattern', message: 'La URL no es correcta.' }
     ],
     placeWasteType: [
@@ -86,7 +86,7 @@ export class AddPlaceTypePage implements OnInit {
 
   newWasteForm = this.formBuilder.group({
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    name: ['', [Validators.required, Validators.maxLength(100)]],
+    name: ['', [Validators.required, Validators.maxLength(maxLength)]],
     mainPicture: ['',[Validators.required, Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')]],
     placeWasteType: ['',[Validators.required]]
   });

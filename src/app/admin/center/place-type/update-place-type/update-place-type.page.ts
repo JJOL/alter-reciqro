@@ -1,4 +1,3 @@
-/* eslint-disable max-params */
 import { Component, OnInit } from '@angular/core';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { PlacesService } from 'src/app/core/services/places.service';
@@ -15,7 +14,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 
 /**
-   * User Story Id: M1NG11
+   * User Story Id: M1NG11,M1NG7
    * Allows the Update Place Type Page to be available for imports
    * @param  
    * @returns 
@@ -23,10 +22,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class UpdatePlaceTypePage implements OnInit {
 
   loadedPlaceType: TipoInstalacion;
-  // eslint-disable-next-line camelcase
-  name_waste_type: string;
-  // eslint-disable-next-line camelcase
-  url_waste_type: string;
+  nameWasteType: string;
+  urlWasteType: string;
   placeId: string;
   checkedwasteTypes: WasteType[];
   uncheckedwasteTypes: WasteType[]
@@ -34,7 +31,7 @@ export class UpdatePlaceTypePage implements OnInit {
   placeWasteTypeToUpdate: string[];
 
   /**
-   * User Story Id: M1NG11
+   * User Story Id: M1NG11,M1NG7
    * Allows to get the name of the waste center of the form
    * @param  
    * @returns 
@@ -45,7 +42,7 @@ export class UpdatePlaceTypePage implements OnInit {
 
 
   /**
-   * User Story Id: M1NG11
+   * User Story Id: M1NG11,M1NG7
    * Allows to get the url of the waste center of the form
    * @param  
    * @returns 
@@ -55,7 +52,7 @@ export class UpdatePlaceTypePage implements OnInit {
   }
 
   /**
-   * User Story Id: M1NG11
+   * User Story Id: M1NG11,M1NG7
    * Allows to get the selected wastes of the waste center of the form
    * @param  
    * @returns 
@@ -87,7 +84,7 @@ export class UpdatePlaceTypePage implements OnInit {
 
   
   /**
-   * User Story Id: M1NG11
+   * User Story Id: M1NG11,M1NG7
    * Allows to inject services to the model for navigation, PlacesService and alerts
    * @param  {ActivatedRoute} activatedRoute
    * @param  {PlacesService} placeService 
@@ -108,7 +105,7 @@ export class UpdatePlaceTypePage implements OnInit {
   ) { }
 
   /**
-   * User Story Id: M1NG11
+   * User Story Id: M1NG11,M1NG7
    * Fuction that is executed when the page instantiated, which verifies that the Active Route contains the "updatePlaceTypeId" property
    * @param  
    * @returns 
@@ -123,8 +120,8 @@ export class UpdatePlaceTypePage implements OnInit {
         this.placeId = wasteId;
         this.placeService.getPlaceTypeByID(wasteId).then(waste => {
           this.loadedPlaceType = waste;
-          this.name_waste_type = this.loadedPlaceType.name;
-          this.url_waste_type = this. loadedPlaceType.icon_url;
+          this.nameWasteType = this.loadedPlaceType.name;
+          this.urlWasteType = this. loadedPlaceType.icon_url;
         });
         this.placeService.getAllWasteTypeByPlaceType(wasteId).then(data => {
           this.wasteService.getWastes().then(wastes => {
@@ -133,8 +130,8 @@ export class UpdatePlaceTypePage implements OnInit {
             this.placeWasteTypeToDelete = data;
             this.placeWasteTypeToUpdate = this.placeWasteTypeToDelete.map(item => item.waste_type);
             this.newPlaceForm.setValue({
-              name: this.name_waste_type,
-              mainPicture: this.url_waste_type,
+              name: this.nameWasteType,
+              mainPicture: this.urlWasteType,
               placeWasteTypeToUpdateTrueFalse: 'true'
             });
           });
@@ -145,7 +142,7 @@ export class UpdatePlaceTypePage implements OnInit {
   }
 
   /**
-   * User Story Id: M1NG11
+   * User Story Id: M1NG11,M1NG7
    * Method that update the array that stores the checked waste types 
    * @param {string} wasteId
    * @returns 
@@ -173,21 +170,21 @@ export class UpdatePlaceTypePage implements OnInit {
   }
 
   /**
-   * User Story Id: M1NG11
-   * Method that calles the updatePlaceType method form the service PlacesService to update an existing Place Type 
+   * User Story Id: M1NG11,M1NG7
+   * Calls the updatePlaceType method form the service PlacesService to update an existing Place Type 
    * in the database and its related wastes types
    * @param 
    * @returns 
    */
   updatePlaceType(){
-        this.placeService.updatePlaceType(this.loadedPlaceType.id, this.newPlaceForm.get('name').value, 
+    this.placeService.updatePlaceType(this.loadedPlaceType.id, this.newPlaceForm.get('name').value, 
         this.newPlaceForm.get('mainPicture').value).then(() => {
-    for (const item of this.placeWasteTypeToDelete){
-      this.placeService.deletePlaceWasteType(item.id);
-    }
-    for (const wasteid of this.placeWasteTypeToUpdate){
-      this.placeService.insertPlaceWasteType(this.placeId, wasteid);
-    }
+      for (const item of this.placeWasteTypeToDelete){
+        this.placeService.deletePlaceWasteType(item.id);
+      }
+      for (const wasteid of this.placeWasteTypeToUpdate){
+        this.placeService.insertPlaceWasteType(this.placeId, wasteid);
+      }
       this.showToast('Categoría de residuos actualizada de manera exitosa');
       this.newPlaceForm.reset();
       this.navCtrl.navigateBack(['/admin/center/place-type']);
@@ -198,7 +195,7 @@ export class UpdatePlaceTypePage implements OnInit {
   }
 
   /**
-   * User Story Id: M1NG11
+   * User Story Id: M1NG11,M1NG7
    * Method that is called when the update is cancel to get the user's confirmation
    * @param 
    * @returns 
@@ -222,7 +219,7 @@ export class UpdatePlaceTypePage implements OnInit {
   }
 
   /**
-   * User Story ID: M1NG11
+   * User Story ID: M1NG11,M1NG7
    * Function for showing the toast to the user.
    * @param  {} msg
    */

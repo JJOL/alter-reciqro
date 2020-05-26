@@ -15,10 +15,10 @@
       <ion-col size-md = "8" size-sm = "12" class="ion-text-center">
         <ion-list >
           <ion-item *ngFor="let placeType of listplaceTypes | paginate: { itemsPerPage: 7, currentPage: actualPage }" >
-            <ion-thumbnail slot="start">
+            <ion-avatar slot="start">
               <ion-img [src]="placeType.icon_url"></ion-img>
-            </ion-thumbnail>
-            <ion-label>
+            </ion-avatar>
+                <ion-label>
               <h2> {{ placeType.name }} </h2>
             </ion-label>
 
