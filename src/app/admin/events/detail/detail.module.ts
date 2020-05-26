@@ -20,4 +20,7 @@ import {SharedPageModule} from '../../../shared/shared.module';
   ],
   declarations: [DetailPage]
 })
+/**
+ * Exporting the class so it is externally accessible.
+ */
 export class DetailPageModule {}
