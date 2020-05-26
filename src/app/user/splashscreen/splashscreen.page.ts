@@ -12,7 +12,7 @@ import { ModalController } from '@ionic/angular';
  */
 export class SplashscreenPage implements OnInit {
   /**
-   * User Story ID: M2NC5
+   * User Story ID: M2NC9
    * Allows to inject services to the model
    * @param  {ModalController} modalCtrl
    * @returns 
@@ -24,7 +24,7 @@ export class SplashscreenPage implements OnInit {
   }
 
   /**
-   * User Story ID: M2NC5
+   * User Story ID: M2NC9
    * Fuction that is executed when the page instantiated
    * @param  
    * @returns 

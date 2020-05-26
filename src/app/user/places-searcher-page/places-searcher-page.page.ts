@@ -101,7 +101,7 @@ export class PlacesSearcherPagePage  {
     }, 2000);
     this.filters = await this.searcherService.getAllWasteTypes();
     // this.activeFilters = [];
-    this.activeFilters =  this.filters;
+    this.activeFilters =  this.filters.filter(filter => { return 'Pilas'===filter.name || 'Papel'===filter.name });
     // this.places = await this.filterByType(this.activeFilters);
     try {
       const geoPosition = await this.geolocationCont.getCurrentPosition();

@@ -21,11 +21,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
   ],
   declarations: [MetricsPage, IndicatorMetricsComponent, IndicatorGraphComponent, IndicatorTableComponent]
 })
-<<<<<<< HEAD
 /**
  * Exporting class so it is externally accessible.
  */
-=======
-// eslint-disable-next-line require-jsdoc
->>>>>>> cd26d114c6620eb28928b5f140627823fbb2a25d
 export class MetricsPageModule {}
