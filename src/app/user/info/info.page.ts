@@ -3,7 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { InfoBannerService } from 'src/app/core/services/info-banner.service';
 import { BannerPopUpPage } from './banner-pop-up/banner-pop-up.page'
 import { InfoBanner } from '../../core/models/info-banner.model';
-import { IonRouterOutlet } from '@ionic/angular';
+
 @Component({
   selector: 'app-info',
   templateUrl: './info.page.html',
@@ -71,26 +71,6 @@ export class InfoPage implements OnInit {
           });
           return modal.present();
         }
-      }else{
-        await this.bannerService.getAllInfoBanners().then( async data => {
-          this.banners = data;
-          let size = this.banners.length;
-          // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-          let random = Math.floor(Math.random() * 10) % size;
-          if(this.banners[random] !== undefined){
-            const modal = await this.modalController.create({
-              component: BannerPopUpPage,
-              swipeToClose: true,
-              componentProps: {
-                title: this.banners[random].title,
-                description: this.banners[random].description,
-                url: this.banners[random].image_url,
-                date: this.banners[random].date
-              }
-            });
-            return modal.present();
-          }
-        });
       }
     });
   }

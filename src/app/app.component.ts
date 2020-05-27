@@ -24,7 +24,7 @@ export class AppComponent implements OnInit{
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     this.authService.isUserLoggedIn.asObservable().subscribe(value => {
       this.isLogged = value;
