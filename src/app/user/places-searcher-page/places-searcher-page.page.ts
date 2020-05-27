@@ -1,7 +1,7 @@
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { Component, ViewChild, EventEmitter, Output } from '@angular/core';
 import { Place } from '../../core/models/place.model';
-import {WasteType} from '../../core/models/waste-type';
+import { WasteType } from '../../core/models/waste-type';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
 import { PopoverController, ModalController } from '@ionic/angular';
@@ -9,6 +9,7 @@ import { SplashscreenPage } from '../splashscreen/splashscreen.page';
 import { PlacesSearchService } from 'src/app/core/services/places-search.service';
 import { HelpPage } from '../help/help.page';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { PlacesService } from 'src/app/core/services/places.service';
 
 const DEFAULT_CENTER_COORD = { 
   lat: 20.588772, 
@@ -62,8 +63,10 @@ export class PlacesSearcherPagePage  {
     public popoverController: PopoverController,
     private modalController: ModalController,
     private searcherService: PlacesSearchService,
-    private domSanitizer: DomSanitizer 
-  ) { }
+    private domSanitizer: DomSanitizer,
+    private placeService: PlacesService
+  ) { 
+  }
 
   /**
    * User Story ID: M1NC1
@@ -80,7 +83,6 @@ export class PlacesSearcherPagePage  {
               this.map.setZoom(15-zoomLevel);
             }
           });
-
       this.lastSearchedPos = this.mapBounds.center;
       this.hasMovedAway = false;
     }
@@ -94,7 +96,10 @@ export class PlacesSearcherPagePage  {
     for(let i of this.arrayOfVideos){
       this.trustedVideoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(i.vid_link);
     }
-    this.presentModal();
+    console.log(window.localStorage['splash']);
+    if(!window.localStorage['splash']){
+      this.presentModal();
+    }
     setTimeout(() => {
       this.modalController.dismiss();
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
@@ -117,6 +122,15 @@ export class PlacesSearcherPagePage  {
 
     this.map.setCenter(this.position);
     
+  }
+
+  /**
+   * User Story ID: M1NCx
+   * Function that gets called when it entered succesfully
+   */
+  ionViewDidEnter(){
+    this.placeService.persist();
+    console.log(window.localStorage['splash']);
   }
  
   /**

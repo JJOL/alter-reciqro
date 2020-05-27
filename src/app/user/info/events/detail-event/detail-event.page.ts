@@ -132,7 +132,7 @@ export class DetailEventPage implements OnInit {
     this.alertCtrl.create ({
       header: '¿Te interesa este evento?',
       // tslint:disable-next-line: max-line-length
-      message: 'Inicia sesión para mantenerte informado.',
+      message: 'Inicia sesión o registrate para mantenerte informado.',
       buttons: [{
         text: 'Cancelar',
         role: 'cancel',
@@ -140,9 +140,8 @@ export class DetailEventPage implements OnInit {
           this.interested = !this.interested;
         } },
       {
-        text: 'Iniciar sesión',
+        text: 'Iniciar sesión o Registrarme',
         handler: () => {
-          this.showToast('Por favor inicie sesión');
           this.interested = true;
           this.router.navigate(['/user/login'])
         }
@@ -165,7 +164,7 @@ export class DetailEventPage implements OnInit {
       this.alertCtrl.create ({
         header: 'Mensaje de Confirmación',
         // tslint:disable-next-line: max-line-length
-        message: 'Al hacer click, usted esta aceptando recibir información sobre el evento (en caso de que se cancelara o algún cambio) vía correo',
+        message: 'Quiero recibir información sobre el evento en caso de algún cambio o cancelación vía correo electronico',
         buttons: [{
           text: 'Cancelar',
           role: 'cancel',
@@ -188,7 +187,7 @@ export class DetailEventPage implements OnInit {
       this.alertCtrl.create ({
         header: 'Mensaje de Confirmación',
         // tslint:disable-next-line: max-line-length
-        message: 'Al hacer click, usted esta aceptando YA NO recibirá información sobre el evento vía correo',
+        message: ' Ya no quiere recibir información sobre el evento vía correo electronico',
         buttons: [{
           text: 'Cancelar',
           role: 'cancel',
@@ -202,7 +201,7 @@ export class DetailEventPage implements OnInit {
               if (interested) {
                 const id = interested.id;
                 this.userEventService.deleteUserEventByID(id).then(() => {
-                  this.showToast('Has aceptado YA NO recibir información sobre el evento');
+                  this.showToast('Has aceptado no recibir información sobre el evento');
                   this.interested = false;
                 });
               }
