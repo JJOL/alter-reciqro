@@ -6,7 +6,7 @@
             <ion-grid>
                 <ion-row class="ion-justify-content-center">
                     <ion-col size-md="6" class="ion-align-self-center">
-                        <ion-img [src]="event.icon"></ion-img>
+                        <ion-img *ngIf="event.icon" [src]="event.icon"></ion-img>
                         <h2>{{ event.name }}</h2>
                         <p>{{ event.description }}</p>
 
@@ -22,7 +22,7 @@
             <ion-list >
               <ion-item *ngFor="let event of events | paginate: { itemsPerPage: 7, currentPage: actualPage }" detail [routerLink]="['/user/info/events/detail-event', event.id]">
                 <ion-thumbnail slot="start">
-                  <ion-img [src]="event.icon"></ion-img>
+                  <ion-img *ngIf="event.icon " [src]="event.icon"></ion-img>
                 </ion-thumbnail>
                 <ion-label>
                   <h2> {{ event.name }} </h2>
