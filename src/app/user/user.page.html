@@ -42,7 +42,7 @@
               <ion-list>
                 <ion-item>
                   <ion-label position="floating">Alias</ion-label>
-                  <ion-input placeholder = "Superciudadano" formControlName="nickName" [(ngModel)] = "currentNickName"></ion-input>
+                  <ion-input placeholder = "{{currentNickName}}" formControlName="nickName"></ion-input>
                 </ion-item>
                 <div *ngFor="let error of errorMessages.nickName">
                   <ng-container *ngIf="nickName.hasError(error.type) && (nickName.dirty || nickName.touched)">

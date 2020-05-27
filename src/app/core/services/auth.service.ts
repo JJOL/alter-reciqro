@@ -115,7 +115,7 @@ export class AuthService {
             this.isUserLoggedIn.next(true);
             this.getUserByUID(userData.user.uid).then(user => {
               this.userRoles.next(user.roles);
-              this.showToast('Bienvenido a ReciQro');
+              this.showToast('Bienvenido a AQropio');
             });
           },
           err => reject(err)
@@ -133,7 +133,7 @@ export class AuthService {
           this.isUserLoggedIn.next(true);
           this.getUserByUID(credential.user.uid).then(user => {
             this.userRoles.next(user.roles);
-            this.showToast('Bienvenido a ReciQro');
+            this.showToast('Bienvenido a AQropio');
           });
         });
   }
