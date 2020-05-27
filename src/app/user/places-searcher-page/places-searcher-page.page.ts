@@ -96,8 +96,7 @@ export class PlacesSearcherPagePage  {
     for(let i of this.arrayOfVideos){
       this.trustedVideoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(i.vid_link);
     }
-    console.log(window.localStorage['splash']);
-    if(!window.localStorage['splash']){
+    if(!window.sessionStorage['splash']){
       this.presentModal();
     }
     setTimeout(() => {
@@ -118,8 +117,7 @@ export class PlacesSearcherPagePage  {
       this.userLoaction=this.position
     } catch (err) {
       this.position = DEFAULT_CENTER_COORD;
-    }    
-
+    }
     this.map.setCenter(this.position);
     
   }
@@ -130,7 +128,6 @@ export class PlacesSearcherPagePage  {
    */
   ionViewDidEnter(){
     this.placeService.persist();
-    console.log(window.localStorage['splash']);
   }
  
   /**

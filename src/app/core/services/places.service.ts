@@ -167,7 +167,7 @@ export class PlacesService {
  * Function that saves the session variables.
  */
   persist(){
-    window.localStorage['splash'] = 'activado';
+    window.sessionStorage['splash'] = 'activado';
   }
 
   /** 
