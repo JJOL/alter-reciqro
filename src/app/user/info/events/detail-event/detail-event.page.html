@@ -54,6 +54,12 @@
                     <ion-checkbox [(ngModel)]="interested" ></ion-checkbox>
                     <ion-label>Interesado</ion-label>
                   </ion-button>
+
+                  <ion-button  (click)="register()" fill="outline" size="default" *ngIf='!email'>
+                    <ion-checkbox disabled={true}></ion-checkbox>
+                    <ion-label>Interesado</ion-label>
+                  </ion-button>
+
               </ion-row>
               <br>
               <ion-row class=padding>
