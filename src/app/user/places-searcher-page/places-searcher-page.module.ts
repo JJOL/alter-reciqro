@@ -12,10 +12,10 @@ import { SplashscreenPageModule } from '../splashscreen/splashscreen.module';
 import { SplashscreenPage } from '../splashscreen/splashscreen.page';
 import { HelpPageModule } from '../help/help.module';
 import { HelpPage } from '../help/help.page';
+import { AnimationService, AnimatesDirective } from 'css-animator';
 
 @NgModule({
   imports: [
-    // TooltipsModule.forRoot(),
     CommonModule,
     FormsModule,
     IonicModule,
@@ -24,11 +24,14 @@ import { HelpPage } from '../help/help.page';
     SplashscreenPageModule,
     HelpPageModule,
   ],
-  declarations: [PlacesSearcherPagePage, MarkerCardComponent],
+  declarations: [PlacesSearcherPagePage, MarkerCardComponent, AnimatesDirective],
   providers: [
-    Geolocation
+    Geolocation,
+    AnimationService
   ],
   entryComponents: [FilterMenuComponent, SplashscreenPage, HelpPage]
 })
-// eslint-disable-next-line require-jsdoc
+/**
+ * Exporting class so it is externally accessible.
+ */
 export class PlacesSearcherPagePageModule {}
