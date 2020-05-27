@@ -22,6 +22,7 @@ export class UserPage implements OnInit {
   nickNameForm;
   nickNameId;
   currentNickName: string;
+  NickName: string;
   /**
    * Constructor for the class, the external services required are the Form Builder for forms, 
    * Delegation Service for adding to the databse and the Toast Controller for showing a toast.

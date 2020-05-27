@@ -50,7 +50,7 @@
     </div>
 
     <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
+      <ion-label position="floating">Contraseña (mínimo 8 caracteres)</ion-label>
       <ion-input formControlName="password" inputmode="password" type="password"></ion-input>
     </ion-item>
     <div *ngFor="let error of errorMessages.password">
@@ -90,9 +90,8 @@
     </div>
 
     <ion-item>
-      <ion-checkbox color="primary" slot="start" (click) = "hasReadPrivacyPolicy()"></ion-checkbox>
+      <ion-checkbox (click) = "hasReadPrivacyPolicy()" slot="start"></ion-checkbox>
       <ion-label> <a href="https://drive.google.com/file/d/11wFan-mhoHnqtSEB1NixUfP3_e0aHFFp/view?usp=sharing" target="_blank">Aviso de Privacidad</a></ion-label>
-      
     </ion-item>
     <ion-input hidden formControlName="privacy_policy" required = "true" ></ion-input>
     <div *ngFor="let error of errorMessages.privacy_policy">

@@ -8,6 +8,7 @@ import { EventsService } from 'src/app/core/services/events.service';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Title,Meta } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detail-event',
@@ -44,7 +45,8 @@ export class DetailEventPage implements OnInit {
                private userEventService: UserEventService,
                private authService: AuthService,
                private titleService: Title,
-               private meta:Meta
+               private meta:Meta,
+               private router: Router
   ) { }
 
   
@@ -65,8 +67,6 @@ export class DetailEventPage implements OnInit {
 
       this.eventId = paraMap.get('eventId');
       
-
-
       if (this.eventId) {
 
         this.eventService.getEventByID(this.eventId).then(res => {
@@ -120,6 +120,35 @@ export class DetailEventPage implements OnInit {
         });
 
       }
+    });
+  }
+
+  /**
+   * User Story ID: M2NC7
+   * Method to show Sign in page when a non registered user clicks on "INTERESADO"
+   * @param  {} e
+   */
+  register(): void {
+    this.alertCtrl.create ({
+      header: '¿Te interesa este evento?',
+      // tslint:disable-next-line: max-line-length
+      message: 'Inicia sesión para mantenerte informado.',
+      buttons: [{
+        text: 'Cancelar',
+        role: 'cancel',
+        handler: () => {
+          this.interested = !this.interested;
+        } },
+      {
+        text: 'Iniciar sesión',
+        handler: () => {
+          this.showToast('Por favor inicie sesión');
+          this.interested = true;
+          this.router.navigate(['/user/login'])
+        }
+      }]
+    }).then(alertEl => {
+      alertEl.present();
     });
   }
 
