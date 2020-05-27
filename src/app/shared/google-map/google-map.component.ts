@@ -107,10 +107,12 @@ export class GoogleMapComponent implements OnInit, OnChanges {
         }
       })
     } );
-
+    google.maps.event.addListener(this.map, 'click', () => {
+      if(this.currentInfoWindow!=null) this.currentInfoWindow.close(); });
     if (this.editable) {
 
       google.maps.event.addListener(this.map, 'click', event => {
+        if(this.currentInfoWindow!=null) this.currentInfoWindow.close();
         const place = {
           location: {
             lat: event.latLng.lat(),
@@ -118,8 +120,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
         };
         if (this.addPlace(place)) {
           this.placeChange.emit(place);
-          this.addMarker(place);
-
+          this.addMarker(place);if(this.currentInfoWindow!=null) this.currentInfoWindow.close();
         }
       });
     }
