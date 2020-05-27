@@ -1,5 +1,5 @@
 
-# RECIQRO
+# AQROPIO
 ## Version 0.0.1
 Una experiencia digital que buscan forma ciudadanos ecologicamente responsables en la ciudad de Querétaro fomentandolos a:
 1. Depositar sus residuos urbanos sólidos o especiales correctamente en los centros de acopio de Municipio.

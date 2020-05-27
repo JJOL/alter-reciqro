@@ -12,7 +12,10 @@ ion-model{
 	background-color: #1f3368 !important;
 	--background: var(--ion-background-color, #1f3368) !important;
 }
-
+.titleicon div{
+	display:inline-block;
+	margin-bottom:10px;
+	}
 ion-icon{
 	color:#0f2252;
 }

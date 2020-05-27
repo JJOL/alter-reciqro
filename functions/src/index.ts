@@ -42,7 +42,7 @@ export const onDeleteEvent = functions.firestore.document('/events/{eventId}').o
       if (interestedEmails.length > 0) {
         await broadcastEmail(
           interestedEmails,
-          `ReciQro | El evento ${eventData.name} ha sido cancelado!`,
+          `AQropio | El evento ${eventData.name} ha sido cancelado!`,
           `<p>Te avisamos que el evento "${eventData.name}" para el día ${eventData.end_date} se ha cancelado.</p>`
         );
       }
@@ -79,7 +79,7 @@ export const onModifyEvent = functions.firestore.document('/events/{eventId}').o
         console.log(interestedEmails);
         await broadcastEmail(
           interestedEmails,
-          `ReciQro | Un evento al que estabas interesado a cambiado fecha o lugar!`,
+          `AQropio | Un evento al que estabas interesado a cambiado fecha o lugar!`,
           `<p>Te avisamos que el evento "${eventName}" ha cambiado sus datos de fecha o lugar. Por favor revisa nuevamente la información del evento en la aplicación. <br>${abrirAppHtml}`);
         break;
       }
