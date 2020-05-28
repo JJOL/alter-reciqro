@@ -1,6 +1,6 @@
 
 # AQROPIO
-## Version 0.0.1
+## Version 1.0.0
 Una experiencia digital que buscan forma ciudadanos ecologicamente responsables en la ciudad de Querétaro fomentandolos a:
 1. Depositar sus residuos urbanos sólidos o especiales correctamente en los centros de acopio de Municipio.
 2. Informarse y participar en talleres de manejo apropiado de residuos para generar consciencia.
@@ -35,3 +35,8 @@ Consulta la wiki de arquitectura en [Alter Arquitecture Handook](http://altermx.
 
 - **Herramientas de Almacenamiento:**
  * Drive ALTER 2020>Proyectos>Gobierno
+
+- **Imágenes de la aplicación**
+![](https://i.ibb.co/BLdPc8J/1.png)
+![](https://i.ibb.co/pzCNLNb/2.png)
+![](https://i.ibb.co/7yn5kkg/3.png)
