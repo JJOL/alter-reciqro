@@ -77,17 +77,43 @@ export class PlacesSearcherPagePage  {
       this.searcherService.searchPlaces(this.mapBounds, this.activeFilters)
           .then(results => {
             this.places = results[0];            
-            let zoomLevel = results[1];
-            
-            if (zoomLevel > 0) {
-              this.map.setZoom(15-zoomLevel);
-            }
+            let scaleLevel = results[1];
+
+            this.adjustMapZoom(this.places, scaleLevel, this.mapBounds);
           });
       this.lastSearchedPos = this.mapBounds.center;
       this.hasMovedAway = false;
     }
   }
 
+
+  /**
+   * Description: Adjuts map zoom level based on resulting places and viewport
+   * @param places 
+   * @param scaleLevel 
+   * @param mapBounds
+   */
+  private adjustMapZoom(places: Place[], scaleLevel: number, mapBounds: any): void {
+    if (scaleLevel > 0) {
+      this.map.setZoom(15-scaleLevel);
+    } else {
+      let needToZoom = true;
+      
+      places.forEach(place => {
+        let placeIsWithinView = 
+          place.location.lat < mapBounds.northEast.lat
+          && place.location.lat > mapBounds.southWest.lat
+          && place.location.lng < mapBounds.northEast.lng
+          && place.location.lng > mapBounds.southWest.lng;
+        if (placeIsWithinView) {          
+          needToZoom = false;
+        }
+      })
+      if (needToZoom) {
+        this.map.setZoom(this.map.getZoom()-2); // o 14?
+      }
+    }
+  }
   /**
    *  User Story ID: M1NC1
    * Loads the preset filters and places
