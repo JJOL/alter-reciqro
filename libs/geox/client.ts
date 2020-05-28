@@ -10,6 +10,9 @@ export interface FirePoint {
   geohash: string
 }
 
+/**
+ * 
+ */
 export class GeoFireClient {
   constructor(public app: FirebaseSDK) {}
   /**

@@ -2,17 +2,20 @@
 <ion-content>
   <div *ngIf="wastes">
     <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-slides pager="true" #BannerSlider (ionSlidesDidLoad)="slidesDidLoad(BannerSlider)">
-            <ion-slide *ngFor="let waste of wastes">
+      <ion-row class="ion-justify-content-center">
+        <ion-col size-md = "6" size-sm = "12">
+          <ion-card *ngFor="let waste of wastes">
+            <div *ngIf="waste.icon">
               <div class="foto_residuo">
                 <ion-img  [src]="waste.icon"></ion-img>
               </div>
-              <h2>{{waste.name}}</h2>
-              <p>{{waste.description}}</p>
-            </ion-slide>
-          </ion-slides>
+              <ion-card-header>
+                <ion-card-subtitle>Aprende más sobre...</ion-card-subtitle>
+                <ion-card-title>{{waste.name}}</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>{{waste.description}}</ion-card-content>
+            </div>
+          </ion-card>
         </ion-col>
       </ion-row>
     </ion-grid>
