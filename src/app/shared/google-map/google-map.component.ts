@@ -160,6 +160,14 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   setZoom(zoom) {
     this.map.setZoom(zoom);
   }
+
+  /**
+   * Get map zoom
+   * @return number 
+   */
+  getZoom(): number {
+    return this.map.getZoom();
+  }
   
   /**
    * User Story ID:  M1NC1, M1NC2, M1NC4,M1NC5

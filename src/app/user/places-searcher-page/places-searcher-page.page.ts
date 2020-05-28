@@ -4,7 +4,7 @@ import { Place } from '../../core/models/place.model';
 import { WasteType } from '../../core/models/waste-type';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
-import { PopoverController, ModalController } from '@ionic/angular';
+import { PopoverController, ModalController, LoadingController } from '@ionic/angular';
 import { SplashscreenPage } from '../splashscreen/splashscreen.page';
 import { PlacesSearchService } from 'src/app/core/services/places-search.service';
 import { HelpPage } from '../help/help.page';
@@ -62,6 +62,7 @@ export class PlacesSearcherPagePage  {
     private geolocationCont: Geolocation,
     public popoverController: PopoverController,
     private modalController: ModalController,
+    private loadingController: LoadingController,
     private searcherService: PlacesSearchService,
     private domSanitizer: DomSanitizer,
     private placeService: PlacesService
@@ -72,22 +73,54 @@ export class PlacesSearcherPagePage  {
    * User Story ID: M1NC1
    * Description: Retrieve Places based on viewed portion of the screen and activated waste filters.
    */
-  searchPlaces() {
+  async searchPlaces() {
     if (this.activeFilters && this.mapBounds && this.mapBounds.northEast && this.mapBounds.southWest) {
+      let controller = await this.loadingController.create({
+        spinner: 'crescent'
+      });
+      controller.present();
+
       this.searcherService.searchPlaces(this.mapBounds, this.activeFilters)
           .then(results => {
+            controller.dismiss();
             this.places = results[0];            
-            let zoomLevel = results[1];
-            
-            if (zoomLevel > 0) {
-              this.map.setZoom(15-zoomLevel);
-            }
+            let scaleLevel = results[1];
+
+            this.adjustMapZoom(this.places, scaleLevel, this.mapBounds);
           });
       this.lastSearchedPos = this.mapBounds.center;
       this.hasMovedAway = false;
     }
   }
 
+
+  /**
+   * Description: Adjuts map zoom level based on resulting places and viewport
+   * @param places 
+   * @param scaleLevel 
+   * @param mapBounds
+   */
+  private adjustMapZoom(places: Place[], scaleLevel: number, mapBounds: any): void {
+    if (scaleLevel > 0) {
+      this.map.setZoom(15-scaleLevel);
+    } else {
+      let needToZoom = true;
+      
+      places.forEach(place => {
+        let placeIsWithinView = 
+          place.location.lat < mapBounds.northEast.lat
+          && place.location.lat > mapBounds.southWest.lat
+          && place.location.lng < mapBounds.northEast.lng
+          && place.location.lng > mapBounds.southWest.lng;
+        if (placeIsWithinView) {          
+          needToZoom = false;
+        }
+      })
+      if (needToZoom) {
+        this.map.setZoom(14); // o 14?
+      }
+    }
+  }
   /**
    *  User Story ID: M1NC1
    * Loads the preset filters and places
