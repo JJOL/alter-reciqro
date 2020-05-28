@@ -37,6 +37,6 @@ Consulta la wiki de arquitectura en [Alter Arquitecture Handook](http://altermx.
  * Drive ALTER 2020>Proyectos>Gobierno
 
 - **Imágenes de la aplicación**
-![](https://i.ibb.co/BLdPc8J/1.png)
-![](https://i.ibb.co/pzCNLNb/2.png)
-![](https://i.ibb.co/7yn5kkg/3.png)
+ * ![](https://i.ibb.co/BLdPc8J/1.png)
+ * ![](https://i.ibb.co/pzCNLNb/2.png)
+ * ![](https://i.ibb.co/7yn5kkg/3.png)
