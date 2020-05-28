@@ -4,7 +4,7 @@ import { Place } from '../../core/models/place.model';
 import { WasteType } from '../../core/models/waste-type';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
-import { PopoverController, ModalController } from '@ionic/angular';
+import { PopoverController, ModalController, LoadingController } from '@ionic/angular';
 import { SplashscreenPage } from '../splashscreen/splashscreen.page';
 import { PlacesSearchService } from 'src/app/core/services/places-search.service';
 import { HelpPage } from '../help/help.page';
@@ -62,6 +62,7 @@ export class PlacesSearcherPagePage  {
     private geolocationCont: Geolocation,
     public popoverController: PopoverController,
     private modalController: ModalController,
+    private loadingController: LoadingController,
     private searcherService: PlacesSearchService,
     private domSanitizer: DomSanitizer,
     private placeService: PlacesService
@@ -72,10 +73,16 @@ export class PlacesSearcherPagePage  {
    * User Story ID: M1NC1
    * Description: Retrieve Places based on viewed portion of the screen and activated waste filters.
    */
-  searchPlaces() {
+  async searchPlaces() {
     if (this.activeFilters && this.mapBounds && this.mapBounds.northEast && this.mapBounds.southWest) {
+      let controller = await this.loadingController.create({
+        spinner: 'crescent'
+      });
+      controller.present();
+
       this.searcherService.searchPlaces(this.mapBounds, this.activeFilters)
           .then(results => {
+            controller.dismiss();
             this.places = results[0];            
             let scaleLevel = results[1];
 
@@ -110,7 +117,7 @@ export class PlacesSearcherPagePage  {
         }
       })
       if (needToZoom) {
-        this.map.setZoom(this.map.getZoom()-2); // o 14?
+        this.map.setZoom(14); // o 14?
       }
     }
   }
