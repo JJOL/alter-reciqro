@@ -1,4 +1,4 @@
-<app-toolbar  title="Buscador Centros de Recolección"  [backButton]="false" [login]="false" ></app-toolbar>
+<app-toolbar  title="Buscador de Centros"  [backButton]="false" [login]="false" ></app-toolbar>
 <ion-content>
   <ion-grid [ngClass]="classname" >
     <ion-row [ngClass]="classname">
@@ -18,7 +18,8 @@
   <div id="search-here-container" [class.active]="hasMovedAway">
     <ion-button  shape="round" class="search-here" (click)="onSearchHereClick()">Buscar aquí</ion-button>
   </div>
-  <ion-button shape="round" class="animation help" (click)="onHelpClick()"><ion-icon name="help-outline" [style.color]="'#ffffff'"></ion-icon></ion-button>
+
+  <ion-fab-button class="animation help" (click)="onHelpClick()"><ion-icon name="help-outline" [style.color]="'#ffffff'"></ion-icon></ion-fab-button>
   <ion-button shape="round" class="userLocation" (click)="onUserLocationClick()">Yo<ion-icon slot="end" name="locate" [style.color]="'#ffffff'"></ion-icon></ion-button>
   <ion-button shape="round" class="filters" (click)="presentFilterModal()">Filtros</ion-button>
   <ion-button shape="round" class="qro" (click)="viewQro()" >Vista Qro</ion-button>

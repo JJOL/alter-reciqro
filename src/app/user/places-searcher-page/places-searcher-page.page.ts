@@ -78,7 +78,6 @@ export class PlacesSearcherPagePage  {
           .then(results => {
             this.places = results[0];            
             let zoomLevel = results[1];
-            
             if (zoomLevel > 0) {
               this.map.setZoom(15-zoomLevel);
             }
@@ -119,7 +118,6 @@ export class PlacesSearcherPagePage  {
       this.position = DEFAULT_CENTER_COORD;
     }
     this.map.setCenter(this.position);
-    
   }
 
   /**
@@ -152,18 +150,14 @@ export class PlacesSearcherPagePage  {
         activeFilters: this.activeFilters,
       },
       backdropDismiss: true
-
     });
     this.modal.present();
-
-
     this.modal.onDidDismiss().then( (event) => {
       if (event.data) {
         this.activeFilters = event.data;
         this.searchPlaces();
       }
     });
-
     return true;
   }
 
