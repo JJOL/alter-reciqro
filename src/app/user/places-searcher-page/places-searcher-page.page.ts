@@ -137,9 +137,9 @@ export class PlacesSearcherPagePage  {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     }, 2000);
     this.filters = await this.searcherService.getAllWasteTypes();
-    // this.activeFilters = [];
-    this.activeFilters =  this.filters;
-    this.searchPlaces();
+     this.activeFilters = [];
+    //this.activeFilters =  this.filters;
+   // this.searchPlaces();
     // this.places = await this.filterByType(this.activeFilters);
     try {
       const geoPosition = await this.geolocationCont.getCurrentPosition();
