@@ -3,7 +3,7 @@
   <ion-grid [ngClass]="classname" >
     <ion-row [ngClass]="classname">
       <ion-col size="12">
-        <app-shared-google-map  #mapElement (seletedMarker)="emitPlace($event)" (change)="onMapCenterChange($event)" [editable]="false" [max]="300" [places]="places" [userLocation]="userLoaction">
+        <app-shared-google-map  #mapElement (seletedMarker)="emitPlace($event)" (change)="onMapCenterChange($event)" [editable]="false" [max]="500" [places]="places" [userLocation]="userLoaction">
         </app-shared-google-map>
           <app-marker-card [class.active]="placeSelected" [loadedPlaceType]="loadedPlaceType" [placeSelected]="placeSelected">
           </app-marker-card>
