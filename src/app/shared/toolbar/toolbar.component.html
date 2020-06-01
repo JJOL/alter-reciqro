@@ -2,7 +2,7 @@
   <meta propery="og:title" content= "AQropio" xmlns:og='http://opengraphprotocol.org/schema/' />
   <ion-toolbar>
     <ion-buttons *ngIf="!backButton" slot="start" >
-        <ion-menu-button menu="menucontent"  ></ion-menu-button>
+      <ion-menu-button menu="menucontent"></ion-menu-button>
     </ion-buttons>
     <ion-buttons *ngIf="backButton && !editPage" slot="start">
       <ion-back-button defaultHref="{{routePath}}" [text]="''"></ion-back-button>

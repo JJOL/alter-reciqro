@@ -4,7 +4,7 @@ import { Place } from '../models/place.model';
 
 import * as firebaseApp from 'firebase/app';
 import * as geofirex from 'libs/geox';
-import { map } from 'rxjs/operators';
+import { map, min } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { WasteType } from '../models/waste-type';
 import { TipoInstalacion } from '../models/tipo-instalacion.model';
@@ -18,6 +18,17 @@ const WASTE_TYPE_KEY = '/waste_type';
 const PLACE_TYPE_WASTE_TYPE = '/place_type_waste_type';
 
 const GEO_FIELD = 'point';
+
+const QUERATRO_BBOX = {
+  northEast: {
+    lat: 20.836925189,
+    lng: -100.093225139
+  },
+  southWest: {
+    lat: 20.323954,
+    lng: -100.7551514
+  }
+};
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +61,9 @@ export class PlacesSearchService {
   public async searchPlaces(boundBox: any, filters: WasteType[]): Promise<[Place[],number]> {
     await this.preparePlaceTypes();
 
+    // FORCE TO SEARCH IN ALL QUERETARO
+    boundBox = QUERATRO_BBOX;
+
     let maxLat = boundBox.northEast.lat,
       maxLng = boundBox.northEast.lng,
       minLat = boundBox.southWest.lat,
@@ -58,6 +72,7 @@ export class PlacesSearchService {
     let acceptedTypesIds = this.getPlaceTypesForWastes(filters);
     let filterTypes = Object.keys(acceptedTypesIds).map(placeType => firebaseApp.firestore().doc(`place_type/${placeType}`));
     let places: Place[];
+
 
     let zoomLevel;
     for (zoomLevel = 0; zoomLevel < 3; zoomLevel++) {
@@ -118,6 +133,7 @@ export class PlacesSearchService {
     if (radius > MAX_RADIUS_SEARCH) {
       radius = RECOMENDED_RADIUS_SEARCH;
     }
+
     // console.log(`Used Radius: ${radius}`);
 
     let subscription: Subscription;
