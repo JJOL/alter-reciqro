@@ -40,24 +40,24 @@ export function setPrecision(km: number): number {
     case km <= 0.200:
       return 7;
 
-    default:
-    //case km <= 1.22:
+    // default:
+    case km <= 1.22:
       return 6;
 
-    // case km <= 4.89:
-    //   return 5;
+    case km <= 4.89:
+      return 5;
 
-    // case km <= 39.1:
-    //   return 4;
+    case km <= 39.1:
+      return 4;
 
-    // case km <= 156:
-    //   return 3;
+    case km <= 156:
+      return 3;
 
-    // case km <= 1250:
-    //   return 2;
+    case km <= 1250:
+      return 2;
 
-    // default:
-    //   return 1;
+    default:
+      return 1;
   }
   // 1	≤ 5,000km	×	5,000km
   // 2	≤ 1,250km	×	625km
