@@ -148,7 +148,6 @@ export class AddPage implements OnInit {
       { type: 'required', message: 'Rango de edad es requerida' },
     ],
     link: [
-      { type: 'pattern', message: 'El URL no es correcto'}
     ],
     startHour: [
       { type: 'required', message: 'Hora de inicio del evento requerida'}
@@ -167,7 +166,7 @@ export class AddPage implements OnInit {
     startDate: ['', [Validators.required, Validators.maxLength(100)]],
     endDate: ['', [Validators.required, Validators.maxLength(100)]],
     age: ['', [Validators.required, Validators.maxLength(20)]],
-    link: ['', Validators.pattern('^(https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))')], /*This should be a picture*/
+    link: [''], 
     startHour: [''],
     endHour: ['']
   });

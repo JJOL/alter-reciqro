@@ -145,7 +145,6 @@ export class DetailPage implements OnInit {
       { type: 'required', message: 'Longitud es requerida' },
     ],
     link: [
-      { type: 'pattern', message: 'El URL no es correcto'}
     ],
     startHour: [
       { type: 'required', message: 'Hora de inicio del evento requerida'}
@@ -164,9 +163,7 @@ export class DetailPage implements OnInit {
     startDate: ['', [Validators.required, Validators.maxLength(100)]],
     endDate: ['', [Validators.required, Validators.maxLength(100)]],
     age: ['', [Validators.required, Validators.maxLength(20)]],
-    link: [
-      { type: 'pattern', message: 'El URL no es correcto'}
-    ],
+    link: [''],
     startHour: [''],
     endHour: ['']
   });
