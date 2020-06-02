@@ -71,6 +71,7 @@ export class GeoFireQuery<T = any> {
     this.opts = opts;
     const tick = Date.now();
     let precision = setPrecision(radius) - sizeOffset;
+    precision = 1;
     // if (precision < 4) {
     //   precision = 4;
     // }
