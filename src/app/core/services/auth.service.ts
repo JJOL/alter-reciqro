@@ -133,7 +133,7 @@ export class AuthService {
    */
   async loginGoogleUser() {
     return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
-        .then(async (credential) => {
+        .then(async (credential) => {  
           await this.updateUserData(credential.user);
           this.isUserLoggedIn.next(true);
           this.getUserByUID(credential.user.uid).then(user => {
