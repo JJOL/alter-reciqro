@@ -101,6 +101,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html#islogged" class="tsd-kind-icon">is<wbr>Logged</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html#lastsearchedpos" class="tsd-kind-icon">last<wbr>Searched<wbr>Pos</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html#loadedplacetype" class="tsd-kind-icon">loaded<wbr>Place<wbr>Type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html#loadingcontroller" class="tsd-kind-icon">loading<wbr>Controller</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html#map" class="tsd-kind-icon">map</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html#mapbounds" class="tsd-kind-icon">map<wbr>Bounds</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html#modal" class="tsd-kind-icon">modal</a></li>
@@ -118,6 +119,7 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html#adjustmapzoom" class="tsd-kind-icon">adjust<wbr>Map<wbr>Zoom</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html#close" class="tsd-kind-icon">close</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html#dist" class="tsd-kind-icon">dist</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html#emitplace" class="tsd-kind-icon">emit<wbr>Place</a></li>
@@ -150,13 +152,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Places<wbr>Searcher<wbr>Page<wbr>Page<span class="tsd-signature-symbol">(</span>geolocationCont<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Geolocation</span>, popoverController<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PopoverController</span>, modalController<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ModalController</span>, searcherService<span class="tsd-signature-symbol">: </span><a href="_src_app_core_services_places_search_service_.placessearchservice.html" class="tsd-signature-type">PlacesSearchService</a>, domSanitizer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DomSanitizer</span>, placeService<span class="tsd-signature-symbol">: </span><a href="_src_app_core_services_places_service_.placesservice.html" class="tsd-signature-type">PlacesService</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html" class="tsd-signature-type">PlacesSearcherPagePage</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Places<wbr>Searcher<wbr>Page<wbr>Page<span class="tsd-signature-symbol">(</span>geolocationCont<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Geolocation</span>, popoverController<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PopoverController</span>, modalController<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ModalController</span>, loadingController<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">LoadingController</span>, searcherService<span class="tsd-signature-symbol">: </span><a href="_src_app_core_services_places_search_service_.placessearchservice.html" class="tsd-signature-type">PlacesSearchService</a>, domSanitizer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DomSanitizer</span>, placeService<span class="tsd-signature-symbol">: </span><a href="_src_app_core_services_places_service_.placesservice.html" class="tsd-signature-type">PlacesService</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html" class="tsd-signature-type">PlacesSearcherPagePage</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L58">src/app/user/places-searcher-page/places-searcher-page.page.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L58">src/app/user/places-searcher-page/places-searcher-page.page.ts:58</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -169,6 +171,9 @@
 								</li>
 								<li>
 									<h5>modalController: <span class="tsd-signature-type">ModalController</span></h5>
+								</li>
+								<li>
+									<h5>loadingController: <span class="tsd-signature-type">LoadingController</span></h5>
 								</li>
 								<li>
 									<h5>searcherService: <a href="_src_app_core_services_places_search_service_.placessearchservice.html" class="tsd-signature-type">PlacesSearchService</a></h5>
@@ -193,7 +198,7 @@
 					<div class="tsd-signature tsd-kind-icon">active<wbr>Filters<span class="tsd-signature-symbol">:</span> <a href="_src_app_core_models_waste_type_.wastetype.html" class="tsd-signature-type">WasteType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L47">src/app/user/places-searcher-page/places-searcher-page.page.ts:47</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L47">src/app/user/places-searcher-page/places-searcher-page.page.ts:47</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -203,7 +208,7 @@
 					<div class="tsd-signature tsd-kind-icon">array<wbr>OfVideos<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>vid_link<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [{vid_link:&#x27;https://www.youtube.com/watch?v&#x3D;668nUCeBHyY&#x27;}]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L58">src/app/user/places-searcher-page/places-searcher-page.page.ts:58</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L58">src/app/user/places-searcher-page/places-searcher-page.page.ts:58</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -213,7 +218,7 @@
 					<div class="tsd-signature tsd-kind-icon">authproof<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L49">src/app/user/places-searcher-page/places-searcher-page.page.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L49">src/app/user/places-searcher-page/places-searcher-page.page.ts:49</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -223,7 +228,7 @@
 					<div class="tsd-signature tsd-kind-icon">change<wbr>View<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = new EventEmitter()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L55">src/app/user/places-searcher-page/places-searcher-page.page.ts:55</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L55">src/app/user/places-searcher-page/places-searcher-page.page.ts:55</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -233,7 +238,7 @@
 					<div class="tsd-signature tsd-kind-icon">dom<wbr>Sanitizer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">DomSanitizer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L66">src/app/user/places-searcher-page/places-searcher-page.page.ts:66</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L67">src/app/user/places-searcher-page/places-searcher-page.page.ts:67</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -243,7 +248,7 @@
 					<div class="tsd-signature tsd-kind-icon">filters<span class="tsd-signature-symbol">:</span> <a href="_src_app_core_models_waste_type_.wastetype.html" class="tsd-signature-type">WasteType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L46">src/app/user/places-searcher-page/places-searcher-page.page.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L46">src/app/user/places-searcher-page/places-searcher-page.page.ts:46</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -253,7 +258,7 @@
 					<div class="tsd-signature tsd-kind-icon">geolocation<wbr>Cont<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Geolocation</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L62">src/app/user/places-searcher-page/places-searcher-page.page.ts:62</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L62">src/app/user/places-searcher-page/places-searcher-page.page.ts:62</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -263,7 +268,7 @@
 					<div class="tsd-signature tsd-kind-icon">has<wbr>Moved<wbr>Away<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L44">src/app/user/places-searcher-page/places-searcher-page.page.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L44">src/app/user/places-searcher-page/places-searcher-page.page.ts:44</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -273,7 +278,7 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Logged<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L32">src/app/user/places-searcher-page/places-searcher-page.page.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L32">src/app/user/places-searcher-page/places-searcher-page.page.ts:32</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -283,7 +288,7 @@
 					<div class="tsd-signature tsd-kind-icon">last<wbr>Searched<wbr>Pos<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>lat<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>lng<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L43">src/app/user/places-searcher-page/places-searcher-page.page.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L43">src/app/user/places-searcher-page/places-searcher-page.page.ts:43</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -304,7 +309,17 @@
 					<div class="tsd-signature tsd-kind-icon">loaded<wbr>Place<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="_src_app_core_models_tipo_instalacion_model_.tipoinstalacion.html" class="tsd-signature-type">TipoInstalacion</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L37">src/app/user/places-searcher-page/places-searcher-page.page.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L37">src/app/user/places-searcher-page/places-searcher-page.page.ts:37</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="loadingcontroller" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> loading<wbr>Controller</h3>
+					<div class="tsd-signature tsd-kind-icon">loading<wbr>Controller<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">LoadingController</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L65">src/app/user/places-searcher-page/places-searcher-page.page.ts:65</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -314,7 +329,7 @@
 					<div class="tsd-signature tsd-kind-icon">map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L53">src/app/user/places-searcher-page/places-searcher-page.page.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L53">src/app/user/places-searcher-page/places-searcher-page.page.ts:53</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -324,7 +339,7 @@
 					<div class="tsd-signature tsd-kind-icon">map<wbr>Bounds<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L40">src/app/user/places-searcher-page/places-searcher-page.page.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L40">src/app/user/places-searcher-page/places-searcher-page.page.ts:40</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -334,7 +349,7 @@
 					<div class="tsd-signature tsd-kind-icon">modal<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLIonPopoverElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L48">src/app/user/places-searcher-page/places-searcher-page.page.ts:48</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L48">src/app/user/places-searcher-page/places-searcher-page.page.ts:48</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -344,7 +359,7 @@
 					<div class="tsd-signature tsd-kind-icon">modal<wbr>Controller<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ModalController</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L64">src/app/user/places-searcher-page/places-searcher-page.page.ts:64</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L64">src/app/user/places-searcher-page/places-searcher-page.page.ts:64</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -354,7 +369,7 @@
 					<div class="tsd-signature tsd-kind-icon">place<wbr>Selected<span class="tsd-signature-symbol">:</span> <a href="_src_app_core_models_place_model_.place.html" class="tsd-signature-type">Place</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L41">src/app/user/places-searcher-page/places-searcher-page.page.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L41">src/app/user/places-searcher-page/places-searcher-page.page.ts:41</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -364,7 +379,7 @@
 					<div class="tsd-signature tsd-kind-icon">place<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="_src_app_core_services_places_service_.placesservice.html" class="tsd-signature-type">PlacesService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L67">src/app/user/places-searcher-page/places-searcher-page.page.ts:67</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L68">src/app/user/places-searcher-page/places-searcher-page.page.ts:68</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -374,7 +389,7 @@
 					<div class="tsd-signature tsd-kind-icon">places<span class="tsd-signature-symbol">:</span> <a href="_src_app_core_models_place_model_.place.html" class="tsd-signature-type">Place</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L38">src/app/user/places-searcher-page/places-searcher-page.page.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L38">src/app/user/places-searcher-page/places-searcher-page.page.ts:38</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -384,7 +399,7 @@
 					<div class="tsd-signature tsd-kind-icon">popover<wbr>Controller<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">PopoverController</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L63">src/app/user/places-searcher-page/places-searcher-page.page.ts:63</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L63">src/app/user/places-searcher-page/places-searcher-page.page.ts:63</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -394,7 +409,7 @@
 					<div class="tsd-signature tsd-kind-icon">position<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>lat<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>lng<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L39">src/app/user/places-searcher-page/places-searcher-page.page.ts:39</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L39">src/app/user/places-searcher-page/places-searcher-page.page.ts:39</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -415,7 +430,7 @@
 					<div class="tsd-signature tsd-kind-icon">searcher<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="_src_app_core_services_places_search_service_.placessearchservice.html" class="tsd-signature-type">PlacesSearchService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L65">src/app/user/places-searcher-page/places-searcher-page.page.ts:65</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L66">src/app/user/places-searcher-page/places-searcher-page.page.ts:66</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -425,7 +440,7 @@
 					<div class="tsd-signature tsd-kind-icon">trusted<wbr>Video<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">SafeResourceUrl</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L57">src/app/user/places-searcher-page/places-searcher-page.page.ts:57</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L57">src/app/user/places-searcher-page/places-searcher-page.page.ts:57</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -435,13 +450,49 @@
 					<div class="tsd-signature tsd-kind-icon">user<wbr>Loaction<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L42">src/app/user/places-searcher-page/places-searcher-page.page.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L42">src/app/user/places-searcher-page/places-searcher-page.page.ts:42</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="adjustmapzoom" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> adjust<wbr>Map<wbr>Zoom</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">adjust<wbr>Map<wbr>Zoom<span class="tsd-signature-symbol">(</span>places<span class="tsd-signature-symbol">: </span><a href="_src_app_core_models_place_model_.place.html" class="tsd-signature-type">Place</a><span class="tsd-signature-symbol">[]</span>, scaleLevel<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, mapBounds<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L107">src/app/user/places-searcher-page/places-searcher-page.page.ts:107</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Description: Adjuts map zoom level based on resulting places and viewport</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>places: <a href="_src_app_core_models_place_model_.place.html" class="tsd-signature-type">Place</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5>scaleLevel: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>mapBounds: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="close" class="tsd-anchor"></a>
 					<h3>close</h3>
@@ -452,7 +503,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L211">src/app/user/places-searcher-page/places-searcher-page.page.ts:211</a></li>
+									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L243">src/app/user/places-searcher-page/places-searcher-page.page.ts:243</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -475,7 +526,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L267">src/app/user/places-searcher-page/places-searcher-page.page.ts:267</a></li>
+									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L299">src/app/user/places-searcher-page/places-searcher-page.page.ts:299</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -519,7 +570,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L176">src/app/user/places-searcher-page/places-searcher-page.page.ts:176</a></li>
+									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L208">src/app/user/places-searcher-page/places-searcher-page.page.ts:208</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -550,7 +601,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L129">src/app/user/places-searcher-page/places-searcher-page.page.ts:129</a></li>
+									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L165">src/app/user/places-searcher-page/places-searcher-page.page.ts:165</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -573,7 +624,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L95">src/app/user/places-searcher-page/places-searcher-page.page.ts:95</a></li>
+									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L132">src/app/user/places-searcher-page/places-searcher-page.page.ts:132</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -596,7 +647,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L137">src/app/user/places-searcher-page/places-searcher-page.page.ts:137</a></li>
+									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L173">src/app/user/places-searcher-page/places-searcher-page.page.ts:173</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -619,7 +670,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L299">src/app/user/places-searcher-page/places-searcher-page.page.ts:299</a></li>
+									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L331">src/app/user/places-searcher-page/places-searcher-page.page.ts:331</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -641,7 +692,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L248">src/app/user/places-searcher-page/places-searcher-page.page.ts:248</a></li>
+									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L280">src/app/user/places-searcher-page/places-searcher-page.page.ts:280</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -672,7 +723,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L275">src/app/user/places-searcher-page/places-searcher-page.page.ts:275</a></li>
+									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L307">src/app/user/places-searcher-page/places-searcher-page.page.ts:307</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -695,7 +746,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L282">src/app/user/places-searcher-page/places-searcher-page.page.ts:282</a></li>
+									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L314">src/app/user/places-searcher-page/places-searcher-page.page.ts:314</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -718,7 +769,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L147">src/app/user/places-searcher-page/places-searcher-page.page.ts:147</a></li>
+									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L183">src/app/user/places-searcher-page/places-searcher-page.page.ts:183</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -741,7 +792,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L235">src/app/user/places-searcher-page/places-searcher-page.page.ts:235</a></li>
+									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L267">src/app/user/places-searcher-page/places-searcher-page.page.ts:267</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -764,7 +815,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L221">src/app/user/places-searcher-page/places-searcher-page.page.ts:221</a></li>
+									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L253">src/app/user/places-searcher-page/places-searcher-page.page.ts:253</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -781,13 +832,13 @@
 					<a name="searchplaces" class="tsd-anchor"></a>
 					<h3>search<wbr>Places</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">search<wbr>Places<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">search<wbr>Places<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L75">src/app/user/places-searcher-page/places-searcher-page.page.ts:75</a></li>
+									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L76">src/app/user/places-searcher-page/places-searcher-page.page.ts:76</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -796,7 +847,7 @@
 									Description: Retrieve Places based on viewed portion of the screen and activated waste filters.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -810,7 +861,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L197">src/app/user/places-searcher-page/places-searcher-page.page.ts:197</a></li>
+									<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L229">src/app/user/places-searcher-page/places-searcher-page.page.ts:229</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -832,7 +883,7 @@
 					<div class="tsd-signature tsd-kind-icon">classname<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L33">src/app/user/places-searcher-page/places-searcher-page.page.ts:33</a></li>
+							<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L33">src/app/user/places-searcher-page/places-searcher-page.page.ts:33</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -841,7 +892,7 @@
 						<div class="tsd-signature tsd-kind-icon">ion-<wbr>no-<wbr>padding<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = true</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L35">src/app/user/places-searcher-page/places-searcher-page.page.ts:35</a></li>
+								<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L35">src/app/user/places-searcher-page/places-searcher-page.page.ts:35</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -851,7 +902,7 @@
 						<div class="tsd-signature tsd-kind-icon">ly-<wbr>grid-<wbr>map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = true</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/3c3c5cb/src/app/user/places-searcher-page/places-searcher-page.page.ts#L34">src/app/user/places-searcher-page/places-searcher-page.page.ts:34</a></li>
+								<li>Defined in <a href="https://github.com/tecjjol/reciqro/blob/bca2bc9/src/app/user/places-searcher-page/places-searcher-page.page.ts#L34">src/app/user/places-searcher-page/places-searcher-page.page.ts:34</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -912,6 +963,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html#loadedplacetype" class="tsd-kind-icon">loaded<wbr>Place<wbr>Type</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html#loadingcontroller" class="tsd-kind-icon">loading<wbr>Controller</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html#map" class="tsd-kind-icon">map</a>
 							</li>
@@ -947,6 +1001,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html#userloaction" class="tsd-kind-icon">user<wbr>Loaction</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html#adjustmapzoom" class="tsd-kind-icon">adjust<wbr>Map<wbr>Zoom</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_src_app_user_places_searcher_page_places_searcher_page_page_.placessearcherpagepage.html#close" class="tsd-kind-icon">close</a>
