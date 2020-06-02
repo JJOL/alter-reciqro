@@ -10,6 +10,9 @@ Esto se logra a través de:
 
 [Matriz de requisitos](https://docs.google.com/spreadsheets/d/1QAn8QA6UwQu4p5pzo3QpAgggC5GWWg2zO1UTauqZx3s/edit#gid=1078788303)
 
+## 1.0.1 (02/06/2020)
+### Cambios estéticos
+* Se agregó en el side menu, teléfonos de contacto y correo electrónico
 
 ## 1.0.0 (26/05/2020)
 

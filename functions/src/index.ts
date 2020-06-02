@@ -5,7 +5,7 @@ import * as admin from 'firebase-admin';
 import * as sgMail from '@sendgrid/mail';
 
 const SENDGRID_API_KEY = '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';
-const EMAIL_ACCOUNT = 'alterdpto@gmail.com';
+const EMAIL_ACCOUNT = 'aqropio@municipiodequeretaro.gob.mx';
 
 
 sgMail.setApiKey(SENDGRID_API_KEY);
