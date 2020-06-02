@@ -1,14 +1,6 @@
 dist: trusty
 sudo: false
 
-notifications:
-  slack: 
-    rooms:
-      - elbloquesemestrei:RKsDLWIhICKd5v7MmZlKwKnr
-    template:
-      - "%{repository_slug} (%{commit}) : %{message}"
-      - "Build details: %{build_url}"
-      - "Coverage log: http://altermx.website/logs/%{branch}/%{commit}"
 
 language: node_js
 node_js:
@@ -36,9 +28,6 @@ jobs:
     script:
     - sudo -E apt-get -yq install lftp
     - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-    - lftp sftp://altefxyj:UV07XAyx80JW@ftp.altermx.website  -p 21098  -e "set ssl:verify-certificate no; set sftp:auto-confirm yes; mirror -R coverage/ public_html/logs/$TRAVIS_BRANCH/$(git rev-parse --short ${TRAVIS_COMMIT}); quit"
-    - npm run-script coverage-report
-    - npm run-script lint-report
   - stage: build
     before_script: skip
     install: skip
