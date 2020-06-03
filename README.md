@@ -13,7 +13,7 @@ Esto se logra a través de:
 ## 1.0.1 (02/06/2020)
 ### Cambios estéticos
 * Se agregó en el side menu, teléfonos de contacto y correo electrónico
-
+* Se arreglo un typo en /user en delegación
 ## 1.0.0 (26/05/2020)
 
 ### Módulo 1 Mapa y marcadores interactivos
