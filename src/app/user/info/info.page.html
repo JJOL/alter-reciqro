@@ -3,15 +3,15 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col size-lg="4" size-md="4" size-sm="8" size="12">
+      <ion-col size-lg="6" size-md="6" size-sm="8" size="12">
         <ion-card class="card1" [routerLink]="['/','user','info','waste']" >
-          <img src="https://i.ytimg.com/vi/YiHTNfKJwAw/maxresdefault.jpg" />
+          <img src="../../../assets/img/funfacts.jpg"/>
           <ion-card-header>
             <ion-card-subtitle class="card1">Conoce más</ion-card-subtitle>
             <ion-card-title class="card1">Residuos</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            En esta sección podrás aprender más acerca del impacto que tienen tus desechos en el planeta, así como alternativas y recomendaciones.
+            En esta sección podrás aprender más acerca del impacto que tienen tus desechos en el planeta, así como alternativas y recomendaciones. 
           </ion-card-content>
           <div class="ion-text-right">
             <ion-button 
@@ -19,20 +19,20 @@
             fill="clear"
             routerDirection=" "
             [routerLink]="['/','user','info','waste']"> 
-            Más
+            Ver más
           </ion-button>
           </div>
         </ion-card>
       </ion-col>
-      <ion-col size-lg="4" size-md="4" size-sm="8" size="12">
+      <ion-col size-lg="6" size-md="6" size-sm="8" size="12">
         <ion-card class="card2" [routerLink]="['/','user','info','funfacts']">
-          <img src="https://pra.com/wp-content/uploads/2018/01/Curiosity-Hero-and-Header-Image-1300x440.jpg" />
+          <img src="../../../assets/img/Residuos.jpg"/>
           <ion-card-header>
             <ion-card-subtitle class="card2">¿Qué quieres aprender hoy?</ion-card-subtitle>
             <ion-card-title class="card2">Datos Curiosos</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            Aquí puedes ver datos curiosos sobre diferentes residuos y reciclaje.
+            Aquí puedes ver datos curiosos sobre diferentes residuos y reciclaje. Igualmente encontrarás fechas relevantes y por qué se conmemoran.
           </ion-card-content>
           <div class="ion-text-right">
             <ion-button 
@@ -40,31 +40,10 @@
             fill="clear"
             routerDirection=" "
             [routerLink]="['/','user','info','funfacts']"> 
-            Más
+            Ver más
           </ion-button>
           </div>
         </ion-card>        
-      </ion-col>
-      <ion-col size-lg="4" size-md="4" size-sm="8" size="12">
-        <ion-card class="card3" [routerLink]="['/','user','info','events']" >
-          <img src="https://www.emergingedtech.com/wp/wp-content/uploads/2019/08/Healthy-Positive-Classroom.jpg" />
-          <ion-card-header >
-            <ion-card-subtitle class="card3">Acércate a nosotros</ion-card-subtitle>
-            <ion-card-title class="card3">Eventos</ion-card-title>
-          </ion-card-header>
-          <ion-card-content >
-            Descubre la variedad de eventos que tenemos para toda la familia: talleres, webinars, obras, campañas, carreras y mucho más.
-          </ion-card-content >
-          <div class="ion-text-right">
-            <ion-button 
-            class="card3"
-            fill="clear"
-            routerDirection=" "
-            [routerLink]="['/','user','info','events']"> 
-            Más
-          </ion-button>
-          </div>
-        </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
