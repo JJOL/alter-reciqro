@@ -193,7 +193,8 @@ export class PlacesSearcherPagePage  {
     this.modal.onDidDismiss().then( (event) => {
       if (event.data) {
         this.activeFilters = event.data;
-        this.searchPlaces();
+        if (this.activeFilters.length > 0){
+        this.searchPlaces();}
       }
     });
     return true;
