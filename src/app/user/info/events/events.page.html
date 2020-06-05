@@ -17,10 +17,19 @@
         </ion-slide>
     </ion-slides>
     <ion-grid>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="3" size-sm="12" class="ion-text-center">
+            <br>
+            <ion-item>
+              <ion-label>Mostrar Eventos Previos</ion-label>
+              <ion-toggle (ionChange)="seePastEvents($event)" checked="false"></ion-toggle>
+            </ion-item>
+          </ion-col>
+        </ion-row>
         <ion-row class="ion-justify-content-center" >
           <ion-col size-md = "6" size-sm = "12" class="ion-text-center">
             <ion-list >
-              <ion-item *ngFor="let event of events | paginate: { itemsPerPage: 7, currentPage: actualPage }" detail [routerLink]="['/user/info/events/detail-event', event.id]">
+              <ion-item *ngFor="let event of listEvents | paginate: { itemsPerPage: 7, currentPage: actualPage }" detail [routerLink]="['/user/info/events/detail-event', event.id]">
                 <ion-thumbnail slot="start">
                   <ion-img *ngIf="event.icon " [src]="event.icon"></ion-img>
                 </ion-thumbnail>

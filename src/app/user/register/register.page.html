@@ -91,7 +91,7 @@
 
     <ion-item>
       <ion-checkbox (click) = "hasReadPrivacyPolicy()" slot="start"></ion-checkbox>
-      <ion-label> <a href="https://drive.google.com/file/d/11wFan-mhoHnqtSEB1NixUfP3_e0aHFFp/view?usp=sharing" target="_blank">Aviso de Privacidad</a></ion-label>
+      <ion-label> <a (click)="seeDetail()" target="_blank">Aviso de Privacidad</a></ion-label>
     </ion-item>
     <ion-input hidden formControlName="privacy_policy" required = "true" ></ion-input>
     <div *ngFor="let error of errorMessages.privacy_policy">

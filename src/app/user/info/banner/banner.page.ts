@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, IonRouterOutlet } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { ModalBannerPage } from './modal-banner/modal-banner.page'
 import { InfoBannerService } from '../../../core/services/info-banner.service';
 import { InfoBanner } from '../../../core/models/info-banner.model';

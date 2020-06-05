@@ -1,40 +1,29 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
-
 @Component({
-  selector: 'app-modal-banner',
-  templateUrl: './modal-banner.page.html',
-  styleUrls: ['./modal-banner.page.scss'],
+  selector: 'app-aviso-privacidad',
+  templateUrl: './aviso-privacidad.page.html',
+  styleUrls: ['./aviso-privacidad.page.scss'],
 })
 
 /**
-   * User Story Id: M2NC4
-   * Allows the ModalBannerPage to be available for imports
+   * Allows the AvisoPrivacidadPage to be available for imports
    * @param  
    * @returns 
    */
-export class ModalBannerPage implements OnInit {
+export class AvisoPrivacidadPage implements OnInit {
 
-  @Input() title: string;
-  @Input() description: string;
-  @Input() url: string;
-  @Input() date: string;
-  
   /**
-   * User Story Id: M2NC5
    * Allows to inject services to the model
    * @param  {ModalController} modalCtrl
    * @returns 
    */
   constructor(
     private modalCtrl: ModalController
-  ) {
-
-  }
+  ) { }
 
   /**
-   * User Story Id: M2NC4
    * Function that is executed when the page instantiated
    * @param  
    * @returns 
@@ -43,7 +32,6 @@ export class ModalBannerPage implements OnInit {
   }
 
   /**
-   * User Story Id: M2NC4
    * Fuction that is executed for dismissing the modal
    * @param  
    * @returns 

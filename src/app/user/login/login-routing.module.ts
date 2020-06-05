@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: LoginPage
+  },  {
+    path: 'aviso-privacidad',
+    loadChildren: () => import('./aviso-privacidad/aviso-privacidad.module').then( m => m.AvisoPrivacidadPageModule)
   }
+
 ];
 
 @NgModule({

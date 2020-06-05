@@ -15,7 +15,10 @@ import { EventModel } from 'src/app/core/models/event.model';
 */
 export class EventsPage implements OnInit {
   events: EventModel[];
+  pastEvents: EventModel[];
+  listEvents: EventModel[];
   todayDate = new Date();
+  estatus: boolean = false;
   lengthEvents=-1;
   actualPage = 1;
   /**
@@ -31,10 +34,34 @@ export class EventsPage implements OnInit {
   ngOnInit() {
     this.eventService.getAllEvents().then(event => {
       this.events = event;
-      this.events = event.filter(event => event.end_date >= this.todayDate);
-      this.lengthEvents=this.events.length
+      this.listEvents = this.events;
+      this.eventService.getPastEvents().then(events2 => {
+        this.pastEvents = events2;
+        this.lengthEvents=this.events.length + this.pastEvents.length;
+      })
+      
     });
   }
+
+  /**
+   * Listen to check if there is a change
+   */
+  ionViewWillEnter() {
+    this.eventService.getAllEvents().then(events => {
+      this.events = events;
+      this.eventService.getPastEvents().then( events2 => {
+        this.pastEvents = events2;
+        this.lengthEvents = this.events.length + this.pastEvents.length;
+        if(this.estatus && this.lengthEvents > 0){
+          this.listEvents = this.pastEvents;
+        }else{
+          this.listEvents = this.events;
+        }
+      })
+    });
+   
+  }
+
   /**
    * User Story I: M2NC1, M2NC2
    * Fuction that is executed for autoplaying the slider when the assets are already loaded
@@ -43,5 +70,19 @@ export class EventsPage implements OnInit {
    */
   slidesDidLoad(BannerSlider){
     BannerSlider.startAutoplay();
+  }
+
+  /**
+   * User Story ID: M2NC1, M2NC2
+   * This function retrieves all past events
+   */
+  seePastEvents(event){
+    if(event.detail.checked){
+      this.estatus = true;
+      this.listEvents = this.pastEvents;
+    }else{
+      this.estatus = false;
+      this.listEvents = this.events;
+    }
   }
 }

@@ -16,8 +16,9 @@ import { DatePipe } from '@angular/common';
 export class EventsPage implements OnInit {
   events: EventModel[];
   listEvents: EventModel[];
-  todayDate = new Date();
+  pastEvents: EventModel[];
   actualPage = 1;
+  estatus: boolean = false;
   /**
    * User Story ID: M2NC2
    * Constructor only uses as an external service the Event Service, so that reading operations can be performed.
@@ -31,7 +32,7 @@ export class EventsPage implements OnInit {
    * On ngOnInit all events are loaded.
    */
   ngOnInit() {
-    this.eventService.erasePastEvents();
+    
   }
   /**
    * User Story ID: M2NC2
@@ -55,10 +56,18 @@ export class EventsPage implements OnInit {
             this.eventService.getAllEvents().then(events => {
               this.showToast('Se eliminó de manera correcta');
               this.events = events;
-              this.listEvents = this.events.filter(event => event.end_date >= this.todayDate);
+              if(!this.estatus){
+                this.listEvents = this.events;
+              }
             });
+            this.eventService.getPastEvents().then( event => {
+              this.pastEvents = event;
+              if(this.estatus){
+                this.listEvents = this.pastEvents;
+              }
+            })
           }).catch( () => {
-            this.showToastWrong('Error al crear el evento');
+            this.showToastWrong('Error al eliminar el evento');
           });
         }
       }]
@@ -73,9 +82,16 @@ export class EventsPage implements OnInit {
   ionViewWillEnter() {
     this.eventService.getAllEvents().then(events => {
       this.events = events;
-      this.events = this.events.filter(event => event.end_date >= this.todayDate);
-      this.listEvents = this.events;
+      if(!this.estatus){
+        this.listEvents = this.events;
+      }
     });
+    this.eventService.getPastEvents().then( events => {
+      this.pastEvents = events;
+      if(this.estatus){
+        this.listEvents = this.pastEvents;
+      }
+    })
   }
 
   /**
@@ -107,13 +123,34 @@ export class EventsPage implements OnInit {
 
   /**
    * User Story ID: M4NG8
-   * This function retrieves all waste types that have the name searched
+   * This function retrieves all events that have the name searched
    */
   searchByName(event){
-    0 === event.detail.value.length ? this.listEvents = this.events:
-    this.listEvents = this.events.filter( infoBanner => {
-      return infoBanner.name.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
+    if(this.estatus){
+      0 === event.detail.value.length ? this.listEvents = this.pastEvents:
+      this.listEvents = this.pastEvents.filter( search => {
+        return search.name.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
+      })
+    }else{
+      0 === event.detail.value.length ? this.listEvents = this.events:
+      this.listEvents = this.events.filter( search => {
+      return search.name.toLowerCase().indexOf(event.detail.value.toLowerCase()) !== -1;
     })
+    }
+  }
+
+  /**
+   * User Story ID: M4NG8
+   * This function retrieves all past events
+   */
+  seePastEvents(event){
+    if(event.detail.checked){
+      this.estatus = true;
+      this.listEvents = this.pastEvents;
+    }else{
+      this.estatus = false;
+      this.listEvents = this.events;
+    }
   }
 
 }

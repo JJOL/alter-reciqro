@@ -12,7 +12,7 @@ const EVENTS_KEY = '/events';
 const GeoPoint = firebase.firestore.GeoPoint;
 const Timestamp = firebase.firestore.Timestamp;
 let  currentDate = new Date();
-currentDate.setDate(currentDate.getDate() + 1);
+currentDate.setDate(currentDate.getDate() - 1);
 /**
  * User Story ID: M2NC2
  * User Story ID M2NC3
@@ -102,7 +102,7 @@ export class EventsService {
   getAllEvents(): Promise<EventModel[]> {
     return new Promise((resolve) => {
       let subscription: Subscription;
-      subscription = this.firedb.collection<any>(EVENTS_KEY, ref => ref.orderBy('start_date')).snapshotChanges()
+      subscription = this.firedb.collection<any>(EVENTS_KEY, ref => ref.where('start_date', '>=', currentDate).orderBy('start_date')).snapshotChanges()
           .pipe(map(snapshot => {
             return snapshot.map(parseFBEventToEvent2);
           }))
@@ -210,19 +210,25 @@ export class EventsService {
           );
     });
   }
+
   /**
    * User Story ID: M1NG2
-   * Description: This function deletes the past events.
+   * Description: This function gets all past events.
    * @returns Promise
    */
-  async erasePastEvents(): Promise<EventModel> {
-    const batch = this.db.firestore.batch();
-    return new Promise(async () => {
-      const pastEvents =  await this.db.collection(EVENTS_KEY).ref.where('end_date', '<', currentDate).get();
-      pastEvents.forEach(event => {
-        batch.delete(event.ref);
-      });
-      await batch.commit();
+  async getPastEvents(): Promise<EventModel[]> {
+    return new Promise((resolve) => {
+      let subscription: Subscription;
+      subscription = this.firedb.collection<any>(EVENTS_KEY, ref => ref.where('start_date', '<', currentDate).orderBy('start_date')).snapshotChanges()
+          .pipe(map(snapshot => {
+            return snapshot.map(parseFBEventToEvent2);
+          }))
+          .subscribe(event => {
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+            resolve(event);
+          });
     });
   }
 }
