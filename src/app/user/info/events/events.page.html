@@ -2,7 +2,7 @@
 <ion-content>
   <div *ngIf="lengthEvents>0">
     <ion-slides pager="true" #EventSlider (ionSlidesDidLoad)="slidesDidLoad(EventSlider)">
-        <ion-slide *ngFor="let event of events">
+        <ion-slide *ngFor="let event of listEvents">
             <ion-grid>
                 <ion-row class="ion-justify-content-center">
                     <ion-col size-md="6" class="ion-align-self-center">
