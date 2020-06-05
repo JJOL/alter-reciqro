@@ -62,7 +62,7 @@ export class AddInfoBannersPage implements OnInit, AfterViewChecked {
     ],
     description: [
       { type: 'required', message: 'Descripción es requerida' },
-      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 100 caracteres'}
+      { type: 'maxlength', message: 'La longitud del texto no debe ser mayor a 1,000 caracteres'}
     ],
     date: [
       { type: 'required', message: 'Fecha requerida' }
@@ -136,7 +136,7 @@ export class AddInfoBannersPage implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.infoBannersForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(MAX_TITLE_FIELD_LENGTH)]],
-      description: ['', [Validators.required, Validators.maxLength(MAX_DESCRIPTION_FIELD_LENGTH)]],
+      description: ['', [Validators.required, Validators.maxLength(1000)]],
       date: [''],
       mainPicture: [''] /*This should be a picture*/
     });
