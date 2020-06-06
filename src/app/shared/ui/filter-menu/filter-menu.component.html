@@ -14,8 +14,8 @@
           <ion-checkbox slot="end" [value]="filter" [checked]="activeFilters.includes(filter)" (ionChange)="check($event)"></ion-checkbox>
     </ion-item>  
     <p (click)="wasteInfo()">Conoce más info. de tu residuo</p>
-    <ion-item lines="none">
-    <ion-button slot="end" (click)="dismiss()">Aceptar</ion-button>
-  </ion-item>  
+    <div class="right">
+      <ion-button slot="end" (click)="dismiss()">Aceptar</ion-button>
+    </div>
 
 </ion-list>

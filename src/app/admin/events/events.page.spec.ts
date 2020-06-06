@@ -74,7 +74,7 @@ const mockService = jasmine.createSpyObj('eventService',
       getAllEvents: new Promise<any>((res) => {
         res([]);
       }),
-      erasePastEvents: new Promise<any>((res) => {
+      getPastEvents: new Promise<any>((res) => {
         res([]);
       }),
     }

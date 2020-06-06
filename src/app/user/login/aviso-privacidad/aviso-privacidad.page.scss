@@ -1,0 +1,47 @@
+ion-title{
+    --color:white;
+    text-align: center;
+}
+ion-toolbar{
+    --color:white;
+    text-align: center;
+}
+
+.smallImg{
+	display: block;
+  height: 55px;
+  padding: 2px;
+}
+
+.center{
+    margin: auto;
+}
+ 
+.column {
+  float: left;
+  width: 25%;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  padding-left: 10px;
+  display: table;
+}
+
+h1 {
+    color: #0f2252;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 50px;
+    font-weight: bold;
+    margin-top: 0px;
+    margin-bottom: 1px;
+    }
+
+.middle{
+    text-align: center;
+}
+
+.withborder{
+    text-align: justify;
+}

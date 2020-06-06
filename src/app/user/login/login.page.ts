@@ -4,8 +4,10 @@ import { Component } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import { ToastController } from '@ionic/angular';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
 
 import { MIN_LENGTH_PASSWORD } from 'src/app/core/constants';
+import { AvisoPrivacidadPage } from './aviso-privacidad/aviso-privacidad.page';
 
 @Component({
   selector: 'app-login',
@@ -62,7 +64,8 @@ export class LoginPage {
               private router: Router,
               private authService: AuthService,
               public formBuilder: FormBuilder,
-              private toastCtrl: ToastController) { }
+              private toastCtrl: ToastController,
+              private modalController: ModalController) { }
 
   /**
    * User Story ID: M4NC2,M4NG1
@@ -168,6 +171,19 @@ export class LoginPage {
       }
     }
     
+  }
+
+  /**
+   * Fuction that is executed for presenting the modal, searching for the modal usign the BannerService
+   * @param  
+   * @returns 
+   */
+  async seeDetail(){
+    const modal = await this.modalController.create({
+      component: AvisoPrivacidadPage,
+      swipeToClose: true,
+    });
+    return modal.present();
   }
 
 }

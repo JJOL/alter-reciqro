@@ -24,7 +24,7 @@ import { AnimationService, AnimatesDirective } from 'css-animator';
     SplashscreenPageModule,
     HelpPageModule,
   ],
-  declarations: [PlacesSearcherPagePage, MarkerCardComponent, AnimatesDirective],
+  declarations: [PlacesSearcherPagePage, MarkerCardComponent],
   providers: [
     Geolocation,
     AnimationService

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, ToastController } from '@ionic/angular';
+import { NavController, ToastController, ModalController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DelegationService } from 'src/app/core/services/delegation.service';
 
 import { MIN_LENGTH_PASSWORD } from 'src/app/core/constants';
+import { AvisoPrivacidadPage } from '../login/aviso-privacidad/aviso-privacidad.page';
 
 const MAX_LENGTH_ALIAS = 100
 
@@ -127,6 +128,7 @@ export class RegisterPage implements OnInit {
     public formBuilder: FormBuilder,
     private toastCtrl: ToastController,
     private delegationService: DelegationService,
+    private modalController: ModalController
   ) { }
 
   /**
@@ -221,5 +223,18 @@ export class RegisterPage implements OnInit {
         matchingControl.setErrors(null);
       }
     }
+  }
+
+  /**
+   * Fuction that is executed for presenting the modal, searching for the modal usign the BannerService
+   * @param  
+   * @returns 
+   */
+  async seeDetail(){
+    const modal = await this.modalController.create({
+      component: AvisoPrivacidadPage,
+      swipeToClose: true,
+    });
+    return modal.present();
   }
 }
