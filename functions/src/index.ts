@@ -4,7 +4,11 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as sgMail from '@sendgrid/mail';
 
-sgMail.setApiKey('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');
+const SENDGRID_API_KEY = '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';
+const EMAIL_ACCOUNT = 'aqropio@municipiodequeretaro.gob.mx';
+
+
+sgMail.setApiKey(SENDGRID_API_KEY);
 admin.initializeApp();
 const db = admin.firestore();
 /**
@@ -114,7 +118,7 @@ export const onModifyEvent = functions.firestore.document('/events/{eventId}').o
    function broadcastEmail(emails: string[], subject: string, html: string): Promise<any> {
     return sgMail.send({
       to: emails,
-      from: 'alterdpto@gmail.com',
+      from: EMAIL_ACCOUNT,
       subject: subject,
       html: html
     }, true);

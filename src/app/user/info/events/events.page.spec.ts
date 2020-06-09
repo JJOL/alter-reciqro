@@ -87,9 +87,14 @@ const angularFirestoreStub = {
   collection: jasmine.createSpy('collection').and.returnValue(collectionStub),
 };
 
-const mockService = jasmine.createSpyObj('eventService', ['getAllEvents']);
+const mockService = jasmine.createSpyObj('eventService', ['getAllEvents', 'getPastEvents']);
 
 mockService.getAllEvents.and.returnValue(
+    new Promise<any>((res) => {
+      res([]);
+    }));
+
+mockService.getPastEvents.and.returnValue(
     new Promise<any>((res) => {
       res([]);
     }));

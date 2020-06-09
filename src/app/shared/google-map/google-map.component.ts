@@ -107,10 +107,12 @@ export class GoogleMapComponent implements OnInit, OnChanges {
         }
       })
     } );
-
+    google.maps.event.addListener(this.map, 'click', () => {
+      if(this.currentInfoWindow!=null) this.currentInfoWindow.close(); });
     if (this.editable) {
 
       google.maps.event.addListener(this.map, 'click', event => {
+        if(this.currentInfoWindow!=null) this.currentInfoWindow.close();
         const place = {
           location: {
             lat: event.latLng.lat(),
@@ -118,8 +120,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
         };
         if (this.addPlace(place)) {
           this.placeChange.emit(place);
-          this.addMarker(place);
-
+          this.addMarker(place);if(this.currentInfoWindow!=null) this.currentInfoWindow.close();
         }
       });
     }
@@ -159,6 +160,14 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   setZoom(zoom) {
     this.map.setZoom(zoom);
   }
+
+  /**
+   * Get map zoom
+   * @return number 
+   */
+  getZoom(): number {
+    return this.map.getZoom();
+  }
   
   /**
    * User Story ID:  M1NC1, M1NC2, M1NC4,M1NC5
@@ -171,11 +180,10 @@ export class GoogleMapComponent implements OnInit, OnChanges {
       if(place.name) {
         contentString = 
     '<p align> <b>'+place.name+'</b> <br>Horario: '+place.schedule+'<br>'+place.description+'<br>'+place.address+'<br>'+
-    '<ion-grid><ion-row><ion-col offset="4" ><img src="'+place.photo+'"  height="100" width="100"  ></ion-col></ion-row></ion-grid><br>'+
-  
     '<a style="text-decoration:none" target="_blank" '+
     'href="https://www.google.com/maps/dir//'+place.location.lat+','+place.location.lng+'/@'+place.location.lat+','+place.location.lng+
-    ',17z">'+'Ver en Google Maps</a></p>';
+    ',17z">'+'Ver en Google Maps</a></p>'+
+    '<ion-grid><ion-row><ion-col offset="4" ><img src="'+place.photo+'"  height="100" width="100"  ></ion-col></ion-row></ion-grid><br>';
       }
       var infowindow = new google.maps.InfoWindow({
         content: contentString

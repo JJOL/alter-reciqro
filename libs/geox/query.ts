@@ -71,9 +71,11 @@ export class GeoFireQuery<T = any> {
     this.opts = opts;
     const tick = Date.now();
     let precision = setPrecision(radius) - sizeOffset;
-    if (precision < 4) {
-      precision = 4;
-    } 
+    precision = 1;
+    // if (precision < 4) {
+    //   precision = 4;
+    // }
+
     const radiusBuffer = radius * 1.02; // buffer for edge distances
     const centerHash = center.geohash.substr(0, precision);
     const area = neighbors(centerHash).concat(centerHash);
@@ -155,15 +157,15 @@ export class GeoFireQuery<T = any> {
       return (this.ref as fb.firestore.CollectionReference)
           .orderBy(`${field}.geohash`)
           .startAt(geohash)
-          .endAt(end)
-          .limit(20);
+          .endAt(end);
+          // .limit(20);
     } else {
       return (this.ref as fb.firestore.CollectionReference)
           .where('places_type', 'in', placeTypeFilters)
           .orderBy(`${field}.geohash`)
           .startAt(geohash)
-          .endAt(end)
-          .limit(20);
+          .endAt(end);
+          // .limit(20);
     }
     
   }

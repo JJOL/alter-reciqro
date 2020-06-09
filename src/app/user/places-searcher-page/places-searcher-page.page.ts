@@ -1,14 +1,15 @@
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
 import { Component, ViewChild, EventEmitter, Output } from '@angular/core';
 import { Place } from '../../core/models/place.model';
-import {WasteType} from '../../core/models/waste-type';
+import { WasteType } from '../../core/models/waste-type';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { FilterMenuComponent } from '../../shared/ui/filter-menu/filter-menu.component';
-import { PopoverController, ModalController } from '@ionic/angular';
+import { PopoverController, ModalController, LoadingController } from '@ionic/angular';
 import { SplashscreenPage } from '../splashscreen/splashscreen.page';
 import { PlacesSearchService } from 'src/app/core/services/places-search.service';
 import { HelpPage } from '../help/help.page';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { PlacesService } from 'src/app/core/services/places.service';
 
 const DEFAULT_CENTER_COORD = { 
   lat: 20.588772, 
@@ -61,31 +62,69 @@ export class PlacesSearcherPagePage  {
     private geolocationCont: Geolocation,
     public popoverController: PopoverController,
     private modalController: ModalController,
+    private loadingController: LoadingController,
     private searcherService: PlacesSearchService,
-    private domSanitizer: DomSanitizer 
-  ) { }
+    private domSanitizer: DomSanitizer,
+    private placeService: PlacesService
+  ) { 
+  }
 
   /**
    * User Story ID: M1NC1
    * Description: Retrieve Places based on viewed portion of the screen and activated waste filters.
    */
-  searchPlaces() {
+  async searchPlaces() {
     if (this.activeFilters && this.mapBounds && this.mapBounds.northEast && this.mapBounds.southWest) {
+      let controller = await this.loadingController.create({
+        spinner: 'crescent'
+      });
+      controller.present();
+
       this.searcherService.searchPlaces(this.mapBounds, this.activeFilters)
           .then(results => {
+            controller.dismiss();
             this.places = results[0];            
             let zoomLevel = results[1];
-            
             if (zoomLevel > 0) {
               this.map.setZoom(15-zoomLevel);
             }
-          });
+            let scaleLevel = results[1];
 
+            this.adjustMapZoom(this.places, scaleLevel, this.mapBounds);
+          });
       this.lastSearchedPos = this.mapBounds.center;
       this.hasMovedAway = false;
     }
   }
 
+
+  /**
+   * Description: Adjuts map zoom level based on resulting places and viewport
+   * @param places 
+   * @param scaleLevel 
+   * @param mapBounds
+   */
+  private adjustMapZoom(places: Place[], scaleLevel: number, mapBounds: any): void {
+    if (scaleLevel > 0) {
+      this.map.setZoom(15-scaleLevel);
+    } else {
+      let needToZoom = true;
+      
+      places.forEach(place => {
+        let placeIsWithinView = 
+          place.location.lat < mapBounds.northEast.lat
+          && place.location.lat > mapBounds.southWest.lat
+          && place.location.lng < mapBounds.northEast.lng
+          && place.location.lng > mapBounds.southWest.lng;
+        if (placeIsWithinView) {          
+          needToZoom = false;
+        }
+      })
+      if (needToZoom) {
+        this.map.setZoom(14); // o 14?
+      }
+    }
+  }
   /**
    *  User Story ID: M1NC1
    * Loads the preset filters and places
@@ -94,15 +133,17 @@ export class PlacesSearcherPagePage  {
     for(let i of this.arrayOfVideos){
       this.trustedVideoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(i.vid_link);
     }
-    this.presentModal();
+    if(!window.sessionStorage['splash']){
+      this.presentModal();
+    }
     setTimeout(() => {
       this.modalController.dismiss();
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     }, 2000);
     this.filters = await this.searcherService.getAllWasteTypes();
-    // this.activeFilters = [];
-    this.activeFilters =  this.filters.filter(filter => { return 'Pilas'===filter.name || 'Papel'===filter.name });
-    this.searchPlaces();
+     this.activeFilters = [];
+    //this.activeFilters =  this.filters;
+   // this.searchPlaces();
     // this.places = await this.filterByType(this.activeFilters);
     try {
       const geoPosition = await this.geolocationCont.getCurrentPosition();
@@ -113,10 +154,16 @@ export class PlacesSearcherPagePage  {
       this.userLoaction=this.position
     } catch (err) {
       this.position = DEFAULT_CENTER_COORD;
-    }    
-
+    }
     this.map.setCenter(this.position);
-    
+  }
+
+  /**
+   * User Story ID: M1NCx
+   * Function that gets called when it entered succesfully
+   */
+  ionViewDidEnter(){
+    this.placeService.persist();
   }
  
   /**
@@ -141,18 +188,15 @@ export class PlacesSearcherPagePage  {
         activeFilters: this.activeFilters,
       },
       backdropDismiss: true
-
     });
     this.modal.present();
-
-
     this.modal.onDidDismiss().then( (event) => {
       if (event.data) {
         this.activeFilters = event.data;
-        this.searchPlaces();
+        if (this.activeFilters.length > 0){
+        this.searchPlaces();}
       }
     });
-
     return true;
   }
 

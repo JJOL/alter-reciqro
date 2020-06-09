@@ -1,9 +1,7 @@
 
 <ion-app>
-  <ion-menu contentId="menucontent" menuId="menucontent" side="start" >
+  <ion-menu contentId="menucontent" menuId="menucontent" side="start">
     <ion-header>
-      
-      
       <ion-toolbar>
         <ion-grid>
           <ion-row class="padding">
@@ -11,10 +9,8 @@
               <a routerLink="/user/places-searcher-page">
                 <img  src="https://i.ibb.co/2gF3gP2/logo-03.png" width="100px" style=" text-align: center;" height="100px"/>
               </a>
-       
             </ion-col>
           </ion-row>
-          
         </ion-grid>
       </ion-toolbar>
     </ion-header>
@@ -90,10 +86,10 @@
             <ion-label>Usuarios</ion-label>
           </div>
           <br>
-          <ion-item *ngIf="isLogged" lines="none" routerLink="/user/visits" button>
+          <!--ion-item *ngIf="isLogged" lines="none" routerLink="/user/visits" button>
             <ion-icon name="disc-outline" slot="start"></ion-icon>
             <ion-label>Visitas</ion-label>
-          </ion-item>
+          </ion-item-->
           <ion-item *ngIf="isLogged" lines="none" routerLink="/user/" button>
             <ion-icon name="person-outline" slot="start"></ion-icon>
             <ion-label>Mi Perfil</ion-label>
@@ -102,13 +98,33 @@
             <ion-icon name="exit-outline" slot="start"></ion-icon>
             <ion-label>Cerrar Sesión</ion-label>
           </ion-item>
+
+         
+          <br>
+          <div  *ngIf="roles.user" class="leftpad">
+            <ion-label>Ayuda</ion-label>
+          </div>
+          <br>
+          <a href="tel:2387700#1203">
+          <ion-item lines="none" >
+            <ion-icon name="call-outline" slot="start" ></ion-icon>
+            <ion-label>2387700 extensión 1203 <br>
+              Lunes a viernes <br>
+              De 8:30 a 16:00 hrs </ion-label>
+            
+          </ion-item>
+          </a>
+          <!--<a href="mailto:daniel.leon@municipiodequeretaro.gob.mx">
+          <ion-item lines="none" >
+            <ion-icon name="mail-outline" slot="start"></ion-icon>
+            <ion-label>Email</ion-label>
+          </ion-item>
+          </a>-->
         </ion-menu-toggle>
       </ion-list>
     </ion-content>
   </ion-menu>
   <!--ion-nav id="menucontent"></!--ion-nav-->
   <ion-router-outlet id="menucontent"></ion-router-outlet>
-  
-  
   <ion-router-outlet main></ion-router-outlet>
 </ion-app>

@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   database: {
     firebaseConfig: {
-      apiKey: 'AIzaSyDaYDtQ3e_1mWpp3WaOpGkp9nNFs69Fnf0',
+      apiKey: 'AIzaSyCkD2vo5Mnj4OdWZ3pCLG6rs5XQ_lucUxE',
       authDomain: 'itesm-ca2020.firebaseapp.com',
       databaseURL: 'https://itesm-ca2020.firebaseio.com',
       projectId: 'itesm-ca2020',

@@ -7,9 +7,6 @@ import { Place } from '../models/place.model';
 import { TipoInstalacion } from '../models/tipo-instalacion.model';
 import { WasteType, PlacesWasteTypes } from '../models/waste-type';
 import { SystemService } from './system.service';
-
-import { geohash } from '../utils/geopoint.util';
-
 import * as geofirex from 'libs/geox';
 
 const PLACE_KEY = '/places';
@@ -34,6 +31,7 @@ const geo = geofirex.init(firebase);
 export function parseFBPlaceToPlace(fbPlace: any): Place {
   return parseFBPlaceDocToPlace(fbPlace.payload.doc);
 }
+
 /**
  * User Story ID: M1NCX
  * Description: Parses a Firebase.DocumentSnapshot<Place> to Place object
@@ -162,6 +160,14 @@ export class PlacesService {
             resolve(places);
           });
     });
+  }
+
+  /**
+ * User Story ID: M1NCx
+ * Function that saves the session variables.
+ */
+  persist(){
+    window.sessionStorage['splash'] = 'activado';
   }
 
   /** 
@@ -584,23 +590,20 @@ export class PlacesService {
   getUpdatedCentersAfterDate(lowerDate: Date): Promise<Place[]> {
     return new Promise((resolve, reject) => {
       let subscription: Subscription;
-      console.log('Loding centers after ', lowerDate);
       
       subscription = this.firedb.collection(PLACE_KEY, ref => ref.where('last_updated_date', '>', lowerDate))
-      .snapshotChanges()
-      .pipe(
-        map(snap => {
-          return snap.map(parseFBPlaceToPlace)
-        })
-      )
-      .subscribe(places => {
-        console.log(places.length+' Centers Loaded');
-        
-        resolve(places);
-        if (subscription) {
-          subscription.unsubscribe();
-        }
-      });
+          .snapshotChanges()
+          .pipe(
+              map(snap => {
+                return snap.map(parseFBPlaceToPlace)
+              })
+          )
+          .subscribe(places => {        
+            resolve(places);
+            if (subscription) {
+              subscription.unsubscribe();
+            }
+          });
     });
   }
 
@@ -645,21 +648,20 @@ export class PlacesService {
       let subscription: Subscription;
       
       subscription = this.firedb.collection<any>(DELETE_PLACE_RECORDS, ref => ref.where('last_updated_date', '>', lowerDate))
-      .snapshotChanges()
-      .pipe(
-        map(snap => {
-          return snap.map(fbSnap => {
-            return fbSnap.payload.doc.data().place_id;
+          .snapshotChanges()
+          .pipe(
+              map(snap => {
+                return snap.map(fbSnap => {
+                  return fbSnap.payload.doc.data().place_id;
+                });
+              })
+          )
+          .subscribe(deletedIds => {
+            resolve(deletedIds);
+            if (subscription) {
+              subscription.unsubscribe();
+            }
           });
-        })
-      )
-      .subscribe(deletedIds => {
-        console.log(deletedIds.length+' Centers Deleted');
-        resolve(deletedIds);
-        if (subscription) {
-          subscription.unsubscribe();
-        }
-      });
     });
   }
 
@@ -714,8 +716,6 @@ export class PlacesService {
     localStorage.setItem(CENTER_CACHE_PREFIX+'LIST', JSON.stringify(centerList));
   }
   
-  
-
   /**
    * Load CenterPage Algorithm
    * 1. Abrir CenterPage
@@ -728,18 +728,14 @@ export class PlacesService {
    * 8. Load saved local places
    * 9. Quit Loading Animation
    */
-
-   async loadAdminPlaces(): Promise<Place[]> {
+  async loadAdminPlaces(): Promise<Place[]> {
     let lastUpdate = this.loadLocalCenterLastUpdate();
-    console.log(lastUpdate);
     let newPlaces = await this.getUpdatedCentersAfterDate(lastUpdate);
     let deletedPlaceIds = await this.getPlaceDeletionsAfterDate(lastUpdate);
-    console.log('Changed Places Saving...');
-    console.log(newPlaces);
     this.applyUpdatedCenterChanges(newPlaces);
     this.applyPlaceDeletions(deletedPlaceIds);
     
     return this.loadPlaces();
-   }
+  }
 
 }

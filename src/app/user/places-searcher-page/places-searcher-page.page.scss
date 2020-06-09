@@ -41,6 +41,16 @@ ion-toolbar{
     --border-width:100%;
 }
 
+
+.animation {
+  display: inline-block;
+  margin: 0 0.5rem;
+  animation: heartBeat; /* referring directly to the animation's @keyframe declaration */
+  animation-delay: 2s;
+  animation-duration: 2s; /* don't forget to set a duration! */
+  animation-iteration-count: 5;
+}
+
 .cancelfilters{
   visibility: hidden;
     position: absolute;

@@ -14,7 +14,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class HelpPage{
 
   trustedVideoUrl: SafeResourceUrl;
-  arrayOfVideos = [{vid_link:'https://www.youtube.com/embed/fZcxNoawEqc'}]
+  arrayOfVideos = [{vid_link:'https://www.youtube.com/embed/PefnZ-ty1ng'}]
 
   /**
    * User Story ID: M1NC1

@@ -27,6 +27,20 @@
           "order": "ASCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "places",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "places_type",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "point.geohash",
+          "order": "ASCENDING"
+        }
+      ]
     }
   ],
   "fieldOverrides": []

@@ -5,7 +5,7 @@
 module.exports = {
   overrides: [
     {
-      files: ['*.ts'],
+      files: ['src/*.ts'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
         ecmaVersion: 2020,

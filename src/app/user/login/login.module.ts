@@ -7,19 +7,20 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { LoginPageRoutingModule } from './login-routing.module';
 import { LoginPage } from './login.page';
+import { AvisoPrivacidadPage } from './aviso-privacidad/aviso-privacidad.page';
+import { AvisoPrivacidadPageModule } from './aviso-privacidad/aviso-privacidad.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    // FormsModule,
-    // TooltipsModule.forRoot(),
     ReactiveFormsModule,
     IonicModule,
     LoginPageRoutingModule,
-    SharedPageModule
+    SharedPageModule,
+    AvisoPrivacidadPageModule
   ],
   declarations: [LoginPage],
-  providers: []
+  entryComponents: [AvisoPrivacidadPage]
 })
 // eslint-disable-next-line require-jsdoc
 export class LoginPageModule {}

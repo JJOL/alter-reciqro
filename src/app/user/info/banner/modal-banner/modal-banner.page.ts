@@ -35,7 +35,7 @@ export class ModalBannerPage implements OnInit {
 
   /**
    * User Story Id: M2NC4
-   * Fuction that is executed when the page instantiated
+   * Function that is executed when the page instantiated
    * @param  
    * @returns 
    */

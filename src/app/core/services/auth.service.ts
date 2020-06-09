@@ -1,16 +1,15 @@
-import { empty } from 'rxjs';
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 /* eslint-disable eqeqeq */
 /* eslint-disable camelcase */
+import { empty } from 'rxjs';
 import { ToastController } from '@ionic/angular';
-import { resolve } from 'url';
 import { Router } from '@angular/router';
-import { Observable, of, Subscription, BehaviorSubject } from 'rxjs';
+import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {AngularFirestore , AngularFirestoreDocument} from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestoreDocument} from '@angular/fire/firestore';
 import { User } from '../models/user.model';
-import { switchMap, map, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { auth } from 'firebase';
 import { SystemService } from './system.service';
 
@@ -60,7 +59,13 @@ export class AuthService {
     } else { return ''; }
   }
 
-
+  /**
+   * User Story ID: M1NCx
+   * Function for the storage of session variables
+   */
+  persist(){
+    window.localStorage['splash'] = 'active';
+  }
 
   /**
    * User Story ID: M4NC1
@@ -128,7 +133,7 @@ export class AuthService {
    */
   async loginGoogleUser() {
     return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
-        .then(async (credential) => {
+        .then(async (credential) => {  
           await this.updateUserData(credential.user);
           this.isUserLoggedIn.next(true);
           this.getUserByUID(credential.user.uid).then(user => {
