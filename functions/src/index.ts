@@ -43,7 +43,7 @@ export const onDeleteEvent = functions.firestore.document('/events/{eventId}').o
         await broadcastEmail(
           interestedEmails,
           `AQropio | El evento ${eventData.name} ha sido cancelado!`,
-          `<p>Te avisamos que el evento "${eventData.name}" para el día ${eventData.end_date} se ha cancelado.</p>`
+          `<p>Te informamos que el evento "${eventData.name}" ha sido cancelado. Te invitamos a mantenerte informado de nuestras actividades y a seguir haciendo la diferencia por un Querétaro verde.</p>`
         );
       }
   
@@ -80,7 +80,7 @@ export const onModifyEvent = functions.firestore.document('/events/{eventId}').o
         await broadcastEmail(
           interestedEmails,
           `AQropio | Un evento al que estabas interesado a cambiado fecha o lugar!`,
-          `<p>Te avisamos que el evento "${eventName}" ha cambiado sus datos de fecha o lugar. Por favor revisa nuevamente la información del evento en la aplicación. <br>${abrirAppHtml}`);
+          `<p>Te informamos que el evento "${eventName}" ha sido modificado. Te invitamos a mantenerte informado de nuestras actividades y a seguir haciendo la diferencia por un Querétaro verde.</p> <br>${abrirAppHtml}`);
         break;
       }
     }
