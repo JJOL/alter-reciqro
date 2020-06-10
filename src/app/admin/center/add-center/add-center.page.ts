@@ -164,6 +164,7 @@ export class AddCenterPage implements OnInit {
 
     ]
   };
+  
   newCenterForm = this.formBuilder.group({
     name: ['', [Validators.required, Validators.maxLength(MAX_LEN)]],
     description: ['', [Validators.required, Validators.maxLength(MAX_LEN)]],

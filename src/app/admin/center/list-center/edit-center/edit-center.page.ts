@@ -5,9 +5,15 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PlacesService } from 'src/app/core/services/places.service';
 import { Place } from 'src/app/core/models/place.model';
 import { TipoInstalacion } from 'src/app/core/models/tipo-instalacion.model';
+import { parseGoogleGeoPointToDegrees, parseDegreesToGoogleGeoPoint } from 'src/app/core/utils/geopoint.util';
 
 const MAXLENGTH =300
-
+const DEFAULT_MARKER_PLACER: Place = {
+  location: {
+    lat: 20.588772,
+    lng: -100.390292
+  }
+};
 @Component({
   selector: 'app-edit-center',
   templateUrl: './edit-center.page.html',
@@ -22,6 +28,7 @@ const MAXLENGTH =300
 export class EditCenterPage implements OnInit {
   updateBookingForm: FormGroup;
 
+  markedPlace: Place[] = [DEFAULT_MARKER_PLACER];
   place: Place;
   loadedPlacetypes: TipoInstalacion[];
   @ViewChild ('mapElement', {static: true}) map;
@@ -53,7 +60,7 @@ export class EditCenterPage implements OnInit {
    * @param  {number} {longitude}
    */
   get longitude() {
-    return this.newCenterForm.get('longitude');
+    return this.newCenterForm.get('latlngdecimal.longitude');
   }
   /**
    * User Story ID: M1NG2
@@ -61,8 +68,17 @@ export class EditCenterPage implements OnInit {
    * @param  {number}
    */
   get latitude() {
-    return this.newCenterForm.get('latitude');
+    return this.newCenterForm.get('latlngdecimal.latitude');
   }
+
+  /**
+   * User Story ID: M1NG1
+   * Function that returns the longitude field on the add center form.
+   */
+  get latlngdegrees() {
+    return this.newCenterForm.get('latlngdegrees');
+  }
+
   /**
    * User Story ID: M1NG2
    * Returns the Qr code.
@@ -114,6 +130,8 @@ export class EditCenterPage implements OnInit {
     return this.newCenterForm.get('schedule');
   }
 
+  private alreadyEditing: boolean;
+
   public errorMessages = {
     name: [
       { type: 'required', message: 'Nombre es requerido' },
@@ -129,6 +147,10 @@ export class EditCenterPage implements OnInit {
     ],
     longitude: [
       { type: 'required', message: 'Longitud es requerida' },
+      { type: 'pattern', message: 'El formato no es correcto'}
+    ],
+    latlngdegrees: [
+      { type: 'required', message: 'LatLng en grados es requerida' },
       { type: 'pattern', message: 'El formato no es correcto'}
     ],
     qrCode: [
@@ -156,8 +178,12 @@ export class EditCenterPage implements OnInit {
   newCenterForm = this.formBuilder.group({
     name: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
     description: ['', [Validators.required, Validators.maxLength(MAXLENGTH)]],
-    latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
-    longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
+    latlngdecimal: this.formBuilder.group({
+      latitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
+      longitude: ['', [Validators.required, Validators.pattern('^[-+]?\\d+(\\.\\d+)?$')]],
+    }),
+    latlngdegrees: ['', [Validators.required, 
+      Validators.pattern('^(-?\\d+)°(\\d+)\'(\\d+\.?\\d*)\"N\\s(-?\\d+)°(\\d+)\'(\\d+\.?\\d*)\"W$')]],
     qrCode: [''],
     mainPicture: [''], /*This should be a picture*/
     address: this.formBuilder.group({
@@ -192,6 +218,9 @@ export class EditCenterPage implements OnInit {
    * We get the necessary catalogues for the center edition (filling the form).
    */
   ngOnInit() {
+    this.alreadyEditing = false;
+    this.newCenterForm.get('latlngdegrees').valueChanges.subscribe(this.onChangeDegree.bind(this));
+    this.newCenterForm.get('latlngdecimal').valueChanges.subscribe(this.onChangeLatLng.bind(this));
     
     this.activatedRoute.paramMap.subscribe(paraMap => {
       if (!paraMap.has('centerId')) {
@@ -206,12 +235,19 @@ export class EditCenterPage implements OnInit {
         if (placeId) {
           this.placeService.getPlaceByID(placeId).then(place => {
             this.place = place;
-            this.newCenterForm.controls.latitude.setValue(place.location.lat);
-            this.newCenterForm.controls.longitude.setValue(place.location.lng);
+            //this.newCenterForm.controls.latitude.setValue(place.location.lat);
+            //this.newCenterForm.controls.longitude.setValue(place.location.lng);
+
+            // Update LatLng
+            this.newCenterForm.get('latlngdecimal.latitude').setValue(place.location.lat);
+            this.newCenterForm.get('latlngdecimal.longitude').setValue(place.location.lng);
+
             this.newCenterForm.controls.name.setValue(place.name);
             this.newCenterForm.controls.description.setValue(place.description);
             this.newCenterForm.controls.schedule.setValue(place.schedule);
             this.newCenterForm.controls.mainPicture.setValue(place.photo);
+
+            
             
             this.newCenterForm.patchValue({
               address: {
@@ -240,8 +276,70 @@ export class EditCenterPage implements OnInit {
    * @param  {Location} lugar 
    */
   onChangeMarker(lugar) {
-    this.newCenterForm.controls.latitude.setValue(lugar.location.lat);
-    this.newCenterForm.controls.longitude.setValue(lugar.location.lng);
+    (window as any).lugar = lugar;
+    if (this.alreadyEditing) return;
+    this.alreadyEditing = true;
+
+    // Update LatLng
+    this.newCenterForm.get('latlngdecimal.latitude').setValue(lugar.location.lat);
+    this.newCenterForm.get('latlngdecimal.longitude').setValue(lugar.location.lng);
+    // Update Degree Value
+    this.newCenterForm.controls.latlngdegrees.setValue(parseGoogleGeoPointToDegrees(lugar.location));
+
+    this.alreadyEditing = false;
+  }
+
+  /**
+   * User Story ID: M1NG1
+   * Function for updating the lat and long form fields when marker changes position with the SH coordinates.
+   * @param  {} newVal
+   */
+  onChangeDegree(newVal: string) {
+
+    if (this.alreadyEditing) return;
+    this.alreadyEditing = true;
+
+    const hasError = this.newCenterForm.get('latlngdegrees').invalid;
+    if (!hasError) {
+      let latlng = parseDegreesToGoogleGeoPoint(newVal);
+      // Update LatLng
+      this.newCenterForm.get('latlngdecimal.latitude').setValue(latlng.lat);
+      this.newCenterForm.get('latlngdecimal.longitude').setValue(latlng.lng);
+      // Update Map Marker
+      this.markedPlace = [{
+        location: latlng
+      }];
+    }
+    this.alreadyEditing = false;
+  }
+
+  /**
+   * User Story ID: M1NG1
+   * Function for updating the lat and long form fields when marker changes position with the SH coordinates.
+   * @param  {} newVal
+   */
+  onChangeLatLng(newVal: { latitude: number, longitude: number}) {
+
+    if (this.alreadyEditing) return;
+    this.alreadyEditing = true;
+
+    const hasError = this.newCenterForm.get('latlngdecimal').invalid;
+    if (!hasError) {
+      let degreelatlng = parseGoogleGeoPointToDegrees({
+        lat: newVal.latitude,
+        lng: newVal.longitude
+      });
+      // Update LatLng Degree
+      this.newCenterForm.controls.latlngdegrees.setValue(degreelatlng);
+      // Update Map Marker
+      this.markedPlace = [{
+        location: {
+          lat: newVal.latitude,
+          lng: newVal.longitude
+        }
+      }];
+    }
+    this.alreadyEditing = false;
   }
 
   
@@ -250,14 +348,20 @@ export class EditCenterPage implements OnInit {
    * This function is called when the form gets submited.
    */
   public submit() {
+    
+
     this.activatedRoute.paramMap.subscribe(paraMap => {
       if (!paraMap.has('centerId')) {
         return;
       }
       const placeId = paraMap.get('centerId');
 
+      let inputPlaceObj = this.newCenterForm.value;
+      inputPlaceObj.latitude  = parseFloat(inputPlaceObj.latlngdecimal.latitude);
+      inputPlaceObj.longitude = parseFloat(inputPlaceObj.latlngdecimal.longitude);
 
-      this.placeService.editPlace(this.newCenterForm.value, placeId)
+
+      this.placeService.editPlace(inputPlaceObj, placeId)
           .then(() => {
             this.showToast('Lugar editado de manera exitosa');
             this.newCenterForm.reset();
